@@ -1,4 +1,5 @@
-import 'package:crm_project/common_modules/company_list_screen_controller.dart';
+import 'package:crm_project/common_modules/common_bottomsheet_module.dart';
+import 'package:crm_project/controller/company_list_screen_controller.dart';
 import 'package:crm_project/screens/edit_company_details_screen/edit_company_details_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,54 +10,73 @@ import 'package:sizer/sizer.dart';
 import '../../common_modules/common_textfield.dart';
 import '../../common_modules/divider.dart';
 import '../../constants/colors.dart';
+import '../../utils/messaging.dart';
 
 class SearchBarWidget extends StatelessWidget {
   SearchBarWidget({Key? key}) : super(key: key);
   final companyListScreenController = Get.find<CompanyListScreenController>();
+
   @override
   Widget build(BuildContext context) {
     return TextFieldModule(
         fieldController: companyListScreenController.searchTextFieldController,
         hintText: 'Search...',
-        onChange: (text){
+        onChange: (text) {
           print(text.toString());
         },
         backgroundColor: AppColors.whiteColor,
-        icon: Icon(Icons.search).paddingOnly(left: 5,right: 5),
+        icon: Icon(Icons.search).paddingOnly(left: 5, right: 5),
         keyboardType: TextInputType.text);
   }
 }
 
 //CompanyList
 class CompanyListWidget extends StatelessWidget {
- CompanyListWidget({Key? key}) : super(key: key);
-final companyListScreenController = Get.find<CompanyListScreenController>();
+  CompanyListWidget({Key? key}) : super(key: key);
+  final companyListScreenController = Get.find<CompanyListScreenController>();
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Row(
-          mainAxisAlignment:MainAxisAlignment.spaceBetween,children: [
-
-          Text("Company List",style: TextStyle(color: AppColors.appColors,fontWeight: FontWeight.bold,fontSize: 15.sp),),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(1.w),
-              border: Border.all(
-                color: AppColors.appColors,width: 1
-              )
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              AppMessage.companyList,
+              style: TextStyle(
+                  color: AppColors.appColors,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15.sp),
             ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.file_download,size: 4.w,color: AppColors.appColors,),
-                SizedBox(width: 5,),
-                Text("Export",style: TextStyle(color: AppColors.appColors,fontWeight: FontWeight.bold,fontSize: 10.sp),)
-              ],
-            ).paddingAll(4),
-          )
-        ],).paddingOnly(top: 8),
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(1.w),
+                  border: Border.all(color: AppColors.appColors, width: 1)),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.file_download,
+                    size: 4.w,
+                    color: AppColors.appColors,
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    "Export",
+                    style: TextStyle(
+                        color: AppColors.appColors,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 10.sp),
+                  )
+                ],
+              ).paddingAll(4),
+            )
+          ],
+        ).paddingOnly(top: 8),
         CustomDivider(),
         Container(
           decoration: BoxDecoration(
@@ -66,7 +86,7 @@ final companyListScreenController = Get.find<CompanyListScreenController>();
             children: [
               Container(
                   decoration: BoxDecoration(
-                    // color: AppColors.appColors.withOpacity(0.1),
+                      // color: AppColors.appColors.withOpacity(0.1),
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(2.w),
                           topRight: Radius.circular(2.w))),
@@ -78,13 +98,15 @@ final companyListScreenController = Get.find<CompanyListScreenController>();
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text('Inford demo.pvt.ltd',
-                                  maxLines: 1,overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                       fontSize: 17.sp,
                                       fontWeight: FontWeight.bold,
                                       color: AppColors.blackColor)),
                               Text('Type: ' + 'adviser',
-                                  maxLines: 1,overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 11.sp,
@@ -98,13 +120,13 @@ final companyListScreenController = Get.find<CompanyListScreenController>();
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 InkWell(
-                                  onTap: (){
-                                  Get.to(()=>EditCompanyDetailsScreen(companyName: "Inford demo.pvt.ltd",));
+                                  onTap: () {
+                                    Get.to(() => EditCompanyDetailsScreen(
+                                        companyName: "Inford demo.pvt.ltd"));
                                   },
                                   child: Icon(
                                     Icons.edit_sharp,
@@ -112,10 +134,76 @@ final companyListScreenController = Get.find<CompanyListScreenController>();
                                     color: AppColors.appColors,
                                   ),
                                 ),
-                                Icon(
-                                  Icons.delete,
-                                  size: 7.w,
-                                  color: AppColors.redColor,
+                                InkWell(
+                                  onTap: () {
+                                    CommonbottomSheetModule(
+                                      context: context,
+                                      icon: Icon(Icons.info_outline,color: AppColors.greyColor,size: Get.width*.4),
+                                      titleText: AppMessage.areYouSure,
+                                      subTitleText: 'Do you want to delete this record?',
+                                      onYesText: 'Yes, delete it!',
+                                      onCancelText: 'cancel',
+                                      onYesTap: () => null,
+                                      onCancelTap: () => Navigator.of(context).pop(false),
+                                    );
+                                    // showModalBottomSheet(
+                                    //   shape: ContinuousRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(10.w),topRight: Radius.circular(10.w))),
+                                    //   context: context,
+                                    //   builder: (BuildContext context) {
+                                    //     return Container(
+                                    //       height: Get.width*.8,
+                                    //       child: Column(
+                                    //         children: [
+                                    //           Expanded(
+                                    //               flex: 4,
+                                    //               child: Icon(Icons.info_outlined,size: Get.width*.4,color: Colors.grey.shade400,)),
+                                    //           Expanded(flex: 2,
+                                    //             child: Column(
+                                    //               children: [
+                                    //                 Text(
+                                    //                   'Are you sure?',
+                                    //                   style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+                                    //                 ),
+                                    //                 SizedBox(height: 8,),
+                                    //                 Text(
+                                    //                   'Do you want to delete this record?',
+                                    //                   style: TextStyle(color:AppColors.greyColor,fontSize: 14.sp),
+                                    //                 ),
+                                    //               ],
+                                    //             ),
+                                    //           ),
+                                    //
+                                    //           Row(
+                                    //             mainAxisAlignment: MainAxisAlignment.center,
+                                    //             children: [
+                                    //               ElevatedButton(
+                                    //                 style: ElevatedButton.styleFrom(backgroundColor: AppColors.appColors),
+                                    //                 onPressed: () {
+                                    //                   // Handle Yes button press
+                                    //                 },
+                                    //                 child: Text('Yes, delete it!'),
+                                    //               ),
+                                    //               SizedBox(width: 14),
+                                    //               OutlinedButton(
+                                    //                 style: OutlinedButton.styleFrom(side: BorderSide(color:  AppColors.appColors,width: 1.5),),
+                                    //                 onPressed: () {
+                                    //                   Navigator.of(context).pop(false);
+                                    //                 },
+                                    //                 child: Text('Cancel',style: TextStyle(color: AppColors.appColors),),
+                                    //               ),
+                                    //             ],
+                                    //           ),
+                                    //         ],
+                                    //       ).paddingAll(15),
+                                    //     );
+                                    //   },
+                                    // );
+                                  },
+                                  child: Icon(
+                                    Icons.delete,
+                                    size: 7.w,
+                                    color: AppColors.redColor,
+                                  ),
                                 ),
                               ],
                             ),
@@ -136,7 +224,9 @@ final companyListScreenController = Get.find<CompanyListScreenController>();
                             Icon(Icons.call, size: 6.w),
                             SizedBox(width: 2.w),
                             Expanded(
-                              child: Text('855 356 8546 ',maxLines: 1,overflow: TextOverflow.ellipsis,
+                              child: Text('855 356 8546 ',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                   style: TextStyle(fontSize: 13.sp)),
                             ),
                           ],
@@ -149,7 +239,9 @@ final companyListScreenController = Get.find<CompanyListScreenController>();
                             ),
                             SizedBox(width: 2.w),
                             Expanded(
-                              child: Text('www.360crm.com',maxLines: 1,overflow: TextOverflow.ellipsis,
+                              child: Text('www.360crm.com',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                   style: TextStyle(fontSize: 13.sp)),
                             ),
                           ],
@@ -164,7 +256,8 @@ final companyListScreenController = Get.find<CompanyListScreenController>();
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Obx(
-                                () => Transform.scale(alignment: AlignmentDirectional.centerEnd,
+                            () => Transform.scale(
+                              alignment: AlignmentDirectional.centerEnd,
                               scale: 0.8,
                               child: CupertinoSwitch(
                                 activeColor: AppColors.appColors,
@@ -172,8 +265,8 @@ final companyListScreenController = Get.find<CompanyListScreenController>();
                                 value: companyListScreenController
                                     .isCompanyStatus.value,
                                 onChanged: (value) =>
-                                companyListScreenController
-                                    .isCompanyStatus.value = value,
+                                    companyListScreenController
+                                        .isCompanyStatus.value = value,
                               ),
                             ),
                           ),
@@ -190,6 +283,6 @@ final companyListScreenController = Get.find<CompanyListScreenController>();
           ),
         ),
       ],
-    ).paddingOnly(top: 5,bottom: 10);
+    ).paddingOnly(top: 5, bottom: 10);
   }
 }

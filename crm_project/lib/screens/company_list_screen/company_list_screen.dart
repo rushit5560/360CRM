@@ -1,7 +1,8 @@
 import 'dart:math';
 
-import 'package:crm_project/common_modules/company_list_screen_controller.dart';
+import 'package:crm_project/controller/company_list_screen_controller.dart';
 import 'package:crm_project/screens/add_company_details_screen/add_company_details_screen.dart';
+import 'package:crm_project/utils/messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,7 +24,7 @@ class CompanyListScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.appColorsSecondry,
       appBar: CustomAppBar(
-          titleText: "Company List", leadingShow: false, actionShow: false),
+          titleText: AppMessage.companyList, leadingShow: false, actionShow: false),
       body: SafeArea(
         child: Column(
           children: [

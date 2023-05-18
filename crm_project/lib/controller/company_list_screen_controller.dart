@@ -7,5 +7,4 @@ class CompanyListScreenController extends GetxController{
 
 
 
-
 }
