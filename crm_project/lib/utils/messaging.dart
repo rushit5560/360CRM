@@ -29,6 +29,7 @@ class AppMessage {
 
 //token
   static String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiRGhydXZpIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQ3VzdG9tZXIiLCJleHAiOjE2ODQ1MDA0NzcsImlzcyI6Imh0dHA6Ly81LjE4OS4xNDcuMTU5OjcwMDMvIiwiYXVkIjoiaHR0cDovLzUuMTg5LjE0Ny4xNTk6NzAwMy8ifQ.x7aLcBI_dbwDAHPl-6oEY4cXAnwuDgq7QQet4MYubhE";
+  static String customerId = "2";
 }
 
 

@@ -9,5 +9,6 @@ class ApiUrl {
   static String companyUpdateApi = "$baseUrl/Company/UpdateCompany";
   static String companyDeleteApi = "$baseUrl/Company/SoftDeleteCompany";
   static String companyChangeStatusApi = "$baseUrl/Company/ChangeStatus";
+  static String allCompanyListApi = "$baseUrl/Company/Filter";
 
 }
