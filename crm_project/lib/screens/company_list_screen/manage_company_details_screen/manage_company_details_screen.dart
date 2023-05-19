@@ -37,7 +37,7 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      CompanyOption.update == manageCompanyDetailsScreenController.status ? '${manageCompanyDetailsScreenController.titleName}' : 'Company Details',
+                      CompanyOption.update == manageCompanyDetailsScreenController.companyOption ? '${manageCompanyDetailsScreenController.titleName}' : 'Company Details',
                       style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 16.sp,
