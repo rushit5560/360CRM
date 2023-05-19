@@ -6,8 +6,8 @@ import 'package:get/get.dart';
 
 import '../../common_widgets/custom_appbar.dart';
 import '../../constants/colors.dart';
-import '../manage_company_details_screen/manage_company_details_screen.dart';
 import 'company_list_screen_widgets.dart';
+import 'manage_company_details_screen/manage_company_details_screen.dart';
 
 class CompanyListScreen extends StatelessWidget {
   CompanyListScreen({Key? key}) : super(key: key);
@@ -45,15 +45,7 @@ class CompanyListScreen extends StatelessWidget {
             backgroundColor: AppColors.appColors,
             child: const Icon(Icons.add),
           ),
-          // SizedBox(height: 5,),
-          // FloatingActionButton(
-          //   heroTag: 'ab',
-          //   onPressed: () {
-          //     // Handle export button press
-          //   },
-          //   backgroundColor: AppColors.appColors,
-          //   child: Icon(Icons.file_download),
-          // ),
+
         ],
       ),
 

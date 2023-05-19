@@ -8,11 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../common_widgets/custom_appbar.dart';
-import '../../controller/manage_company_details_screen_controller.dart';
-import '../../utils/enums.dart';
-import '../../utils/messaging.dart';
-import '../../utils/validator.dart';
+import '../../../common_widgets/custom_appbar.dart';
+import '../../../controller/manage_company_details_screen_controller.dart';
+import '../../../utils/enums.dart';
+import '../../../utils/messaging.dart';
+import '../../../utils/validator.dart';
 
 class ManageCompanyDetailsScreen extends StatelessWidget {
   ManageCompanyDetailsScreen({Key? key}) : super(key: key);
@@ -39,7 +39,10 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      CompanyOption.update == manageCompanyDetailsScreenController.status ? manageCompanyDetailsScreenController.titleName : 'Company Details',
+
+
+                      CompanyOption.update == manageCompanyDetailsScreenController.companyOption ? '${manageCompanyDetailsScreenController.titleName}' : 'Company Details',
+
                       style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 16.sp,
