@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:crm_project/common_modules/divider.dart';
 import 'package:crm_project/common_widgets/custom_appbar.dart';
 import 'package:crm_project/controller/settings_screen_controller.dart';
@@ -28,14 +30,17 @@ class SettingScreen extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                      flex: 7,
-                      child: Text(
-                        'Estimated Tex Bracket',
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                        style: TextStyle(
-                            color: AppColors.appColors, fontSize: 15.sp),
-                      )),
+                    flex: 7,
+                    child: Text(
+                      'Estimated Tex Bracket',
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                      style: TextStyle(
+                        color: AppColors.appColors,
+                        fontSize: 15.sp,
+                      ),
+                    ),
+                  ),
                   Expanded(
                       flex: 3,
                       child: SizedBox(
@@ -44,7 +49,7 @@ class SettingScreen extends StatelessWidget {
                             hintText: '',
                             fieldController: settingScrreenController
                                 .estimatedTexBracketTextField,
-                            suffixIcon: Text('%'),
+                            suffixIcon: const Text('%'),
                             onChange: (val) {
                               settingScrreenController.estimatedTexBracketSlider
                                   .value = settingScrreenController
@@ -79,12 +84,11 @@ class SettingScreen extends StatelessWidget {
                         double.parse(value.toStringAsExponential(2));
                     settingScrreenController.estimatedTexBracketTextField.text =
                         double.parse(value.toStringAsExponential(2)).toString();
-                    print(settingScrreenController
-                        .estimatedTexBracketSlider.value);
+                    log("${settingScrreenController.estimatedTexBracketSlider.value}");
                   },
                 ),
               ),
-              CustomDivider().paddingOnly(left: 20, right: 20),
+              const CustomDivider().paddingOnly(left: 20, right: 20),
 //Realtor Fee
               Row(
                 children: [
@@ -105,7 +109,7 @@ class SettingScreen extends StatelessWidget {
                             hintText: '',
                             fieldController:
                                 settingScrreenController.realtorFeesTextField,
-                            suffixIcon: Text('%'),
+                            suffixIcon: const Text('%'),
                             onChange: (val) {
                               settingScrreenController.realtorFeeSlider
                                   .value = settingScrreenController
@@ -137,13 +141,11 @@ class SettingScreen extends StatelessWidget {
                         double.parse(value.toStringAsExponential(2));
                     settingScrreenController.realtorFeesTextField.text =
                         double.parse(value.toStringAsExponential(2)).toString();
-                    print('realtorFeeSlider' +
-                        settingScrreenController.realtorFeeSlider.value
-                            .toString());
+                    log('realtorFeeSlider${settingScrreenController.realtorFeeSlider.value}');
                   },
                 ),
               ),
-              CustomDivider().paddingOnly(left: 20, right: 20),
+              const CustomDivider().paddingOnly(left: 20, right: 20),
 //Closing Cost
               Row(
                 children: [
@@ -164,7 +166,7 @@ class SettingScreen extends StatelessWidget {
                             hintText: '',
                             fieldController:
                                 settingScrreenController.closingCostsTextField,
-                            suffixIcon: Text('%'),
+                            suffixIcon: const Text('%'),
                             onChange: (val) {
                               settingScrreenController.closingCostSlider
                                   .value = settingScrreenController
@@ -196,13 +198,11 @@ class SettingScreen extends StatelessWidget {
                         double.parse(value.toStringAsExponential(2));
                     settingScrreenController.closingCostsTextField.text =
                         double.parse(value.toStringAsExponential(2)).toString();
-                    print('closingCostSlider: ' +
-                        settingScrreenController.closingCostSlider.value
-                            .toString());
+                    log('closingCostSlider: ${settingScrreenController.closingCostSlider.value}');
                   },
                 ),
               ),
-              CustomDivider().paddingOnly(left: 20, right: 20),
+              const CustomDivider().paddingOnly(left: 20, right: 20),
 //Default Closing Cost
               Row(
                 children: [
@@ -223,16 +223,16 @@ class SettingScreen extends StatelessWidget {
                             hintText: '',
                             fieldController: settingScrreenController
                                 .defaultClosingCostsTextField,
-                            suffixIcon: Text('\$'),
+                            suffixIcon: const Text('\$'),
                             onChange: (val) {
-                              print(settingScrreenController
+                              log(settingScrreenController
                                   .defaultClosingCostsTextField.text);
                             },
                             keyboardType: TextInputType.number),
                       )),
                 ],
               ).paddingOnly(top: 10, left: 20, right: 20, bottom: 10),
-              CustomDivider().paddingOnly(left: 20, right: 20),
+              const CustomDivider().paddingOnly(left: 20, right: 20),
               Row(
                 children: [
                   Expanded(
@@ -253,14 +253,16 @@ class SettingScreen extends StatelessWidget {
                             fieldController: settingScrreenController
                                 .expectedHoldTermTextField,
                             onChange: (val) {
-                              print(settingScrreenController
-                                  .expectedHoldTermTextField.text);
+                              log(
+                                settingScrreenController
+                                    .expectedHoldTermTextField.text,
+                              );
                             },
                             keyboardType: TextInputType.number),
                       )),
                 ],
               ).paddingOnly(top: 10, left: 20, right: 20, bottom: 10),
-              CustomDivider().paddingOnly(left: 20, right: 20),
+              const CustomDivider().paddingOnly(left: 20, right: 20),
             ],
           ),
         ),

@@ -14,6 +14,8 @@ class EditCompanyDetailsScreen extends StatelessWidget {
   final editCompanyDetailsScreenController =
       Get.put(EditCompanyDetailsScreenController());
 
+   EditCompanyDetailsScreen({super.key});
+
   // String companyName;
   // EditCompanyDetailsScreen({required this.companyName});
 

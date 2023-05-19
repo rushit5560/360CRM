@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -27,8 +29,8 @@ class ManageCompanyDetailsScreenController extends GetxController {
     super.onInit();
 
     if(CompanyOption.update == status ){
-      print(status);
-      print("update: Screen");
+      log(status);
+      log("update: Screen");
       //update Api Call And Get
       companyNameTextField.text = 'Inford demo';
       phoneTextField.text = '000 000 000 0';

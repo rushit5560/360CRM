@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:crm_project/common_modules/divider.dart';
 import 'package:crm_project/constants/colors.dart';
 import 'package:crm_project/constants/extension.dart';
@@ -50,7 +52,7 @@ class PropertyDetails extends StatelessWidget {
                   FieldValidation().validateEmpty(value,'property address'),
               backgroundColor: AppColors.whiteColor1,
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Row(
@@ -62,11 +64,11 @@ class PropertyDetails extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         "State",
                         style: TextStyle(color: AppColors.appColors),
                       ),
-                      SizedBox(height: 5,),
+                      const SizedBox(height: 5,),
                       Container(
                         width: Get.width*.5,
                         decoration: BoxDecoration(
@@ -78,20 +80,20 @@ class PropertyDetails extends StatelessWidget {
                               ? Container()
                               : DropdownButtonHideUnderline(
                             child: DropdownButton(
-                              hint: Text(homeScreenController.stateSelect.value,style: TextStyle(color: AppColors.appColors),),
+                              hint: Text(homeScreenController.stateSelect.value,style: const TextStyle(color: AppColors.appColors),),
                               // Not necessary for Option 1
                               // value: selectedLocation.isNotEmpty ?  selectedLocation: null ,
                               onChanged: (newValue) {
                                 homeScreenController.stateSelect.value =
                                 newValue!;
                                 homeScreenController.loadUI();
-                                print(newValue);
+                                log(newValue);
                               },
                               items: homeScreenController.stateDropDownList
                                   .map((location) {
                                 return DropdownMenuItem(
-                                  child: new Text(location),
                                   value: location,
+                                  child:  Text(location),
                                 );
                               }).toList(),
                             ),
@@ -101,17 +103,17 @@ class PropertyDetails extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Expanded(
                   flex: 5,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         "City",
                         style: TextStyle(color: AppColors.appColors),
                       ),
-                      SizedBox(height: 5,),
+                      const SizedBox(height: 5,),
                       Container(
                         width: Get.width*.5,
                           decoration: BoxDecoration(
@@ -123,7 +125,7 @@ class PropertyDetails extends StatelessWidget {
                               ? Container()
                               : DropdownButtonHideUnderline(
                                 child: DropdownButton(
-                                    hint: Text(homeScreenController.citySelect.value,style: TextStyle(color: AppColors.appColors)),
+                                    hint: Text(homeScreenController.citySelect.value,style: const TextStyle(color: AppColors.appColors)),
                                     // Not necessary for Option 1
                                     // value: selectedLocation.isNotEmpty ?  selectedLocation: null ,
                                     onChanged: (newValue) {
@@ -134,8 +136,8 @@ class PropertyDetails extends StatelessWidget {
                                     items: homeScreenController.cityDropDownList
                                         .map((location) {
                                       return DropdownMenuItem(
-                                        child: new Text(location),
                                         value: location,
+                                        child:  Text(location),
                                       );
                                     }).toList(),
                                   ),
@@ -148,7 +150,7 @@ class PropertyDetails extends StatelessWidget {
 
               ],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             TextFieldModule(
               hintText: "Zip",
               fieldController: homeScreenController.zipFieldController,
@@ -157,7 +159,7 @@ class PropertyDetails extends StatelessWidget {
               validate: (value) =>
                   FieldValidation().validateZip(value!),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             TextFieldModule(
@@ -168,7 +170,7 @@ class PropertyDetails extends StatelessWidget {
               keyboardType: TextInputType.multiline,
               backgroundColor: AppColors.whiteColor1,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             TextFieldModule(
               fieldController:
                   homeScreenController.expectedAfterRepairValueFieldController,
@@ -185,7 +187,7 @@ class PropertyDetails extends StatelessWidget {
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             TextFieldModule(
@@ -203,7 +205,7 @@ class PropertyDetails extends StatelessWidget {
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             TextFieldModule(
@@ -224,7 +226,7 @@ class PropertyDetails extends StatelessWidget {
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
           ],
@@ -280,7 +282,7 @@ class FinancialDetails extends StatelessWidget {
                 ),
               ).commonOnlyPadding(right: 5),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             TextFieldModule(
@@ -302,7 +304,7 @@ class FinancialDetails extends StatelessWidget {
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
 
@@ -320,7 +322,7 @@ class FinancialDetails extends StatelessWidget {
               ).commonOnlyPadding(right: 5),
               readOnly: true,
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             TextFieldModule(
@@ -342,7 +344,7 @@ class FinancialDetails extends StatelessWidget {
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             TextFieldModule(
@@ -360,7 +362,7 @@ class FinancialDetails extends StatelessWidget {
               ).commonOnlyPadding(right: 5),
               readOnly: true,
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             TextFieldModule(
@@ -378,7 +380,7 @@ class FinancialDetails extends StatelessWidget {
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             TextFieldModule(
@@ -396,7 +398,7 @@ class FinancialDetails extends StatelessWidget {
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             TextFieldModule(
@@ -414,7 +416,7 @@ class FinancialDetails extends StatelessWidget {
             ).commonOnlyPadding(right: 5),
               backgroundColor: AppColors.whiteColor1,
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             TextFieldModule(
@@ -433,7 +435,7 @@ class FinancialDetails extends StatelessWidget {
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             TextFieldModule(
@@ -451,7 +453,7 @@ class FinancialDetails extends StatelessWidget {
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             TextFieldModule(
@@ -469,7 +471,7 @@ class FinancialDetails extends StatelessWidget {
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             TextFieldModule(
@@ -487,7 +489,7 @@ class FinancialDetails extends StatelessWidget {
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             TextFieldModule(
@@ -555,7 +557,7 @@ class ProjectCosts extends StatelessWidget {
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             TextFieldModule(
@@ -620,7 +622,7 @@ class AcquisitionCosts extends StatelessWidget {
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             TextFieldModule(
@@ -638,7 +640,7 @@ class AcquisitionCosts extends StatelessWidget {
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             TextFieldModule(
@@ -656,7 +658,7 @@ class AcquisitionCosts extends StatelessWidget {
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             TextFieldModule(
@@ -674,7 +676,7 @@ class AcquisitionCosts extends StatelessWidget {
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
           ],
@@ -717,7 +719,7 @@ final homeScreenController = Get.find<HomeScreenController>();
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             TextFieldModule(
@@ -728,7 +730,7 @@ final homeScreenController = Get.find<HomeScreenController>();
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             TextFieldModule(
@@ -752,7 +754,7 @@ final homeScreenController = Get.find<HomeScreenController>();
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             TextFieldModule(
@@ -770,7 +772,7 @@ final homeScreenController = Get.find<HomeScreenController>();
               hintText: "Down Payment Amount",
               keyboardType: TextInputType.number,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             TextFieldModule(
@@ -787,7 +789,7 @@ final homeScreenController = Get.find<HomeScreenController>();
               hintText: "Financed Amount",
               keyboardType: TextInputType.number,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             TextFieldModule(
@@ -798,14 +800,14 @@ final homeScreenController = Get.find<HomeScreenController>();
                 widthFactor: 1.0,
                 heightFactor: 1.0,
                 child: Text(
-                  '\%',
+                  '%',
                   style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                 ),
               ).commonOnlyPadding(right: 5),
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             //radioButton Interest Only (0=Yes, 1=No)
@@ -825,7 +827,7 @@ final homeScreenController = Get.find<HomeScreenController>();
                               homeScreenController.pointsFinancedButton.value = 0;
                             },
                           ),
-                          Text(
+                          const Text(
                             'Yes',
                             style: TextStyle(),
                           ),
@@ -840,7 +842,7 @@ final homeScreenController = Get.find<HomeScreenController>();
                               homeScreenController.pointsFinancedButton.value = 1;
                             },
                           ),
-                          Text(
+                          const Text(
                             'No',
                             style: TextStyle(),
                           ),
@@ -852,7 +854,7 @@ final homeScreenController = Get.find<HomeScreenController>();
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             TextFieldModule(
@@ -874,7 +876,7 @@ final homeScreenController = Get.find<HomeScreenController>();
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             TextFieldModule(
@@ -891,7 +893,7 @@ final homeScreenController = Get.find<HomeScreenController>();
               ).commonOnlyPadding(right: 5),
               keyboardType: TextInputType.number,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             //Radio Button Points Financed (0=Yes, 1=No)
@@ -911,7 +913,7 @@ final homeScreenController = Get.find<HomeScreenController>();
                               homeScreenController.interestOnlyButton.value = 0;
                             },
                           ),
-                          Text(
+                          const Text(
                             'Yes',
                             style: TextStyle(),
                           ),
@@ -926,7 +928,7 @@ final homeScreenController = Get.find<HomeScreenController>();
                               homeScreenController.interestOnlyButton.value = 1;
                             },
                           ),
-                          Text(
+                          const Text(
                             'No',
                             style: TextStyle(),
                           ),
@@ -938,7 +940,7 @@ final homeScreenController = Get.find<HomeScreenController>();
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             TextFieldModule(
@@ -955,7 +957,7 @@ final homeScreenController = Get.find<HomeScreenController>();
               readOnly: true,
               keyboardType: TextInputType.number,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             //Radio Button Closing Costs Financed (0=Yes, 1=No)
@@ -975,7 +977,7 @@ final homeScreenController = Get.find<HomeScreenController>();
                               homeScreenController.closingCostsFinancedButton.value = 0;
                             },
                           ),
-                          Text(
+                          const Text(
                             'Yes',
                             style: TextStyle(),
                           ),
@@ -990,7 +992,7 @@ final homeScreenController = Get.find<HomeScreenController>();
                               homeScreenController.closingCostsFinancedButton.value = 1;
                             },
                           ),
-                          Text(
+                          const Text(
                             'No',
                             style: TextStyle(),
                           ),
@@ -1002,7 +1004,7 @@ final homeScreenController = Get.find<HomeScreenController>();
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
           ],
@@ -1046,7 +1048,7 @@ final homeScreenController = Get.find<HomeScreenController>();
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             TextFieldModule(
@@ -1057,7 +1059,7 @@ final homeScreenController = Get.find<HomeScreenController>();
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             TextFieldModule(
@@ -1076,7 +1078,7 @@ final homeScreenController = Get.find<HomeScreenController>();
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
 
@@ -1097,7 +1099,7 @@ onChange: (val){
               hintText: "Financed Amount",
               keyboardType: TextInputType.number,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             TextFieldModule(
@@ -1115,7 +1117,7 @@ onChange: (val){
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             //radioButton Interest Only (0=Yes, 1=No)
@@ -1135,7 +1137,7 @@ onChange: (val){
                               homeScreenController.pointsFinancedButton2.value = 0;
                             },
                           ),
-                          Text(
+                          const Text(
                             'Yes',
                             style: TextStyle(),
                           ),
@@ -1150,7 +1152,7 @@ onChange: (val){
                               homeScreenController.pointsFinancedButton2.value = 1;
                             },
                           ),
-                          Text(
+                          const Text(
                             'No',
                             style: TextStyle(),
                           ),
@@ -1162,7 +1164,7 @@ onChange: (val){
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             TextFieldModule(
@@ -1183,7 +1185,7 @@ onChange: (val){
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             TextFieldModule(
@@ -1200,7 +1202,7 @@ onChange: (val){
               readOnly: true,
               keyboardType: TextInputType.number,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             //Radio Button Points Financed (0=Yes, 1=No)
@@ -1220,7 +1222,7 @@ onChange: (val){
                               homeScreenController.interestOnlyButton2.value = 0;
                             },
                           ),
-                          Text(
+                          const Text(
                             'Yes',
                             style: TextStyle(),
                           ),
@@ -1235,7 +1237,7 @@ onChange: (val){
                               homeScreenController.interestOnlyButton2.value = 1;
                             },
                           ),
-                          Text(
+                          const Text(
                             'No',
                             style: TextStyle(),
                           ),
@@ -1247,7 +1249,7 @@ onChange: (val){
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             TextFieldModule(
@@ -1264,7 +1266,7 @@ onChange: (val){
               readOnly: true,
               keyboardType: TextInputType.number,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             //Radio Button Closing Costs Financed (0=Yes, 1=No)
@@ -1284,7 +1286,7 @@ onChange: (val){
                               homeScreenController.closingCostsFinancedButton2.value = 0;
                             },
                           ),
-                          Text(
+                          const Text(
                             'Yes'
                           ),
                         ],
@@ -1298,7 +1300,7 @@ onChange: (val){
                               homeScreenController.closingCostsFinancedButton2.value = 1;
                             },
                           ),
-                          Text(
+                          const Text(
                             'No',
                             style: TextStyle(),
                           ),
@@ -1310,7 +1312,7 @@ onChange: (val){
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
           ],
@@ -1347,23 +1349,23 @@ class AnnualCashFlowAnalysis extends StatelessWidget {
             ),
 
             TextRow(title: 'Effective Gross Income',subTitle: '${homeScreenController.effectiveGrossIncome.value}',suffix: '\$'),
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
             TextRow(title: 'Operating Expenses',subTitle: '${homeScreenController.operatingExpenses.value}' ,suffix: '\$'),
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
             TextRow(title: 'Net Operating Income',subTitle: '${homeScreenController.netOperatingIncome.value}',suffix: '\$'),
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
             TextRow(title: 'Capitalization Rate',subTitle: '${homeScreenController.capitalizationRate}',suffix: '%'),
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
             TextRow(title: 'Annual Debt Service',subTitle: '${homeScreenController.annualDebtService.value}',suffix: '\$'),
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
             TextRow(title: 'Debt Coverage Ratio',subTitle: '${homeScreenController.debtCoverageRatio}',suffix: '%'),
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
             TextRow(title: 'Annual Cash Flow',subTitle: '${homeScreenController.annualCashFlow.value}',suffix: '\$'),
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
             TextRow(title: 'Total Out of Pocket',subTitle: '${homeScreenController.totalOutPocket.value}',suffix: '\$'),
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
             TextRow(title: 'Return on Investment',subTitle: '${homeScreenController.returnonInvestment.value}',suffix: '%'),
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
           ],
         ).commonAllSidePadding(10),
       ),
@@ -1394,32 +1396,32 @@ final homeScreenController = Get.find<HomeScreenController>();
               ).commonOnlyPadding(bottom: 20, top: 10),
             ),
             TextRow(title: 'Sales Price',subTitle: '${homeScreenController.salesPrice.value}',suffix: '\$'),
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
 
             SubTextRow(title: 'Purchase Price',subTitle:'${homeScreenController.purchasePrice.value}',suffix: '\$', ),
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
 
             SubTextRow(title: 'Acquisition Costs',subTitle:'${homeScreenController.acquisitionCosts.value}',suffix: '\$', ),
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
 
             SubTextRow(title: 'Carrying Costs',subTitle:'${homeScreenController.carryingCosts.value}',suffix: '\$', ),
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
 
             SubTextRow(title: 'Rehab Costs',subTitle:'${homeScreenController.rehabCosts.value}',suffix: '\$', ),
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
 
             SubTextRow(title: 'Selling Expenses',subTitle:'${homeScreenController.sellingExpenses.value}',suffix: '\$', ),
-            SizedBox(height: 10,),
-            CustomDivider(),
+            const SizedBox(height: 10,),
+            const CustomDivider(),
             TextRow(title: 'Total Project Cost',subTitle: '${homeScreenController.totalProjectCost.value}',suffix: '\$'),
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
             TextRow(title: 'Net Profit', subTitle: '${homeScreenController.netProfit.value}',suffix: '\$',subTitleColor: AppColors.blackColor),
-            SizedBox(height: 10,),
-            CustomDivider(),
+            const SizedBox(height: 10,),
+            const CustomDivider(),
             TextRow(title: 'Total Out of Pocket',subTitle: '${homeScreenController.totalOutofPocket.value}',suffix: '\$'),
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
             TextRow(title: 'Annualized ROI',subTitle: '${homeScreenController.annualizedROI.value}',suffix: '\$'),
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
           ],
         ).commonAllSidePadding(10),
     ).commonAllSidePadding(10);
@@ -1448,19 +1450,19 @@ class PropertyPurchaseDetails extends StatelessWidget {
                   fontSize: 14.sp),
             ).commonOnlyPadding(bottom: 20, top: 10),
           ),
-          SizedBox(height: 10,),
+          const SizedBox(height: 10,),
           TextRow(title: 'Purchase Price', subTitle: '${homeScreenController.purchasePrice.value}',suffix: '\$',),
-          SizedBox(height: 10,),
+          const SizedBox(height: 10,),
           TextRow(title: 'Down Payment', subTitle: '${homeScreenController.downPayment.value}',suffix: '\$',),
-          SizedBox(height: 10,),
+          const SizedBox(height: 10,),
           TextRow(title: 'Closing Closts', subTitle: '${homeScreenController.closingClosts.value}',suffix: '\$',),
-          SizedBox(height: 10,),
+          const SizedBox(height: 10,),
           TextRow(title: 'Loan Points', subTitle: '${homeScreenController.loanPoints.value}',suffix: '\$',),
-          SizedBox(height: 10,),
+          const SizedBox(height: 10,),
           TextRow(title: 'Total Investment', subTitle: '${homeScreenController.totalInvestment.value}',suffix: '\$',),
-          SizedBox(height: 10,),
+          const SizedBox(height: 10,),
           TextRow(title: 'Expense Esclator', subTitle: '${homeScreenController.expenseEsclator.value}',suffix: '%',),
-          SizedBox(height: 10,),
+          const SizedBox(height: 10,),
           TextRow(title: 'Income Escalator', subTitle: '${homeScreenController.incomeEscalator.value}',suffix: '%',),
 
         ],

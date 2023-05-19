@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:crm_project/common_modules/common_textfield.dart';
 import 'package:crm_project/constants/colors.dart';
@@ -37,7 +39,7 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      CompanyOption.update == manageCompanyDetailsScreenController.status ? '${manageCompanyDetailsScreenController.titleName}' : 'Company Details',
+                      CompanyOption.update == manageCompanyDetailsScreenController.status ? manageCompanyDetailsScreenController.titleName : 'Company Details',
                       style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 16.sp,
@@ -148,7 +150,7 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(5),
                       borderSide: const BorderSide(color: AppColors.appColors,width: 1),
                       onChanged: (val){
-                        print(manageCompanyDetailsScreenController.companyTypeTextField.text);
+                        log(manageCompanyDetailsScreenController.companyTypeTextField.text);
                       },
 
                     ),
@@ -177,13 +179,13 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                     ),
                     Align(
                       alignment: AlignmentDirectional.centerEnd,
-                      child: Container(
+                      child: SizedBox(
                           height: 5.5.h,
                           child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: AppColors.appColors),
                               onPressed: () {
-                                print(manageCompanyDetailsScreenController
+                                log(manageCompanyDetailsScreenController
                                     .companyTypeTextField.text);
                               },
                               child: const Text('Submit'))),

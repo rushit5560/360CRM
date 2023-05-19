@@ -1,10 +1,11 @@
+import 'dart:developer';
+
 import 'package:crm_project/common_modules/common_bottomsheet_module.dart';
 import 'package:crm_project/controller/company_list_screen_controller.dart';
 import 'package:crm_project/screens/edit_company_details_screen/edit_company_details_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../common_modules/common_textfield.dart';
@@ -22,10 +23,10 @@ class SearchBarWidget extends StatelessWidget {
         fieldController: companyListScreenController.searchTextFieldController,
         hintText: 'Search...',
         onChange: (text) {
-          print(text.toString());
+          log(text.toString());
         },
         backgroundColor: AppColors.whiteColor,
-        icon: Icon(Icons.search).paddingOnly(left: 5, right: 5),
+        icon: const Icon(Icons.search).paddingOnly(left: 5, right: 5),
         keyboardType: TextInputType.text);
   }
 }
@@ -62,7 +63,7 @@ class CompanyListWidget extends StatelessWidget {
                     size: 4.w,
                     color: AppColors.appColors,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 5,
                   ),
                   Text(
@@ -77,7 +78,7 @@ class CompanyListWidget extends StatelessWidget {
             )
           ],
         ).paddingOnly(top: 8),
-        CustomDivider(),
+        const CustomDivider(),
         Container(
           decoration: BoxDecoration(
               color: AppColors.appColors.withOpacity(0.1),
@@ -104,7 +105,7 @@ class CompanyListWidget extends StatelessWidget {
                                       fontSize: 17.sp,
                                       fontWeight: FontWeight.bold,
                                       color: AppColors.blackColor)),
-                              Text(AppMessage.type +': adviser',
+                              Text('${AppMessage.type}: adviser',
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(

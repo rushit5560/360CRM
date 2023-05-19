@@ -47,16 +47,16 @@ class TextFieldModule extends StatelessWidget {
         onChanged: onChange,
         decoration: InputDecoration(
           fillColor: backgroundColor,
-          border: OutlineInputBorder(
+          border: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(8)),
           ),
-          focusedBorder: OutlineInputBorder(
+          focusedBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(10)),
               borderSide: BorderSide(color: AppColors.appColors, width: 1.5)),
           errorBorder: inputBorder(),
           filled: true,
           label: Text(hintText),
-          labelStyle: TextStyle(color: AppColors.appColors),
+          labelStyle: const TextStyle(color: AppColors.appColors),
           errorMaxLines: 2,
           suffixIcon: icon,
           suffixIconColor: AppColors.appColors,
@@ -70,7 +70,7 @@ class TextFieldModule extends StatelessWidget {
 
   InputBorder inputBorder() {
     return OutlineInputBorder(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
         borderSide: BorderSide(color: AppColors.redColor, width: 1.5));
   }
 }

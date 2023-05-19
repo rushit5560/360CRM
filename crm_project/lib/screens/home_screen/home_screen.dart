@@ -74,7 +74,7 @@ class HomeScreen extends StatelessWidget {
                         style: TextStyle(fontSize: 13.sp))),
               ),
               const SizedBox(height: 10),
-              Container(
+              SizedBox(
                 height: 45,
                 width: Get.width * .9,
                 child: ElevatedButton(

@@ -20,27 +20,27 @@ class MtgAmortScheduleListScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            SizedBox(height: 10),
-            Container(
+            const SizedBox(height: 10),
+            SizedBox(
                 height: 45,
                 width: Get.width * .9,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.appColors),
                     onPressed: () {
-                      Get.to(() => MtgAmortSchedule1Screen());
+                      Get.to(() => const MtgAmortSchedule1Screen());
                     },
                     child: Text('1st Mtg Amort Schedule',
                         style: TextStyle(fontSize: 13.sp)))),
-            SizedBox(height: 10),
-            Container(
+            const SizedBox(height: 10),
+            SizedBox(
               height: 45,
               width: Get.width * .9,
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.appColors),
                   onPressed: () {
-                    Get.to(() => MtgAmortSchedule2Screen());
+                    Get.to(() => const MtgAmortSchedule2Screen());
                   },
                   child: Text('2st Mtg Amort Schedule',
                       style: TextStyle(fontSize: 13.sp))),

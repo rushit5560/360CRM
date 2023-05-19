@@ -43,7 +43,7 @@ class CompanyListScreen extends StatelessWidget {
                   transition: Transition.zoom);
             },
             backgroundColor: AppColors.appColors,
-            child: Icon(Icons.add),
+            child: const Icon(Icons.add),
           ),
           // SizedBox(height: 5,),
           // FloatingActionButton(

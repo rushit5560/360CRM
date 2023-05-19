@@ -24,7 +24,7 @@ class TextRow extends StatelessWidget {
       children: [
         Expanded(
             child: Text(
-          '$title',
+          title,
           textAlign: TextAlign.start,
           maxLines: 2,
           overflow: TextOverflow.ellipsis,

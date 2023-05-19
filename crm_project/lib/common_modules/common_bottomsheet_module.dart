@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
+// ignore: non_constant_identifier_names
 Future CommonbottomSheetModule ({
   required BuildContext context,
 required  Icon icon,
@@ -21,7 +22,7 @@ required  Icon icon,
               topLeft: Radius.circular(10.w), topRight: Radius.circular(10.w))),
       context: context,
       builder: (BuildContext context) {
-        return Container(
+        return SizedBox(
           height: Get.width * .8,
           child: Column(
             children: [
@@ -37,7 +38,7 @@ required  Icon icon,
                       style: TextStyle(
                           fontSize: 18.sp, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 8,
                     ),
                     Text(
@@ -57,15 +58,15 @@ required  Icon icon,
                     onPressed: onYesTap,
                     child: Text(onYesText),
                   ),
-                  SizedBox(width: 14),
+                  const SizedBox(width: 14),
                   OutlinedButton(
                     style: OutlinedButton.styleFrom(
-                      side: BorderSide(color: AppColors.appColors, width: 1.5),
+                      side: const BorderSide(color: AppColors.appColors, width: 1.5),
                     ),
                     onPressed: onCancelTap,
                     child: Text(
                       onCancelText,
-                      style: TextStyle(color: AppColors.appColors),
+                      style: const TextStyle(color: AppColors.appColors),
                     ),
                   ),
                 ],

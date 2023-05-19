@@ -1,7 +1,7 @@
 import 'package:crm_project/constants/colors.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+// ignore: non_constant_identifier_names
 PreferredSizeWidget CustomAppBar(
     {required String titleText,
     required bool leadingShow,
