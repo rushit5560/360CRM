@@ -9,21 +9,23 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../common_widgets/custom_appbar.dart';
-import '../../controller/add_company_details_screen_controller.dart';
+import '../../controller/manage_company_details_screen_controller.dart';
+import '../../utils/enums.dart';
+import '../../utils/messaging.dart';
 import '../../utils/validator.dart';
 
-class AddCompanyDetailsScreen extends StatelessWidget {
-  AddCompanyDetailsScreen({Key? key}) : super(key: key);
+class ManageCompanyDetailsScreen extends StatelessWidget {
+  ManageCompanyDetailsScreen({Key? key}) : super(key: key);
 
-  final addCompanyDetailsScreenController =
-      Get.put(AddCompanyDetailsScreenController());
+  final manageCompanyDetailsScreenController =
+      Get.put(ManageCompanyDetailsScreenController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.appColorsSecondry,
       appBar: CustomAppBar(
-          actionShow: false, leadingShow: false, titleText: "Add Company"),
+          actionShow: false, leadingShow: false, titleText: AppMessage.companyDetails),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -32,19 +34,19 @@ class AddCompanyDetailsScreen extends StatelessWidget {
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(8)),
               child: Form(
-                key: addCompanyDetailsScreenController.addCompanyKey,
+                key: manageCompanyDetailsScreenController.addCompanyKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Company Details',
+                      CompanyOption.update == manageCompanyDetailsScreenController.status ? '${manageCompanyDetailsScreenController.titleName}' : 'Company Details',
                       style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 16.sp,
                           color: AppColors.blackColor),
                     ),
                     Text(
-                      'Enter Your Company Details.',
+                     AppMessage.enterYourCompanyDetails,
                       style:
                           TextStyle(fontSize: 9.sp, color: AppColors.greyColor),
                     ),
@@ -52,7 +54,7 @@ class AddCompanyDetailsScreen extends StatelessWidget {
                       height: 20,
                     ),
                     TextFieldModule(
-                        fieldController: addCompanyDetailsScreenController
+                        fieldController: manageCompanyDetailsScreenController
                             .companyNameTextField,
                         hintText: 'Company Name',
                         keyboardType: TextInputType.text,
@@ -63,7 +65,7 @@ class AddCompanyDetailsScreen extends StatelessWidget {
                     ),
                     TextFieldModule(
                         fieldController:
-                            addCompanyDetailsScreenController.phoneTextField,
+                            manageCompanyDetailsScreenController.phoneTextField,
                         hintText: 'Phone',
                         prifixIcon: Text(
                           'US(+1)',
@@ -78,7 +80,7 @@ class AddCompanyDetailsScreen extends StatelessWidget {
                     ),
                     TextFieldModule(
                         fieldController:
-                            addCompanyDetailsScreenController.phone2TextField,
+                            manageCompanyDetailsScreenController.phone2TextField,
                         hintText: 'Phone 2',
                         prifixIcon: Text(
                           'US(+1)',
@@ -93,7 +95,7 @@ class AddCompanyDetailsScreen extends StatelessWidget {
                     ),
                     TextFieldModule(
                         fieldController:
-                            addCompanyDetailsScreenController.faxTextField,
+                            manageCompanyDetailsScreenController.faxTextField,
                         hintText: 'Fax',
                         prifixIcon: Text(
                           'US(+1)',
@@ -108,7 +110,7 @@ class AddCompanyDetailsScreen extends StatelessWidget {
                     ),
                     TextFieldModule(
                         fieldController:
-                            addCompanyDetailsScreenController.fax2TextField,
+                            manageCompanyDetailsScreenController.fax2TextField,
                         hintText: 'Fax 2',
                         prifixIcon: Text(
                           'US(+1)',
@@ -123,7 +125,7 @@ class AddCompanyDetailsScreen extends StatelessWidget {
                     ),
                     TextFieldModule(
                         fieldController:
-                            addCompanyDetailsScreenController.websiteTextField,
+                            manageCompanyDetailsScreenController.websiteTextField,
                         hintText: 'Website',
                         keyboardType: TextInputType.text),
 
@@ -132,7 +134,7 @@ class AddCompanyDetailsScreen extends StatelessWidget {
                     ),
                     TextFieldModule(
                         fieldController:
-                            addCompanyDetailsScreenController.emailTextField,
+                            manageCompanyDetailsScreenController.emailTextField,
                         hintText: 'Email',
                         keyboardType: TextInputType.text,
                         validate: (value) =>
@@ -143,12 +145,12 @@ class AddCompanyDetailsScreen extends StatelessWidget {
                     CustomDropdown.search(listItemStyle: TextStyle(),
 
                       hintText: 'Company Type',
-                      controller: addCompanyDetailsScreenController.companyTypeTextField,
-                      items: addCompanyDetailsScreenController.companyTypeListDropDown,
+                      controller: manageCompanyDetailsScreenController.companyTypeTextField,
+                      items: manageCompanyDetailsScreenController.companyTypeListDropDown,
                       borderRadius: BorderRadius.circular(5),
                       borderSide: BorderSide(color: AppColors.appColors,width: 1),
                       onChanged: (val){
-                        print(addCompanyDetailsScreenController.companyTypeTextField.text);
+                        print(manageCompanyDetailsScreenController.companyTypeTextField.text);
                       },
 
                     ),
@@ -164,9 +166,9 @@ class AddCompanyDetailsScreen extends StatelessWidget {
                     //     suffixIcon: Icons.arrow_drop_down_rounded,
                     //     textFieldBorder:
                     //         OutlineInputBorder(borderSide: BorderSide.none,),
-                    //     textController: addCompanyDetailsScreenController
+                    //     textController: manageCompanyDetailsScreenController
                     //         .companyTypeTextField,
-                    //     items: addCompanyDetailsScreenController
+                    //     items: manageCompanyDetailsScreenController
                     //         .companyTypeListDropDown,
                     //     dropdownHeight: Get.height*.5,
                     //   ).paddingOnly(left: 5),
@@ -183,7 +185,7 @@ class AddCompanyDetailsScreen extends StatelessWidget {
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: AppColors.appColors),
                               onPressed: () {
-                                print(addCompanyDetailsScreenController
+                                print(manageCompanyDetailsScreenController
                                     .companyTypeTextField.text);
                               },
                               child: Text('Submit'))),

@@ -23,7 +23,7 @@ CommonListTitleModule({required this.titleText,required this.icon, this.ontap});
         leading: icon,
         title: Text(titleText,style: TextStyle(fontSize: 15.sp,),),
         trailing: Icon(Icons.arrow_forward_ios_outlined),
-
+        onTap: ontap,
       ),
     ).paddingOnly(bottom: 10);
   }

@@ -104,7 +104,7 @@ class CompanyListWidget extends StatelessWidget {
                                       fontSize: 17.sp,
                                       fontWeight: FontWeight.bold,
                                       color: AppColors.blackColor)),
-                              Text('Type: ' + 'adviser',
+                              Text(AppMessage.type +': adviser',
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
@@ -125,8 +125,8 @@ class CompanyListWidget extends StatelessWidget {
                               children: [
                                 InkWell(
                                   onTap: () {
-                                    Get.to(() => EditCompanyDetailsScreen(
-                                        companyName: "Inford demo.pvt.ltd"));
+                                    Get.to(() => EditCompanyDetailsScreen(),
+                                        arguments: ['Inford demo.pvt.ltd']);
                                   },
                                   child: Icon(
                                     Icons.edit_sharp,
@@ -140,64 +140,13 @@ class CompanyListWidget extends StatelessWidget {
                                       context: context,
                                       icon: Icon(Icons.info_outline,color: AppColors.greyColor,size: Get.width*.4),
                                       titleText: AppMessage.areYouSure,
-                                      subTitleText: 'Do you want to delete this record?',
-                                      onYesText: 'Yes, delete it!',
-                                      onCancelText: 'cancel',
+                                      subTitleText:AppMessage.doYouWantToDeleteThisRecord,
+                                      onYesText: AppMessage.yesDeleteIt,
+                                      onCancelText: AppMessage.cancel,
                                       onYesTap: () => null,
                                       onCancelTap: () => Navigator.of(context).pop(false),
                                     );
-                                    // showModalBottomSheet(
-                                    //   shape: ContinuousRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(10.w),topRight: Radius.circular(10.w))),
-                                    //   context: context,
-                                    //   builder: (BuildContext context) {
-                                    //     return Container(
-                                    //       height: Get.width*.8,
-                                    //       child: Column(
-                                    //         children: [
-                                    //           Expanded(
-                                    //               flex: 4,
-                                    //               child: Icon(Icons.info_outlined,size: Get.width*.4,color: Colors.grey.shade400,)),
-                                    //           Expanded(flex: 2,
-                                    //             child: Column(
-                                    //               children: [
-                                    //                 Text(
-                                    //                   'Are you sure?',
-                                    //                   style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
-                                    //                 ),
-                                    //                 SizedBox(height: 8,),
-                                    //                 Text(
-                                    //                   'Do you want to delete this record?',
-                                    //                   style: TextStyle(color:AppColors.greyColor,fontSize: 14.sp),
-                                    //                 ),
-                                    //               ],
-                                    //             ),
-                                    //           ),
-                                    //
-                                    //           Row(
-                                    //             mainAxisAlignment: MainAxisAlignment.center,
-                                    //             children: [
-                                    //               ElevatedButton(
-                                    //                 style: ElevatedButton.styleFrom(backgroundColor: AppColors.appColors),
-                                    //                 onPressed: () {
-                                    //                   // Handle Yes button press
-                                    //                 },
-                                    //                 child: Text('Yes, delete it!'),
-                                    //               ),
-                                    //               SizedBox(width: 14),
-                                    //               OutlinedButton(
-                                    //                 style: OutlinedButton.styleFrom(side: BorderSide(color:  AppColors.appColors,width: 1.5),),
-                                    //                 onPressed: () {
-                                    //                   Navigator.of(context).pop(false);
-                                    //                 },
-                                    //                 child: Text('Cancel',style: TextStyle(color: AppColors.appColors),),
-                                    //               ),
-                                    //             ],
-                                    //           ),
-                                    //         ],
-                                    //       ).paddingAll(15),
-                                    //     );
-                                    //   },
-                                    // );
+
                                   },
                                   child: Icon(
                                     Icons.delete,
