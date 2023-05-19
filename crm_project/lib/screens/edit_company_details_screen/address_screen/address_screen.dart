@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:crm_project/common_widgets/custom_appbar.dart';
 import 'package:crm_project/controller/address_screen_controller.dart';
 import 'package:crm_project/screens/edit_company_details_screen/address_screen/address_screen_widget.dart';
@@ -7,10 +5,8 @@ import 'package:crm_project/screens/edit_company_details_screen/address_screen/m
 import 'package:crm_project/utils/messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
-
-import '../../../common_modules/common_textfield.dart';
-import '../../../common_modules/divider.dart';
 import '../../../constants/colors.dart';
 
 class AddressScreen extends StatelessWidget {
@@ -25,7 +21,6 @@ class AddressScreen extends StatelessWidget {
           leadingShow: false,
           actionShow: false),
       body: SafeArea(
-
         child: Column(children: [
           AddressSearchWidget(),
           AddressListWidget()
@@ -38,7 +33,6 @@ class AddressScreen extends StatelessWidget {
         },
         backgroundColor: AppColors.appColors,
         child: Icon(Icons.add),
-
       ),
     );
   }
