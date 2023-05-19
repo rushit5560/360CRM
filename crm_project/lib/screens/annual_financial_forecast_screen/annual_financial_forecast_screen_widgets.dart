@@ -35,7 +35,7 @@ class AnnualFinancialForecastDetailsWidget extends StatelessWidget {
         ),
 
 //income
-        CommonLable(
+        CommonLabel(
             color: AppColors.greyColor,
             bgColor: AppColors.appColorsSecondry,
             title: 'Income',
@@ -68,7 +68,7 @@ class AnnualFinancialForecastDetailsWidget extends StatelessWidget {
         ).paddingAll(10),
 
 //Operating Expenses
-        CommonLable(
+        CommonLabel(
             color: AppColors.orangeColor,
             bgColor: AppColors.appColorsSecondry,
             title: 'Operating Expenses',
@@ -148,7 +148,7 @@ class AnnualFinancialForecastDetailsWidget extends StatelessWidget {
         ).paddingAll(10),
 
 //Net Operating Income
-        CommonLable(
+        CommonLabel(
             color: AppColors.blueColor,
             bgColor: AppColors.appColorsSecondry,
             title: 'Net Operating Income',
@@ -189,7 +189,7 @@ class AnnualFinancialForecastDetailsWidget extends StatelessWidget {
         ).paddingAll(10),
 
 //Debt Service
-        CommonLable(
+        CommonLabel(
             color: AppColors.carolinColors,
             bgColor: AppColors.appColorsSecondry,
             title: 'Debt Service',
@@ -221,7 +221,7 @@ class AnnualFinancialForecastDetailsWidget extends StatelessWidget {
           ],
         ).paddingAll(10),
 //Cash Flow Before Taxes
-        CommonLable(
+        CommonLabel(
             color: AppColors.naveyColors,
             bgColor: AppColors.appColorsSecondry,
             title: 'Cash Flow Before Taxes',
@@ -283,7 +283,7 @@ class AnnualFinancialForecastDetailsWidget extends StatelessWidget {
           ],
         ).paddingAll(10),
 //Cash Flow after Taxes
-        CommonLable(
+        CommonLabel(
             color: AppColors.tealColors,
             bgColor: AppColors.appColorsSecondry,
             title: 'Cash Flow After Taxes',
@@ -315,7 +315,7 @@ class AnnualFinancialForecastDetailsWidget extends StatelessWidget {
           ],
         ).paddingAll(10),
 //Financial Analysis
-        CommonLable(
+        CommonLabel(
             color: AppColors.darkerColors,
             bgColor: AppColors.appColorsSecondry,
             title: 'Financial Analysis',

@@ -1,13 +1,18 @@
 
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
+import '../constants/api_url.dart';
 import '../utils/enums.dart';
 
 class ManageCompanyDetailsScreenController extends GetxController {
-  var status = Get.arguments[0];
-
+  CompanyOption companyOption = Get.arguments[0];
   String titleName = Get.arguments[1];
+
+  RxBool isLoading = false.obs;
+  RxBool isSuccessStatus = false.obs;
 
   GlobalKey<FormState> addCompanyKey = GlobalKey<FormState>();
 
@@ -22,14 +27,23 @@ class ManageCompanyDetailsScreenController extends GetxController {
   final emailTextField = TextEditingController();
   final companyTypeTextField = TextEditingController();
 
+  Future<void> getCompanyDetailsFunction() async {
+    isLoading(true);
+    String url = ApiUrl.companyDetailsGetApi;
+    log("Get Company Details Api Url : $url");
+  }
+
+
+
+
   @override
   void onInit() {
+    initMethod();
     super.onInit();
+  }
 
-    if(CompanyOption.update == status ){
-      print(status);
-      print("update: Screen");
-      //update Api Call And Get
+  Future<void> initMethod() async {
+    if(companyOption == CompanyOption.update){
       companyNameTextField.text = 'Inford demo';
       phoneTextField.text = '000 000 000 0';
       phone2TextField.text= '000 000 000 0';
@@ -38,6 +52,8 @@ class ManageCompanyDetailsScreenController extends GetxController {
       websiteTextField.text = 'www.yz.com';
       emailTextField.text = 'admin@email.com';
       companyTypeTextField.text = 'IT';
+    } else {
+      log('Nothing');
     }
   }
 }

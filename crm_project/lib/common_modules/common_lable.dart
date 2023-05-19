@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
-class CommonLable extends StatelessWidget {
+class CommonLabel extends StatelessWidget {
   final Color color;
   final Color bgColor;
   final String title;
   final IconData icon;
 
-  const CommonLable(
+  const CommonLabel(
       {super.key,
       required this.color,
       required this.bgColor,
