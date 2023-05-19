@@ -42,12 +42,15 @@ class CompanyListWidget extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              AppMessage.companyList,
-              style: TextStyle(
-                  color: AppColors.appColors,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15.sp),
+            Expanded(
+              child: Text(
+                AppMessage.companyList,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                    color: AppColors.appColors,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15.sp),
+              ),
             ),
             Container(
               decoration: BoxDecoration(
@@ -66,7 +69,7 @@ class CompanyListWidget extends StatelessWidget {
                     width: 5,
                   ),
                   Text(
-                    "Export",
+                    AppMessage.export,
                     style: TextStyle(
                         color: AppColors.appColors,
                         fontWeight: FontWeight.bold,
@@ -77,7 +80,7 @@ class CompanyListWidget extends StatelessWidget {
             )
           ],
         ).paddingOnly(top: 8),
-        CustomDivider(),
+        const CustomDivider(),
         Container(
           decoration: BoxDecoration(
               color: AppColors.appColors.withOpacity(0.1),

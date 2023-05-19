@@ -6,11 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../common_widgets/custom_appbar.dart';
-import '../../controller/manage_company_details_screen_controller.dart';
-import '../../utils/enums.dart';
-import '../../utils/messaging.dart';
-import '../../utils/validator.dart';
+import '../../../common_widgets/custom_appbar.dart';
+import '../../../controller/manage_company_details_screen_controller.dart';
+import '../../../utils/enums.dart';
+import '../../../utils/messaging.dart';
+import '../../../utils/validator.dart';
 
 class ManageCompanyDetailsScreen extends StatelessWidget {
   ManageCompanyDetailsScreen({Key? key}) : super(key: key);

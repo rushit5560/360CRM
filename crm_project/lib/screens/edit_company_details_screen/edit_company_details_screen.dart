@@ -8,7 +8,8 @@ import 'package:sizer/sizer.dart';
 
 import '../../common_modules/common_listtile_module.dart';
 import '../../utils/messaging.dart';
-import '../manage_company_details_screen/manage_company_details_screen.dart';
+import '../company_list_screen/manage_company_details_screen/manage_company_details_screen.dart';
+
 
 class EditCompanyDetailsScreen extends StatelessWidget {
   final editCompanyDetailsScreenController =
