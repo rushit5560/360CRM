@@ -3,9 +3,7 @@ import 'package:crm_project/common_modules/common_textfield.dart';
 import 'package:crm_project/constants/colors.dart';
 import 'package:crm_project/constants/extension.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dropdown_search/flutter_dropdown_search.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../common_widgets/custom_appbar.dart';
@@ -50,7 +48,7 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                       style:
                           TextStyle(fontSize: 9.sp, color: AppColors.greyColor),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     TextFieldModule(
@@ -60,7 +58,7 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                         keyboardType: TextInputType.text,
                         validate: (value) => FieldValidation()
                             .validateEmpty(value, 'gross monthly revenue')),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     TextFieldModule(
@@ -75,7 +73,7 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                         keyboardType: TextInputType.text,
                         validate: (value) =>
                             FieldValidation().validateMobileNumber(value)),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     TextFieldModule(
@@ -90,7 +88,7 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                         keyboardType: TextInputType.text,
                         validate: (value) =>
                             FieldValidation().validateMobileNumber(value)),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     TextFieldModule(
@@ -105,7 +103,7 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                         keyboardType: TextInputType.text,
                         validate: (value) =>
                             FieldValidation().validateFaxNumber(value)),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     TextFieldModule(
@@ -120,7 +118,7 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                         keyboardType: TextInputType.text,
                         validate: (value) =>
                             FieldValidation().validateFaxNumber(value)),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     TextFieldModule(
@@ -129,7 +127,7 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                         hintText: 'Website',
                         keyboardType: TextInputType.text),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     TextFieldModule(
@@ -139,16 +137,16 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                         keyboardType: TextInputType.text,
                         validate: (value) =>
                             FieldValidation().validateEmail(value)),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Text('Company Type',style: TextStyle(fontSize: 9.sp),),
-                    SizedBox(height: 5,),
-                    CustomDropdown.search(listItemStyle: TextStyle(),
+                    const SizedBox(height: 5,),
+                    CustomDropdown.search(listItemStyle: const TextStyle(),
 
                       hintText: 'Company Type',
                       controller: manageCompanyDetailsScreenController.companyTypeTextField,
                       items: manageCompanyDetailsScreenController.companyTypeListDropDown,
                       borderRadius: BorderRadius.circular(5),
-                      borderSide: BorderSide(color: AppColors.appColors,width: 1),
+                      borderSide: const BorderSide(color: AppColors.appColors,width: 1),
                       onChanged: (val){
                         print(manageCompanyDetailsScreenController.companyTypeTextField.text);
                       },
@@ -174,7 +172,7 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                     //   ).paddingOnly(left: 5),
                     // ),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Align(
@@ -188,7 +186,7 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                                 print(manageCompanyDetailsScreenController
                                     .companyTypeTextField.text);
                               },
-                              child: Text('Submit'))),
+                              child: const Text('Submit'))),
                     )
                   ],
                 ).paddingAll(10),

@@ -1,4 +1,3 @@
-import 'package:crm_project/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 import '../../common_widgets/custom_appbar.dart';
@@ -14,7 +13,7 @@ class MtgAmortSchedule2Screen extends StatelessWidget {
           titleText: '2st Mtg Amort Schedule',
           leadingShow: false,
           actionShow: false),
-      body: SafeArea(
+      body: const SafeArea(
         child: MtgAmortSchedule2ScreenWidget(),
 
       ),

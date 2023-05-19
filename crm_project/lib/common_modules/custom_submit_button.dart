@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 class CustomSubmitButton extends StatelessWidget {
-  Function() onPress;
-  String labelText;
-  Color buttonColor;
-  Color textColor;
-  double? labelSize;
+ final Function() onPress;
+  final String labelText;
+  final Color buttonColor;
+  final Color textColor;
+  final double? labelSize;
 
-  CustomSubmitButton(
-      {required this.onPress,
+  const CustomSubmitButton(
+      {super.key,
+      required this.onPress,
       required this.labelText,
       this.buttonColor = AppColors.appColors,
       this.textColor = AppColors.whiteColor1,

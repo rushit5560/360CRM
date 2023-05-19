@@ -1,11 +1,9 @@
-import 'package:crm_project/common_modules/divider.dart';
 import 'package:crm_project/common_modules/text_row.dart';
 import 'package:crm_project/constants/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../common_widgets/custom_appbar.dart';
 import '../../constants/colors.dart';
 
 class MtgAmortSchedule1ScreenWidget extends StatelessWidget {
@@ -20,7 +18,7 @@ class MtgAmortSchedule1ScreenWidget extends StatelessWidget {
             child: Container(
               // height: Get.height*.14,
               width: Get.width,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: AppColors.appColors,
                   borderRadius: BorderRadius.only(bottomRight: Radius.circular(15),bottomLeft: Radius.circular(15)),
                   // border: Border.all(color: AppColors.greyColor)
@@ -68,7 +66,7 @@ class MtgAmortSchedule1ScreenWidget extends StatelessWidget {
                           ),
                         ),
 
-                        VerticalDivider(color: AppColors.greyColor,thickness: 1),
+                        const VerticalDivider(color: AppColors.greyColor,thickness: 1),
                         Expanded(flex: 8,
                           child: Column(crossAxisAlignment: CrossAxisAlignment.end,
                             children: [

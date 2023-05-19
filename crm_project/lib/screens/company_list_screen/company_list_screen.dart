@@ -1,16 +1,9 @@
-import 'dart:math';
-
 import 'package:crm_project/controller/company_list_screen_controller.dart';
 import 'package:crm_project/utils/enums.dart';
 import 'package:crm_project/utils/messaging.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:sizer/sizer.dart';
 
-import '../../common_modules/common_textfield.dart';
-import '../../common_modules/divider.dart';
 import '../../common_widgets/custom_appbar.dart';
 import '../../constants/colors.dart';
 import '../manage_company_details_screen/manage_company_details_screen.dart';

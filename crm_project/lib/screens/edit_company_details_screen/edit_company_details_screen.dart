@@ -1,14 +1,12 @@
 import 'package:crm_project/common_widgets/custom_appbar.dart';
 import 'package:crm_project/controller/edit_company_details_screen_controller.dart';
 import 'package:crm_project/screens/edit_company_details_screen/address_screen/address_screen.dart';
-import 'package:crm_project/screens/edit_company_details_screen/details_screen/details_screen.dart';
 import 'package:crm_project/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../common_modules/common_listtile_module.dart';
-import '../../constants/colors.dart';
 import '../../utils/messaging.dart';
 import '../manage_company_details_screen/manage_company_details_screen.dart';
 

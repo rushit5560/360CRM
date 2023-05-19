@@ -1,5 +1,4 @@
 
-import 'package:crm_project/common_modules/custom_submit_button.dart';
 import 'package:crm_project/common_modules/divider.dart';
 import 'package:crm_project/constants/colors.dart';
 import 'package:crm_project/constants/extension.dart';
@@ -12,9 +11,12 @@ import 'package:sizer/sizer.dart';
 import '../../common_modules/text_row.dart';
 import '../../utils/validator.dart';
 
+// ignore: must_be_immutable
 class PropertyDetails extends StatelessWidget {
   final homeScreenController = Get.find<HomeScreenController>();
   String selectedLocation = '';
+
+  PropertyDetails({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,11 +1,9 @@
 import 'dart:developer';
 
-import 'package:crm_project/constants/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
+
 
 class HomeScreenController extends GetxController {
   RxBool isLoading = false.obs;

@@ -1,25 +1,25 @@
 import 'package:crm_project/constants/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 
 class TextFieldModule extends StatelessWidget {
-  TextEditingController fieldController;
-  String hintText;
-  TextInputType keyboardType;
-  FormFieldValidator? validate;
-  int? maxLength;
-  Widget? suffixIcon;
-  Widget? prifixIcon;
-  Widget? icon;
-  bool? obScureText;
-  bool readOnly;
-  Color? backgroundColor;
-  Function(String)? onChange;
+  final TextEditingController fieldController;
+  final String hintText;
+  final TextInputType keyboardType;
+  final FormFieldValidator? validate;
+  final int? maxLength;
+  final Widget? suffixIcon;
+  final Widget? prifixIcon;
+  final Widget? icon;
+  final bool? obScureText;
+  final bool readOnly;
+  final Color? backgroundColor;
+  final Function(String)? onChange;
 
   // FormFieldValidator? validate;
 
-  TextFieldModule(
-      {required this.fieldController,
+  const TextFieldModule(
+      {super.key,
+      required this.fieldController,
       required this.hintText,
       required this.keyboardType,
       this.validate,

@@ -1,16 +1,22 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 import '../constants/colors.dart';
-import '../utils/messaging.dart';
 
+// ignore: must_be_immutable
 class CommonListTitleModule extends StatelessWidget {
-String titleText;
-Icon icon;
+final String titleText;
+final Icon icon;
 Function()? ontap;
 
-CommonListTitleModule({required this.titleText,required this.icon, this.ontap});
+  CommonListTitleModule({
+    Key? key,
+    required this.titleText,
+    required this.icon,
+    this.ontap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +28,7 @@ CommonListTitleModule({required this.titleText,required this.icon, this.ontap});
       child: ListTile(
         leading: icon,
         title: Text(titleText,style: TextStyle(fontSize: 15.sp,),),
-        trailing: Icon(Icons.arrow_forward_ios_outlined),
+        trailing: const Icon(Icons.arrow_forward_ios_outlined),
         onTap: ontap,
       ),
     ).paddingOnly(bottom: 10);

@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
-import '../mtg_amort_schedule2_screen/mtg_amort_schedule2_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -23,7 +22,7 @@ class HomeScreen extends StatelessWidget {
           titleText: "Deal Analyzer",
           leadingShow: false,
           actionShow: true,
-          actionIcon: Icon(Icons.settings_rounded),
+          actionIcon: const Icon(Icons.settings_rounded),
           actionOnTap: () =>
               Get.to(() => SettingScreen(), transition: Transition.zoom)),
       body: SafeArea(
@@ -31,50 +30,50 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             children: [
               PropertyDetails(),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               FinancialDetails(),
-              SizedBox(height: 10),
+            const  SizedBox(height: 10),
               ProjectCosts(),
-              SizedBox(height: 10),
+             const SizedBox(height: 10),
               AcquisitionCosts(),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               MortgageDetails1(),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               MortgageDetails2(),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               AnnualCashFlowAnalysis(),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               QuickFlipAnalysis(),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               PropertyPurchaseDetails(),
-              SizedBox(height: 10),
-              Container(
+              const SizedBox(height: 10),
+              SizedBox(
                 height: 45,
                 width: Get.width * .9,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.appColors),
                     onPressed: () {
-                      Get.to(() => AnnualFinancialForecastScreen());
+                      Get.to(() => const AnnualFinancialForecastScreen());
                     },
                     child: Text('Annual Financial Forecast',
                         style: TextStyle(fontSize: 13.sp))),
               ),
 
-              SizedBox(height: 10),
-              Container(
+              const SizedBox(height: 10),
+              SizedBox(
                 height: 45,
                 width: Get.width * .9,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.appColors),
                     onPressed: () {
-                      Get.to(() => MtgAmortScheduleListScreen());
+                      Get.to(() => const MtgAmortScheduleListScreen());
                     },
                     child: Text('Mtg Amort Schedule List',
                         style: TextStyle(fontSize: 13.sp))),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Container(
                 height: 45,
                 width: Get.width * .9,

@@ -1,14 +1,12 @@
 import 'package:crm_project/common_modules/divider.dart';
 import 'package:crm_project/common_widgets/custom_appbar.dart';
 import 'package:crm_project/controller/settings_screen_controller.dart';
-import 'package:crm_project/screens/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../common_modules/common_textfield.dart';
 import '../../constants/colors.dart';
-import '../../utils/validator.dart';
 
 class SettingScreen extends StatelessWidget {
   SettingScreen({Key? key}) : super(key: key);
