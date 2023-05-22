@@ -5,6 +5,8 @@ import 'package:crm_project/utils/messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'package:dio/dio.dart' as dio;
+
 class CompanyListScreenController extends GetxController{
 
   RxBool isLoading = false.obs;
@@ -13,9 +15,13 @@ class CompanyListScreenController extends GetxController{
   RxBool isCompanyStatus = false.obs;
   final searchTextFieldController = TextEditingController();
 
+  final dioRequest = dio.Dio();
+  List companyList = [];
+
   final ScrollController scrollController = ScrollController();
   bool hasMore = true;
   int pageIndex = 1;
+  int itemCount = 15;
 
 
 
@@ -24,9 +30,23 @@ class CompanyListScreenController extends GetxController{
   Future<void> getCompanyListFunction() async {
     // isLoading(true);
     if(hasMore == true) {
-      String url = "${ApiUrl.allCompanyListApi}?PageNumber=$pageIndex&PageSize=10&CustomerId=${AppMessage.customerId}";
+      String url = "${ApiUrl.allCompanyListApi}?PageNumber=$pageIndex&PageSize=$itemCount&CustomerId=${AppMessage.customerId}";
       log('Get Company Api Url : $url');
-      log('');
+
+      try {
+        final response = await dioRequest.get(
+          url,
+          options: dio.Options(
+            headers: {"Authorization": "Bearer ${AppMessage.token}"}
+          ),
+        );
+
+        log('response : ${response.data}');
+      }
+      catch(e) {
+        log('Get Company Function Error :$e');
+      }
+
     } else {
       isLoading(false);
     }
@@ -44,6 +64,7 @@ class CompanyListScreenController extends GetxController{
 
   Future<void> initMethod() async {
     isLoading(true);
+    await getCompanyListFunction();
     scrollController.addListener(() async {
       if(scrollController.position.maxScrollExtent == scrollController.offset) {
         //api call for more pet

@@ -38,51 +38,11 @@ class CompanyListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Text(
-                AppMessage.companyList,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                    color: AppColors.appColors,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15.sp),
-              ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(1.w),
-                  border: Border.all(color: AppColors.appColors, width: 1)),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.file_download,
-                    size: 4.w,
-                    color: AppColors.appColors,
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Text(
-                    AppMessage.export,
-                    style: TextStyle(
-                        color: AppColors.appColors,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 10.sp),
-                  )
-                ],
-              ).paddingAll(4),
-            )
-          ],
-        ).paddingOnly(top: 8),
-        const CustomDivider(),
-        Container(
+    return  ListView.builder(
+      itemCount: companyListScreenController.companyList.length,
+      controller: companyListScreenController.scrollController,
+      itemBuilder: (context, i) {
+        return Container(
           decoration: BoxDecoration(
               color: AppColors.appColors.withOpacity(0.1),
               borderRadius: BorderRadius.circular(2.w)),
@@ -90,7 +50,7 @@ class CompanyListWidget extends StatelessWidget {
             children: [
               Container(
                   decoration: BoxDecoration(
-                      // color: AppColors.appColors.withOpacity(0.1),
+                    // color: AppColors.appColors.withOpacity(0.1),
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(2.w),
                           topRight: Radius.circular(2.w))),
@@ -209,7 +169,7 @@ class CompanyListWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Obx(
-                            () => Transform.scale(
+                                () => Transform.scale(
                               alignment: AlignmentDirectional.centerEnd,
                               scale: 0.8,
                               child: CupertinoSwitch(
@@ -218,8 +178,8 @@ class CompanyListWidget extends StatelessWidget {
                                 value: companyListScreenController
                                     .isCompanyStatus.value,
                                 onChanged: (value) =>
-                                    companyListScreenController
-                                        .isCompanyStatus.value = value,
+                                companyListScreenController
+                                    .isCompanyStatus.value = value,
                               ),
                             ),
                           ),
@@ -234,8 +194,8 @@ class CompanyListWidget extends StatelessWidget {
               ).paddingAll(10),
             ],
           ),
-        ),
-      ],
+        );
+      },
     ).paddingOnly(top: 5, bottom: 10);
   }
 }
