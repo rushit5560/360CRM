@@ -42,6 +42,15 @@ class CompanyListScreenController extends GetxController{
         );
 
         log('response : ${response.data}');
+
+        if(response.statusCode == 200){
+          
+          isLoading.value = false;
+        }
+        else{
+          isLoading.value = true;
+        }
+
       }
       catch(e) {
         log('Get Company Function Error :$e');
