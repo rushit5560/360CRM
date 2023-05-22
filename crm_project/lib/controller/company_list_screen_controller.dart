@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:crm_project/constants/api_url.dart';
@@ -10,8 +9,7 @@ import 'package:dio/dio.dart' as dio;
 
 import '../models/company_list_screen_models/company_list_model.dart';
 
-class CompanyListScreenController extends GetxController{
-
+class CompanyListScreenController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isSuccessStatus = false.obs;
   RxInt successStatusCode = 0.obs;
@@ -21,6 +19,7 @@ class CompanyListScreenController extends GetxController{
 
   final dioRequest = dio.Dio();
   List<CompanyData> companyList = [];
+
   // List companyList = [];
 
   final ScrollController scrollController = ScrollController();
@@ -28,30 +27,28 @@ class CompanyListScreenController extends GetxController{
   int pageIndex = 1;
   int itemCount = 10;
 
-
-
-
   // get Company List Function
   Future<void> getCompanyListFunction() async {
     // isLoading(true);
-    if(hasMore == true) {
-      String url = "${ApiUrl.allCompanyListApi}?PageNumber=$pageIndex&PageSize=$itemCount&CustomerId=${AppMessage.customerId}";
+    if (hasMore == true) {
+      String url =
+          "${ApiUrl.allCompanyListApi}?PageNumber=$pageIndex&PageSize=$itemCount&CustomerId=${AppMessage.customerId}";
       log('Get Company Api Url : $url');
 
       try {
         final response = await dioRequest.get(
           url,
           options: dio.Options(
-            headers: {"Authorization": "Bearer ${AppMessage.token}"}
-          ),
+              headers: {"Authorization": "Bearer ${AppMessage.token}"}),
         );
 
         // log('response : ${jsonEncode(response.data)}');
-        CompanyListModel companyListModel = CompanyListModel.fromJson(response.data);
+        CompanyListModel companyListModel =
+            CompanyListModel.fromJson(response.data);
         isSuccessStatus.value = companyListModel.data.succeeded;
         // successStatusCode.value =
 
-        if(isSuccessStatus.value){
+        if (isSuccessStatus.value) {
           // companyList.clear();
           companyList.addAll(companyListModel.data.data);
           log('companyList Length : ${companyList.length}');
@@ -59,17 +56,17 @@ class CompanyListScreenController extends GetxController{
           if (companyListModel.data.data.length < 10) {
             hasMore = false;
           }
-
-        }
-        else{
+        } else {
           log('Get Company Error Message :${companyListModel.data.message}');
         }
-
-      }
-      catch(e) {
+      } catch (e) {
         log('Get Company Function Error :$e');
+        if (e is dio.DioError) {
+          log('${dio.DioError}');
+        }
+        // isLoading(false);
+        // rethrow;
       }
-
 
       loadUI();
     } else {
@@ -78,9 +75,6 @@ class CompanyListScreenController extends GetxController{
 
     isLoading(false);
   }
-
-
-
 
   @override
   void onInit() {
@@ -93,7 +87,8 @@ class CompanyListScreenController extends GetxController{
     isLoading(true);
     await getCompanyListFunction();
     scrollController.addListener(() async {
-      if(scrollController.position.maxScrollExtent == scrollController.offset) {
+      if (scrollController.position.maxScrollExtent ==
+          scrollController.offset) {
         //api call for more pet
         if (hasMore == true) {
           pageIndex++;
@@ -108,5 +103,4 @@ class CompanyListScreenController extends GetxController{
     isLoading(true);
     isLoading(false);
   }
-
 }

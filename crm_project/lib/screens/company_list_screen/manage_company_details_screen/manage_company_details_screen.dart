@@ -25,7 +25,9 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.appColorsSecondry,
       appBar: CustomAppBar(
-          actionShow: false, leadingShow: false, titleText: AppMessage.companyDetails),
+          actionShow: false,
+          leadingShow: false,
+          titleText: AppMessage.companyDetails),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -39,17 +41,17 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-
-
-                      CompanyOption.update == manageCompanyDetailsScreenController.companyOption ? '${manageCompanyDetailsScreenController.titleName}' : 'Company Details',
-
+                      CompanyOption.update ==
+                              manageCompanyDetailsScreenController.companyOption
+                          ? manageCompanyDetailsScreenController.titleName
+                          : 'Company Details',
                       style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 16.sp,
                           color: AppColors.blackColor),
                     ),
                     Text(
-                     AppMessage.enterYourCompanyDetails,
+                      AppMessage.enterYourCompanyDetails,
                       style:
                           TextStyle(fontSize: 9.sp, color: AppColors.greyColor),
                     ),
@@ -82,8 +84,8 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                       height: 10,
                     ),
                     TextFieldModule(
-                        fieldController:
-                            manageCompanyDetailsScreenController.phone2TextField,
+                        fieldController: manageCompanyDetailsScreenController
+                            .phone2TextField,
                         hintText: 'Phone 2',
                         prifixIcon: Text(
                           'US(+1)',
@@ -127,8 +129,8 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                       height: 10,
                     ),
                     TextFieldModule(
-                        fieldController:
-                            manageCompanyDetailsScreenController.websiteTextField,
+                        fieldController: manageCompanyDetailsScreenController
+                            .websiteTextField,
                         hintText: 'Website',
                         keyboardType: TextInputType.text),
 
@@ -143,19 +145,27 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                         validate: (value) =>
                             FieldValidation().validateEmail(value)),
                     const SizedBox(height: 10),
-                    Text('Company Type',style: TextStyle(fontSize: 9.sp),),
-                    const SizedBox(height: 5,),
-                    CustomDropdown.search(listItemStyle: const TextStyle(),
-
+                    Text(
+                      'Company Type',
+                      style: TextStyle(fontSize: 9.sp),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    CustomDropdown.search(
+                      listItemStyle: const TextStyle(),
                       hintText: 'Company Type',
-                      controller: manageCompanyDetailsScreenController.companyTypeTextField,
-                      items: manageCompanyDetailsScreenController.companyTypeListDropDown,
+                      controller: manageCompanyDetailsScreenController
+                          .companyTypeTextField,
+                      items: manageCompanyDetailsScreenController
+                          .companyTypeListDropDown,
                       borderRadius: BorderRadius.circular(5),
-                      borderSide: const BorderSide(color: AppColors.appColors,width: 1),
-                      onChanged: (val){
-                        log(manageCompanyDetailsScreenController.companyTypeTextField.text);
+                      borderSide: const BorderSide(
+                          color: AppColors.appColors, width: 1),
+                      onChanged: (val) {
+                        log(manageCompanyDetailsScreenController
+                            .companyTypeTextField.text);
                       },
-
                     ),
 
                     // Container(

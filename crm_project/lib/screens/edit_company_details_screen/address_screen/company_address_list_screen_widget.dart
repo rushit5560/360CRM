@@ -1,7 +1,8 @@
-import 'package:crm_project/controller/address_screen_controller.dart';
+import 'dart:developer';
+
+import 'package:crm_project/controller/company_address_list_screen_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../common_modules/common_textfield.dart';
@@ -10,25 +11,31 @@ import '../../../constants/colors.dart';
 import '../../../utils/messaging.dart';
 
 class AddressSearchWidget extends StatelessWidget {
- AddressSearchWidget({Key? key}) : super(key: key);
- final addressScreenController = Get.find<AddressScreenController>();
+  AddressSearchWidget({Key? key}) : super(key: key);
+  final companyAddressListScreenController =
+      Get.find<CompanyAddressListScreenController>();
+
   @override
   Widget build(BuildContext context) {
     return TextFieldModule(
-        fieldController:
-        addressScreenController.searchTextFieldController,
-        hintText: 'Search...',
-        onChange: (text) {
-          print(text.toString());
-        },
-        backgroundColor: AppColors.whiteColor,
-        icon: const Icon(Icons.search).paddingOnly(left: 5, right: 5),
-        keyboardType: TextInputType.text).paddingOnly(top: 20, bottom: 5);
+            fieldController:
+                companyAddressListScreenController.searchTextFieldController,
+            hintText: 'Search...',
+            onChange: (text) {
+              log(text.toString());
+            },
+            backgroundColor: AppColors.whiteColor,
+            icon: const Icon(Icons.search).paddingOnly(left: 5, right: 5),
+            keyboardType: TextInputType.text)
+        .paddingOnly(top: 20, bottom: 5);
   }
 }
+
 class AddressListWidget extends StatelessWidget {
   AddressListWidget({Key? key}) : super(key: key);
-  final addressScreenController = Get.find<AddressScreenController>();
+  final companyAddressListScreenController =
+      Get.find<CompanyAddressListScreenController>();
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -59,15 +66,14 @@ class AddressListWidget extends StatelessWidget {
                     size: 4.w,
                     color: AppColors.appColors,
                   ),
-                  SizedBox(
-                    width: 5,
-                  ),
+                  const SizedBox(width: 5),
                   Text(
                     AppMessage.export,
                     style: TextStyle(
-                        color: AppColors.appColors,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 10.sp),
+                      color: AppColors.appColors,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 10.sp,
+                    ),
                   )
                 ],
               ).paddingAll(4),
@@ -75,14 +81,15 @@ class AddressListWidget extends StatelessWidget {
           ],
         ).paddingOnly(top: 8),
         const CustomDivider(),
-        
         Container(
           width: Get.width,
-          decoration: BoxDecoration( color: AppColors.appColors.withOpacity(0.1),borderRadius: BorderRadius.circular(5)),
-          child: Row(children: [
-
-
-        ],).paddingAll(10),)
+          decoration: BoxDecoration(
+              color: AppColors.appColors.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(5)),
+          child: Row(
+            children: [],
+          ).paddingAll(10),
+        )
       ],
     );
   }

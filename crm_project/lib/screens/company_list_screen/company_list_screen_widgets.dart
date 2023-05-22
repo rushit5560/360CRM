@@ -7,7 +7,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-
 import '../../common_modules/common_textfield.dart';
 // import '../../common_modules/divider.dart';
 import '../../constants/colors.dart';
