@@ -25,6 +25,11 @@ class AppMessage {
   static String companyAddress = 'Company Address';
   static String addressList = 'Address List';
 
+  static String dateAdded = 'Date Added';
+static const String notesList = "Notes List";
+  static const String notesDetails = "Notes Details";
+  static const String addNotes = "Add Notes";
+
 
 
 //token

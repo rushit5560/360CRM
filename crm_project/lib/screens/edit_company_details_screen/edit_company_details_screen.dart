@@ -64,7 +64,7 @@ class EditCompanyDetailsScreen extends StatelessWidget {
                 titleText: AppMessage.notes,
                 ontap: () {
                   Get.to(()=> NotesListScreen(),
-                    // arguments: [editCompanyDetailsScreenController.com],
+                    arguments: [editCompanyDetailsScreenController.companyId.toString()],
                   );
                 },
               ),
