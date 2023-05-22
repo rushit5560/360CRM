@@ -14,7 +14,6 @@ class TextFieldModule extends StatelessWidget {
   final bool readOnly;
   final Color? backgroundColor;
   final Function(String)? onChange;
-
   // FormFieldValidator? validate;
 
   const TextFieldModule(

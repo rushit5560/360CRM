@@ -26,7 +26,11 @@ class SearchBarWidget extends StatelessWidget {
           log(text.toString());
         },
         backgroundColor: AppColors.whiteColor,
-        icon: const Icon(Icons.search).paddingOnly(left: 5, right: 5),
+        icon: GestureDetector(
+            onTap: (){
+              print('Search... '+ companyListScreenController.searchTextFieldController.text.toString());
+            },
+            child: const Icon(Icons.search).paddingOnly(left: 5, right: 5)),
         keyboardType: TextInputType.text);
   }
 }
@@ -63,14 +67,14 @@ class CompanyListWidget extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('Inford demo.pvt.ltd',
+                                Text(companyListScreenController.companyList[i].companyName,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                         fontSize: 17.sp,
                                         fontWeight: FontWeight.bold,
                                         color: AppColors.blackColor)),
-                                Text('${AppMessage.type}: adviser',
+                                Text('${AppMessage.type}: ${companyListScreenController.companyList[1].companyType}',
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
@@ -92,7 +96,11 @@ class CompanyListWidget extends StatelessWidget {
                                   InkWell(
                                     onTap: () {
                                       Get.to(() => EditCompanyDetailsScreen(),
-                                          arguments: ['Inford demo.pvt.ltd']);
+                                          arguments: [
+                                            companyListScreenController.companyList[i].companyName,
+                                            companyListScreenController.companyList[i].companyId,
+
+                                          ]);
                                     },
                                     child: Icon(
                                       Icons.edit_sharp,
@@ -134,18 +142,19 @@ class CompanyListWidget extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
+                         Row(
                             children: [
                               Icon(Icons.call, size: 6.w),
                               SizedBox(width: 2.w),
                               Expanded(
-                                child: Text('855 356 8546 ',
+                                child: Text( companyListScreenController.companyList[i].phone,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(fontSize: 13.sp)),
                               ),
                             ],
                           ),
+
                           Row(
                             children: [
                               Icon(
@@ -154,7 +163,7 @@ class CompanyListWidget extends StatelessWidget {
                               ),
                               SizedBox(width: 2.w),
                               Expanded(
-                                child: Text('www.360crm.com',
+                                child: Text(companyListScreenController.companyList[i].website,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(fontSize: 13.sp)),
@@ -196,7 +205,7 @@ class CompanyListWidget extends StatelessWidget {
                 ).paddingAll(10),
               ],
             ),
-          );
+          ).paddingOnly(bottom: 5);
         } else {
           return companyListScreenController.hasMore
               ? const Center(child: CircularProgressIndicator())

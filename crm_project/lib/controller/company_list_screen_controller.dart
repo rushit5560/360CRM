@@ -13,7 +13,7 @@ import '../models/company_list_screen_models/company_list_model.dart';
 class CompanyListScreenController extends GetxController{
 
   RxBool isLoading = false.obs;
-  RxBool isSuccessStatus = false.obs;
+  RxInt isSuccessStatusCode = 0.obs;
   RxInt successStatusCode = 0.obs;
 
   RxBool isCompanyStatus = false.obs;
@@ -29,6 +29,10 @@ class CompanyListScreenController extends GetxController{
   int itemCount = 10;
 
 
+//get Company List by search
+  Future<void> searchCompanyListFunction()async{
+
+  }
 
 
   // get Company List Function
@@ -48,10 +52,10 @@ class CompanyListScreenController extends GetxController{
 
         // log('response : ${jsonEncode(response.data)}');
         CompanyListModel companyListModel = CompanyListModel.fromJson(response.data);
-        isSuccessStatus.value = companyListModel.data.succeeded;
+        isSuccessStatusCode.value = companyListModel.statusCode;
         // successStatusCode.value =
 
-        if(isSuccessStatus.value){
+        if(isSuccessStatusCode.value == 200){
           // companyList.clear();
           companyList.addAll(companyListModel.data.data);
           log('companyList Length : ${companyList.length}');
