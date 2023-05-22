@@ -155,24 +155,24 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
 
                     ),
 
-                    // Container(
-                    //   decoration: BoxDecoration(
-                    //       borderRadius: BorderRadius.circular(5),
-                    //       border:
-                    //           Border.all(width: 1, color: AppColors.appColors)),
-                    //   child: FlutterDropdownSearch(
-                    //     hintText: 'Company Type',
-                    //     hintStyle: TextStyle(color: AppColors.appColors),
-                    //     suffixIcon: Icons.arrow_drop_down_rounded,
-                    //     textFieldBorder:
-                    //         OutlineInputBorder(borderSide: BorderSide.none,),
-                    //     textController: manageCompanyDetailsScreenController
-                    //         .companyTypeTextField,
-                    //     items: manageCompanyDetailsScreenController
-                    //         .companyTypeListDropDown,
-                    //     dropdownHeight: Get.height*.5,
-                    //   ).paddingOnly(left: 5),
-                    // ),
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          border:
+                              Border.all(width: 1, color: AppColors.appColors)),
+                      child: FlutterDropdownSearch(
+                        hintText: 'Company Type',
+                        hintStyle: TextStyle(color: AppColors.appColors),
+                        suffixIcon: Icons.arrow_drop_down_rounded,
+                        textFieldBorder:
+                            OutlineInputBorder(borderSide: BorderSide.none,),
+                        textController: manageCompanyDetailsScreenController
+                            .companyTypeTextField,
+                        items: manageCompanyDetailsScreenController
+                            .companyTypeListDropDown,
+                        dropdownHeight: Get.height*.5,
+                      ).paddingOnly(left: 5),
+                    ),
 
                     const SizedBox(
                       height: 10,

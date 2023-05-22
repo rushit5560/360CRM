@@ -11,7 +11,7 @@ import '../models/company_list_screen_models/company_list_model.dart';
 
 class CompanyListScreenController extends GetxController {
   RxBool isLoading = false.obs;
-  RxBool isSuccessStatus = false.obs;
+  RxInt isSuccessStatusCode = 0.obs;
   RxInt successStatusCode = 0.obs;
 
   RxBool isCompanyStatus = false.obs;
@@ -27,28 +27,28 @@ class CompanyListScreenController extends GetxController {
   int pageIndex = 1;
   int itemCount = 10;
 
+
   // get Company List Function
   Future<void> getCompanyListFunction() async {
     // isLoading(true);
-    if (hasMore == true) {
-      String url =
-          "${ApiUrl.allCompanyListApi}?PageNumber=$pageIndex&PageSize=$itemCount&CustomerId=${AppMessage.customerId}";
+    if(hasMore == true) {
+      String url = "${ApiUrl.allCompanyListApi}?PageNumber=$pageIndex&PageSize=$itemCount&CustomerId=${AppMessage.customerId}";
       log('Get Company Api Url : $url');
 
       try {
         final response = await dioRequest.get(
           url,
           options: dio.Options(
-              headers: {"Authorization": "Bearer ${AppMessage.token}"}),
+            headers: {"Authorization": "Bearer ${AppMessage.token}"}
+          ),
         );
 
         // log('response : ${jsonEncode(response.data)}');
-        CompanyListModel companyListModel =
-            CompanyListModel.fromJson(response.data);
-        isSuccessStatus.value = companyListModel.data.succeeded;
+        CompanyListModel companyListModel = CompanyListModel.fromJson(response.data);
+        isSuccessStatusCode.value = companyListModel.statusCode;
         // successStatusCode.value =
 
-        if (isSuccessStatus.value) {
+        if(isSuccessStatusCode.value == 200){
           // companyList.clear();
           companyList.addAll(companyListModel.data.data);
           log('companyList Length : ${companyList.length}');
@@ -56,17 +56,17 @@ class CompanyListScreenController extends GetxController {
           if (companyListModel.data.data.length < 10) {
             hasMore = false;
           }
-        } else {
+
+        }
+        else{
           log('Get Company Error Message :${companyListModel.data.message}');
         }
-      } catch (e) {
-        log('Get Company Function Error :$e');
-        if (e is dio.DioError) {
-          log('${dio.DioError}');
-        }
-        // isLoading(false);
-        // rethrow;
+
       }
+      catch(e) {
+        log('Get Company Function Error :$e');
+      }
+
 
       loadUI();
     } else {

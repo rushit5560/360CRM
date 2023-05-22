@@ -24,73 +24,70 @@ class CompanyListScreen extends StatelessWidget {
           leadingShow: false,
           actionShow: false),
       body: Obx(
-        ()=> companyListScreenController.isLoading.value
-          ? const Center(child: CircularProgressIndicator())
-        : SafeArea(
-          child: Column(
-            children: [
-              SearchBarWidget().paddingOnly(top: 20, bottom: 5),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Text(
-                      AppMessage.companyList,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                          color: AppColors.appColors,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15.sp),
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(1.w),
-                        border: Border.all(color: AppColors.appColors, width: 1)),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
+        () => companyListScreenController.isLoading.value
+            ? const Center(child: CircularProgressIndicator())
+            : SafeArea(
+                child: Column(
+                  children: [
+                    SearchBarWidget().paddingOnly(top: 20, bottom: 5),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Icon(
-                          Icons.file_download,
-                          size: 4.w,
-                          color: AppColors.appColors,
+                        Expanded(
+                          child: Text(
+                            AppMessage.companyList,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                color: AppColors.appColors,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15.sp),
+                          ),
                         ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          AppMessage.export,
-                          style: TextStyle(
-                              color: AppColors.appColors,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 10.sp),
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(1.w),
+                              border: Border.all(
+                                  color: AppColors.appColors, width: 1)),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.file_download,
+                                size: 4.w,
+                                color: AppColors.appColors,
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                AppMessage.export,
+                                style: TextStyle(
+                                    color: AppColors.appColors,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 10.sp),
+                              )
+                            ],
+                          ).paddingAll(4),
                         )
                       ],
-                    ).paddingAll(4),
-                  )
-                ],
-              ).paddingOnly(top: 8),
-              const CustomDivider(),
-              Expanded(child: CompanyListWidget()),
-            ],
-          ).paddingOnly(left: 10, right: 10),
-        ),
+                    ).paddingOnly(top: 8),
+                    const CustomDivider(),
+                    Expanded(child: CompanyListWidget()),
+                  ],
+                ).paddingOnly(left: 10, right: 10),
+              ),
       ),
-
       floatingActionButton: FloatingActionButton(
         heroTag: 'a',
         onPressed: () {
           Get.to(() => ManageCompanyDetailsScreen(),
-              arguments: [
-                CompanyOption.create,
-                'Add Company'],
+              arguments: [CompanyOption.create, 'Add Company', 0],
               transition: Transition.zoom);
         },
         backgroundColor: AppColors.appColors,
         child: const Icon(Icons.add),
       ),
-
     );
   }
 }
