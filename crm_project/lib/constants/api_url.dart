@@ -2,6 +2,8 @@ class ApiUrl {
   static String database = "http://5.189.147.159:7003/";
   static String baseUrl = "http://5.189.147.159:7003/api";
 
+  //company Type List
+  static String companyTypeList = '$baseUrl/CompanyType/GetAllActiveCompanyType?customerId=';
 
   // Company Api
   static String companyDetailsGetApi = "$baseUrl/Company/GetById?CompanyId=";

@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:animated_custom_dropdown/custom_dropdown.dart';
+// import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:crm_project/common_modules/common_textfield.dart';
 import 'package:crm_project/constants/colors.dart';
 import 'package:crm_project/constants/extension.dart';
@@ -152,21 +152,58 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                     const SizedBox(
                       height: 5,
                     ),
-                    CustomDropdown.search(
-                      listItemStyle: const TextStyle(),
-                      hintText: 'Company Type',
-                      controller: manageCompanyDetailsScreenController
-                          .companyTypeTextField,
-                      items: manageCompanyDetailsScreenController
-                          .companyTypeListDropDown,
-                      borderRadius: BorderRadius.circular(5),
-                      borderSide: const BorderSide(
-                          color: AppColors.appColors, width: 1),
-                      onChanged: (val) {
-                        log(manageCompanyDetailsScreenController
-                            .companyTypeTextField.text);
-                      },
+
+                    Obx(
+                          () => Container(
+                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(5),
+                            border: Border.all(color: AppColors.appColors,width: 1)),
+                            child: manageCompanyDetailsScreenController.isLoading.value
+                            ? Container()
+                            : DropdownButtonHideUnderline(
+                        child: DropdownButton(
+                            hint: Text(manageCompanyDetailsScreenController.companyTypeSelect.value,style: const TextStyle(color: AppColors.appColors),),
+                            // Not necessary for Option 1
+                            onChanged: (newValue) {
+                              manageCompanyDetailsScreenController.companyTypeSelect.value =
+                              newValue!.companyTypes.toString();
+                              // homeScreenController.loadUI();
+                              log('new Company Type :  ${manageCompanyDetailsScreenController.companyTypeSelect.value}');
+                            },
+                            items: manageCompanyDetailsScreenController.companyTypeListDropDown
+                                .map((location) {
+                              return DropdownMenuItem(
+                                value: location,
+                                child:  Text(location.companyTypes),
+                              );
+                            }).toList(),
+                        ),
+                      ).paddingOnly(left: 8,right: 8),
+                          ),
+                    ).paddingOnly(left: 5,right: 5,bottom: 10),
+                    Text(
+                      "Active",
+                      style: TextStyle(fontSize: 9.sp),
                     ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    
+
+                    // CustomDropdown.search(
+                    //   listItemStyle: const TextStyle(),
+                    //   hintText: 'Company Type',
+                    //   controller: manageCompanyDetailsScreenController
+                    //       .companyTypeTextField,
+                    //   items: manageCompanyDetailsScreenController
+                    //       .companyTypeListDropDown,
+                    //   borderRadius: BorderRadius.circular(5),
+                    //   borderSide: const BorderSide(
+                    //       color: AppColors.appColors, width: 1),
+                    //   onChanged: (val) {
+                    //     log(manageCompanyDetailsScreenController
+                    //         .companyTypeTextField.text);
+                    //   },
+                    // ),
 
                     // Container(
                     //   decoration: BoxDecoration(

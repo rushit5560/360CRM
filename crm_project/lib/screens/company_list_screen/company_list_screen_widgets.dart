@@ -73,7 +73,7 @@ class CompanyListWidget extends StatelessWidget {
                                         fontSize: 17.sp,
                                         fontWeight: FontWeight.bold,
                                         color: AppColors.blackColor)),
-                                Text('${AppMessage.type}: ${companyListScreenController.companyList[1].companyType}',
+                                Text('${AppMessage.type}: ${companyListScreenController.companyList[i].companyType.companyTypes}',
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
@@ -179,14 +179,13 @@ class CompanyListWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Obx(
-                                  () => Transform.scale(
+                                  () => companyListScreenController.isLoading.value ? Container():Transform.scale(
                                 alignment: AlignmentDirectional.centerEnd,
                                 scale: 0.8,
                                 child: CupertinoSwitch(
                                   activeColor: AppColors.appColors,
                                   trackColor: AppColors.appColorsSecondry,
-                                  value: companyListScreenController
-                                      .isCompanyStatus.value,
+                                  value: companyListScreenController.companyList[i].isActive,
                                   onChanged: (value) =>
                                   companyListScreenController
                                       .isCompanyStatus.value = value,
