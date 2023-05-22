@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:crm_project/constants/api_url.dart';
@@ -7,21 +8,25 @@ import 'package:get/get.dart';
 
 import 'package:dio/dio.dart' as dio;
 
+import '../models/company_list_screen_models/company_list_model.dart';
+
 class CompanyListScreenController extends GetxController{
 
   RxBool isLoading = false.obs;
   RxBool isSuccessStatus = false.obs;
+  RxInt successStatusCode = 0.obs;
 
   RxBool isCompanyStatus = false.obs;
   final searchTextFieldController = TextEditingController();
 
   final dioRequest = dio.Dio();
-  List companyList = [];
+  List<CompanyData> companyList = [];
+  // List companyList = [];
 
   final ScrollController scrollController = ScrollController();
   bool hasMore = true;
   int pageIndex = 1;
-  int itemCount = 15;
+  int itemCount = 10;
 
 
 
@@ -41,14 +46,23 @@ class CompanyListScreenController extends GetxController{
           ),
         );
 
-        log('response : ${response.data}');
+        // log('response : ${jsonEncode(response.data)}');
+        CompanyListModel companyListModel = CompanyListModel.fromJson(response.data);
+        isSuccessStatus.value = companyListModel.data.succeeded;
+        // successStatusCode.value =
 
-        if(response.statusCode == 200){
-          
-          isLoading.value = false;
+        if(isSuccessStatus.value){
+          // companyList.clear();
+          companyList.addAll(companyListModel.data.data);
+          log('companyList Length : ${companyList.length}');
+
+          if (companyListModel.data.data.length < 10) {
+            hasMore = false;
+          }
+
         }
         else{
-          isLoading.value = true;
+          log('Get Company Error Message :${companyListModel.data.message}');
         }
 
       }
@@ -56,9 +70,13 @@ class CompanyListScreenController extends GetxController{
         log('Get Company Function Error :$e');
       }
 
+
+      loadUI();
     } else {
       isLoading(false);
     }
+
+    isLoading(false);
   }
 
 
@@ -84,6 +102,11 @@ class CompanyListScreenController extends GetxController{
         await getCompanyListFunction();
       }
     });
+  }
+
+  loadUI() {
+    isLoading(true);
+    isLoading(false);
   }
 
 }
