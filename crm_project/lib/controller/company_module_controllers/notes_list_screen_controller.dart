@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:dio/dio.dart' as dio;
 import '../../constants/api_url.dart';
 import '../../models/notes_manage_screen_models/notes_list_model.dart';
-import '../../models/notes_manage_screen_models/success_model.dart';
+import '../../models/success_model/success_model.dart';
 import '../../utils/messaging.dart';
 
 class NotesListScreenController extends GetxController {

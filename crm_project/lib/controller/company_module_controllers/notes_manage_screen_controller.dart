@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:crm_project/constants/api_url.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,6 +18,20 @@ class NotesManageScreenController extends GetxController {
   changeStatusFunction() {
     isStatusSelected.value = !isStatusSelected.value;
     loadUI();
+  }
+
+  // Create Notes Function
+  Future<void> createNotesFunction() async {
+    isLoading(true);
+    String url = ApiUrl.companyNotesAddApi;
+    log('Create Notes Api Url :$url');
+
+    try {
+
+    } catch(e) {
+
+    }
+    isLoading(false);
   }
 
   loadUI() {
