@@ -6,13 +6,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-
 import '../../../../common_modules/common_textfield.dart';
 import '../../../../common_widgets/custom_appbar.dart';
 import '../../../../constants/colors.dart';
 import '../../../../controller/company_module_controllers/notes_manage_screen_controller.dart';
-import '../../../../utils/messaging.dart';
 import '../../../../utils/validator.dart';
+
 
 class NotesManageScreen extends StatelessWidget {
   NotesManageScreen({Key? key}) : super(key: key);
@@ -24,9 +23,7 @@ class NotesManageScreen extends StatelessWidget {
       backgroundColor: AppColors.appColorsSecondry,
       appBar: CustomAppBar(
           actionShow: false, leadingShow: false,
-          titleText: notesManageScreenController.notesOption == NotesOption.create
-              ? AppMessage.addNotes
-              : AppMessage.notesDetails,
+          titleText: notesManageScreenController.appBarHeader.value,
       ),
 
 
@@ -58,10 +55,24 @@ class NotesManageScreen extends StatelessWidget {
                       Expanded(
                         child: Align(
                           alignment: Alignment.centerLeft,
-                          child: Obx(
-                            () => /*notesManageScreenController.isLoading.value
+                          child: Transform.scale(
+                            alignment: AlignmentDirectional.centerEnd,
+                            scale: 0.8,
+                            child: CupertinoSwitch(
+                              activeColor: AppColors.appColors,
+                              trackColor: AppColors.appColorsSecondry,
+                              value: notesManageScreenController
+                                  .isStatusSelected.value,
+                              onChanged: (value) {
+                                notesManageScreenController
+                                    .changeStatusFunction();
+                              },
+                            ),
+                          ),
+                          /*child: Obx(
+                            () => *//*notesManageScreenController.isLoading.value
                                 ? Container()
-                                : */Transform.scale(
+                                : *//*Transform.scale(
                                     alignment: AlignmentDirectional.centerEnd,
                                     scale: 0.8,
                                     child: CupertinoSwitch(
@@ -75,7 +86,7 @@ class NotesManageScreen extends StatelessWidget {
                                       },
                                     ),
                                   ),
-                          ),
+                          ),*/
                         ),
                       ),
 
@@ -90,10 +101,15 @@ class NotesManageScreen extends StatelessWidget {
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: AppColors.appColors),
-                            onPressed: () {
+                            onPressed: () async {
+                              if(notesManageScreenController.notesOption == NotesOption.create) {
+                                await notesManageScreenController.createNotesFunction();
+                              } else {
+                                await notesManageScreenController.updateNotesFunction();
+                              }
                               // log("${notesManageScreenController.companyTypeTextField.text}");
                             },
-                            child: const Text('Add'))),
+                            child: Text(notesManageScreenController.notesOption == NotesOption.create ?'Add' : 'Submit'))),
                   ),
                 ],
               ).paddingAll(10),

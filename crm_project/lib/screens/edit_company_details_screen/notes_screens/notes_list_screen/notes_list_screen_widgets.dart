@@ -52,8 +52,16 @@ class NotesListWidget extends StatelessWidget {
                              arguments: [
                                NotesOption.update,
                                notesListScreenController.notesList[i].noteId.toString(),
+                               notesListScreenController.companyId.toString(),
                              ],
-                         );
+                         )!.then((value) async {
+                           notesListScreenController.isLoading(true);
+                           notesListScreenController.hasMore = true;
+                           notesListScreenController.pageIndex = 1;
+                           notesListScreenController.notesList.clear();
+                           await notesListScreenController.getNotesFunction();
+
+                         });
                        },
                        child: Icon(
                          Icons.edit_sharp,

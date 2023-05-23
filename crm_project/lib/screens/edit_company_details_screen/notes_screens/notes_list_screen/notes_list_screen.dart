@@ -89,8 +89,19 @@ class NotesListScreen extends StatelessWidget {
         heroTag: 'a',
         onPressed: () {
           Get.to(() => NotesManageScreen(),
-              arguments: [NotesOption.create, ""],
-              transition: Transition.zoom);
+                  arguments: [
+                    NotesOption.create,
+                    "",
+                    notesListScreenController.companyId.toString(),
+                  ],
+                  transition: Transition.zoom)!.then((value) async {
+                notesListScreenController.isLoading(true);
+                notesListScreenController.hasMore = true;
+                notesListScreenController.pageIndex = 1;
+                notesListScreenController.notesList.clear();
+                await notesListScreenController.getNotesFunction();
+
+          });
         },
         backgroundColor: AppColors.appColors,
         child: const Icon(Icons.add),

@@ -12,6 +12,7 @@ import '../../utils/messaging.dart';
 
 class NotesListScreenController extends GetxController {
   String companyId = Get.arguments[0];
+
   RxBool isLoading = false.obs;
   RxInt isSuccessStatusCode = 0.obs;
 
@@ -102,6 +103,8 @@ class NotesListScreenController extends GetxController {
 
     isLoading(false);
   }
+
+  
 
   @override
   void onInit() {
