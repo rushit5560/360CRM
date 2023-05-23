@@ -4,22 +4,22 @@
 
 import 'dart:convert';
 
-CompanyAddressFilterModel companyAddressFilterModelFromJson(String str) =>
-    CompanyAddressFilterModel.fromJson(json.decode(str));
+AddressFilterModel companyAddressFilterModelFromJson(String str) =>
+    AddressFilterModel.fromJson(json.decode(str));
 
 // String companyAddressFilterModelToJson(CompanyAddressFilterModel data) => json.encode(data.toJson());
 
-class CompanyAddressFilterModel {
+class AddressFilterModel {
   int statusCode;
   Data data;
 
-  CompanyAddressFilterModel({
+  AddressFilterModel({
     required this.statusCode,
     required this.data,
   });
 
-  factory CompanyAddressFilterModel.fromJson(Map<String, dynamic> json) =>
-      CompanyAddressFilterModel(
+  factory AddressFilterModel.fromJson(Map<String, dynamic> json) =>
+      AddressFilterModel(
         statusCode: json["statusCode"],
         data: Data.fromJson(json["data"] ?? {}),
       );
