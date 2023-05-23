@@ -60,7 +60,17 @@ class NotesListScreenController extends GetxController {
 
 
       } catch (e) {
-        log('Get Notes Function Error :$e');
+        log("catch");
+        if (e is dio.DioError && e.response != null) {
+          final response = e.response;
+          final statusCode = response!.statusCode;
+          log("statusCode $statusCode");
+          if (statusCode == 400) {
+            log("no data found");
+            isLoading(false);
+          }
+        }
+        // log('Get Notes Function Error :$e');
         rethrow;
       }
       loadUI();
@@ -104,7 +114,46 @@ class NotesListScreenController extends GetxController {
     isLoading(false);
   }
 
-  
+  // Delete Note Function
+  Future<void> deleteNoteFunction({required String noteId, required int index}) async {
+    isLoading(true);
+    String url = ApiUrl.companyNotesDeleteApi;
+    log('Delete Note Api Url : $url');
+
+    try {
+      Map<String, dynamic> bodyData = {
+        "NoteID": noteId,
+        "IsDeleted" : true
+      };
+
+      final response = await dioRequest.put(
+        url,
+        data: bodyData,
+        options: dio.Options(
+            headers: {"Authorization": "Bearer ${AppMessage.token}"}
+        ),
+      );
+      log('Delete Notes Api Response : ${jsonEncode(response.data)}');
+
+      SuccessModel successModel = SuccessModel.fromJson(response.data);
+      isSuccessStatusCode.value == successModel.statusCode;
+
+      if(isSuccessStatusCode.value == 200) {
+        Fluttertoast.showToast(msg: successModel.message);
+        notesList.removeAt(index);
+
+
+      } else {
+        log('Delete Note Else');
+      }
+
+
+    } catch(e) {
+      log('Delete Note Error :$e');
+    }
+    isLoading(false);
+
+  }
 
   @override
   void onInit() {
