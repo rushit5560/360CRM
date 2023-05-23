@@ -60,9 +60,8 @@ class NotesListScreen extends StatelessWidget {
                               size: 4.w,
                               color: AppColors.appColors,
                             ),
-                            const SizedBox(
-                              width: 5,
-                            ),
+                            const SizedBox(width: 5),
+
                             Text(
                               AppMessage.export,
                               style: TextStyle(
