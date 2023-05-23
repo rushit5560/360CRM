@@ -28,7 +28,7 @@ class CompanyListScreenController extends GetxController {
   int itemCount = 10;
 
 
-  // get Company List Function
+// get Company List Function
   Future<void> getCompanyListFunction() async {
     // isLoading(true);
     if(hasMore == true) {
@@ -75,6 +75,11 @@ class CompanyListScreenController extends GetxController {
 
     isLoading(false);
   }
+//delete Company
+Future<void> deleteCompanyFunction()async{
+
+}
+
 
   @override
   void onInit() {

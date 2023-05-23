@@ -1,9 +1,11 @@
 import 'dart:developer';
 
 // import 'package:animated_custom_dropdown/custom_dropdown.dart';
+import 'package:crm_project/common_modules/common_loader.dart';
 import 'package:crm_project/common_modules/common_textfield.dart';
 import 'package:crm_project/constants/colors.dart';
 import 'package:crm_project/constants/extension.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
@@ -146,7 +148,7 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                             FieldValidation().validateEmail(value)),
                     const SizedBox(height: 10),
                     Text(
-                      'Company Type',
+                      'Select company Type',
                       style: TextStyle(fontSize: 9.sp),
                     ),
                     const SizedBox(
@@ -154,40 +156,47 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                     ),
 
                     Obx(
-                          () => Container(
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: AppColors.appColors,width: 1)),
-                            child: manageCompanyDetailsScreenController.isLoading.value
+                      () => Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(
+                                color: AppColors.appColors, width: 1)),
+                        child: manageCompanyDetailsScreenController
+                                .isLoading.value
                             ? Container()
                             : DropdownButtonHideUnderline(
-                        child: DropdownButton(
-                            hint: Text(manageCompanyDetailsScreenController.companyTypeSelect.value,style: const TextStyle(color: AppColors.appColors),),
-                            // Not necessary for Option 1
-                            onChanged: (newValue) {
-                              manageCompanyDetailsScreenController.companyTypeSelect.value =
-                              newValue!.companyTypes.toString();
-                              // homeScreenController.loadUI();
-                              log('new Company Type :  ${manageCompanyDetailsScreenController.companyTypeSelect.value}');
-                            },
-                            items: manageCompanyDetailsScreenController.companyTypeListDropDown
-                                .map((location) {
-                              return DropdownMenuItem(
-                                value: location,
-                                child:  Text(location.companyTypes),
-                              );
-                            }).toList(),
-                        ),
-                      ).paddingOnly(left: 8,right: 8),
-                          ),
-                    ).paddingOnly(left: 5,right: 5,bottom: 10),
+                                child: DropdownButton(
+                                  hint: Text(
+                                    manageCompanyDetailsScreenController
+                                        .companyTypeSelect.value,
+                                    style: const TextStyle(
+                                        color: AppColors.appColors),
+                                  ),
+                                  // Not necessary for Option 1
+                                  onChanged: (newValue) async {
+                                    manageCompanyDetailsScreenController
+                                            .companyTypeSelect.value =
+                                        newValue!.companyTypes.toString();
+                                    manageCompanyDetailsScreenController
+                                        .companyTypeIdFindFunction();
+                                    log('new Company Type :  ${manageCompanyDetailsScreenController.companyTypeSelect.value}');
+                                  },
+                                  items: manageCompanyDetailsScreenController
+                                      .companyTypeListDropDown
+                                      .map((location) {
+                                    return DropdownMenuItem(
+                                      value: location,
+                                      child: Text(location.companyTypes),
+                                    );
+                                  }).toList(),
+                                ),
+                              ).paddingOnly(left: 8, right: 8),
+                      ),
+                    ).paddingOnly(left: 5, right: 5, bottom: 10),
                     Text(
                       "Active",
                       style: TextStyle(fontSize: 9.sp),
                     ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    
 
                     // CustomDropdown.search(
                     //   listItemStyle: const TextStyle(),
@@ -227,18 +236,50 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    Align(
-                      alignment: AlignmentDirectional.centerEnd,
-                      child: SizedBox(
-                          height: 5.5.h,
-                          child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: AppColors.appColors),
-                              onPressed: () {
-                                log(manageCompanyDetailsScreenController
-                                    .companyTypeTextField.text);
-                              },
-                              child: const Text('Submit'))),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Obx(
+                          () => manageCompanyDetailsScreenController
+                                  .isLoading.value
+                              ? Container()
+                              : Transform.scale(
+                                  alignment: AlignmentDirectional.centerStart,
+                                  scale: 0.8,
+                                  child: CupertinoSwitch(
+                                    activeColor: AppColors.appColors,
+                                    trackColor: AppColors.appColorsSecondry,
+                                    value: manageCompanyDetailsScreenController
+                                        .isCompanyStatus.value,
+                                    onChanged: (value) async {
+                                      manageCompanyDetailsScreenController
+                                          .isCompanyStatus.value = value;
+                                    },
+                                  ),
+                                ),
+                        ),
+                        SizedBox(
+                            height: 5.5.h,
+                            child: Obx(
+                              () => ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: AppColors.appColors),
+                                  onPressed: () {
+                                    CompanyOption.update ==
+                                            manageCompanyDetailsScreenController
+                                                .companyOption
+                                        ? manageCompanyDetailsScreenController
+                                            .updateCompanyDetails()
+                                        : manageCompanyDetailsScreenController
+                                            .addCompanyDetails();
+                                  },
+                                  child: manageCompanyDetailsScreenController
+                                          .isLoading.value
+                                      ? CommonLoader().showLoader()
+                                      :  CompanyOption.update ==
+                                      manageCompanyDetailsScreenController.companyOption? const Text('Update'): const Text('Submit')),
+                            )),
+                      ],
                     )
                   ],
                 ).paddingAll(10),
