@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-class CompanyAddressListScreenController extends GetxController{
+class AddressListScreenController extends GetxController{
 
   final searchTextFieldController = TextEditingController();
 

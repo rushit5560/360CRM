@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:crm_project/controller/company_address_list_screen_controller.dart';
+import 'package:crm_project/controller/company_module_controllers/address_list_screen_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
@@ -12,14 +12,14 @@ import '../../../utils/messaging.dart';
 
 class AddressSearchWidget extends StatelessWidget {
   AddressSearchWidget({Key? key}) : super(key: key);
-  final companyAddressListScreenController =
-      Get.find<CompanyAddressListScreenController>();
+  final addressListScreenController =
+      Get.find<AddressListScreenController>();
 
   @override
   Widget build(BuildContext context) {
     return TextFieldModule(
             fieldController:
-                companyAddressListScreenController.searchTextFieldController,
+            addressListScreenController.searchTextFieldController,
             hintText: 'Search...',
             onChange: (text) {
               log(text.toString());
@@ -33,8 +33,8 @@ class AddressSearchWidget extends StatelessWidget {
 
 class AddressListWidget extends StatelessWidget {
   AddressListWidget({Key? key}) : super(key: key);
-  final companyAddressListScreenController =
-      Get.find<CompanyAddressListScreenController>();
+  final addressListScreenController =
+      Get.find<AddressListScreenController>();
 
   @override
   Widget build(BuildContext context) {

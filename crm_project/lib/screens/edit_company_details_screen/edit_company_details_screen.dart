@@ -10,7 +10,7 @@ import '../../utils/messaging.dart';
 import '../company_list_screen/manage_company_details_screen/manage_company_details_screen.dart';
 import 'notes_screens/notes_list_screen/notes_list_screen.dart';
 
-import 'package:crm_project/screens/edit_company_details_screen/address_screen/company_address_list_screen.dart';
+import 'package:crm_project/screens/edit_company_details_screen/address_screen/address_list_screen.dart';
 
 
 class EditCompanyDetailsScreen extends StatelessWidget {
