@@ -27,4 +27,12 @@ class ApiUrl {
   static String companyDeleteAddressApi="$baseUrl/Address/SoftDeleteAddress";
   static String companyUpdateAddressApi="$baseUrl/Address/UpdateAddress";
   static String companyAddAddressApi="$baseUrl/Address/AddAddress";
+
+  //company Attachment Api
+  static String companyAttachmentListApi="$baseUrl/Attachment/PaginationByType";
+  static String companyAttachmentDeleteApi="$baseUrl/Attachment/SoftDeleteAttachment";
+  static String companyAttachmentChangeStatusApi="$baseUrl/Attachment/ChangeStatus";
+  static String companyAttachmentAddApi="$baseUrl/Attachment/AddAttach";
+  static String companyAttachmentTypeList="$baseUrl/AttachmentType/GetAllActiveAttachmentType?customerId=";
+
 }

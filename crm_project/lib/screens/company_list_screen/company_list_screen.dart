@@ -38,16 +38,20 @@ class CompanyListScreen extends StatelessWidget {
                             AppMessage.companyList,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                                color: AppColors.appColors,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15.sp),
+                              color: AppColors.appColors,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15.sp,
+                            ),
                           ),
                         ),
                         Container(
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(1.w),
-                              border: Border.all(
-                                  color: AppColors.appColors, width: 1)),
+                            borderRadius: BorderRadius.circular(1.w),
+                            border: Border.all(
+                              color: AppColors.appColors,
+                              width: 1,
+                            ),
+                          ),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -57,15 +61,14 @@ class CompanyListScreen extends StatelessWidget {
                                 size: 4.w,
                                 color: AppColors.appColors,
                               ),
-                              const SizedBox(
-                                width: 5,
-                              ),
+                              const SizedBox(width: 5),
                               Text(
                                 AppMessage.export,
                                 style: TextStyle(
-                                    color: AppColors.appColors,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 10.sp),
+                                  color: AppColors.appColors,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 10.sp,
+                                ),
                               )
                             ],
                           ).paddingAll(4),
@@ -78,13 +81,18 @@ class CompanyListScreen extends StatelessWidget {
                 ).paddingOnly(left: 10, right: 10),
               ),
       ),
-
       floatingActionButton: FloatingActionButton(
         heroTag: 'a',
         onPressed: () {
           Get.to(() => ManageCompanyDetailsScreen(),
-              arguments: [CompanyOption.create, 'Add Company', 0],
-              transition: Transition.zoom);
+                  arguments: [CompanyOption.create, 'Add Company', 0],
+                  transition: Transition.zoom)!
+              .then((value) async {
+            companyListScreenController.companyList.clear();
+            companyListScreenController.pageIndex = 1;
+            companyListScreenController.hasMore = true;
+            await companyListScreenController.getCompanyListFunction();
+          });
         },
         backgroundColor: AppColors.appColors,
         child: const Icon(Icons.add),

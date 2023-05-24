@@ -1,4 +1,8 @@
 
+
+import 'package:crm_project/constants/colors.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 class FieldValidation {
 
   validateZip(String value) {
@@ -63,6 +67,15 @@ class FieldValidation {
     } else {
       return 'Please valid email address';
     }
+  }
+  validateDropDown(String value){
+    if (value.isEmpty || value == null) {
+      Fluttertoast.showToast(msg: 'Please select company type',backgroundColor: AppColors.redColor);
+      return null;
+    } else {
+      return null;
+    }
+
   }
 
 

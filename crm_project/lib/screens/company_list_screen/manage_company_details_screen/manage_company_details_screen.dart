@@ -7,6 +7,7 @@ import 'package:crm_project/constants/colors.dart';
 import 'package:crm_project/constants/extension.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
@@ -36,7 +37,9 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
             Container(
               width: Get.width,
               decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(8)),
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+              ),
               child: Form(
                 key: manageCompanyDetailsScreenController.addCompanyKey,
                 child: Column(
@@ -61,72 +64,77 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                       height: 20,
                     ),
                     TextFieldModule(
-                        fieldController: manageCompanyDetailsScreenController
-                            .companyNameTextField,
-                        hintText: 'Company Name',
-                        keyboardType: TextInputType.text,
-                        validate: (value) => FieldValidation()
-                            .validateEmpty(value, 'gross monthly revenue')),
+                      fieldController: manageCompanyDetailsScreenController
+                          .companyNameTextField,
+                      hintText: 'Company Name',
+                      keyboardType: TextInputType.text,
+                      validate: (value) => FieldValidation()
+                          .validateEmpty(value, 'gross monthly revenue'),
+                    ),
                     const SizedBox(
                       height: 10,
                     ),
                     TextFieldModule(
-                        fieldController:
-                            manageCompanyDetailsScreenController.phoneTextField,
-                        hintText: 'Phone',
-                        prifixIcon: Text(
-                          'US(+1)',
-                          style: TextStyle(
-                              fontSize: 12.sp, fontWeight: FontWeight.bold),
-                        ).commonOnlyPadding(right: 5),
-                        keyboardType: TextInputType.text,
-                        validate: (value) =>
-                            FieldValidation().validateMobileNumber(value)),
+                      fieldController:
+                          manageCompanyDetailsScreenController.phoneTextField,
+                      hintText: 'Phone',
+                      prifixIcon: Text(
+                        'US(+1)',
+                        style: TextStyle(
+                            fontSize: 12.sp, fontWeight: FontWeight.bold),
+                      ).commonOnlyPadding(right: 5),
+                      keyboardType: TextInputType.text,
+                      // validate: (value) =>
+                      //     FieldValidation().validateMobileNumber(value),
+                    ),
                     const SizedBox(
                       height: 10,
                     ),
                     TextFieldModule(
-                        fieldController: manageCompanyDetailsScreenController
-                            .phone2TextField,
-                        hintText: 'Phone 2',
-                        prifixIcon: Text(
-                          'US(+1)',
-                          style: TextStyle(
-                              fontSize: 12.sp, fontWeight: FontWeight.bold),
-                        ).commonOnlyPadding(right: 5),
-                        keyboardType: TextInputType.text,
-                        validate: (value) =>
-                            FieldValidation().validateMobileNumber(value)),
+                      fieldController:
+                          manageCompanyDetailsScreenController.phone2TextField,
+                      hintText: 'Phone 2',
+                      prifixIcon: Text(
+                        'US(+1)',
+                        style: TextStyle(
+                            fontSize: 12.sp, fontWeight: FontWeight.bold),
+                      ).commonOnlyPadding(right: 5),
+                      keyboardType: TextInputType.text,
+                      // validate: (value) =>
+                      //     FieldValidation().validateMobileNumber(value),
+                    ),
                     const SizedBox(
                       height: 10,
                     ),
                     TextFieldModule(
-                        fieldController:
-                            manageCompanyDetailsScreenController.faxTextField,
-                        hintText: 'Fax',
-                        prifixIcon: Text(
-                          'US(+1)',
-                          style: TextStyle(
-                              fontSize: 12.sp, fontWeight: FontWeight.bold),
-                        ).commonOnlyPadding(right: 5),
-                        keyboardType: TextInputType.text,
-                        validate: (value) =>
-                            FieldValidation().validateFaxNumber(value)),
+                      fieldController:
+                          manageCompanyDetailsScreenController.faxTextField,
+                      hintText: 'Fax',
+                      prifixIcon: Text(
+                        'US(+1)',
+                        style: TextStyle(
+                            fontSize: 12.sp, fontWeight: FontWeight.bold),
+                      ).commonOnlyPadding(right: 5),
+                      keyboardType: TextInputType.text,
+                      // validate: (value) =>
+                      //     FieldValidation().validateFaxNumber(value),
+                    ),
                     const SizedBox(
                       height: 10,
                     ),
                     TextFieldModule(
-                        fieldController:
-                            manageCompanyDetailsScreenController.fax2TextField,
-                        hintText: 'Fax 2',
-                        prifixIcon: Text(
-                          'US(+1)',
-                          style: TextStyle(
-                              fontSize: 12.sp, fontWeight: FontWeight.bold),
-                        ).commonOnlyPadding(right: 5),
-                        keyboardType: TextInputType.text,
-                        validate: (value) =>
-                            FieldValidation().validateFaxNumber(value)),
+                      fieldController:
+                          manageCompanyDetailsScreenController.fax2TextField,
+                      hintText: 'Fax 2',
+                      prifixIcon: Text(
+                        'US(+1)',
+                        style: TextStyle(
+                            fontSize: 12.sp, fontWeight: FontWeight.bold),
+                      ).commonOnlyPadding(right: 5),
+                      keyboardType: TextInputType.text,
+                      // validate: (value) =>
+                      //     FieldValidation().validateFaxNumber(value),
+                    ),
                     const SizedBox(
                       height: 10,
                     ),
@@ -140,12 +148,13 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                       height: 10,
                     ),
                     TextFieldModule(
-                        fieldController:
-                            manageCompanyDetailsScreenController.emailTextField,
-                        hintText: 'Email',
-                        keyboardType: TextInputType.text,
-                        validate: (value) =>
-                            FieldValidation().validateEmail(value)),
+                      fieldController:
+                          manageCompanyDetailsScreenController.emailTextField,
+                      hintText: 'Email',
+                      keyboardType: TextInputType.text,
+                      // validate: (value) =>
+                      //     FieldValidation().validateEmail(value),
+                    ),
                     const SizedBox(height: 10),
                     Text(
                       'Select company Type',
@@ -158,38 +167,39 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                     Obx(
                       () => Container(
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(
-                                color: AppColors.appColors, width: 1)),
+                          borderRadius: BorderRadius.circular(5),
+                          border:
+                              Border.all(color: AppColors.appColors, width: 1),
+                        ),
                         child: manageCompanyDetailsScreenController
                                 .isLoading.value
                             ? Container()
-                            : DropdownButtonHideUnderline(
-                                child: DropdownButton(
-                                  hint: Text(
-                                    manageCompanyDetailsScreenController
-                                        .companyTypeSelect.value,
-                                    style: const TextStyle(
-                                        color: AppColors.appColors),
-                                  ),
-                                  // Not necessary for Option 1
-                                  onChanged: (newValue) async {
-                                    manageCompanyDetailsScreenController
-                                            .companyTypeSelect.value =
-                                        newValue!.companyTypes.toString();
-                                    manageCompanyDetailsScreenController
-                                        .companyTypeIdFindFunction();
-                                    log('new Company Type :  ${manageCompanyDetailsScreenController.companyTypeSelect.value}');
-                                  },
-                                  items: manageCompanyDetailsScreenController
-                                      .companyTypeListDropDown
-                                      .map((location) {
-                                    return DropdownMenuItem(
-                                      value: location,
-                                      child: Text(location.companyTypes),
-                                    );
-                                  }).toList(),
+                            : DropdownButtonFormField(
+                                decoration:
+                                   const InputDecoration(border: InputBorder.none),
+                                hint: Text(
+                                  manageCompanyDetailsScreenController
+                                      .companyTypeSelect.value,
+                                  style: const TextStyle(
+                                      color: AppColors.appColors),
                                 ),
+                                // Not necessary for Option 1
+                                onChanged: (newValue) async {
+                                  manageCompanyDetailsScreenController
+                                          .companyTypeSelect.value =
+                                      newValue!.companyTypes.toString();
+                                  manageCompanyDetailsScreenController
+                                      .companyTypeIdFindFunction();
+                                  log('new Company Type :  ${manageCompanyDetailsScreenController.companyTypeSelect.value}');
+                                },
+                                items: manageCompanyDetailsScreenController
+                                    .companyTypeListDropDown
+                                    .map((location) {
+                                  return DropdownMenuItem(
+                                    value: location,
+                                    child: Text(location.companyTypes),
+                                  );
+                                }).toList(),
                               ).paddingOnly(left: 8, right: 8),
                       ),
                     ).paddingOnly(left: 5, right: 5, bottom: 10),
@@ -265,19 +275,30 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                                   style: ElevatedButton.styleFrom(
                                       backgroundColor: AppColors.appColors),
                                   onPressed: () {
-                                    CompanyOption.update ==
+                                    if (manageCompanyDetailsScreenController
+                                        .addCompanyKey.currentState!
+                                        .validate()) {
+                                      if(manageCompanyDetailsScreenController.companyTypeId.value == "") {
+                                        Fluttertoast.showToast(msg: 'Please select company type.',backgroundColor: AppColors.redColor);
+                                      } else {
+                                        CompanyOption.update ==
                                             manageCompanyDetailsScreenController
                                                 .companyOption
-                                        ? manageCompanyDetailsScreenController
+                                            ? manageCompanyDetailsScreenController
                                             .updateCompanyDetails()
-                                        : manageCompanyDetailsScreenController
+                                            : manageCompanyDetailsScreenController
                                             .addCompanyDetails();
+                                      }
+                                    }
                                   },
                                   child: manageCompanyDetailsScreenController
                                           .isLoading.value
-                                      ? CommonLoader().showLoader()
-                                      :  CompanyOption.update ==
-                                      manageCompanyDetailsScreenController.companyOption? const Text('Update'): const Text('Submit')),
+                                      ? Center(child: CommonLoader().showLoader(),).paddingAll(5)
+                                      : CompanyOption.update ==
+                                              manageCompanyDetailsScreenController
+                                                  .companyOption
+                                          ? const Text('Update')
+                                          : const Text('Submit')),
                             )),
                       ],
                     )

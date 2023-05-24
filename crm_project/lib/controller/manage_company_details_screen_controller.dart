@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:crm_project/constants/colors.dart';
 import 'package:crm_project/models/company_list_screen_models/company_type_list_model.dart';
 import 'package:crm_project/models/success_model/success_model.dart';
 import 'package:dio/dio.dart' as dio;
@@ -36,7 +35,7 @@ class ManageCompanyDetailsScreenController extends GetxController {
   RxBool isCompanyStatus = false.obs;
 
   RxString companyTypeSelect = 'Select company type'.obs;
-  RxInt companyTypeId = 0.obs;
+  RxString companyTypeId = ''.obs;
 
   //Update Time get Company Details
   Future<void> getCompanyDetailsFunction() async {
@@ -63,16 +62,16 @@ class ManageCompanyDetailsScreenController extends GetxController {
         // fax2TextField.text = updateCompanyModel.data.f;
         websiteTextField.text = updateCompanyModel.data.website;
         emailTextField.text = updateCompanyModel.data.email;
-        companyTypeSelect.value = updateCompanyModel.data.companyType.companyTypes;
+        companyTypeSelect.value =
+            updateCompanyModel.data.companyType.companyTypes;
         isCompanyStatus.value = updateCompanyModel.data.isActive;
         companyId = updateCompanyModel.data.companyId;
-
 
         for (int i = 0; i < companyTypeListDropDown.length; i++) {
           if (companyTypeSelect.value ==
               companyTypeListDropDown[i].companyTypes) {
             companyTypeSelect.value = companyTypeListDropDown[i].companyTypes;
-            companyTypeId.value = companyTypeListDropDown[i].companyTypeId;
+            companyTypeId.value = companyTypeListDropDown[i].companyTypeId.toString();
             log('loop ');
             log('Company Type: $companyTypeSelect ');
             log('Company ID:  $companyTypeId');
@@ -90,22 +89,23 @@ class ManageCompanyDetailsScreenController extends GetxController {
     }
     isLoading(false);
   }
+
 //company Type ID find
-void companyTypeIdFindFunction(){
-  for (int i = 0; i < companyTypeListDropDown.length; i++) {
-    if (companyTypeSelect.value ==
-        companyTypeListDropDown[i].companyTypes) {
-      companyTypeSelect.value = companyTypeListDropDown[i].companyTypes;
-      companyTypeId.value = companyTypeListDropDown[i].companyTypeId;
-      log('loop ');
-      log('Company Type: $companyTypeSelect ');
-      log('Company ID:  $companyTypeId');
-      break; // Stop the loop when a match is found
-    } else {
-      log('Match not found! Stopping the loop.');
+  void companyTypeIdFindFunction() {
+    for (int i = 0; i < companyTypeListDropDown.length; i++) {
+      if (companyTypeSelect.value == companyTypeListDropDown[i].companyTypes) {
+        companyTypeSelect.value = companyTypeListDropDown[i].companyTypes;
+        companyTypeId.value = companyTypeListDropDown[i].companyTypeId.toString();
+        log('loop ');
+        log('Company Type: $companyTypeSelect ');
+        log('Company ID:  $companyTypeId');
+        break; // Stop the loop when a match is found
+      } else {
+        log('Match not found! Stopping the loop.');
+      }
     }
   }
-}
+
   //get Company Type List
 
   Future<void> getCompanyTypeList() async {
@@ -147,90 +147,104 @@ void companyTypeIdFindFunction(){
     log("update Company Api Url : $url");
 
     Map<String, dynamic> updateData = {
-        "CompanyId" : companyId,
-        "CompanyName" : companyNameTextField.text,
-        "CompanyTypeId" : companyTypeId.value,
-        "Phone" : phoneTextField.text,
-        "Phone2" : phone2TextField.text,
-        "Email" : emailTextField.text,
-        "Fax" : faxTextField.text,
-        "Website" : websiteTextField.text,
-        "CustomerId" : AppMessage.customerId,
-        "IsActive" : isCompanyStatus.value
+      "CompanyId": companyId,
+      "CompanyName": companyNameTextField.text,
+      "CompanyTypeId": companyTypeId.value,
+      "Phone": phoneTextField.text,
+      "Phone2": phone2TextField.text,
+      "Email": emailTextField.text,
+      "Fax": faxTextField.text,
+      "Website": websiteTextField.text,
+      "CustomerId": AppMessage.customerId,
+      "IsActive": isCompanyStatus.value
     };
-    try{
+    try {
       final response = await dioRequest.put(url,
-          data:updateData,
+          data: updateData,
           options: dio.Options(
-        headers:{"Authorization": "Bearer ${AppMessage.token}"},
-      ));
+            headers: {"Authorization": "Bearer ${AppMessage.token}"},
+          ));
 
       SuccessModel successModel = SuccessModel.fromJson(response.data);
       log("Update Company : ${successModel.statusCode}");
-      if(successModel.statusCode == 200){
+      if (successModel.statusCode == 200) {
         Get.back();
         Fluttertoast.showToast(msg: successModel.message);
         isLoading(false);
-      }
-      else{
+      } else {
         log("Update Company : ${successModel.message}");
         Fluttertoast.showToast(msg: successModel.message);
         isLoading(false);
       }
-    }
-    catch(e){
+    } catch (e) {
       log("Update Company catch : $e");
       isLoading(false);
     }
-
   }
 
 //Add Company Details
   Future<void> addCompanyDetails() async {
     isLoading(true);
     String url = ApiUrl.companyAddApi;
-    log("Add Company Api Url : $url");
+    log("addCompanyDetails Company Api Url : $url");
 
     Map<String, dynamic> updateData = {
-      "CompanyId" : companyId,
-      "CompanyName" : companyNameTextField.text,
-      "CompanyTypeId" : companyTypeId.value,
-      "Phone" : phoneTextField.text,
-      "Phone2" : phone2TextField.text,
-      "Email" : emailTextField.text,
-      "Fax" : faxTextField.text,
-      "Website" : websiteTextField.text,
-      "CustomerId" : AppMessage.customerId,
-      "IsActive" : isCompanyStatus.value
+      "CompanyId": companyId,
+      "CompanyName": companyNameTextField.text,
+      "CompanyTypeId": companyTypeId.value,
+      "Phone": phoneTextField.text,
+      "Phone2": phone2TextField.text,
+      "Email": emailTextField.text,
+      "Fax": faxTextField.text,
+      "Website": websiteTextField.text,
+      "CustomerId": AppMessage.customerId,
+      "IsActive": isCompanyStatus.value
     };
-    try{
+    try {
+      log("company try");
       final response = await dioRequest.post(url,
-          data:updateData,
+          data: updateData,
           options: dio.Options(
-            headers:{"Authorization": "Bearer ${AppMessage.token}"},
+            headers: {"Authorization": "Bearer ${AppMessage.token}"},
           ));
+      log("addCompanyDetails response ${response.data}");
+
+
 
       SuccessModel successModel = SuccessModel.fromJson(response.data);
-      log("Add Company : ${successModel.statusCode}");
-      if(successModel.statusCode == 201){
+      log("addCompanyDetails Company : ${successModel.statusCode}");
+      if (successModel.statusCode == 201) {
+        log("addCompanyDetails if statusCode");
+        log("successModel.statusCode 201 ");
         Get.back();
         Fluttertoast.showToast(msg: successModel.message);
         isLoading(false);
-      }
-      else{
+      } else {
+        log("addCompanyDetails else statusCode");
+
         Fluttertoast.showToast(msg: successModel.message);
         isLoading(false);
       }
     }
-    catch(e){
-      log("Add Company : $e");
-      isLoading(false);
+    // catch(e){}
+    catch (e) {
+      log("addCompanyDetails catch");
+      if (e is dio.DioError && e.response != null) {
+        final response = e.response;
+        final statusCode = response!.statusCode;
+        log("addCompanyDetails statusCode $statusCode");
+        if (statusCode == 400) {
+          Fluttertoast.showToast(msg: "Record Already Exist");
+          log("Record Already Exist");
+          isLoading(false);
+        }
+      }
+      // log('Get Notes Function Error :$e');
+      // rethrow;
     }
 
-
+    isLoading(false);
   }
-
-
 
   @override
   void onInit() {
