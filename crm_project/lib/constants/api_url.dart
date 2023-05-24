@@ -27,12 +27,48 @@ class ApiUrl {
   static String companyDeleteAddressApi="$baseUrl/Address/SoftDeleteAddress";
   static String companyUpdateAddressApi="$baseUrl/Address/UpdateAddress";
   static String companyAddAddressApi="$baseUrl/Address/AddAddress";
+  static String companyAddressChangeStatusApi = "$baseUrl/Address/ChangeStatus";
+  static String getAllAddress = "$baseUrl/AddressType/GetAllActiveAddressType";
 
-  //company Attachment Api
+
+  // get city state
+  static String getAllState = "$baseUrl/State/GetAllActiveState";
+  static String getAllCity = "$baseUrl/City/GetAllActiveCity";
+
+  // company contact Api
+  static String companyContactListApi = "$baseUrl/MTMCompanyContact/Filter";
+  static String companyContactDetailsGetApi = "$baseUrl/MTMCompanyContact/GetMTMCompanyContacts";
+  static String companyContactDeleteApi = "$baseUrl/MTMCompanyContact/SoftDeleteMTMCompanyContact";
+  static String companyContactUpdateApi = "$baseUrl/MTMCompanyContact/UpdateMTMCompanyContact";
+  static String companyContactAddApi = "$baseUrl/MTMCompanyContact/AddMTMCompanyContact";
+  static String companyContactStatusChangeApi = "$baseUrl/MTMCompanyContact/ChangeStatus";
+
+  // Company Ledger Api
+  static String companyGetAllLedgerApi = "$baseUrl/AccountLedger/Filter";
+  static String companyLedgerStatusChangeApi = "$baseUrl/AccountLedger/SoftDeleteAccountLedger";
+  static String companyLedgerGetByIdApi = "$baseUrl/AccountLedger/GetById";
+  static String companyLedgerUpdateApi = "$baseUrl/AccountLedger/UpdateAccountLedger";
+  static String companyLedgerDeleteApi = "$baseUrl/AccountLedger/SoftDeleteAccountLedger";
+  static String companyLedgerAddApi = "$baseUrl/AccountLedger/AddAccountLedger";
+
+  // Add Ledger Field API - DD using
+  static String activeAccountCategoryGetAllApi = "$baseUrl/AccountCategory/GetAllActiveAccountCategory";
+  static String activePropertyGetAllApi = "$baseUrl/Property/GetAllActiveProperty";
+  static String activeCompanyGetAllApi = "$baseUrl/Company/GetAllActiveCompany";
+  static String activeWorkOrderGetAllApi = "$baseUrl/WorkOrder/GetAllActiveWorkOrder";
+  static String activeCampaignGetAllApi = "$baseUrl/Campaign/GetAllActiveCampaign";
+  static String activeContactGetAllApi = "$baseUrl/Contact/GetAllActiveContact";
+  static String activeMortgageGetAllApi = "$baseUrl/Mortgage/GetAllActiveMortgage";
+  static String activeLeaseGetAllApi = "$baseUrl/Lease/GetAllActiveLease";
+  static String activePropertyManagementGetAllApi = "$baseUrl/PropertyManagement/GetAllActivePropertyManagement";
+  static String activeProspectsManagementGetAllApi = "$baseUrl/Prospect/GetAllActiveProspect";
+
+//company Attachment Api
   static String companyAttachmentListApi="$baseUrl/Attachment/PaginationByType";
   static String companyAttachmentDeleteApi="$baseUrl/Attachment/SoftDeleteAttachment";
   static String companyAttachmentChangeStatusApi="$baseUrl/Attachment/ChangeStatus";
   static String companyAttachmentAddApi="$baseUrl/Attachment/AddAttach";
   static String companyAttachmentTypeList="$baseUrl/AttachmentType/GetAllActiveAttachmentType?customerId=";
+
 
 }

@@ -18,6 +18,7 @@ class NotesListScreenController extends GetxController {
 
   final dioRequest = dio.Dio();
 
+  TextEditingController searchTextFieldController = TextEditingController();
   List<NoteDetails> notesList = [];
 
   final ScrollController scrollController = ScrollController();
@@ -29,7 +30,6 @@ class NotesListScreenController extends GetxController {
 
   // Get Notes List Function
   Future<void> getNotesFunction() async {
-
     if(hasMore == true) {
       // isLoading(true);
       String url = "${ApiUrl
@@ -60,13 +60,13 @@ class NotesListScreenController extends GetxController {
 
 
       } catch (e) {
-        log("catch");
+        // log("catch");
         if (e is dio.DioError && e.response != null) {
           final response = e.response;
           final statusCode = response!.statusCode;
-          log("statusCode $statusCode");
+          // log("statusCode $statusCode");
           if (statusCode == 400) {
-            log("no data found");
+            // log("no data found");
             isLoading(false);
           }
         }
@@ -168,7 +168,7 @@ class NotesListScreenController extends GetxController {
     scrollController.addListener(() async {
       if (scrollController.position.maxScrollExtent ==
           scrollController.offset) {
-        //api call for more pet
+        //api call for more notes
         if (hasMore == true) {
           pageIndex++;
         }

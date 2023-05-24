@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:crm_project/controller/company_module_controllers/notes_list_screen_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../common_modules/common_bottomsheet_module.dart';
+import '../../../../common_modules/common_textfield.dart';
 import '../../../../constants/colors.dart';
 import '../../../../utils/common_functions.dart';
 import '../../../../utils/enums.dart';
@@ -13,7 +16,7 @@ import '../notes_manage_screen/notes_manage_screen.dart';
 
 class NotesListWidget extends StatelessWidget {
   NotesListWidget({Key? key}) : super(key: key);
-  final notesListScreenController = Get.put(NotesListScreenController());
+  final notesListScreenController = Get.find<NotesListScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -168,5 +171,28 @@ class NotesListWidget extends StatelessWidget {
               }
             },
           );
+  }
+}
+
+
+class NoteSearchBarWidget extends StatelessWidget {
+  NoteSearchBarWidget({Key? key}) : super(key: key);
+  final notesListScreenController = Get.find<NotesListScreenController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFieldModule(
+        fieldController: notesListScreenController.searchTextFieldController,
+        hintText: 'Search...',
+        onChange: (text) {
+          log(text.toString());
+        },
+        backgroundColor: AppColors.whiteColor,
+        icon: GestureDetector(
+            onTap: (){
+              log('Search... ${notesListScreenController.searchTextFieldController.text}');
+            },
+            child: const Icon(Icons.search).paddingOnly(left: 5, right: 5)),
+        keyboardType: TextInputType.text);
   }
 }

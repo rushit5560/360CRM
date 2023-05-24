@@ -1,44 +1,62 @@
-import 'package:crm_project/screens/edit_company_details_screen/notes_screens/notes_manage_screen/notes_manage_screen.dart';
-import 'package:crm_project/utils/enums.dart';
+import 'dart:developer';
+
+import 'package:crm_project/common_modules/common_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../../common_modules/common_loader.dart';
+import '../../../../common_modules/common_textfield.dart';
 import '../../../../common_modules/divider.dart';
 import '../../../../common_widgets/custom_appbar.dart';
 import '../../../../constants/colors.dart';
-import '../../../../controller/company_module_controllers/notes_list_screen_controller.dart';
+import '../../../../controller/company_module_controllers/ledger_list_screen_controller.dart';
 import '../../../../utils/messaging.dart';
-import '../../../company_list_screen/company_list_screen_widgets.dart';
-import 'notes_list_screen_widgets.dart';
+import 'ledger_list_screen_widgets.dart';
 
-class NotesListScreen extends StatelessWidget {
-  NotesListScreen({Key? key}) : super(key: key);
-  final notesListScreenController = Get.put(NotesListScreenController());
+class LedgerListScreen extends StatelessWidget {
+  LedgerListScreen({Key? key}) : super(key: key);
+  final ledgerListScreenController = Get.put(LedgerListScreenController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.appColorsSecondry,
       appBar: CustomAppBar(
-        titleText: AppMessage.notesList,
+        titleText: AppMessage.ledgerList,
         leadingShow: false,
         actionShow: false,
       ),
       body: Obx(
-        () => notesListScreenController.isLoading.value
+        () => ledgerListScreenController.isLoading.value
             ? CommonLoader().showLoader()
             : Column(
                 children: [
-                  NoteSearchBarWidget().paddingOnly(top: 20, bottom: 5),
 
+                  // Search Field Module
+                  TextFieldModule(
+                          fieldController: ledgerListScreenController
+                              .searchTextFieldController,
+                          hintText: 'Search...',
+                          onChange: (text) {
+                            log(text.toString());
+                          },
+                          backgroundColor: AppColors.whiteColor,
+                          icon: GestureDetector(
+                              onTap: () {
+                                log('Search... ${ledgerListScreenController.searchTextFieldController.text}');
+                              },
+                              child: const Icon(Icons.search)
+                                  .paddingOnly(left: 5, right: 5)),
+                          keyboardType: TextInputType.text)
+                      .paddingOnly(top: 20, bottom: 5),
+
+                  // Heading & Export button
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
                         child: Text(
-                          AppMessage.notesList,
+                          AppMessage.ledgerList,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                               color: AppColors.appColors,
@@ -76,37 +94,11 @@ class NotesListScreen extends StatelessWidget {
                   ).paddingOnly(top: 8),
                   const CustomDivider(),
 
-                  Expanded(child: NotesListWidget()),
-
+                  Expanded(child: LedgerListWidget()),
 
                 ],
               ).paddingOnly(left: 10, right: 10),
       ),
-
-
-      floatingActionButton: FloatingActionButton(
-        heroTag: 'a',
-        onPressed: () {
-          Get.to(() => NotesManageScreen(),
-                  arguments: [
-                    NotesOption.create,
-                    "",
-                    notesListScreenController.companyId.toString(),
-                  ],
-                  transition: Transition.zoom)!.then((value) async {
-                notesListScreenController.isLoading(true);
-                notesListScreenController.hasMore = true;
-                notesListScreenController.pageIndex = 1;
-                notesListScreenController.notesList.clear();
-                await notesListScreenController.getNotesFunction();
-
-          });
-        },
-        backgroundColor: AppColors.appColors,
-        child: const Icon(Icons.add),
-      ),
-
-
     );
   }
 }
