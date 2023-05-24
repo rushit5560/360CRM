@@ -4,24 +4,24 @@
 
 import 'dart:convert';
 
-AddressFilterModel companyAddressFilterModelFromJson(String str) =>
-    AddressFilterModel.fromJson(json.decode(str));
+AddressListModel companyAddressFilterModelFromJson(String str) =>
+    AddressListModel.fromJson(json.decode(str));
 
 // String companyAddressFilterModelToJson(CompanyAddressFilterModel data) => json.encode(data.toJson());
 
-class AddressFilterModel {
+class AddressListModel {
   int statusCode;
-  Data data;
+  Addresslist data;
 
-  AddressFilterModel({
+  AddressListModel({
     required this.statusCode,
     required this.data,
   });
 
-  factory AddressFilterModel.fromJson(Map<String, dynamic> json) =>
-      AddressFilterModel(
+  factory AddressListModel.fromJson(Map<String, dynamic> json) =>
+      AddressListModel(
         statusCode: json["statusCode"],
-        data: Data.fromJson(json["data"] ?? {}),
+        data: Addresslist.fromJson(json["data"] ?? {}),
       );
 
   // Map<String, dynamic> toJson() => {
@@ -30,7 +30,7 @@ class AddressFilterModel {
   // };
 }
 
-class Data {
+class Addresslist {
   int pageNumber;
   int pageSize;
   // dynamic firstPage;
@@ -39,12 +39,12 @@ class Data {
   int totalRecords;
   // dynamic nextPage;
   // dynamic previousPage;
-  List<AddressList> data;
+  List<AddressDetails> data;
   bool succeeded;
   // dynamic errors;
-  // dynamic message;
+  String message;
 
-  Data({
+  Addresslist({
     required this.pageNumber,
     required this.pageSize,
     // this.firstPage,
@@ -56,10 +56,10 @@ class Data {
     required this.data,
     required this.succeeded,
     // this.errors,
-    // this.message,
+    required this.message,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory Addresslist.fromJson(Map<String, dynamic> json) => Addresslist(
         pageNumber: json["pageNumber"] ?? 0,
         pageSize: json["pageSize"] ?? 0,
         // firstPage: json["firstPage"],
@@ -68,12 +68,12 @@ class Data {
         totalRecords: json["totalRecords"] ?? 0,
         // nextPage: json["nextPage"],
         // previousPage: json["previousPage"],
-        data: List<AddressList>.from(
-          json["data"].map((x) => AddressList.fromJson(x)) ?? {},
+        data: List<AddressDetails>.from(
+          json["data"].map((x) => AddressDetails.fromJson(x)) ?? {},
         ),
         succeeded: json["succeeded"] ?? false,
         // errors: json["errors"],
-        // message: json["message"],
+        message: json["message"]??"",
       );
 
   // Map<String, dynamic> toJson() => {
@@ -92,7 +92,7 @@ class Data {
   // };
 }
 
-class AddressList {
+class AddressDetails {
   int addressId;
   // dynamic contactId;
   // dynamic contact;
@@ -120,7 +120,7 @@ class AddressList {
   // dynamic createdUser;
   // dynamic modifiedUser;
 
-  AddressList({
+  AddressDetails({
     required this.addressId,
     // this.contactId,
     // this.contact,
@@ -149,7 +149,7 @@ class AddressList {
     // this.modifiedUser,
   });
 
-  factory AddressList.fromJson(Map<String, dynamic> json) => AddressList(
+  factory AddressDetails.fromJson(Map<String, dynamic> json) => AddressDetails(
         addressId: json["addressId"] ?? 0,
         // contactId: json["contactID"],
         // contact: json["contact"],
