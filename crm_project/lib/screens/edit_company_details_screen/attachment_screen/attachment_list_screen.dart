@@ -37,7 +37,14 @@ class AttachmentListScreen extends StatelessWidget {
         onPressed: () {
           Get.to(
             () => AttachmentAddScreen(),
-          );
+              arguments: [attachmentListScreenController.companyId.toString()]
+          )!.then((value)async {
+            attachmentListScreenController.isLoading(true);
+            attachmentListScreenController.hasMore = true;
+            attachmentListScreenController.pageIndex = 1;
+            attachmentListScreenController.attachmentList.clear();
+            await attachmentListScreenController.attachmentListFunction();
+          });
         },
         backgroundColor: AppColors.appColors,
         child: const Icon(Icons.add),

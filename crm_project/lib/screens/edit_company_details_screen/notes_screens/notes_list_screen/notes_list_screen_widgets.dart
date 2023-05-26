@@ -30,7 +30,7 @@ class NotesListWidget extends StatelessWidget {
                 return Container(
                   decoration: BoxDecoration(
                       color: AppColors.appColors.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(2.w)),
+                      borderRadius: BorderRadius.circular(10)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

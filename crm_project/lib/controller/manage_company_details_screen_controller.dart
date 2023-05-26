@@ -15,8 +15,8 @@ import '../utils/messaging.dart';
 
 class ManageCompanyDetailsScreenController extends GetxController {
   CompanyOption companyOption = Get.arguments[0];
-  String titleName = Get.arguments[1];
-  int companyId = Get.arguments[2];
+  String titleName = Get.arguments[1].toString();
+  String companyId = Get.arguments[2].toString();
 
   final dioRequest = dio.Dio();
   RxBool isLoading = false.obs;
@@ -65,7 +65,7 @@ class ManageCompanyDetailsScreenController extends GetxController {
         companyTypeSelect.value =
             updateCompanyModel.data.companyType.companyTypes;
         isCompanyStatus.value = updateCompanyModel.data.isActive;
-        companyId = updateCompanyModel.data.companyId;
+        companyId = updateCompanyModel.data.companyId.toString();
 
         for (int i = 0; i < companyTypeListDropDown.length; i++) {
           if (companyTypeSelect.value ==
@@ -98,7 +98,7 @@ class ManageCompanyDetailsScreenController extends GetxController {
         companyTypeId.value = companyTypeListDropDown[i].companyTypeId.toString();
         log('loop ');
         log('Company Type: $companyTypeSelect ');
-        log('Company ID:  $companyTypeId');
+        log('Company Type ID:  $companyTypeId');
         break; // Stop the loop when a match is found
       } else {
         log('Match not found! Stopping the loop.');

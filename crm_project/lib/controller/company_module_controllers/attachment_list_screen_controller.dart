@@ -141,6 +141,7 @@ class AttachmentListScreenController extends GetxController {
   @override
   void onInit() {
     initMethod();
+    log('Company Id: $companyId');
     super.onInit();
   }
 

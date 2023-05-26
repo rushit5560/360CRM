@@ -9,18 +9,23 @@ class TextRow extends StatelessWidget {
   final String subTitle;
   final String? suffix;
   final Color? subTitleColor;
+  final Color? titleColor;
 
   const TextRow(
       {super.key,
       required this.title,
       required this.subTitle,
       this.suffix = '',
-      this.subTitleColor = AppColors.greyColor});
+      this.subTitleColor = AppColors.greyColor,
+      this.titleColor = AppColors.blackColor
+
+      });
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
             child: Text(
@@ -28,7 +33,7 @@ class TextRow extends StatelessWidget {
           textAlign: TextAlign.start,
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp,color: titleColor),
         )),
         Expanded(
             child: Text(
