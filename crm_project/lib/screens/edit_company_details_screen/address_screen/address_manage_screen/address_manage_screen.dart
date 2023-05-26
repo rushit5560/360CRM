@@ -23,22 +23,24 @@ class CompanyManageAddressScreen extends StatelessWidget {
         leadingShow: false,
         actionShow: false,
       ),
-      body: Column(
-        children: [
-          Row(
-            children: [
-              Text(
-                addressManageScreenController.appTitleText.value,
-                style: TextStyleConfig.textStyle(
-                  fontSize: 18.sp,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Text(
+                  addressManageScreenController.appTitleText.value,
+                  style: TextStyleConfig.textStyle(
+                    fontSize: 18.sp,
+                  ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          AddresstextFormFieldModule(),
-        ],
-      ).commonSymmetricPaddng(horizontal: 10, vertical: 10),
+              ],
+            ),
+            const SizedBox(height: 20),
+            AddresstextFormFieldModule(),
+          ],
+        ).commonSymmetricPaddng(horizontal: 10, vertical: 10),
+      ),
     );
   }
 }

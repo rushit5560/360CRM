@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'package:crm_project/models/address_manage_screen_model/get_all_city_model.dart';
 import 'package:crm_project/models/address_manage_screen_model/get_all_state_model.dart';
@@ -5,10 +6,13 @@ import 'package:dio/dio.dart' as dio;
 
 import 'package:crm_project/utils/enums.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 import '../../constants/api_url.dart';
+import '../../models/address_manage_screen_model/address_list_model.dart';
 import '../../models/address_manage_screen_model/get_all_address_model.dart';
+import '../../models/success_model/success_model.dart';
 import '../../utils/messaging.dart';
 
 class AddressManageScreenController extends GetxController {
@@ -31,7 +35,15 @@ class AddressManageScreenController extends GetxController {
   List<AddressList> addressTypeListDropDown = [];
   List<StateList> stateListDropDown = [];
   StateList? stateSelectedItem;
+  CityList? citySelectedItem;
   List<CityList> cityListDropDown = [];
+  List<AddressDetails> addressList = [];
+  RxBool isCompanyStatus = false.obs;
+  List<CityList> filterCityList = [];
+  TextEditingController addressOneFieldController = TextEditingController();
+
+  TextEditingController addressTwoFieldController = TextEditingController();
+  TextEditingController zipCodeFieldController = TextEditingController();
 
 // address Type ID find
   void addressTypeIdFindFunction() {
@@ -125,13 +137,13 @@ class AddressManageScreenController extends GetxController {
     } catch (e) {
       log("getAllStateFunction catch $e");
     }
-    if (addressOption == AddressOption.create) {
-      log("getAllStateFunction");
-      await getAllStateWiseCityFunction(stateSelectedItem!.stateId.toString());
-    } else {
-      log('GetAllAddressTypeFunction nothing');
-      isLoading(false);
-    }
+    // if (addressOption == AddressOption.create) {
+    //   log("getAllStateFunction");
+    //   await getAllStateWiseCityFunction(stateTypeId.value.toString());
+    // } else {
+    //   log('GetAllAddressTypeFunction nothing');
+    // }
+    isLoading(false);
   }
 
 // city Type ID find
@@ -151,8 +163,10 @@ class AddressManageScreenController extends GetxController {
   }
 
 // Get city list function
-  Future<void> getAllStateWiseCityFunction(String stateId) async {
+  Future<void> getAllStateWiseCityFunction({required String stateId}) async {
     String url = '${ApiUrl.getAllCity}?CustomerId=${AppMessage.customerId}';
+    log("getAllStateWiseCityFunction stateTypeId $stateId:");
+
     log("getAllStateWiseCityFunction url $url");
 
     try {
@@ -164,16 +178,26 @@ class AddressManageScreenController extends GetxController {
       GetAllCityModel getAllCityModel = GetAllCityModel.fromJson(response.data);
       isSuccessStatusCode.value = getAllCityModel.statusCode;
       if (isSuccessStatusCode.value == 200) {
-        isLoading(false);
+        // isLoading(false);
+        cityListDropDown.clear();
         cityListDropDown.addAll(getAllCityModel.data);
+        citySelectedItem = cityListDropDown[0];
 
-        log('getAllStateWiseCityFunction Type List   : $cityListDropDown');
-        isLoading(false);
+        for (var element in cityListDropDown) {
+          log("element");
+          if (element.stateId == stateTypeId.value) {
+            log("element 111");
+            log("element.stateId ${element.stateId} stateSelectedItem!.stateId ${stateTypeId.value}");
+            citySelectedItem = element;
+            log('getAllStateWiseCityFunction cityListDropDown : ${citySelectedItem!.cityName}');
+          }
+        }
       }
     } catch (e) {
       log("getAllStateWiseCityFunction catch $e");
     } finally {
       isLoading(true);
+
       isLoading(false);
     }
   }

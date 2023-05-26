@@ -1,11 +1,19 @@
 import 'dart:developer';
 
 import 'package:crm_project/common_modules/common_loader.dart';
+import 'package:crm_project/models/address_manage_screen_model/get_all_city_model.dart';
+import 'package:crm_project/models/address_manage_screen_model/get_all_state_model.dart';
+import 'package:crm_project/utils/enums.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
 
+import '../../../../common_modules/common_textfield.dart';
 import '../../../../constants/colors.dart';
 import '../../../../controller/company_module_controllers/address_manage_screen_controller.dart';
+import '../../../../utils/validator.dart';
 
 class AddresstextFormFieldModule extends StatelessWidget {
   AddresstextFormFieldModule({Key? key}) : super(key: key);
@@ -59,7 +67,34 @@ class AddresstextFormFieldModule extends StatelessWidget {
                             ).paddingOnly(left: 8, right: 8),
                     ),
                   ).paddingOnly(left: 5, right: 5, bottom: 10),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 15),
+                  TextFieldModule(
+                    fieldController:
+                        addressManageScreenController.addressOneFieldController,
+                    hintText: 'Address 1',
+                    keyboardType: TextInputType.text,
+                    validate: (value) =>
+                        FieldValidation().validateEmpty(value, 'address 1'),
+                  ),
+                  const SizedBox(height: 15),
+                  TextFieldModule(
+                    fieldController:
+                        addressManageScreenController.addressTwoFieldController,
+                    hintText: 'Address 2',
+                    keyboardType: TextInputType.text,
+                    validate: (value) =>
+                        FieldValidation().validateEmpty(value, 'address 2'),
+                  ),
+                  const SizedBox(height: 15),
+                  TextFieldModule(
+                    fieldController:
+                        addressManageScreenController.zipCodeFieldController,
+                    hintText: 'Zipcode',
+                    keyboardType: TextInputType.text,
+                    validate: (value) =>
+                        FieldValidation().validateEmpty(value, 'Zipcode'),
+                  ),
+                  const SizedBox(height: 15),
                   Obx(
                     () => Container(
                       width: double.infinity,
@@ -70,33 +105,38 @@ class AddresstextFormFieldModule extends StatelessWidget {
                       child: addressManageScreenController.isLoading.value
                           ? Container()
                           : DropdownButtonHideUnderline(
-                              child: DropdownButton(
+                              child: DropdownButton<StateList>(
                                 hint: Text(
                                   addressManageScreenController
                                       .stateTypeSelect.value,
                                   style: const TextStyle(
-                                    color: AppColors.appColors,
-                                  ),
+                                      color: AppColors.appColors),
                                 ),
                                 // Not necessary for Option 1
                                 onChanged: (newValue) async {
-                                  int stateId = addressManageScreenController
-                                      .stateSelectedItem!.stateId;
+                                  // int stateId = addressManageScreenController
+                                  //     .stateSelectedItem!.stateId;
+                                  addressManageScreenController.isLoading(true);
                                   addressManageScreenController.stateTypeSelect
                                       .value = newValue!.stateName.toString();
                                   addressManageScreenController
                                       .stateTypeIdFindFunction();
-
+                                  addressManageScreenController.cityListDropDown
+                                      .clear();
                                   await addressManageScreenController
                                       .getAllStateWiseCityFunction(
-                                          stateId.toString());
-                                  log("stateId.toString : $stateId");
-                                  log('new state Type :  ${addressManageScreenController.stateTypeSelect.value}');
+                                          stateId: addressManageScreenController
+                                              .stateTypeId
+                                              .toString());
+                                  addressManageScreenController
+                                      .isLoading(false);
+                                  log("stateId.toString : ${addressManageScreenController.stateTypeId}");
                                 },
                                 items: addressManageScreenController
                                     .stateListDropDown
-                                    .map((state) {
-                                  return DropdownMenuItem(
+                                    .map<DropdownMenuItem<StateList>>(
+                                        (StateList state) {
+                                  return DropdownMenuItem<StateList>(
                                     value: state,
                                     child: Text(state.stateName),
                                   );
@@ -105,7 +145,7 @@ class AddresstextFormFieldModule extends StatelessWidget {
                             ).paddingOnly(left: 8, right: 8),
                     ),
                   ).paddingOnly(left: 5, right: 5, bottom: 10),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 15),
                   Obx(
                     () => Container(
                       width: double.infinity,
@@ -116,7 +156,7 @@ class AddresstextFormFieldModule extends StatelessWidget {
                       child: addressManageScreenController.isLoading.value
                           ? Container()
                           : DropdownButtonHideUnderline(
-                              child: DropdownButton(
+                              child: DropdownButton<CityList>(
                                 hint: Text(
                                   addressManageScreenController
                                       .cityTypeSelect.value,
@@ -126,23 +166,24 @@ class AddresstextFormFieldModule extends StatelessWidget {
                                 ),
                                 // Not necessary for Option 1
                                 onChanged: (newValue) async {
-                                  // int stateId = addressManageScreenController
-                                  //     .stateSelectedItem!.stateId;
+                                  addressManageScreenController.isLoading(true);
+                                  // addressManageScreenController
+                                  //     .citySelectedItem = newValue!;
                                   addressManageScreenController.cityTypeSelect
                                       .value = newValue!.cityName.toString();
+
                                   addressManageScreenController
                                       .cityTypeIdFindFunction();
 
-                                  // await addressManageScreenController
-                                  //     .getAllStateWiseCityFunction(
-                                  //     stateId.toString());
-                                  // log("stateId.toString : $stateId");
                                   log('new state Type :  ${addressManageScreenController.cityTypeSelect.value}');
+                                  addressManageScreenController
+                                      .isLoading(false);
                                 },
                                 items: addressManageScreenController
                                     .cityListDropDown
-                                    .map((city) {
-                                  return DropdownMenuItem(
+                                    .map<DropdownMenuItem<CityList>>(
+                                        (CityList city) {
+                                  return DropdownMenuItem<CityList>(
                                     value: city,
                                     child: Text(city.cityName),
                                   );
@@ -151,6 +192,80 @@ class AddresstextFormFieldModule extends StatelessWidget {
                             ).paddingOnly(left: 8, right: 8),
                     ),
                   ).paddingOnly(left: 5, right: 5, bottom: 10),
+                  const SizedBox(height: 15),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Obx(
+                        () => addressManageScreenController.isLoading.value
+                            ? Container()
+                            : Transform.scale(
+                                alignment: AlignmentDirectional.centerStart,
+                                scale: 0.8,
+                                child: CupertinoSwitch(
+                                  activeColor: AppColors.appColors,
+                                  trackColor: AppColors.appColorsSecondry,
+                                  value: addressManageScreenController
+                                      .isCompanyStatus.value,
+                                  onChanged: (value) async {
+                                    addressManageScreenController
+                                        .isCompanyStatus.value = value;
+                                  },
+                                ),
+                              ),
+                      ),
+                      SizedBox(
+                          height: 5.5.h,
+                          child: Obx(
+                            () => ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: AppColors.appColors),
+                                onPressed: () {
+                                  if (addressManageScreenController
+                                      .addressFormKey.currentState!
+                                      .validate()) {
+                                    if (addressManageScreenController
+                                            .addressTypeId.value ==
+                                        0) {
+                                      Fluttertoast.showToast(
+                                          msg: 'Please select company type.',
+                                          backgroundColor: AppColors.redColor);
+                                    } else if (addressManageScreenController
+                                            .stateTypeId.value ==
+                                        0) {
+                                      Fluttertoast.showToast(
+                                          msg: 'Please select state type.',
+                                          backgroundColor: AppColors.redColor);
+                                    } else if (addressManageScreenController
+                                            .cityTypeId.value ==
+                                        0) {
+                                      Fluttertoast.showToast(
+                                          msg: 'Please select city type.',
+                                          backgroundColor: AppColors.redColor);
+                                    } else {
+                                      // AddressOption.update ==
+                                      //     addressManageScreenController
+                                      //         .addressOption
+                                      //     ? addressManageScreenController
+                                      //     .updateCompanyDetails()
+                                      //     : addressManageScreenController
+                                      //     .addCompanyDetails();
+                                    }
+                                  }
+                                },
+                                child: addressManageScreenController
+                                        .isLoading.value
+                                    ? Center(
+                                        child: CommonLoader().showLoader(),
+                                      ).paddingAll(5)
+                                    : CompanyOption.update ==
+                                            addressManageScreenController
+                                                .addressOption
+                                        ? const Text('Update')
+                                        : const Text('Submit')),
+                          )),
+                    ],
+                  )
                 ],
               ),
             ),
