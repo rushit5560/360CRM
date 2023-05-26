@@ -1,5 +1,4 @@
 class AppMessage {
-
 //company Details Screeen
   static String details = 'Details';
   static String address = 'Address';
@@ -19,13 +18,15 @@ class AppMessage {
 
   static const String contactList = "Contact List";
   static const String ledgerList = "Ledger List";
+  static const String addLedger = "Add Ledger";
+  static const String ledgerDetails = "Ledger Details";
 
-  static const String addAddress="Add address";
+  static const String addAddress = "Add address";
 
-  static const String updateAddress="update address";
-  static const String add="Add";
+  static const String updateAddress = "update address";
+  static const String add = "Add";
 
-  static const String update="Update";
+  static const String update = "Update";
 
   //bottomSheet
   static String companyDetails = 'Company Details';
@@ -42,9 +43,14 @@ class AppMessage {
   static const String notesDetails = "Notes Details";
   static const String addNotes = "Add Notes";
   static String type = 'Type';
-
+  static String noFileChoose = 'No file choose';
+  static String chooseFile = 'Choose File';
+  static String selectAttachmentType = 'Select Attachment Type';
+  static String propertyName = 'Property Name';
+  static String underManagementList = 'Under Management List';
+  static String workOrderList = 'Work Order List';
 //token
   static String token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiRGhydXZpIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQ3VzdG9tZXIiLCJleHAiOjE2ODQ5MTc5OTEsImlzcyI6Imh0dHA6Ly81LjE4OS4xNDcuMTU5OjcwMDMvIiwiYXVkIjoiaHR0cDovLzUuMTg5LjE0Ny4xNTk6NzAwMy8ifQ.e2fHdst4JFuy53E4JzZahfO0NeEWDAfdWWCvyXc446U";
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiRGhydXZpIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQ3VzdG9tZXIiLCJleHAiOjE2ODUwOTg0NjMsImlzcyI6Imh0dHA6Ly81LjE4OS4xNDcuMTU5OjcwMDMvIiwiYXVkIjoiaHR0cDovLzUuMTg5LjE0Ny4xNTk6NzAwMy8ifQ.Uy-aRUwNcCZqAL9MdOaERJj_Da5ujqlNgcajHN3i6kY";
   static String customerId = "2";
 }

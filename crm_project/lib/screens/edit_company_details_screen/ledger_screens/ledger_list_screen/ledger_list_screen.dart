@@ -10,7 +10,9 @@ import '../../../../common_modules/divider.dart';
 import '../../../../common_widgets/custom_appbar.dart';
 import '../../../../constants/colors.dart';
 import '../../../../controller/company_module_controllers/ledger_list_screen_controller.dart';
+import '../../../../utils/enums.dart';
 import '../../../../utils/messaging.dart';
+import '../ledger_manage_screen/ledger_manage_screen.dart';
 import 'ledger_list_screen_widgets.dart';
 
 class LedgerListScreen extends StatelessWidget {
@@ -99,6 +101,29 @@ class LedgerListScreen extends StatelessWidget {
                 ],
               ).paddingOnly(left: 10, right: 10),
       ),
+
+      floatingActionButton: FloatingActionButton(
+        heroTag: 'Add Ledger',
+        onPressed: () {
+          Get.to(() => LedgerManageScreen(),
+              arguments: [
+                LedgerOption.create,
+                "",
+                ledgerListScreenController.companyId.toString(),
+              ],
+              transition: Transition.zoom)!.then((value) async {
+            ledgerListScreenController.isLoading(true);
+            ledgerListScreenController.hasMore = true;
+            ledgerListScreenController.pageIndex = 1;
+            ledgerListScreenController.ledgerList.clear();
+            await ledgerListScreenController.getLedgersFunction();
+
+          });
+        },
+        backgroundColor: AppColors.appColors,
+        child: const Icon(Icons.add),
+      ),
+
     );
   }
 }

@@ -23,7 +23,7 @@ class HeaderAndContentModule extends StatelessWidget {
                   color:
                   AppColors.blackColor.withOpacity(0.6))
           ),
-        ),
+        ), 
         Expanded(
           child: Text(
               contentText,
