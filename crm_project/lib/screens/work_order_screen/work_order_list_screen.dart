@@ -1,8 +1,8 @@
 import 'package:crm_project/common_modules/common_loader.dart';
 import 'package:crm_project/common_widgets/custom_appbar.dart';
 import 'package:crm_project/controller/company_module_controllers/work_order_list_screen_controller.dart';
-import 'package:crm_project/screens/edit_company_details_screen/work_order_screen/add_work_order_screen/add_work_order_screen.dart';
-import 'package:crm_project/screens/edit_company_details_screen/work_order_screen/work_order_list_screen_widgets.dart';
+import 'package:crm_project/screens/work_order_screen/add_work_order_screen/add_work_order_screen.dart';
+import 'package:crm_project/screens/work_order_screen/work_order_list_screen_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';

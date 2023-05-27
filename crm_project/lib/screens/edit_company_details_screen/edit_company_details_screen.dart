@@ -1,8 +1,8 @@
 import 'package:crm_project/common_widgets/custom_appbar.dart';
 import 'package:crm_project/controller/edit_company_details_screen_controller.dart';
-import 'package:crm_project/screens/edit_company_details_screen/ledger_screens/ledger_list_screen/ledger_list_screen.dart';
-import 'package:crm_project/screens/edit_company_details_screen/under_management_screen/under_management_screen.dart';
-import 'package:crm_project/screens/edit_company_details_screen/work_order_screen/work_order_list_screen.dart';
+import 'package:crm_project/screens/ledger_screens/ledger_list_screen/ledger_list_screen.dart';
+import 'package:crm_project/screens/under_management_screen/under_management_screen.dart';
+import 'package:crm_project/screens/work_order_screen/work_order_list_screen.dart';
 import 'package:crm_project/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,10 +11,11 @@ import 'package:sizer/sizer.dart';
 import '../../common_modules/common_listtile_module.dart';
 import '../../utils/messaging.dart';
 import '../company_list_screen/manage_company_details_screen/manage_company_details_screen.dart';
-import 'contact_screens/contact_list_screen/contact_list_screen.dart';
-import 'notes_screens/notes_list_screen/notes_list_screen.dart';
-import 'package:crm_project/screens/edit_company_details_screen/attachment_screen/attachment_list_screen.dart';
-import 'package:crm_project/screens/edit_company_details_screen/address_screen/address_list_screen.dart';
+import 'package:crm_project/screens/attachment_screen/attachment_list_screen.dart';
+import 'package:crm_project/screens/address_screen/address_list_screen.dart';
+
+import '../contact_screens/contact_list_screen/contact_list_screen.dart';
+import '../notes_screens/notes_list_screen/notes_list_screen.dart';
 
 class EditCompanyDetailsScreen extends StatelessWidget {
   final editCompanyDetailsScreenController =

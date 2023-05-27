@@ -1,4 +1,4 @@
-import 'package:crm_project/screens/edit_company_details_screen/notes_screens/notes_manage_screen/notes_manage_screen.dart';
+import 'package:crm_project/screens/notes_screens/notes_manage_screen/notes_manage_screen.dart';
 import 'package:crm_project/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,7 +10,6 @@ import '../../../../common_widgets/custom_appbar.dart';
 import '../../../../constants/colors.dart';
 import '../../../../controller/company_module_controllers/notes_list_screen_controller.dart';
 import '../../../../utils/messaging.dart';
-import '../../../company_list_screen/company_list_screen_widgets.dart';
 import 'notes_list_screen_widgets.dart';
 
 class NotesListScreen extends StatelessWidget {

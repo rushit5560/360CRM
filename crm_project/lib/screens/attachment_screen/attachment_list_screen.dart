@@ -1,6 +1,6 @@
 import 'package:crm_project/common_modules/common_loader.dart';
 import 'package:crm_project/controller/company_module_controllers/attachment_list_screen_controller.dart';
-import 'package:crm_project/screens/edit_company_details_screen/attachment_screen/attachment_list_screen_widget.dart';
+import 'package:crm_project/screens/attachment_screen/attachment_list_screen_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
