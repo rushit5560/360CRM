@@ -35,7 +35,7 @@ class WorkOrderListWidget extends StatelessWidget {
                     TextRow(
                         title: 'Work Order Type',
                         subTitle: workOrderListScreenController
-                            .workOrderList[index].type,
+                            .workOrderList[index].workOrderStatus.name!,
                         //'${AppMessage.dateAdded}: ${DateFormatChanger().dateFormat(notesListScreenController.notesList[i].createdOn)}',
                         subTitleColor: AppColors.blackColor,
                         titleColor: AppColors.blackColor.withOpacity(0.5)),
@@ -86,13 +86,13 @@ class WorkOrderListWidget extends StatelessWidget {
                             child: CupertinoSwitch(
                               activeColor: AppColors.appColors,
                               trackColor: AppColors.appColorsSecondry,
-                              value: true, //singleItem.isActive,
+                              value: workOrderListScreenController.workOrderList[index].isActive, //singleItem.isActive,
                               onChanged: (value) async {
-                                // await screenController.changeLedgerStatusFunction(
-                                //   ledgerId: singleItem.accountLedgerId.toString(),
-                                //   status: value,
-                                //   index: i,
-                                // );
+                                await workOrderListScreenController.changeWorkOrderStatusFunction(
+                                  workOrderID: workOrderListScreenController.workOrderList[index].workOrderId.toString(),
+                                  status: value,
+                                  index: index,
+                                );
                               },
                             ),
                           ),
@@ -126,11 +126,11 @@ class WorkOrderListWidget extends StatelessWidget {
                             onYesText: AppMessage.yesDeleteIt,
                             onCancelText: AppMessage.cancel,
                             onYesTap: () async {
-                              // Get.back();
-                              // await screenController.deleteLedgerFunction(
-                              //   ledgerId: singleItem.accountLedgerId.toString(),
-                              //   index: i,
-                              // );
+                              Get.back();
+                              await workOrderListScreenController.deleteWorkOrderFunction(
+                                workOrderId: workOrderListScreenController.workOrderList[index].workOrderId.toString(),
+                                index: index,
+                              );
                             },
                             onCancelTap: () => Navigator.of(context).pop(false),
                           );

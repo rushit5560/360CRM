@@ -33,46 +33,46 @@ class WorkOrderListModel {
 class Data {
   int pageNumber;
   int pageSize;
-  dynamic firstPage;
-  dynamic lastPage;
+  // dynamic firstPage;
+  // dynamic lastPage;
   int totalPages;
   int totalRecords;
-  dynamic nextPage;
-  dynamic previousPage;
+  // dynamic nextPage;
+  // dynamic previousPage;
   List<WorkOrderData> data;
   bool succeeded;
-  dynamic errors;
-  dynamic message;
+  // dynamic errors;
+  // dynamic message;
 
   Data({
     required this.pageNumber,
     required this.pageSize,
-    this.firstPage,
-    this.lastPage,
+    // this.firstPage,
+    // this.lastPage,
     required this.totalPages,
     required this.totalRecords,
-    this.nextPage,
-    this.previousPage,
+    // this.nextPage,
+    // this.previousPage,
     required this.data,
     required this.succeeded,
-    this.errors,
-    this.message,
+    // this.errors,
+    // this.message,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        pageNumber: json["pageNumber"],
-        pageSize: json["pageSize"],
-        firstPage: json["firstPage"],
-        lastPage: json["lastPage"],
-        totalPages: json["totalPages"],
-        totalRecords: json["totalRecords"],
-        nextPage: json["nextPage"],
-        previousPage: json["previousPage"],
+        pageNumber: json["pageNumber"]??0,
+        pageSize: json["pageSize"]??0,
+        // firstPage: json["firstPage"],
+        // lastPage: json["lastPage"],
+        totalPages: json["totalPages"]??0,
+        totalRecords: json["totalRecords"]??0,
+        // nextPage: json["nextPage"],
+        // previousPage: json["previousPage"],
         data: List<WorkOrderData>.from(
-            json["data"].map((x) => WorkOrderData.fromJson(x))),
-        succeeded: json["succeeded"],
-        errors: json["errors"],
-        message: json["message"],
+            (json["data"]??{}).map((x) => WorkOrderData.fromJson(x))),
+        succeeded: json["succeeded"]??false,
+        // errors: json["errors"],
+        // message: json["message"],
       );
 
 // Map<String, dynamic> toJson() => {
@@ -95,7 +95,7 @@ class WorkOrderData {
   int workOrderId; ////
   // DateTime workOrderDate;
   // int workOrderStatusId;
-  // WorkOrder workOrderStatus;
+  WorkOrder workOrderStatus;
   String workOrderDetails; /////
   // int propertyId;
   // Property property;
@@ -136,7 +136,7 @@ class WorkOrderData {
     required this.workOrderId,
     // required this.workOrderDate,
     // required this.workOrderStatusId,
-    // required this.workOrderStatus,
+    required this.workOrderStatus,
     required this.workOrderDetails,
     // required this.propertyId,
     // required this.property,
@@ -178,7 +178,7 @@ class WorkOrderData {
         workOrderId: json["workOrderID"] ?? 0,
         // workOrderDate: DateTime.parse(json["workOrderDate"]),
         // workOrderStatusId: json["workOrderStatusID"],
-        // workOrderStatus: WorkOrder.fromJson(json["workOrderStatus"]),
+        workOrderStatus: WorkOrder.fromJson(json["workOrderStatus"]??{}),
         workOrderDetails: json["workOrderDetails"] ?? "",
         // propertyId: json["propertyID"],
         // property: Property.fromJson(json["property"]),
@@ -703,82 +703,82 @@ class WorkOrderData {
 //     // };
 // }
 
-// class WorkOrder {
-//     int? workOrderStatusId;
-//     String? name;
-//     int customerId;
-//     dynamic customer;
-//     int pageNumber;
-//     int pageSize;
-//     int totalRecords;
-//     String createdBy;
-//     DateTime createdOn;
-//     dynamic modifiedBy;
-//     dynamic modifiedOn;
-//     bool isActive;
-//     bool isDeleted;
-//     dynamic createdUser;
-//     dynamic modifiedUser;
-//     int? workOrderTypeId;
-//     String? type;
+class WorkOrder {
+    // int? workOrderStatusId;
+    String? name;
+    // int customerId;
+    // dynamic customer;
+    // int pageNumber;
+    // int pageSize;
+    // int totalRecords;
+    // String createdBy;
+    // DateTime createdOn;
+    // dynamic modifiedBy;
+    // dynamic modifiedOn;
+    bool isActive;
+    bool isDeleted;
+    // dynamic createdUser;
+    // dynamic modifiedUser;
+    // int? workOrderTypeId;
+    String? type;
 
-//     WorkOrder({
-//         this.workOrderStatusId,
-//         this.name,
-//         required this.customerId,
-//         this.customer,
-//         required this.pageNumber,
-//         required this.pageSize,
-//         required this.totalRecords,
-//         required this.createdBy,
-//         required this.createdOn,
-//         this.modifiedBy,
-//         this.modifiedOn,
-//         required this.isActive,
-//         required this.isDeleted,
-//         this.createdUser,
-//         this.modifiedUser,
-//         this.workOrderTypeId,
-//         this.type,
-//     });
+    WorkOrder({
+        // this.workOrderStatusId,
+        this.name,
+        // required this.customerId,
+        // this.customer,
+        // required this.pageNumber,
+        // required this.pageSize,
+        // required this.totalRecords,
+        // required this.createdBy,
+        // required this.createdOn,
+        // this.modifiedBy,
+        // this.modifiedOn,
+        required this.isActive,
+        required this.isDeleted,
+        // this.createdUser,
+        // this.modifiedUser,
+        // this.workOrderTypeId,
+        this.type,
+    });
 
-//     factory WorkOrder.fromJson(Map<String, dynamic> json) => WorkOrder(
-//         workOrderStatusId: json["workOrderStatusID"],
-//         name: json["name"],
-//         customerId: json["customerId"],
-//         customer: json["customer"],
-//         pageNumber: json["pageNumber"],
-//         pageSize: json["pageSize"],
-//         totalRecords: json["totalRecords"],
-//         createdBy: json["createdBy"],
-//         createdOn: DateTime.parse(json["createdOn"]),
-//         modifiedBy: json["modifiedBy"],
-//         modifiedOn: json["modifiedOn"],
-//         isActive: json["isActive"],
-//         isDeleted: json["isDeleted"],
-//         createdUser: json["createdUser"],
-//         modifiedUser: json["modifiedUser"],
-//         workOrderTypeId: json["workOrderTypeId"],
-//         type: json["type"],
-//     );
+    factory WorkOrder.fromJson(Map<String, dynamic> json) => WorkOrder(
+        // workOrderStatusId: json["workOrderStatusID"]??0,
+        name: json["name"]??'',
+        // customerId: json["customerId"]??0,
+        // customer: json["customer"],
+        // pageNumber: json["pageNumber"]??0,
+        // pageSize: json["pageSize"]??0,
+        // totalRecords: json["totalRecords"]??0,
+        // createdBy: json["createdBy"]??'',
+        // createdOn: DateTime.parse(json["createdOn"]??DateTime.now().toString()),
+        // modifiedBy: json["modifiedBy"],
+        // modifiedOn: json["modifiedOn"],
+        isActive: json["isActive"]??false,
+        isDeleted: json["isDeleted"]??false,
+        // createdUser: json["createdUser"],
+        // modifiedUser: json["modifiedUser"],
+        // workOrderTypeId: json["workOrderTypeId"]??0,
+        type: json["type"]??'',
+    );
 
-//     // Map<String, dynamic> toJson() => {
-//     //     "workOrderStatusID": workOrderStatusId,
-//     //     "name": name,
-//     //     "customerId": customerId,
-//     //     "customer": customer,
-//     //     "pageNumber": pageNumber,
-//     //     "pageSize": pageSize,
-//     //     "totalRecords": totalRecords,
-//     //     "createdBy": createdBy,
-//     //     "createdOn": createdOn.toIso8601String(),
-//     //     "modifiedBy": modifiedBy,
-//     //     "modifiedOn": modifiedOn,
-//     //     "isActive": isActive,
-//     //     "isDeleted": isDeleted,
-//     //     "createdUser": createdUser,
-//     //     "modifiedUser": modifiedUser,
-//     //     "workOrderTypeId": workOrderTypeId,
-//     //     "type": type,
-//     // };
-// }
+    // Map<String, dynamic> toJson() => {
+    //     "workOrderStatusID": workOrderStatusId,
+    //     "name": name,
+    //     "customerId": customerId,
+    //     "customer": customer,
+    //     "pageNumber": pageNumber,
+    //     "pageSize": pageSize,
+    //     "totalRecords": totalRecords,
+    //     "createdBy": createdBy,
+    //     "createdOn": createdOn.toIso8601String(),
+    //     "modifiedBy": modifiedBy,
+    //     "modifiedOn": modifiedOn,
+    //     "isActive": isActive,
+    //     "isDeleted": isDeleted,
+    //     "createdUser": createdUser,
+    //     "modifiedUser": modifiedUser,
+    //     "workOrderTypeId": workOrderTypeId,
+    //     "type": type,
+    // };
+}
