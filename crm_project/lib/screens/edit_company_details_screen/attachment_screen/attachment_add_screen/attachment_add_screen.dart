@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:crm_project/common_modules/common_loader.dart';
 import 'package:crm_project/common_modules/common_textfield.dart';
 import 'package:crm_project/common_widgets/custom_appbar.dart';
@@ -10,8 +9,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:sizer/sizer.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../constants/colors.dart';

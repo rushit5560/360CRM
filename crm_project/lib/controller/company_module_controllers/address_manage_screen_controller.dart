@@ -1,22 +1,22 @@
-import 'dart:convert';
 import 'dart:developer';
 import 'package:crm_project/models/address_manage_screen_model/get_all_city_model.dart';
 import 'package:crm_project/models/address_manage_screen_model/get_all_state_model.dart';
 import 'package:dio/dio.dart' as dio;
-
 import 'package:crm_project/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-
 import '../../constants/api_url.dart';
 import '../../models/address_manage_screen_model/address_list_model.dart';
+import '../../models/address_manage_screen_model/city_get_by_id_model.dart';
 import '../../models/address_manage_screen_model/get_all_address_model.dart';
 import '../../models/success_model/success_model.dart';
 import '../../utils/messaging.dart';
 
 class AddressManageScreenController extends GetxController {
   AddressOption addressOption = Get.arguments[0];
+  String companyId = Get.arguments[1].toString();
+
   GlobalKey<FormState> addressFormKey = GlobalKey<FormState>();
 
   RxBool isLoading = false.obs;
@@ -35,8 +35,8 @@ class AddressManageScreenController extends GetxController {
   List<AddressList> addressTypeListDropDown = [];
   List<StateList> stateListDropDown = [];
   StateList? stateSelectedItem;
-  CityList? citySelectedItem;
-  List<CityList> cityListDropDown = [];
+  CityGetByIdData? citySelectedItem;
+  List<CityGetByIdData> cityListDropDown = [];
   List<AddressDetails> addressList = [];
   RxBool isCompanyStatus = false.obs;
   List<CityList> filterCityList = [];
@@ -163,24 +163,26 @@ class AddressManageScreenController extends GetxController {
   }
 
 // Get city list function
-  Future<void> getAllStateWiseCityFunction({required String stateId}) async {
-    String url = '${ApiUrl.getAllCity}?CustomerId=${AppMessage.customerId}';
-    log("getAllStateWiseCityFunction stateTypeId $stateId:");
+  Future<void> cityGetByIdFunction({required String stateId}) async {
+    String url = '${ApiUrl.cityGetById}?stateId=$stateId';
+    log("citygetByIdFunction stateTypeId $stateId:");
 
-    log("getAllStateWiseCityFunction url $url");
+    log("citygetByIdFunction url $url");
 
     try {
-      log("getAllStateWiseCityFunction try");
+      log("citygetByIdFunction try");
       final response = await dioRequest.get(url,
           options: dio.Options(
               headers: {"Authorization": "Bearer ${AppMessage.token}"}));
-      log("getAllStateWiseCityFunction response $response");
-      GetAllCityModel getAllCityModel = GetAllCityModel.fromJson(response.data);
-      isSuccessStatusCode.value = getAllCityModel.statusCode;
+      log("citygetByIdFunction response $response");
+      CityGetByIdListModel cityGetByIdListModel =
+          CityGetByIdListModel.fromJson(response.data);
+      isSuccessStatusCode.value = cityGetByIdListModel.statusCode;
       if (isSuccessStatusCode.value == 200) {
         // isLoading(false);
         cityListDropDown.clear();
-        cityListDropDown.addAll(getAllCityModel.data);
+        cityTypeSelect.value = "Select city type";
+        cityListDropDown.addAll(cityGetByIdListModel.data);
         citySelectedItem = cityListDropDown[0];
 
         for (var element in cityListDropDown) {
@@ -194,12 +196,75 @@ class AddressManageScreenController extends GetxController {
         }
       }
     } catch (e) {
-      log("getAllStateWiseCityFunction catch $e");
+      log("citygetByIdFunction catch $e");
     } finally {
       isLoading(true);
-
       isLoading(false);
     }
+  }
+
+// add address function
+  Future<void> addAddressDetails() async {
+    isLoading(true);
+    String url = ApiUrl.companyAddAddressApi;
+    log("addAddressDetails api url : $url");
+
+    Map<String, dynamic> addAddressData = {
+      "AddressTypeId": addressTypeId.value,
+      "CompanyID": companyId,
+      "Address1": addressOneFieldController.text.trim(),
+      "Address2": addressTwoFieldController.text.trim(),
+      "StateID": stateTypeId.value,
+      "Zip": zipCodeFieldController.text.trim(),
+      "type": "company",
+      "CityID": cityTypeSelect.value.isNotEmpty ? cityTypeId.value : "",
+      "IsActive": isCompanyStatus.value,
+    };
+    log("addAddressData $addAddressData");
+
+    try {
+      log("Add address try");
+      final response = await dioRequest.post(url,
+          data: addAddressData,
+          options: dio.Options(
+            headers: {"Authorization": "Bearer ${AppMessage.token}"},
+          ));
+      log("addAddressDetails response ${response.data}");
+
+      SuccessModel successModel = SuccessModel.fromJson(response.data);
+      log("addAddressDetails address : ${successModel.statusCode}");
+
+      if (successModel.statusCode == 201) {
+        Get.back();
+        Fluttertoast.showToast(msg: successModel.message);
+        isLoading(false);
+      } else {
+        log("addAddressDetails else statusCode");
+        Fluttertoast.showToast(msg: successModel.message);
+        isLoading(false);
+      }
+    } catch (e) {
+      log("addAddressDetails catch");
+      if (e is dio.DioError && e.response != null) {
+        final response = e.response;
+        final statusCode = response!.statusCode;
+        log("addAddressDetails statusCode $statusCode");
+        if (statusCode == 400) {
+          Fluttertoast.showToast(msg: "Record Already Exist");
+          log("Record Already Exist");
+          isLoading(false);
+        }
+      }
+    }
+    isLoading(false);
+  }
+
+//update address api function
+  Future<void> updateAddressFunction() async {
+    isLoading(true);
+    // String url=
+    // isLoading(false);
+
   }
 
   Future<void> initMethod() async {

@@ -1,17 +1,16 @@
 import 'dart:developer';
-
 import 'package:crm_project/controller/company_module_controllers/address_list_screen_controller.dart';
+import 'package:crm_project/utils/enums.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-
 import '../../../common_modules/common_bottomsheet_module.dart';
 import '../../../common_modules/common_textfield.dart';
-import '../../../common_modules/divider.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/single_list_tile_module.dart';
 import '../../../utils/messaging.dart';
+import 'address_manage_screen/address_manage_screen.dart';
 
 class AddressSearchWidget extends StatelessWidget {
   AddressSearchWidget({Key? key}) : super(key: key);
@@ -60,25 +59,26 @@ class AddressListWidget extends StatelessWidget {
                         children: [
                           InkWell(
                             onTap: () {
-                              // Get.to(
-                              //       () => NotesManageScreen(),
-                              //   arguments: [
-                              //     NotesOption.update,
-                              //     notesListScreenController
-                              //         .notesList[i].noteId
-                              //         .toString(),
-                              //     notesListScreenController.companyId
-                              //         .toString(),
-                              //   ],
-                              // )!
-                              //     .then((value) async {
-                              //   addressListScreenController.isLoading(true);
-                              //   addressListScreenController.hasMore = true;
-                              //   addressListScreenController.pageIndex = 1;
-                              //   addressListScreenController.notesList.clear();
-                              //   await addressListScreenController
-                              //       .getNotesFunction();
-                              // });
+                              Get.to(
+                                () => CompanyManageAddressScreen(),
+                                arguments: [
+                                  AddressOption.update,
+                                  addressListScreenController
+                                      .addressList[i].addressId
+                                      .toString(),
+                                  addressListScreenController.companyId
+                                      .toString(),
+                                ],
+                              )!
+                                  .then((value) async {
+                                addressListScreenController.isLoading(true);
+                                addressListScreenController.hasMore = true;
+                                addressListScreenController.pageIndex = 1;
+                                addressListScreenController.addressList.clear();
+                                await addressListScreenController
+                                    .getAddressList();
+                              });
+                              log("addressListScreenController.addressList[i].addressId ${addressListScreenController.addressList[i].addressId}");
                             },
                             child: Icon(
                               Icons.edit_sharp,

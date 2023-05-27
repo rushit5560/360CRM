@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:crm_project/common_modules/common_loader.dart';
-import 'package:crm_project/models/address_manage_screen_model/get_all_city_model.dart';
 import 'package:crm_project/models/address_manage_screen_model/get_all_state_model.dart';
 import 'package:crm_project/utils/enums.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,6 +12,7 @@ import 'package:sizer/sizer.dart';
 import '../../../../common_modules/common_textfield.dart';
 import '../../../../constants/colors.dart';
 import '../../../../controller/company_module_controllers/address_manage_screen_controller.dart';
+import '../../../../models/address_manage_screen_model/city_get_by_id_model.dart';
 import '../../../../utils/validator.dart';
 
 class AddresstextFormFieldModule extends StatelessWidget {
@@ -90,7 +90,8 @@ class AddresstextFormFieldModule extends StatelessWidget {
                     fieldController:
                         addressManageScreenController.zipCodeFieldController,
                     hintText: 'Zipcode',
-                    keyboardType: TextInputType.text,
+                    maxLength: 6,
+                    keyboardType: TextInputType.number,
                     validate: (value) =>
                         FieldValidation().validateEmpty(value, 'Zipcode'),
                   ),
@@ -116,7 +117,7 @@ class AddresstextFormFieldModule extends StatelessWidget {
                                 onChanged: (newValue) async {
                                   // int stateId = addressManageScreenController
                                   //     .stateSelectedItem!.stateId;
-                                  addressManageScreenController.isLoading(true);
+
                                   addressManageScreenController.stateTypeSelect
                                       .value = newValue!.stateName.toString();
                                   addressManageScreenController
@@ -124,10 +125,12 @@ class AddresstextFormFieldModule extends StatelessWidget {
                                   addressManageScreenController.cityListDropDown
                                       .clear();
                                   await addressManageScreenController
-                                      .getAllStateWiseCityFunction(
+                                      .cityGetByIdFunction(
                                           stateId: addressManageScreenController
                                               .stateTypeId
                                               .toString());
+                                  addressManageScreenController.isLoading(true);
+
                                   addressManageScreenController
                                       .isLoading(false);
                                   log("stateId.toString : ${addressManageScreenController.stateTypeId}");
@@ -156,7 +159,7 @@ class AddresstextFormFieldModule extends StatelessWidget {
                       child: addressManageScreenController.isLoading.value
                           ? Container()
                           : DropdownButtonHideUnderline(
-                              child: DropdownButton<CityList>(
+                              child: DropdownButton<CityGetByIdData>(
                                 hint: Text(
                                   addressManageScreenController
                                       .cityTypeSelect.value,
@@ -167,6 +170,7 @@ class AddresstextFormFieldModule extends StatelessWidget {
                                 // Not necessary for Option 1
                                 onChanged: (newValue) async {
                                   addressManageScreenController.isLoading(true);
+
                                   // addressManageScreenController
                                   //     .citySelectedItem = newValue!;
                                   addressManageScreenController.cityTypeSelect
@@ -181,9 +185,9 @@ class AddresstextFormFieldModule extends StatelessWidget {
                                 },
                                 items: addressManageScreenController
                                     .cityListDropDown
-                                    .map<DropdownMenuItem<CityList>>(
-                                        (CityList city) {
-                                  return DropdownMenuItem<CityList>(
+                                    .map<DropdownMenuItem<CityGetByIdData>>(
+                                        (CityGetByIdData city) {
+                                  return DropdownMenuItem<CityGetByIdData>(
                                     value: city,
                                     child: Text(city.cityName),
                                   );
@@ -228,7 +232,7 @@ class AddresstextFormFieldModule extends StatelessWidget {
                                             .addressTypeId.value ==
                                         0) {
                                       Fluttertoast.showToast(
-                                          msg: 'Please select company type.',
+                                          msg: 'Please select address type.',
                                           backgroundColor: AppColors.redColor);
                                     } else if (addressManageScreenController
                                             .stateTypeId.value ==
@@ -236,20 +240,24 @@ class AddresstextFormFieldModule extends StatelessWidget {
                                       Fluttertoast.showToast(
                                           msg: 'Please select state type.',
                                           backgroundColor: AppColors.redColor);
-                                    } else if (addressManageScreenController
-                                            .cityTypeId.value ==
-                                        0) {
-                                      Fluttertoast.showToast(
-                                          msg: 'Please select city type.',
-                                          backgroundColor: AppColors.redColor);
-                                    } else {
+                                    }
+                                    //  else if (addressManageScreenController
+                                    //         .cityTypeId.value ==
+                                    //     0) {
+                                    //   Fluttertoast.showToast(
+                                    //       msg: 'Please select city type.',
+                                    //       backgroundColor: AppColors.redColor);
+                                    // }
+                                    else {
                                       // AddressOption.update ==
                                       //     addressManageScreenController
                                       //         .addressOption
                                       //     ? addressManageScreenController
-                                      //     .updateCompanyDetails()
-                                      //     : addressManageScreenController
-                                      //     .addCompanyDetails();
+                                      //     .
+                                      addressManageScreenController
+                                          .addAddressDetails();
+                                      // : addressManageScreenController
+                                      // .addAddressDetails();
                                     }
                                   }
                                 },
