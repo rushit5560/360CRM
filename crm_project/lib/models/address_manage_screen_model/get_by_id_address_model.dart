@@ -4,22 +4,22 @@
 
 import 'dart:convert';
 
-UpdateAddressModel updateAddressModelFromJson(String str) =>
-    UpdateAddressModel.fromJson(json.decode(str));
+GetByIdAddressModel updateAddressModelFromJson(String str) =>
+    GetByIdAddressModel.fromJson(json.decode(str));
 
 // String updateAddressModelToJson(UpdateAddressModel data) => json.encode(data.toJson());
 
-class UpdateAddressModel {
+class GetByIdAddressModel {
   int statusCode;
   AddressData data;
 
-  UpdateAddressModel({
+  GetByIdAddressModel({
     required this.statusCode,
     required this.data,
   });
 
-  factory UpdateAddressModel.fromJson(Map<String, dynamic> json) =>
-      UpdateAddressModel(
+  factory GetByIdAddressModel.fromJson(Map<String, dynamic> json) =>
+      GetByIdAddressModel(
         statusCode: json["statusCode"] ?? 0,
         data: AddressData.fromJson(json["data"] ?? {}),
       );

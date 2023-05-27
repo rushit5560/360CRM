@@ -282,27 +282,27 @@ class AddressManageScreenController extends GetxController {
             headers: {"Authorization": "Bearer ${AppMessage.token}"}),
       );
       log("getByIdAddressFunction response: $response");
-      UpdateAddressModel updateAddressModel =
-          UpdateAddressModel.fromJson(response.data);
-      isSuccessStatusCode.value = updateAddressModel.statusCode;
+      GetByIdAddressModel getByIdAddressModel =
+          GetByIdAddressModel.fromJson(response.data);
+      isSuccessStatusCode.value = getByIdAddressModel.statusCode;
 
       if (isSuccessStatusCode.value == 200) {
-        addressId = updateAddressModel.data.addressId.toString();
+        addressId = getByIdAddressModel.data.addressId.toString();
         addressTypeSelect.value =
-            updateAddressModel.data.addressType.addressTypes.toString();
+            getByIdAddressModel.data.addressType.addressTypes.toString();
         addressTypeId.value =
-            updateAddressModel.data.addressType.addressTypeId.toString();
+            getByIdAddressModel.data.addressType.addressTypeId.toString();
 
-        addressOneFieldController.text = updateAddressModel.data.address1;
-        addressTwoFieldController.text = updateAddressModel.data.address2;
-        zipCodeFieldController.text = updateAddressModel.data.zip;
+        addressOneFieldController.text = getByIdAddressModel.data.address1;
+        addressTwoFieldController.text = getByIdAddressModel.data.address2;
+        zipCodeFieldController.text = getByIdAddressModel.data.zip;
         stateTypeSelect.value =
-            updateAddressModel.data.state.stateName.toString();
-        stateTypeId.value = updateAddressModel.data.state.stateId.toString();
-        cityTypeSelect.value = updateAddressModel.data.city.cityName.toString();
-        cityTypeId.value = updateAddressModel.data.city.cityId.toString();
+            getByIdAddressModel.data.state.stateName.toString();
+        stateTypeId.value = getByIdAddressModel.data.state.stateId.toString();
+        cityTypeSelect.value = getByIdAddressModel.data.city.cityName.toString();
+        cityTypeId.value = getByIdAddressModel.data.city.cityId.toString();
 
-        isAddressStatus.value = updateAddressModel.data.isActive;
+        isAddressStatus.value = getByIdAddressModel.data.isActive;
       }
     } catch (e) {
       log("getByIdAddressFunction error : $e");
