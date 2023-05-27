@@ -42,6 +42,15 @@ class LedgerManageScreen extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               fontSize: 11.sp,
                               color: AppColors.blackColor.withOpacity(0.6)),
+                          children: [
+                            TextSpan(
+                              text: " *",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 11.sp,
+                                  color: AppColors.redColor),
+                            ),
+                          ],
                           /*children: [
                               // TextSpan(
                               //   text: ' *',
@@ -73,11 +82,14 @@ class LedgerManageScreen extends StatelessWidget {
                                 // color: AppColors.greyColor,
                               ),
                             ).paddingOnly(left: 10)),
-                            SizedBox(
-                              child: Center(
-                                child: const Icon(Icons.calendar_today_outlined)
-                                    .paddingAll(12),
-                              ), //Text(AppMessage.chooseFile,style: TextStyle(fontSize: 10.sp,fontWeight: FontWeight.bold,color: AppColors.appColors),)).paddingAll(5)
+                            GestureDetector(
+                              onTap: () async => await ledgerManageScreenController.selectDate(context),
+                              child: SizedBox(
+                                child: Center(
+                                  child: const Icon(Icons.calendar_today_outlined)
+                                      .paddingAll(12),
+                                ), //Text(AppMessage.chooseFile,style: TextStyle(fontSize: 10.sp,fontWeight: FontWeight.bold,color: AppColors.appColors),)).paddingAll(5)
+                              ),
                             ),
                           ],
                         ),
@@ -96,6 +108,15 @@ class LedgerManageScreen extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                   fontSize: 11.sp,
                                   color: AppColors.blackColor.withOpacity(0.6)),
+                              children: [
+                                TextSpan(
+                                  text: " *",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 11.sp,
+                                      color: AppColors.redColor),
+                                ),
+                              ]
                             ),
                           ).paddingOnly(bottom: 5),
                           TextFieldModule(
@@ -139,6 +160,15 @@ class LedgerManageScreen extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                   fontSize: 11.sp,
                                   color: AppColors.blackColor.withOpacity(0.6)),
+                                children: [
+                                  TextSpan(
+                                    text: " *",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 11.sp,
+                                        color: AppColors.redColor),
+                                  ),
+                                ],
                             ),
                           ).paddingOnly(bottom: 5),
                           TextFieldModule(
@@ -164,6 +194,15 @@ class LedgerManageScreen extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                   fontSize: 11.sp,
                                   color: AppColors.blackColor.withOpacity(0.6)),
+                              children: [
+                                TextSpan(
+                                  text: " *",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 11.sp,
+                                      color: AppColors.redColor),
+                                ),
+                              ],
                             ),
                           ).paddingOnly(bottom: 5),
                           TextFieldModule(

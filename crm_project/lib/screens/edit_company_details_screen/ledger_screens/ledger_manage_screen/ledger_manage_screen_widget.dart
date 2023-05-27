@@ -165,6 +165,15 @@ class CompanyDropDownModule extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 fontSize: 11.sp,
                 color: AppColors.blackColor.withOpacity(0.6)),
+            children: [
+              TextSpan(
+                text: " *",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 11.sp,
+                    color: AppColors.redColor),
+              ),
+            ],
           ),
         ).paddingOnly(bottom: 5),
         Container(
@@ -557,7 +566,7 @@ class CupertinoSwitchAndbuttonmodule extends StatelessWidget {
                   scale: 0.8,
                   child: CupertinoSwitch(
                     activeColor: AppColors.appColors,
-                    trackColor: AppColors.appColorsSecondry,
+                    trackColor: AppColors.whiteColor1,
                     value: screenController.isLedgerStatus.value,
                     onChanged: (value) async {
                       screenController.isLedgerStatus.value = value;
@@ -571,29 +580,26 @@ class CupertinoSwitchAndbuttonmodule extends StatelessWidget {
             () => ElevatedButton(
               style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.appColors),
-              onPressed: () {
+              onPressed: () async {
                 if (screenController.ledgerGlobalKey.currentState!.validate()) {
-                  if (screenController.categoryTypeId.value == "") {
+                  await screenController.addLedgerFunction();
+                  /*if (screenController.categoryTypeId.value == "") {
                     Fluttertoast.showToast(
                       msg: 'Please select account category type.',
                       backgroundColor: AppColors.redColor,
                     );
                   } else {
-                    // LedgerOption.update ==
-                    //     screenController
-                    //         .ledgerOption
-                    //     ? screenController
-                    //     .updateCompanyDetails()
-                    //     : screenController
-                    //     .addCompanyDetails();
-                  }
+                    *//*LedgerOption.update == screenController.ledgerOption
+                        ? screenController.updateCompanyDetails()
+                        : *//*screenController.addLedgerFunction();
+                  }*/
                 }
               },
               child: screenController.isLoading.value
                   ? Center(
                       child: CommonLoader().showLoader(),
                     ).paddingAll(5)
-                  : CompanyOption.update == screenController.ledgerOption
+                  : LedgerOption.update == screenController.ledgerOption
                       ? const Text('Update')
                       : const Text('Submit'),
             ),

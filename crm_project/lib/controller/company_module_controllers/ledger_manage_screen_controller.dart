@@ -35,7 +35,7 @@ class LedgerManageScreenController extends GetxController {
 
   TextEditingController notesFieldController = TextEditingController();
   RxBool isStatusSelected = true.obs;
-  RxBool isLedgerStatus = false.obs;
+  RxBool isLedgerStatus = true.obs;
 
   DateTime selectedDate = DateTime.now();
   RxString showSelectedDate = "".obs;
@@ -84,17 +84,71 @@ class LedgerManageScreenController extends GetxController {
   List<ProspectManageData> prospectManageList = [];
   ProspectManageData prospectManageDataValue = ProspectManageData();
 
+  /// Select Date Module
+  Future<void> selectDate(BuildContext context) async {
+    DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2010),
+      lastDate: DateTime(2040),
+    );
+
+    if (picked != null /*&& picked != selectedDate*/) {
+        selectedDate = picked;
+        showSelectedDate.value = DateFormatChanger().dateFormat(selectedDate);
+
+    }
+  }
+
   /// Add Ledger Function
   Future<void> addLedgerFunction() async {
-    isLoading(true);
+    // isLoading(true);
     String url = ApiUrl.companyLedgerAddApi;
     log('addLedgerFunction Api Url :$url');
 
-    try {} catch (e) {
+    String amount = amountFieldController.text.trim();
+    String ledgerType = selectedTypeValue.value == "Select Category type" ? "" : selectedTypeValue.value;
+    String accountCategoryId = categoryTypeDataValue.category == "Select Account Category" ? "" : categoryTypeDataValue.accountCategoryId.toString();
+    String reference = referenceFieldController.text.trim();
+    String details = detailsFieldController.text.trim();
+    String propertyId = propertyDataValue.propertyName == "Select Property" ? "" : propertyDataValue.propertyId.toString();
+    String companyId = companyDataValue.companyId.toString();
+    String workOrderId = workOrderDataValue.workOrderDetails == "Select Work Order" ? "" : workOrderDataValue.workOrderId.toString() ;
+    String marketingId = marketingDataValue.campaignName == "Select Marketing" ? "" : marketingDataValue.campaignId.toString();
+    String contactId = contactDataValue.firstName == "Select" ? "" : "${contactDataValue.firstName} ${contactDataValue.lastName}";
+    String mortgageId = mortgageDataValue.mortgageName == "Select Mortgage" ? "" : mortgageDataValue.mortgageId.toString();
+    String leaseId = leaseDataValue.gracePeriod == "Select Lease" ? "" : leaseDataValue.leaseId.toString();
+    String propertyManagementId = propertyManagementDataValue.terminationTerms == "Select Property Management" ? "" : propertyManagementDataValue.propertyManagementId.toString();
+    String prospectId = prospectManageDataValue.propertyAddress == "Select Prospect" ? "" : prospectManageDataValue.prospectId.toString();
+
+
+    try {
+      Map<String, dynamic> bodyData = {
+        // "LedgerDate" : selectedDate,
+        "Amount": amount,
+        "type": ledgerType,
+        "AccountCategoryID": accountCategoryId,
+        "Reference": reference,
+        "Details": details,
+        "propertyID": propertyId,
+        "CompanyID": companyId,
+        "workOrderID": workOrderId,
+        "marketingID": marketingId,
+        "contactID": contactId,
+        "mortgageID": mortgageId,
+        "leaseID": leaseId,
+        "propertymanagementID": propertyManagementId,
+        "prospectID": prospectId,
+        "IsActive": isLedgerStatus.value
+      };
+      log('bodyData : ${jsonEncode(bodyData)}');
+      // log('BodyData : $bodyData');
+
+    } catch (e) {
       log('addLedgerFunction Error :$e');
     }
   }
- //Category Type ID find
+  /// Category Type ID find
   void categoryTypeIdFindFunction() {
     for (int i = 0; i < categoryTypeList.length; i++) {
       if (categoryTypeSelect.value == categoryTypeList[i].category) {
