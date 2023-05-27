@@ -62,24 +62,26 @@ class ManageCompanyDetailsScreenController extends GetxController {
         // fax2TextField.text = updateCompanyModel.data.f;
         websiteTextField.text = updateCompanyModel.data.website;
         emailTextField.text = updateCompanyModel.data.email;
-        companyTypeSelect.value =
-            updateCompanyModel.data.companyType.companyTypes;
+        // companyTypeSelect.value =
+        //     updateCompanyModel.data.companyType.companyTypes;
         isCompanyStatus.value = updateCompanyModel.data.isActive;
         companyId = updateCompanyModel.data.companyId.toString();
-
-        for (int i = 0; i < companyTypeListDropDown.length; i++) {
-          if (companyTypeSelect.value ==
-              companyTypeListDropDown[i].companyTypes) {
-            companyTypeSelect.value = companyTypeListDropDown[i].companyTypes;
-            companyTypeId.value = companyTypeListDropDown[i].companyTypeId.toString();
-            log('loop ');
-            log('Company Type: $companyTypeSelect ');
-            log('Company ID:  $companyTypeId');
-            break; // Stop the loop when a match is found
-          } else {
-            log('Match not found! Stopping the loop.');
-          }
-        }
+        companyTypeSelect.value = updateCompanyModel.data.companyType.companyTypes;
+        companyTypeId.value = updateCompanyModel.data.companyType.companyTypeId.toString();
+        // for (int i = 0; i < companyTypeListDropDown.length; i++) {
+        //   if (companyTypeSelect.value ==
+        //       companyTypeListDropDown[i].companyTypes) {
+        //     companyTypeSelect.value = companyTypeListDropDown[i].companyTypes;
+        //     companyTypeId.value =
+        //         companyTypeListDropDown[i].companyTypeId.toString();
+        //     log('loop ');
+        //     log('Company Type: $companyTypeSelect ');
+        //     log('Company ID:  $companyTypeId');
+        //     break; // Stop the loop when a match is found
+        //   } else {
+        //     log('Match not found! Stopping the loop.');
+        //   }
+        // }
         // log('Company Type Selected : ${companyTypeSelect.value}');
         // log('Company Name : ${updateCompanyModel.data.companyName}');
         isLoading(false);
@@ -95,7 +97,8 @@ class ManageCompanyDetailsScreenController extends GetxController {
     for (int i = 0; i < companyTypeListDropDown.length; i++) {
       if (companyTypeSelect.value == companyTypeListDropDown[i].companyTypes) {
         companyTypeSelect.value = companyTypeListDropDown[i].companyTypes;
-        companyTypeId.value = companyTypeListDropDown[i].companyTypeId.toString();
+        companyTypeId.value =
+            companyTypeListDropDown[i].companyTypeId.toString();
         log('loop ');
         log('Company Type: $companyTypeSelect ');
         log('Company Type ID:  $companyTypeId');
@@ -208,8 +211,6 @@ class ManageCompanyDetailsScreenController extends GetxController {
             headers: {"Authorization": "Bearer ${AppMessage.token}"},
           ));
       log("addCompanyDetails response ${response.data}");
-
-
 
       SuccessModel successModel = SuccessModel.fromJson(response.data);
       log("addCompanyDetails Company : ${successModel.statusCode}");

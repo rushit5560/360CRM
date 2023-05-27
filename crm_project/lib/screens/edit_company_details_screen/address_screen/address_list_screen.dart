@@ -84,7 +84,8 @@ class CompanyAddressListScreen extends StatelessWidget {
           Get.to(() => CompanyManageAddressScreen(),
                   arguments: [
                     AddressOption.create,
-                    addressListScreenController.companyId.toString()
+                    addressListScreenController.companyId.toString(),
+                    "",
                   ],
                   transition: Transition.zoom)!
               .then((value) async {
@@ -93,7 +94,7 @@ class CompanyAddressListScreen extends StatelessWidget {
             addressListScreenController.hasMore = true;
             await addressListScreenController.getAddressList();
           });
-          ;
+          
         },
         backgroundColor: AppColors.appColors,
         child: const Icon(Icons.add),

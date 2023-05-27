@@ -1,14 +1,15 @@
 import 'dart:developer';
+import 'package:crm_project/constants/extension.dart';
 import 'package:crm_project/controller/company_module_controllers/address_list_screen_controller.dart';
-import 'package:crm_project/utils/enums.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import '../../../common_modules/common_bottomsheet_module.dart';
 import '../../../common_modules/common_textfield.dart';
+import '../../../common_widgets/header_and_content_module.dart';
 import '../../../constants/colors.dart';
-import '../../../constants/single_list_tile_module.dart';
+import '../../../utils/enums.dart';
 import '../../../utils/messaging.dart';
 import 'address_manage_screen/address_manage_screen.dart';
 
@@ -50,23 +51,71 @@ class AddressListWidget extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: AppColors.appColors.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(2.w)),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        // crossAxisAlignment: CrossAxisAlignment.end,
+                  child: Column(children: [
+                    Column(
+                      children: [
+                        HeaderAndContentModule(
+                          headerText: "Address 1",
+                          contentText: addressListScreenController
+                              .addressList[i].address1,
+                        ),
+                        HeaderAndContentModule(
+                          headerText: "Address 2",
+                          contentText: addressListScreenController
+                              .addressList[i].address2,
+                        ),
+                        const SizedBox(height: 10),
+                      ],
+                    ).commonSymmetricPaddng(vertical: 8, horizontal: 8),
+                    const SizedBox(height: 10),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: AppColors.appColors.withOpacity(0.1),
+                        borderRadius: const BorderRadius.only(
+                          bottomRight: Radius.circular(10),
+                          bottomLeft: Radius.circular(10),
+                        ),
+                      ),
+                      child: Row(
                         children: [
+                          Expanded(
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Transform.scale(
+                                alignment: AlignmentDirectional.centerEnd,
+                                scale: 0.8,
+                                child: CupertinoSwitch(
+                                  activeColor: AppColors.appColors,
+                                  trackColor: AppColors.appColorsSecondry,
+                                  value: addressListScreenController
+                                      .addressList[i].isActive,
+                                  onChanged: (value) async {
+                                    log("addressListScreenController .addressList[i].addressId ${addressListScreenController.addressList[i].addressId}");
+                                    await addressListScreenController
+                                        .changeAddressFunction(
+                                      addressId: addressListScreenController
+                                          .addressList[i].addressId
+                                          .toString(),
+                                      status: value,
+                                      index: i,
+                                    );
+                                    // .notesList[i].isActive = value;
+                                    // notesListScreenController.loadUI();
+                                  },
+                                ),
+                              ),
+                            ),
+                          ),
                           InkWell(
                             onTap: () {
                               Get.to(
                                 () => CompanyManageAddressScreen(),
                                 arguments: [
                                   AddressOption.update,
+                                  addressListScreenController.companyId
+                                      .toString(),
                                   addressListScreenController
                                       .addressList[i].addressId
-                                      .toString(),
-                                  addressListScreenController.companyId
                                       .toString(),
                                 ],
                               )!
@@ -85,8 +134,7 @@ class AddressListWidget extends StatelessWidget {
                               size: 7.w,
                               color: AppColors.appColors,
                             ),
-                          ),
-                          const SizedBox(width: 8),
+                          ).paddingSymmetric(horizontal: 8),
                           InkWell(
                             onTap: () {
                               CommonbottomSheetModule(
@@ -119,90 +167,16 @@ class AddressListWidget extends StatelessWidget {
                               size: 7.w,
                               color: AppColors.redColor,
                             ),
-                          ),
+                          ).paddingSymmetric(horizontal: 8),
                         ],
                       ),
-                      SingleListTileModuleCustom(
-                        textValue:
-                            addressListScreenController.addressList[i].address1,
-                        textKey: 'Address 1',
-                      ),
-                      const SizedBox(height: 5),
-                      SingleListTileModuleCustom(
-                        textValue:
-                            addressListScreenController.addressList[i].address2,
-                        textKey: 'Address 2',
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Text('',
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 11.sp,
-                                    color:
-                                        AppColors.blackColor.withOpacity(0.6))),
-                          ),
-                          Obx(
-                            () => addressListScreenController.isLoading.value
-                                ? Container()
-                                : Transform.scale(
-                                    alignment: AlignmentDirectional.centerEnd,
-                                    scale: 0.8,
-                                    child: CupertinoSwitch(
-                                      activeColor: AppColors.appColors,
-                                      trackColor: AppColors.appColorsSecondry,
-                                      value: addressListScreenController
-                                          .addressList[i].isActive,
-                                      onChanged: (value) async {
-                                        log("addressListScreenController .addressList[i].addressId ${addressListScreenController.addressList[i].addressId}");
-                                        await addressListScreenController
-                                            .changeAddressFunction(
-                                          addressId: addressListScreenController
-                                              .addressList[i].addressId
-                                              .toString(),
-                                          status: value,
-                                          index: i,
-                                        );
-                                        // .notesList[i].isActive = value;
-                                        // notesListScreenController.loadUI();
-                                      },
-                                    ),
-                                  ),
-                          ),
-                        ],
-                      ),
-                      // Row(
-                      //   children: [
-                      //     Text("Address 1"),
-                      //     Text(
-                      //       addressListScreenController
-                      //           .addressList[i].address1,
-                      //       maxLines: 1,
-                      //       overflow: TextOverflow.ellipsis,
-                      //       style: TextStyle(
-                      //         fontSize: 17.sp,
-                      //         fontWeight: FontWeight.bold,
-                      //         color: AppColors.blackColor,
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
-                      // const SizedBox(height: 15),
-                    ],
-                  ).paddingOnly(left: 10, right: 10, top: 10, bottom: 10),
-                ).paddingOnly(bottom: 5);
+                    )
+                  ]),
+                ).paddingSymmetric(vertical: 5);
               } else {
                 return addressListScreenController.hasMore
-                        ? const Center(child: CircularProgressIndicator())
-                        : Container() /*const Center(
-            child: Text(
-              "No more companies!",
-
-            ))*/
-                    ;
+                    ? const Center(child: CircularProgressIndicator())
+                    : Container();
               }
             },
           );

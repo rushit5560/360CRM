@@ -10,21 +10,23 @@ import '../../constants/api_url.dart';
 import '../../models/address_manage_screen_model/address_list_model.dart';
 import '../../models/address_manage_screen_model/city_get_by_id_model.dart';
 import '../../models/address_manage_screen_model/get_all_address_model.dart';
+import '../../models/address_manage_screen_model/get_by_id_address_model.dart';
 import '../../models/success_model/success_model.dart';
 import '../../utils/messaging.dart';
 
 class AddressManageScreenController extends GetxController {
   AddressOption addressOption = Get.arguments[0];
   String companyId = Get.arguments[1].toString();
-
+  String addressId = Get.arguments[2].toString();
+  String stateId = "";
   GlobalKey<FormState> addressFormKey = GlobalKey<FormState>();
 
   RxBool isLoading = false.obs;
   RxString appBarHeader = "".obs;
   RxInt isSuccessStatusCode = 0.obs;
-  RxInt addressTypeId = 0.obs;
-  RxInt stateTypeId = 0.obs;
-  RxInt cityTypeId = 0.obs;
+  RxString addressTypeId = ''.obs;
+  RxString stateTypeId = "".obs;
+  RxString cityTypeId = "".obs;
 
   RxString appTitleText = "".obs;
   RxString addressTypeSelect = 'Select address type'.obs;
@@ -38,7 +40,7 @@ class AddressManageScreenController extends GetxController {
   CityGetByIdData? citySelectedItem;
   List<CityGetByIdData> cityListDropDown = [];
   List<AddressDetails> addressList = [];
-  RxBool isCompanyStatus = false.obs;
+  RxBool isAddressStatus = false.obs;
   List<CityList> filterCityList = [];
   TextEditingController addressOneFieldController = TextEditingController();
 
@@ -49,8 +51,9 @@ class AddressManageScreenController extends GetxController {
   void addressTypeIdFindFunction() {
     for (int i = 0; i < addressTypeListDropDown.length; i++) {
       if (addressTypeSelect.value == addressTypeListDropDown[i].addressTypes) {
-        addressTypeSelect.value = addressTypeListDropDown[i].addressTypes;
-        addressTypeId.value = addressTypeListDropDown[i].addressTypeId;
+        addressTypeSelect.value = addressTypeListDropDown[i].addressTypes.toString();
+        addressTypeId.value =
+            addressTypeListDropDown[i].addressTypeId.toString();
         log('addressTypeIdFindFunction loop ');
         log('addressTypeIdFindFunction Type: $addressTypeSelect ');
         log('addressTypeIdFindFunction ID:  $addressTypeId');
@@ -62,7 +65,7 @@ class AddressManageScreenController extends GetxController {
   }
 
 //get all address type
-  Future<void> GetAllAddressTypeFunction() async {
+  Future<void> getAllAddressTypeFunction() async {
     log("GetAllAddressTypeFunction");
     isLoading(true);
     String url = '${ApiUrl.getAllAddress}?CustomerId=${AppMessage.customerId}';
@@ -85,13 +88,8 @@ class AddressManageScreenController extends GetxController {
     } catch (e) {
       log("GetAllAddressTypeFunction catch $e");
     }
-    if (addressOption == AddressOption.create) {
-      log("getAllStateFunction");
-      await getAllStateFunction();
-    } else {
-      log('GetAllAddressTypeFunction nothing');
-      isLoading(false);
-    }
+
+    await getAllStateFunction();
   }
 
 // state Type ID find
@@ -99,7 +97,7 @@ class AddressManageScreenController extends GetxController {
     for (int i = 0; i < stateListDropDown.length; i++) {
       if (stateTypeSelect.value == stateListDropDown[i].stateName) {
         stateTypeSelect.value = stateListDropDown[i].stateName;
-        stateTypeId.value = stateListDropDown[i].stateId;
+        stateTypeId.value = stateListDropDown[i].stateId.toString();
         log('stateTypeIdFindFunction loop ');
         log('stateTypeIdFindFunction Type: $stateTypeSelect ');
         log('stateTypeIdFindFunction ID:  $stateTypeId');
@@ -126,24 +124,24 @@ class AddressManageScreenController extends GetxController {
           GetAllStateModel.fromJson(response.data);
       isSuccessStatusCode.value = getAllStateModel.statusCode;
       if (isSuccessStatusCode.value == 200) {
-        isLoading(false);
+        // isLoading(false);
         stateListDropDown.addAll(getAllStateModel.data);
         stateSelectedItem = stateListDropDown[0];
 
         log('getAllStateFunction Type List   : $stateListDropDown');
         log("getAllStateFunction stateSelectedItem $stateSelectedItem");
-        isLoading(false);
+        // isLoading(false);
       }
     } catch (e) {
       log("getAllStateFunction catch $e");
     }
-    // if (addressOption == AddressOption.create) {
-    //   log("getAllStateFunction");
-    //   await getAllStateWiseCityFunction(stateTypeId.value.toString());
-    // } else {
-    //   log('GetAllAddressTypeFunction nothing');
-    // }
-    isLoading(false);
+
+    if (addressOption == AddressOption.update) {
+      await cityGetByIdFunction(stateId: stateSelectedItem!.stateId.toString());
+    } else {
+      log('GetAllAddressTypeFunction nothing');
+      isLoading(false);
+    }
   }
 
 // city Type ID find
@@ -151,7 +149,7 @@ class AddressManageScreenController extends GetxController {
     for (int i = 0; i < cityListDropDown.length; i++) {
       if (cityTypeSelect.value == cityListDropDown[i].cityName) {
         cityTypeSelect.value = cityListDropDown[i].cityName;
-        cityTypeId.value = cityListDropDown[i].cityId;
+        cityTypeId.value = cityListDropDown[i].cityId.toString();
         log('cityTypeIdFindFunction loop ');
         log('cityTypeIdFindFunction Type: $cityTypeSelect ');
         log('cityTypeIdFindFunction ID:  $cityTypeId');
@@ -163,29 +161,29 @@ class AddressManageScreenController extends GetxController {
   }
 
 // Get city list function
-  Future<void> cityGetByIdFunction({required String stateId}) async {
+  Future<void> cityGetByIdFunction(
+      {required String stateId, bool isDropdownSelect = false}) async {
     String url = '${ApiUrl.cityGetById}?stateId=$stateId';
-    log("citygetByIdFunction stateTypeId $stateId:");
+    log("cityGetByIdFunction stateTypeId $stateId:");
 
-    log("citygetByIdFunction url $url");
+    log("cityGetByIdFunction url $url");
 
     try {
-      log("citygetByIdFunction try");
+      log("cityGetByIdFunction try");
       final response = await dioRequest.get(url,
           options: dio.Options(
               headers: {"Authorization": "Bearer ${AppMessage.token}"}));
-      log("citygetByIdFunction response $response");
+      log("cityGetByIdFunction response $response");
       CityGetByIdListModel cityGetByIdListModel =
           CityGetByIdListModel.fromJson(response.data);
       isSuccessStatusCode.value = cityGetByIdListModel.statusCode;
       if (isSuccessStatusCode.value == 200) {
-        // isLoading(false);
         cityListDropDown.clear();
         cityTypeSelect.value = "Select city type";
         cityListDropDown.addAll(cityGetByIdListModel.data);
         citySelectedItem = cityListDropDown[0];
 
-        for (var element in cityListDropDown) {
+        /*for (var element in cityListDropDown) {
           log("element");
           if (element.stateId == stateTypeId.value) {
             log("element 111");
@@ -193,14 +191,25 @@ class AddressManageScreenController extends GetxController {
             citySelectedItem = element;
             log('getAllStateWiseCityFunction cityListDropDown : ${citySelectedItem!.cityName}');
           }
-        }
+        }*/
       }
     } catch (e) {
       log("citygetByIdFunction catch $e");
-    } finally {
+    }
+
+    if (addressOption == AddressOption.update) {
+      if (isDropdownSelect == false) {
+        await getByIdAddressFunction();
+      } else {
+        isLoading(false);
+      }
+    } else {
       isLoading(true);
       isLoading(false);
     }
+    // finally {
+
+    // }
   }
 
 // add address function
@@ -218,7 +227,7 @@ class AddressManageScreenController extends GetxController {
       "Zip": zipCodeFieldController.text.trim(),
       "type": "company",
       "CityID": cityTypeSelect.value.isNotEmpty ? cityTypeId.value : "",
-      "IsActive": isCompanyStatus.value,
+      "IsActive": isAddressStatus.value,
     };
     log("addAddressData $addAddressData");
 
@@ -259,28 +268,109 @@ class AddressManageScreenController extends GetxController {
     isLoading(false);
   }
 
-//update address api function
-  Future<void> updateAddressFunction() async {
+//Get by id address api function
+  Future<void> getByIdAddressFunction() async {
+    log("addressId addressId $addressId");
+    log("getByIdAddressFunction");
     isLoading(true);
-    // String url=
-    // isLoading(false);
+    String url = "${ApiUrl.getByIdAddressApi}?addressId=$addressId";
+    log("getByIdAddressFunction api url: $url");
+    try {
+      final response = await dioRequest.get(
+        url,
+        options: dio.Options(
+            headers: {"Authorization": "Bearer ${AppMessage.token}"}),
+      );
+      log("getByIdAddressFunction response: $response");
+      UpdateAddressModel updateAddressModel =
+          UpdateAddressModel.fromJson(response.data);
+      isSuccessStatusCode.value = updateAddressModel.statusCode;
 
+      if (isSuccessStatusCode.value == 200) {
+        addressId = updateAddressModel.data.addressId.toString();
+        addressTypeSelect.value =
+            updateAddressModel.data.addressType.addressTypes.toString();
+        addressTypeId.value =
+            updateAddressModel.data.addressType.addressTypeId.toString();
+
+        addressOneFieldController.text = updateAddressModel.data.address1;
+        addressTwoFieldController.text = updateAddressModel.data.address2;
+        zipCodeFieldController.text = updateAddressModel.data.zip;
+        stateTypeSelect.value =
+            updateAddressModel.data.state.stateName.toString();
+        stateTypeId.value = updateAddressModel.data.state.stateId.toString();
+        cityTypeSelect.value = updateAddressModel.data.city.cityName.toString();
+        cityTypeId.value = updateAddressModel.data.city.cityId.toString();
+
+        isAddressStatus.value = updateAddressModel.data.isActive;
+      }
+    } catch (e) {
+      log("getByIdAddressFunction error : $e");
+    }
+    isLoading(false);
+  }
+
+// update address function
+  Future<void> updateAddressDetailsFunction() async {
+    isLoading(true);
+    String url = ApiUrl.companyUpdateAddressApi;
+    log("updateAddressDetails api url $url");
+    Map<String, dynamic> updateData = {
+      "AddressId": addressId,
+      "AddressTypeId": addressTypeId.value,
+      "CompanyID": companyId,
+      "Address1": addressOneFieldController.text,
+      "Address2": addressTwoFieldController.text,
+      "StateID": stateTypeId.value,
+      "Zip": zipCodeFieldController.text,
+      "type": "company",
+      "IsActive": isAddressStatus.value,
+    };
+    log("updateAddressDetails updateData $updateData");
+    try {
+      final response = await dioRequest.put(url,
+          data: updateData,
+          options: dio.Options(
+            headers: {"Authorization": "Bearer ${AppMessage.token}"},
+          ));
+
+      SuccessModel successModel = SuccessModel.fromJson(response.data);
+      log("updateAddressDetails  : ${successModel.statusCode}");
+
+      if (successModel.statusCode == 200) {
+        Get.back();
+        Fluttertoast.showToast(msg: successModel.message);
+        // isLoading(false);
+      } else {
+        log("Update Company : ${successModel.message}");
+        Fluttertoast.showToast(msg: successModel.message);
+        // isLoading(false);
+      }
+    } catch (e) {
+      log("updateAddressDetails error $e");
+    }
+    isLoading(false);
   }
 
   Future<void> initMethod() async {
     bool isCreate = addressOption == AddressOption.create ? true : false;
     appBarHeader.value =
         isCreate == true ? AppMessage.addAddress : AppMessage.updateAddress;
-    log("appBarHeader.value $appBarHeader.value");
+    log("appBarHeader.value ${appBarHeader.value}");
 
     appTitleText.value = isCreate == true ? AppMessage.add : AppMessage.update;
-    log("appBarHeader.value $appBarHeader.value");
+    log("appBarHeader.value ${appBarHeader.value}");
     // appBarHeader.value = notesOption == NotesOption.create ? AppMessage.addNotes : AppMessage.notesDetails;
     // appBarHeader.value = "";
 
-    if (addressOption == AddressOption.create) {
-      await GetAllAddressTypeFunction();
-    }
+    // if (addressOption == AddressOption.create) {
+    await getAllAddressTypeFunction();
+    // }
+
+    //  else if (addressOption == AddressOption.update) {
+    //   log("AddressOption.update");
+    //   await getByIdAddressFunction();
+    // }
   }
 
   @override

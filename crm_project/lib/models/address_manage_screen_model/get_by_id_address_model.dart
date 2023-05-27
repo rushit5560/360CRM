@@ -1,27 +1,27 @@
 // To parse this JSON data, do
 //
-//     final getByIdAddressModel = getByIdAddressModelFromJson(jsonString);
+//     final updateAddressModel = updateAddressModelFromJson(jsonString);
 
 import 'dart:convert';
 
-GetByIdAddressModel getByIdAddressModelFromJson(String str) =>
-    GetByIdAddressModel.fromJson(json.decode(str));
+UpdateAddressModel updateAddressModelFromJson(String str) =>
+    UpdateAddressModel.fromJson(json.decode(str));
 
-// String getByIdAddressModelToJson(GetByIdAddressModel data) => json.encode(data.toJson());
+// String updateAddressModelToJson(UpdateAddressModel data) => json.encode(data.toJson());
 
-class GetByIdAddressModel {
+class UpdateAddressModel {
   int statusCode;
   AddressData data;
 
-  GetByIdAddressModel({
+  UpdateAddressModel({
     required this.statusCode,
     required this.data,
   });
 
-  factory GetByIdAddressModel.fromJson(Map<String, dynamic> json) =>
-      GetByIdAddressModel(
+  factory UpdateAddressModel.fromJson(Map<String, dynamic> json) =>
+      UpdateAddressModel(
         statusCode: json["statusCode"] ?? 0,
-        data: AddressData.fromJson(json["data"] ?? []),
+        data: AddressData.fromJson(json["data"] ?? {}),
       );
 
   // Map<String, dynamic> toJson() => {
@@ -31,17 +31,17 @@ class GetByIdAddressModel {
 }
 
 class AddressData {
-  int addressId; //
+  int addressId;
   // dynamic contactId;
   // dynamic contact;
-  String address1; //
-  String address2; //
+  String address1;
+  String address2;
   String zip;
   String type;
   int addressTypeId;
   AddressType addressType;
-  int companyId;
-  String company;
+  // int companyId;
+  // dynamic company;
   int cityId;
   AddressType city;
   int stateId;
@@ -52,7 +52,7 @@ class AddressData {
   // dynamic createdBy;
   // DateTime createdOn;
   // dynamic modifiedBy;
-  // DateTime modifiedOn;
+  // dynamic modifiedOn;
   bool isActive;
   // bool isDeleted;
   // dynamic createdUser;
@@ -68,8 +68,8 @@ class AddressData {
     required this.type,
     required this.addressTypeId,
     required this.addressType,
-    required this.companyId,
-    required this.company,
+    // required this.companyId,
+    // this.company,
     required this.cityId,
     required this.city,
     required this.stateId,
@@ -80,7 +80,7 @@ class AddressData {
     // this.createdBy,
     // required this.createdOn,
     // this.modifiedBy,
-    // required this.modifiedOn,
+    // this.modifiedOn,
     required this.isActive,
     // required this.isDeleted,
     // this.createdUser,
@@ -97,8 +97,8 @@ class AddressData {
         type: json["type"] ?? "",
         addressTypeId: json["addressTypeId"] ?? 0,
         addressType: AddressType.fromJson(json["addressType"] ?? {}),
-        companyId: json["companyID"] ?? 0,
-        company: json["company"] ?? "",
+        // companyId: json["companyID"],
+        // company: json["company"],
         cityId: json["cityID"] ?? 0,
         city: AddressType.fromJson(json["city"] ?? {}),
         stateId: json["stateID"] ?? 0,
@@ -109,7 +109,7 @@ class AddressData {
         // createdBy: json["createdBy"],
         // createdOn: DateTime.parse(json["createdOn"]),
         // modifiedBy: json["modifiedBy"],
-        // modifiedOn: DateTime.parse(json["modifiedOn"]),
+        // modifiedOn: json["modifiedOn"],
         isActive: json["isActive"] ?? false,
         // isDeleted: json["isDeleted"],
         // createdUser: json["createdUser"],
@@ -118,8 +118,8 @@ class AddressData {
 
   // Map<String, dynamic> toJson() => {
   //     "addressId": addressId,
-  //     // "contactID": contactId,
-  //     // "contact": contact,
+  //     "contactID": contactId,
+  //     "contact": contact,
   //     "address1": address1,
   //     "address2": address2,
   //     "zip": zip,
@@ -132,25 +132,23 @@ class AddressData {
   //     "city": city.toJson(),
   //     "stateID": stateId,
   //     "state": state.toJson(),
-  //     // "pageNumber": pageNumber,
-  //     // "pageSize": pageSize,
-  //     // "totalRecords": totalRecords,
-  //     // "createdBy": createdBy,
-  //     // "createdOn": createdOn.toIso8601String(),
-  //     // "modifiedBy": modifiedBy,
-  //     // "modifiedOn": modifiedOn.toIso8601String(),
+  //     "pageNumber": pageNumber,
+  //     "pageSize": pageSize,
+  //     "totalRecords": totalRecords,
+  //     "createdBy": createdBy,
+  //     "createdOn": createdOn.toIso8601String(),
+  //     "modifiedBy": modifiedBy,
+  //     "modifiedOn": modifiedOn,
   //     "isActive": isActive,
-  //     // "isDeleted": isDeleted,
-  //     // "createdUser": createdUser,
-  //     // "modifiedUser": modifiedUser,
+  //     "isDeleted": isDeleted,
+  //     "createdUser": createdUser,
+  //     "modifiedUser": modifiedUser,
   // };
 }
 
 class AddressType {
-  int addressTypeId;
-  String addressTypes;
-
-  ///
+  int? addressTypeId;
+  String? addressTypes;
   // int customerId;
   // dynamic customer;
   // int pageNumber;
@@ -160,20 +158,20 @@ class AddressType {
   // DateTime createdOn;
   // dynamic modifiedBy;
   // DateTime? modifiedOn;
-  // bool isActive;
+  bool isActive;
   // bool isDeleted;
   // dynamic createdUser;
   // dynamic modifiedUser;
-  // int? cityId;
-  // String? cityName;
-  // int? stateId;
+  int? cityId;
+  String? cityName;
+  int? stateId;
   // dynamic state;
-  // String? stateName;
+  String? stateName;
   // String? shortName;
 
   AddressType({
-    required this.addressTypeId,
-    required this.addressTypes,
+    this.addressTypeId,
+    this.addressTypes,
     // required this.customerId,
     // this.customer,
     // required this.pageNumber,
@@ -183,15 +181,15 @@ class AddressType {
     // required this.createdOn,
     // this.modifiedBy,
     // this.modifiedOn,
-    // required this.isActive,
+    required this.isActive,
     // required this.isDeleted,
     // this.createdUser,
     // this.modifiedUser,
-    // this.cityId,
-    // this.cityName,
-    // this.stateId,
+    this.cityId,
+    this.cityName,
+    this.stateId,
     // this.state,
-    // this.stateName,
+    this.stateName,
     // this.shortName,
   });
 
@@ -207,15 +205,15 @@ class AddressType {
         // createdOn: DateTime.parse(json["createdOn"]),
         // modifiedBy: json["modifiedBy"],
         // modifiedOn: json["modifiedOn"] == null ? null : DateTime.parse(json["modifiedOn"]),
-        // isActive: json["isActive"],
+        isActive: json["isActive"] ?? false,
         // isDeleted: json["isDeleted"],
         // createdUser: json["createdUser"],
         // modifiedUser: json["modifiedUser"],
-        // cityId: json["cityId"],
-        // cityName: json["cityName"],
-        // stateId: json["stateID"],
+        cityId: json["cityId"] ?? 0,
+        cityName: json["cityName"] ?? "",
+        stateId: json["stateID"] ?? 0,
         // state: json["state"],
-        // stateName: json["stateName"],
+        stateName: json["stateName"] ?? "",
         // shortName: json["shortName"],
       );
 
