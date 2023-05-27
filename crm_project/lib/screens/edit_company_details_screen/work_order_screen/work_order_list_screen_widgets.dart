@@ -36,7 +36,6 @@ class WorkOrderListWidget extends StatelessWidget {
                         title: 'Work Order Type',
                         subTitle: workOrderListScreenController
                             .workOrderList[index].workOrderStatus.name!,
-                        //'${AppMessage.dateAdded}: ${DateFormatChanger().dateFormat(notesListScreenController.notesList[i].createdOn)}',
                         subTitleColor: AppColors.blackColor,
                         titleColor: AppColors.blackColor.withOpacity(0.5)),
                     const SizedBox(

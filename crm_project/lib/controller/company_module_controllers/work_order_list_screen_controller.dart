@@ -68,7 +68,7 @@ class WorkOrderListScreenController extends GetxController {
       {required String workOrderID,
       required bool status,
       required int index}) async {
-    isLoading(true);
+    // isLoading(true);
     final url = ApiUrl.companyWorkOrderChangeStatusApi;
     log('Work order change status URL: $url');
     try {
@@ -93,13 +93,14 @@ class WorkOrderListScreenController extends GetxController {
     } catch (e) {
       log('catch work order status change : $e');
     }
-    isLoading(false);
+    // isLoading(false);
+    loadUi();
   }
 
 //delete Work Order List
   Future<void> deleteWorkOrderFunction(
       {required String workOrderId, required int index}) async {
-    isLoading(true);
+    // isLoading(true);
     final url = ApiUrl.companyWorkOrderSoftDeleteApi;
     log("delete work order Api URL: $url");
     try {
@@ -128,7 +129,8 @@ class WorkOrderListScreenController extends GetxController {
     } catch (e) {
       log("catch delete work order: $e");
     }
-    isLoading(false);
+    // isLoading(false);
+    loadUi();
   }
 
   @override

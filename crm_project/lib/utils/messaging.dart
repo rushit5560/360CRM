@@ -49,8 +49,10 @@ class AppMessage {
   static String propertyName = 'Property Name';
   static String underManagementList = 'Under Management List';
   static String workOrderList = 'Work Order List';
+  static String addWorkOrder = 'Add Work Order';
+  static String selectWorkOrder = 'Select WorkOrder';
 //token
   static String token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiRGhydXZpIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQ3VzdG9tZXIiLCJleHAiOjE2ODUxNjgyMzUsImlzcyI6Imh0dHA6Ly81LjE4OS4xNDcuMTU5OjcwMDMvIiwiYXVkIjoiaHR0cDovLzUuMTg5LjE0Ny4xNTk6NzAwMy8ifQ.xQHj-fqV7e5RMF-8dGwgmUr4DMZpa30xnMnADiM5RSQ";
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiRGhydXZpIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQ3VzdG9tZXIiLCJleHAiOjE2ODUxODM4MTgsImlzcyI6Imh0dHA6Ly81LjE4OS4xNDcuMTU5OjcwMDMvIiwiYXVkIjoiaHR0cDovLzUuMTg5LjE0Ny4xNTk6NzAwMy8ifQ.Z_rbPYx02gYGY4kCk8n4vpmkuOf--EVNYmUMWVdCc6k";
   static String customerId = "2";
 }

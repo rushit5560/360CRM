@@ -185,9 +185,9 @@ class WorkOrderData {
         // companyId: json["companyID"],
         // company: Company.fromJson(json["company"]),
         projectStartDate:
-            DateTime.parse(json["projectStartDate"] ?? DateTime.now()),
+            DateTime.parse(json["projectStartDate"] ?? DateTime.now().toString()),
         projectDueDate:
-            DateTime.parse(json["projectDueDate"] ?? DateTime.now()),
+            DateTime.parse(json["projectDueDate"] ?? DateTime.now().toString()),
         // completeDate: DateTime.parse(json["completeDate"]),
         // perDiemPenalty: json["perDiemPenalty"],
         // perDiemBonus: json["perDiemBonus"],
