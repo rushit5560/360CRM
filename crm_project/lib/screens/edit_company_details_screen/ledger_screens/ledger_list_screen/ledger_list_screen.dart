@@ -117,7 +117,6 @@ class LedgerListScreen extends StatelessWidget {
             ledgerListScreenController.pageIndex = 1;
             ledgerListScreenController.ledgerList.clear();
             await ledgerListScreenController.getLedgersFunction();
-
           });
         },
         backgroundColor: AppColors.appColors,

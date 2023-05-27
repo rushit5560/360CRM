@@ -123,6 +123,7 @@ class LedgerManageScreen extends StatelessWidget {
                             fieldController: ledgerManageScreenController
                                 .amountFieldController,
                             hintText: 'Amount',
+                            // labelText: 'Amount',
                             keyboardType: TextInputType.number,
                             validate: (value) =>
                                 FieldValidation().validateAmount(value, "amount"),
@@ -175,7 +176,7 @@ class LedgerManageScreen extends StatelessWidget {
                             fieldController: ledgerManageScreenController
                                 .referenceFieldController,
                             hintText: 'Reference',
-                            keyboardType: TextInputType.number,
+                            keyboardType: TextInputType.text,
                             validate: (value) => FieldValidation()
                                 .validateEmpty(value, "reference"),
                           )
@@ -209,7 +210,7 @@ class LedgerManageScreen extends StatelessWidget {
                             fieldController: ledgerManageScreenController
                                 .detailsFieldController,
                             hintText: 'Details',
-                            keyboardType: TextInputType.number,
+                            keyboardType: TextInputType.text,
                             validate: (value) =>
                                 FieldValidation().validateEmpty(value, "details"),
                           )

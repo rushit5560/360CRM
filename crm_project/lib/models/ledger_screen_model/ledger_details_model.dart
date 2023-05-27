@@ -24,23 +24,23 @@ class Data {
   int accountLedgerId;
   int companyId;
   Company company;
-  // dynamic contactId;
+  String contactId;
   // dynamic contact;
   // int propertyId;
   Property property;
-  // dynamic campaignId;
+  String campaignId;
   // dynamic campaign;
   // dynamic legalId;
   // dynamic legal;
-  // dynamic propertyManagementId;
+  String propertyManagementId;
   // dynamic propertyManagement;
-  // dynamic prospectId;
+  String prospectId;
   // dynamic prospect;
-  // dynamic mortgageId;
+  String mortgageId;
   // dynamic mortgage;
   // String type;
   // dynamic entryId;
-  // int amount;
+  String amount;
   // dynamic transactionDate;
   String ledgerType;
   int accountCategoryId;
@@ -50,7 +50,7 @@ class Data {
   // dynamic parentId;
   // int workOrderId;
   WorkOrder workOrder;
-  // dynamic leaseId;
+  String leaseId;
   // dynamic lease;
   // dynamic billId;
   // dynamic bill;
@@ -74,23 +74,23 @@ class Data {
     required this.accountLedgerId,
     required this.companyId,
     required this.company,
-    // this.contactId,
+    required this.contactId,
     // this.contact,
     // this.propertyId,
     required this.property,
-    // this.campaignId,
+    required this.campaignId,
     // this.campaign,
     // this.legalId,
     // this.legal,
-    // this.propertyManagementId,
+    required this.propertyManagementId,
     // this.propertyManagement,
-    // this.prospectId,
+    required this.prospectId,
     // this.prospect,
-    // this.mortgageId,
+    required this.mortgageId,
     // this.mortgage,
     // this.type,
     // this.entryId,
-    // this.amount,
+    required this.amount,
     // this.transactionDate,
     required this.ledgerType,
     required this.accountCategoryId,
@@ -100,7 +100,7 @@ class Data {
     // this.parentId,
     // this.workOrderId,
     required this.workOrder,
-    // this.leaseId,
+    required this.leaseId,
     // this.lease,
     // this.billId,
     // this.bill,
@@ -125,23 +125,23 @@ class Data {
     accountLedgerId: json["accountLedgerID"] ?? 0,
     companyId: json["companyID"] ?? 0,
     company: Company.fromJson(json["company"] ?? {}),
-    // contactId: json["contactID"],
+    contactId: (json["contactID"] ?? 0).toString(),
     // contact: json["contact"],
     // propertyId: json["propertyID"],
     property: Property.fromJson(json["property"] ?? {}),
-    // campaignId: json["campaignID"],
+    campaignId: (json["campaignID"] ?? 0).toString(),
     // campaign: json["campaign"],
     // legalId: json["legalID"],
     // legal: json["legal"],
-    // propertyManagementId: json["propertyManagementID"],
+    propertyManagementId: (json["propertyManagementID"] ?? 0).toString(),
     // propertyManagement: json["propertyManagement"],
-    // prospectId: json["prospectID"],
+    prospectId: (json["prospectID"] ?? 0).toString(),
     // prospect: json["prospect"],
-    // mortgageId: json["mortgageID"],
+    mortgageId: (json["mortgageID"] ?? 0).toString(),
     // mortgage: json["mortgage"],
     // type: json["type"],
     // entryId: json["entryID"],
-    // amount: json["amount"],
+    amount: (json["amount"] ?? 0.0).toString(),
     // transactionDate: json["transactionDate"],
     ledgerType: json["ledgerType"] ?? "",
     accountCategoryId: json["accountCategoryID"] ?? 0,
@@ -151,7 +151,7 @@ class Data {
     // parentId: json["parentID"],
     // workOrderId: json["workOrderId"],
     workOrder: WorkOrder.fromJson(json["workOrder"] ?? ""),
-    // leaseId: json["leaseID"],
+    leaseId: (json["leaseID"] ?? 0).toString(),
     // lease: json["lease"],
     // billId: json["billID"],
     // bill: json["bill"],

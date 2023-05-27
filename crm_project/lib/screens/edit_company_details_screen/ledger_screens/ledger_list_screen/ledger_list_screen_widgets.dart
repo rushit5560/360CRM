@@ -8,7 +8,9 @@ import '../../../../constants/colors.dart';
 import '../../../../controller/company_module_controllers/ledger_list_screen_controller.dart';
 import '../../../../models/ledger_screen_model/ledger_list_model.dart';
 import '../../../../utils/common_functions.dart';
+import '../../../../utils/enums.dart';
 import '../../../../utils/messaging.dart';
+import '../ledger_manage_screen/ledger_manage_screen.dart';
 
 class LedgerListWidget extends StatelessWidget {
   LedgerListWidget({Key? key}) : super(key: key);
@@ -107,12 +109,19 @@ class LedgerListWidget extends StatelessWidget {
                           ),
                           InkWell(
                             onTap: () {
-                              // Get.to(() => EditCompanyDetailsScreen(),
-                              //     arguments: [
-                              //       companyListScreenController.companyList[i].companyName,
-                              //       companyListScreenController.companyList[i].companyId,
-                              //
-                              //     ]);
+                              Get.to(() => LedgerManageScreen(),
+                                  arguments: [
+                                    LedgerOption.update,
+                                    singleItem.accountLedgerId.toString(),
+                                    screenController.companyId.toString(),
+                                  ],
+                                  transition: Transition.zoom)!.then((value) async {
+                                screenController.isLoading(true);
+                                screenController.hasMore = true;
+                                screenController.pageIndex = 1;
+                                screenController.ledgerList.clear();
+                                await screenController.getLedgersFunction();
+                              });
                             },
                             child: Icon(
                               Icons.edit_sharp,

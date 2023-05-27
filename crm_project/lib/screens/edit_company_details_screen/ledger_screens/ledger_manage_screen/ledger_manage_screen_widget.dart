@@ -35,7 +35,7 @@ class TypeDropdownModule extends StatelessWidget {
           "Select Ledger Type",
           style: TextStyle(color: AppColors.appColors),
         ),
-        // Not necessary for Option 1
+        value: screenController.selectedTypeValue.value,
         onChanged: (newValue) async {
           screenController.selectedTypeValue.value = newValue!;
           screenController.loadUI();
@@ -582,7 +582,11 @@ class CupertinoSwitchAndbuttonmodule extends StatelessWidget {
                   backgroundColor: AppColors.appColors),
               onPressed: () async {
                 if (screenController.ledgerGlobalKey.currentState!.validate()) {
-                  await screenController.addLedgerFunction();
+                  if(screenController.ledgerOption == LedgerOption.create) {
+                    await screenController.addLedgerFunction();
+                  } else {
+                    await screenController.updateLedgerFunction();
+                  }
                   /*if (screenController.categoryTypeId.value == "") {
                     Fluttertoast.showToast(
                       msg: 'Please select account category type.',

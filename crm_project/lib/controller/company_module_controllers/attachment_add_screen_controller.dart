@@ -28,6 +28,7 @@ class AttachmentAddScreenController extends GetxController {
   RxString attachmentTypeSelected = AppMessage.selectAttachmentType.obs;
   RxString attachmentTypeId = ''.obs;
   List<attachmentTypeList> attachmentTypeListDropDown = [];
+  // attachmentTypeList attachmentTypeValue = attachmentTypeList();
 
   RxString filePath = ''.obs;
   RxString fileName = ''.obs;

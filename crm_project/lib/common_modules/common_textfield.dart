@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class TextFieldModule extends StatelessWidget {
   final TextEditingController fieldController;
   final String hintText;
+  final String labelText;
   final TextInputType keyboardType;
   final FormFieldValidator? validate;
   final int? maxLength;
@@ -20,6 +21,7 @@ class TextFieldModule extends StatelessWidget {
       {super.key,
       required this.fieldController,
       required this.hintText,
+      this.labelText = "",
       required this.keyboardType,
       this.validate,
       this.maxLength,
@@ -54,7 +56,8 @@ class TextFieldModule extends StatelessWidget {
               borderSide: BorderSide(color: AppColors.appColors, width: 1.5)),
           errorBorder: inputBorder(),
           filled: true,
-          label: Text(hintText),
+          label: labelText == "" ? null : Text(labelText),
+          hintText: hintText,
           labelStyle: const TextStyle(color: AppColors.appColors),
           errorMaxLines: 2,
           suffixIcon: icon,

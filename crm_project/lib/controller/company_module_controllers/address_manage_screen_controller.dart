@@ -273,7 +273,7 @@ class AddressManageScreenController extends GetxController {
     log("addressId addressId $addressId");
     log("getByIdAddressFunction");
     isLoading(true);
-    String url = "${ApiUrl.getByIdAddressApi}?addressId=$addressId";
+    String url = "${ApiUrl.companyGetByIdAddressApi}?addressId=$addressId";
     log("getByIdAddressFunction api url: $url");
     try {
       final response = await dioRequest.get(

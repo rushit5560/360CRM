@@ -2,8 +2,10 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:crm_project/constants/api_url.dart';
+import 'package:crm_project/models/success_model/success_model.dart';
 import 'package:crm_project/utils/common_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart' as dio;
 import '../../models/ledger_screen_model/active_category_type_list_model.dart';
@@ -15,6 +17,7 @@ import '../../models/ledger_screen_model/active_mortgage_model.dart';
 import '../../models/ledger_screen_model/active_property_model.dart';
 import '../../models/ledger_screen_model/active_prospect_screen_model.dart';
 import '../../models/ledger_screen_model/active_work_order_list_model.dart';
+import '../../models/ledger_screen_model/ledger_details_model.dart';
 import '../../utils/enums.dart';
 import '../../utils/messaging.dart';
 import '../../models/ledger_screen_model/active_property_management_screen_model.dart';
@@ -44,16 +47,18 @@ class LedgerManageScreenController extends GetxController {
   final detailsFieldController = TextEditingController();
 
   List<String> typeList = [
+    "Select Ledger Type",
     "Capital Expense",
     "Operating Expense",
     "Expense",
     "Income",
     "Deposit"
   ];
-  RxString selectedTypeValue = "".obs;
+  RxString selectedTypeValue = "Select Ledger Type".obs;
 
   List<CategoryTypeData> categoryTypeList = [];
   CategoryTypeData categoryTypeDataValue = CategoryTypeData();
+
   RxString categoryTypeSelect = 'Select Category type'.obs;
   RxString categoryTypeId = ''.obs;
 
@@ -84,6 +89,265 @@ class LedgerManageScreenController extends GetxController {
   List<ProspectManageData> prospectManageList = [];
   ProspectManageData prospectManageDataValue = ProspectManageData();
 
+
+
+  /// Add Ledger Function
+  Future<void> addLedgerFunction() async {
+    // isLoading(true);
+    String url = ApiUrl.companyLedgerAddApi;
+    log('addLedgerFunction Api Url :$url');
+
+    String amount = amountFieldController.text.trim();
+    String type = "company";
+    String accountCategoryId = categoryTypeDataValue.category == "Select Account Category" ? "" : categoryTypeDataValue.accountCategoryId.toString();
+    String reference = referenceFieldController.text.trim();
+    String details = detailsFieldController.text.trim();
+    String propertyId = propertyDataValue.propertyName == "Select Property" ? "" : propertyDataValue.propertyId.toString();
+    String companyId = companyDataValue.companyId.toString();
+    String workOrderId = workOrderDataValue.workOrderDetails == "Select Work Order" ? "" : workOrderDataValue.workOrderId.toString() ;
+    String marketingId = marketingDataValue.campaignName == "Select Marketing" ? "" : marketingDataValue.campaignId.toString();
+    String contactId = contactDataValue.firstName == "Select" ? "" : contactDataValue.contactId.toString();
+    String mortgageId = mortgageDataValue.mortgageName == "Select Mortgage" ? "" : mortgageDataValue.mortgageId.toString();
+    String leaseId = leaseDataValue.gracePeriod == "Select Lease" ? "" : leaseDataValue.leaseId.toString();
+    String propertyManagementId = propertyManagementDataValue.terminationTerms == "Select Property Management" ? "" : propertyManagementDataValue.propertyManagementId.toString();
+    String prospectId = prospectManageDataValue.propertyAddress == "Select Prospect" ? "" : prospectManageDataValue.prospectId.toString();
+    String ledgerType = selectedTypeValue.value == "Select Category type" ? "" : selectedTypeValue.value;
+
+
+    try {
+      Map<String, dynamic> bodyData = {
+        "LedgerDate" : selectedDate.toString().split(" ")[0],
+        "Amount": amount,
+        "type": type,
+        "AccountCategoryID": accountCategoryId,
+        "Reference": reference,
+        "Details": details,
+        "propertyID": propertyId,
+        "CompanyID": companyId,
+        "workOrderID": workOrderId,
+        "marketingID": marketingId,
+        "contactID": contactId,
+        "mortgageID": mortgageId,
+        "leaseID": leaseId,
+        "propertymanagementID": propertyManagementId,
+        "prospectID": prospectId,
+        "LedgerType": ledgerType,
+        "IsActive": isLedgerStatus.value
+      };
+      log('bodyData : ${jsonEncode(bodyData)}');
+      // log('BodyData : $bodyData');
+
+      final response = await dioRequest.post(
+        url,
+        data: bodyData,
+        options: dio.Options(
+            headers: {"Authorization": "Bearer ${AppMessage.token}"}),
+      );
+
+      SuccessModel successModel = SuccessModel.fromJson(response.data);
+      isSuccessStatusCode.value == successModel.statusCode;
+
+      if(isSuccessStatusCode.value == 200) {
+        Fluttertoast.showToast(msg: successModel.message);
+        Get.back();
+      } else {
+        log('addLedgerFunction Else');
+      }
+
+    } catch (e) {
+      log('addLedgerFunction Error :$e');
+    }
+  }
+
+  /// Update Ledger Function
+  Future<void> updateLedgerFunction() async {
+    isLoading(true);
+    String url = ApiUrl.companyLedgerUpdateApi;
+    log("updateLedgerFunction Api Url :$url");
+
+    String amount = amountFieldController.text.trim();
+    String type = "company";
+    String accountCategoryId = categoryTypeDataValue.category == "Select Account Category" ? "" : categoryTypeDataValue.accountCategoryId.toString();
+    String reference = referenceFieldController.text.trim();
+    String details = detailsFieldController.text.trim();
+    String propertyId = propertyDataValue.propertyName == "Select Property" ? "" : propertyDataValue.propertyId.toString();
+    String companyId = companyDataValue.companyId.toString();
+    String workOrderId = workOrderDataValue.workOrderDetails == "Select Work Order" ? "" : workOrderDataValue.workOrderId.toString() ;
+    String marketingId = marketingDataValue.campaignName == "Select Marketing" ? "" : marketingDataValue.campaignId.toString();
+    String contactId = contactDataValue.firstName == "Select" ? "" : contactDataValue.contactId.toString();
+    String mortgageId = mortgageDataValue.mortgageName == "Select Mortgage" ? "" : mortgageDataValue.mortgageId.toString();
+    String leaseId = leaseDataValue.gracePeriod == "Select Lease" ? "" : leaseDataValue.leaseId.toString();
+    String propertyManagementId = propertyManagementDataValue.terminationTerms == "Select Property Management" ? "" : propertyManagementDataValue.propertyManagementId.toString();
+    String prospectId = prospectManageDataValue.propertyAddress == "Select Prospect" ? "" : prospectManageDataValue.prospectId.toString();
+    String ledgerType = selectedTypeValue.value == "Select Category type" ? "" : selectedTypeValue.value;
+
+    try {
+      Map<String, dynamic> bodyData = {
+        "AccountLedgerID": ledgerId,
+        "LedgerDate" : selectedDate.toString().split(" ")[0],
+        "Amount": amount,
+        "type": type,
+        "AccountCategoryID": accountCategoryId,
+        "Reference": reference,
+        "Details": details,
+        "propertyID": propertyId,
+        "CompanyID": companyId,
+        "workOrderID": workOrderId,
+        "marketingID": marketingId,
+        "contactID": contactId,
+        "mortgageID": mortgageId,
+        "leaseID": leaseId,
+        "propertymanagementID": propertyManagementId,
+        "prospectID": prospectId,
+        "LedgerType": ledgerType,
+        "IsActive": isLedgerStatus.value
+      };
+
+      final response = await dioRequest.put(
+        url,
+        data: bodyData,
+        options: dio.Options(
+            headers: {"Authorization": "Bearer ${AppMessage.token}"}),
+      );
+
+      log('response :${jsonEncode(response.data)}');
+
+      SuccessModel successModel = SuccessModel.fromJson(response.data);
+      isSuccessStatusCode.value == successModel.statusCode;
+
+      if(isSuccessStatusCode.value == 200) {
+        Fluttertoast.showToast(msg: successModel.message);
+        Get.back();
+      } else {
+        log('addLedgerFunction Else');
+      }
+
+
+    } catch(e) {
+      log('updateLedgerFunction Error :$e');
+    }
+
+  }
+
+  /// Get Ledger Details Get By Id Function
+  Future<void> getLedgerDetailsFunction() async {
+    isLoading(true);
+    String url = "${ApiUrl.companyLedgerGetByIdApi}?accountLedgerId=$ledgerId";
+    log('getLedgerDetailsFunction Api Url :$url');
+
+    try {
+      final response = await dioRequest.get(
+        url,
+        options: dio.Options(
+            headers: {"Authorization": "Bearer ${AppMessage.token}"}),
+      );
+      log('getLedgerDetailsFunction Response :${jsonEncode(response.data)}');
+
+      LedgerDetailsGetByIdModel ledgerDetailsGetByIdModel = LedgerDetailsGetByIdModel.fromJson(response.data);
+      isSuccessStatusCode.value = ledgerDetailsGetByIdModel.statusCode;
+
+      if(isSuccessStatusCode.value == 200) {
+        amountFieldController.text = ledgerDetailsGetByIdModel.data.amount.toString();
+        referenceFieldController.text = ledgerDetailsGetByIdModel.data.reference;
+        detailsFieldController.text = ledgerDetailsGetByIdModel.data.details;
+
+        isStatusSelected.value = ledgerDetailsGetByIdModel.data.isActive;
+
+        // Set Date in local variable
+        DateTime date = ledgerDetailsGetByIdModel.data.ledgerDate;
+        selectedDate = date;
+        showSelectedDate.value = DateFormatChanger().dateFormat(selectedDate);
+
+        // Set type Object value
+        for (var element in typeList) {
+          if (ledgerDetailsGetByIdModel.data.ledgerType == element) {
+            selectedTypeValue.value = element;
+          }
+        }
+
+        // Set category object value
+        for (var element in categoryTypeList) {
+          if (element.accountCategoryId ==
+              ledgerDetailsGetByIdModel
+                  .data.accountCategory.accountCategoryId) {
+            categoryTypeDataValue = element;
+          }
+        }
+
+        // Set property object value
+        for (var element in propertyList) {
+          if (element.propertyId ==
+              ledgerDetailsGetByIdModel.data.property.propertyId) {
+            propertyDataValue = element;
+          }
+        }
+
+        // Set workOrder object value
+        for (var element in workOrderList) {
+          if (element.workOrderId ==
+              ledgerDetailsGetByIdModel.data.workOrder.workOrderId) {
+            workOrderDataValue = element;
+          }
+        }
+
+        // Set Marketing object value
+        for (var element in marketingList) {
+          if (element.campaignId.toString() == ledgerDetailsGetByIdModel.data.campaignId) {
+            marketingDataValue = element;
+          }
+        }
+
+        // Set Contact object value
+        for (var element in contactList) {
+          if (element.contactId.toString() == ledgerDetailsGetByIdModel.data.contactId) {
+            contactDataValue = element;
+          }
+        }
+
+        // Set Mortgage object value
+        for (var element in mortgageList) {
+          if (element.mortgageId.toString() == ledgerDetailsGetByIdModel.data.mortgageId) {
+            mortgageDataValue = element;
+          }
+        }
+
+        // Set Lease object value
+        for (var element in leaseList) {
+          if (element.leaseId.toString() == ledgerDetailsGetByIdModel.data.leaseId) {
+            leaseDataValue = element;
+          }
+        }
+
+        // Set Property management object value
+        for (var element in propertyManagementList) {
+          if (element.propertyManagementId.toString() == ledgerDetailsGetByIdModel.data.propertyManagementId) {
+            propertyManagementDataValue = element;
+          }
+        }
+
+        // Set prospect object value
+        for (var element in prospectManageList) {
+          if (element.prospectId.toString() == ledgerDetailsGetByIdModel.data.prospectId) {
+            prospectManageDataValue = element;
+          }
+        }
+
+
+
+      } else {
+        log('getLedgerDetailsFunction Else');
+      }
+
+
+    } catch(e) {
+
+      log('getLedgerDetailsFunction Error :$e');
+    }
+
+
+    isLoading(false);
+  }
+
   /// Select Date Module
   Future<void> selectDate(BuildContext context) async {
     DateTime? picked = await showDatePicker(
@@ -100,54 +364,6 @@ class LedgerManageScreenController extends GetxController {
     }
   }
 
-  /// Add Ledger Function
-  Future<void> addLedgerFunction() async {
-    // isLoading(true);
-    String url = ApiUrl.companyLedgerAddApi;
-    log('addLedgerFunction Api Url :$url');
-
-    String amount = amountFieldController.text.trim();
-    String ledgerType = selectedTypeValue.value == "Select Category type" ? "" : selectedTypeValue.value;
-    String accountCategoryId = categoryTypeDataValue.category == "Select Account Category" ? "" : categoryTypeDataValue.accountCategoryId.toString();
-    String reference = referenceFieldController.text.trim();
-    String details = detailsFieldController.text.trim();
-    String propertyId = propertyDataValue.propertyName == "Select Property" ? "" : propertyDataValue.propertyId.toString();
-    String companyId = companyDataValue.companyId.toString();
-    String workOrderId = workOrderDataValue.workOrderDetails == "Select Work Order" ? "" : workOrderDataValue.workOrderId.toString() ;
-    String marketingId = marketingDataValue.campaignName == "Select Marketing" ? "" : marketingDataValue.campaignId.toString();
-    String contactId = contactDataValue.firstName == "Select" ? "" : "${contactDataValue.firstName} ${contactDataValue.lastName}";
-    String mortgageId = mortgageDataValue.mortgageName == "Select Mortgage" ? "" : mortgageDataValue.mortgageId.toString();
-    String leaseId = leaseDataValue.gracePeriod == "Select Lease" ? "" : leaseDataValue.leaseId.toString();
-    String propertyManagementId = propertyManagementDataValue.terminationTerms == "Select Property Management" ? "" : propertyManagementDataValue.propertyManagementId.toString();
-    String prospectId = prospectManageDataValue.propertyAddress == "Select Prospect" ? "" : prospectManageDataValue.prospectId.toString();
-
-
-    try {
-      Map<String, dynamic> bodyData = {
-        // "LedgerDate" : selectedDate,
-        "Amount": amount,
-        "type": ledgerType,
-        "AccountCategoryID": accountCategoryId,
-        "Reference": reference,
-        "Details": details,
-        "propertyID": propertyId,
-        "CompanyID": companyId,
-        "workOrderID": workOrderId,
-        "marketingID": marketingId,
-        "contactID": contactId,
-        "mortgageID": mortgageId,
-        "leaseID": leaseId,
-        "propertymanagementID": propertyManagementId,
-        "prospectID": prospectId,
-        "IsActive": isLedgerStatus.value
-      };
-      log('bodyData : ${jsonEncode(bodyData)}');
-      // log('BodyData : $bodyData');
-
-    } catch (e) {
-      log('addLedgerFunction Error :$e');
-    }
-  }
   /// Category Type ID find
   void categoryTypeIdFindFunction() {
     for (int i = 0; i < categoryTypeList.length; i++) {
@@ -262,9 +478,8 @@ class LedgerManageScreenController extends GetxController {
             companyDataValue = element;
           }
         }
-
-        log('companyDataValue companyId: ${companyDataValue.companyId}');
-        log('companyDataValue companyName: ${companyDataValue.companyName}');
+        // log('companyDataValue companyId: ${companyDataValue.companyId}');
+        // log('companyDataValue companyName: ${companyDataValue.companyName}');
       } else {
         log('getAllActiveCompanyFunction Else');
       }
@@ -436,7 +651,7 @@ class LedgerManageScreenController extends GetxController {
       isSuccessStatusCode.value = activeLeaseListModel.statusCode;
 
       if (isSuccessStatusCode.value == 200) {
-        log("getAllActiveLeaseFunction isSuccessStatusCode.value ${isSuccessStatusCode.value}");
+        // log("getAllActiveLeaseFunction isSuccessStatusCode.value ${isSuccessStatusCode.value}");
         leaseList.clear();
         leaseList.add(LeaseData(gracePeriod: "Select Lease"));
 
@@ -453,7 +668,7 @@ class LedgerManageScreenController extends GetxController {
 
     // isLoading(false);
 
-    getAllPropertyManagementFunction();
+    await getAllPropertyManagementFunction();
   }
 
   /// Get All Property Management function
@@ -513,8 +728,7 @@ class LedgerManageScreenController extends GetxController {
 
       if (isSuccessStatusCode.value == 200) {
         prospectManageList.clear();
-        prospectManageList
-            .add(ProspectManageData(propertyAddress: "Select Prospect"));
+        prospectManageList.add(ProspectManageData(propertyAddress: "Select Prospect"));
         prospectManageDataValue = prospectManageList[0];
         prospectManageList.addAll(activeProspectManageListModel.data);
         // log("getAllProspectFunction.length ${prospectManageList.length}");
@@ -526,8 +740,17 @@ class LedgerManageScreenController extends GetxController {
     }
 
     isLoading(false);
+
+    if(ledgerOption == LedgerOption.update) {
+      await getLedgerDetailsFunction();
+    }
+    else if(ledgerOption == LedgerOption.create) {
+      isLoading(false);
+    }
+
     // await getAllActiveLeaseFunction();
   }
+
 
   // Change Ledger Label
   changeStatusFunction() {
