@@ -2,13 +2,14 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart' as dio;
 
 import '../../constants/api_url.dart';
 import '../../models/contact_screen_models/contact_list_model.dart';
+import '../../models/success_model/success_model.dart';
 import '../../utils/messaging.dart';
-
 
 class ContactListScreenController extends GetxController {
   String companyId = Get.arguments[0];
@@ -26,51 +27,49 @@ class ContactListScreenController extends GetxController {
   int pageIndex = 1;
   int pageCount = 10;
 
-
   // Get Notes List Function
   Future<void> getContactsFunction() async {
-    if(hasMore == true) {
+    if (hasMore == true) {
       // isLoading(true);
-      String url = "${ApiUrl.companyContactListApi}?id=$companyId&PageNumber=$pageIndex&PageSize=$pageCount&contact.FirstName=${searchTextFieldController.text.trim()}";
-      log('Get Notes Api Url :$url');
+      String url =
+          "${ApiUrl.companyContactListApi}?id=$companyId&PageNumber=$pageIndex&PageSize=$pageCount&contact.FirstName=${searchTextFieldController.text.trim()}";
+      log('getContactsFunction Api Url :$url');
 
       try {
         final response = await dioRequest.get(
           url,
           options: dio.Options(
-              headers: {"Authorization": "Bearer ${AppMessage.token}"}
-          ),
+              headers: {"Authorization": "Bearer ${AppMessage.token}"}),
         );
-        log('Get Contact Api Response : ${jsonEncode(response.data)}');
+        log('getContactsFunction Api Response : ${jsonEncode(response.data)}');
 
-        ContactListModel contactListModel = ContactListModel.fromJson(response.data);
-        isSuccessStatusCode.value = contactListModel.statusCode;
+        GetContactListModel getContactListModel =
+            GetContactListModel.fromJson(response.data);
+        isSuccessStatusCode.value = getContactListModel.statusCode;
 
         if (isSuccessStatusCode.value == 200) {
-          contactList.addAll(contactListModel.data.data);
+          contactList.addAll(getContactListModel.data.data);
 
-            if (contactListModel.data.data.length < 10) {
-              hasMore = false;
-            }
-
-        } else {
-          log('Get Notes Function Else ${contactListModel.statusCode}');
-        }
-
-      } catch (e) {
-        // log("catch");
-        if (e is dio.DioError && e.response != null) {
-          final response = e.response;
-          final statusCode = response!.statusCode;
-          // log("statusCode $statusCode");
-          if (statusCode == 400) {
-            // log("no data found");
-            isLoading(false);
+          if (getContactListModel.data.data.length < 10) {
+            hasMore = false;
           }
+        } else {
+          log('getContactsFunction Function Else ${getContactListModel.statusCode}');
         }
-        // log('Get Notes Function Error :$e');
-        rethrow;
+      } catch (e) {
+      if (e is dio.DioError && e.response != null) {
+        final response = e.response;
+        final statusCode = response!.statusCode;
+        if (statusCode == 400) {
+          Fluttertoast.showToast(msg: "Record Already Exist");
+          log("Record Already Exist");
+          isLoading(false);
+        } else if(statusCode == 401) {
+          log('Please login again!');
+        }
       }
+      log('Error :$e');
+    }
       loadUI();
       // isLoading(false);
     } else {
@@ -79,7 +78,36 @@ class ContactListScreenController extends GetxController {
     isLoading(false);
   }
 
+  // Change contact list status function
+  Future<void> changeContactFunction(
+      {required String contactId,
+        required bool status,
+        required int index}) async {
+    isLoading(true);
+    String url = ApiUrl.companyContactStatusChangeApi;
 
+    Map<String, dynamic> bodyData = {"MTMCompanyContactId": contactId, "IsActive": status};
+
+    final response = await dioRequest.put(
+      url,
+      data: bodyData,
+      options:
+      dio.Options(headers: {"Authorization": "Bearer ${AppMessage.token}"}),
+    );
+
+    log('Change Status Response :${jsonEncode(response.data)}');
+    SuccessModel successModel = SuccessModel.fromJson(response.data);
+    isSuccessStatusCode.value = successModel.statusCode;
+
+    if (isSuccessStatusCode.value == 200) {
+      Fluttertoast.showToast(msg: successModel.message);
+      contactList[index].isActive = status;
+    } else {
+      log('Change Status Function Else');
+    }
+
+    isLoading(false);
+  }
   @override
   void onInit() {
     initMethod();
@@ -100,7 +128,6 @@ class ContactListScreenController extends GetxController {
         await getContactsFunction();
       }
     });
-
   }
 
   loadUI() {

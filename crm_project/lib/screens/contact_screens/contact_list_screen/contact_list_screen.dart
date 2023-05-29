@@ -8,6 +8,8 @@ import '../../../../common_widgets/custom_appbar.dart';
 import '../../../../constants/colors.dart';
 import '../../../../controller/company_module_controllers/contact_list_screen_controller.dart';
 import '../../../../utils/messaging.dart';
+import '../../../utils/enums.dart';
+import '../contact_manage_screen/contact_manage_screen.dart';
 import 'contact_list_screen_widgets.dart';
 
 class ContactListScreen extends StatelessWidget {
@@ -23,62 +25,87 @@ class ContactListScreen extends StatelessWidget {
         leadingShow: false,
         actionShow: false,
       ),
-      body: Obx(
-        () => contactListScreenController.isLoading.value
-            ? CommonLoader().showLoader()
-            : Column(
-                children: [
-                  ContactSearchBarWidget().paddingOnly(top: 20, bottom: 5),
+      body: SafeArea(
+        child: Obx(
+          () => contactListScreenController.isLoading.value
+              ? CommonLoader().showLoader()
+              : Column(
+                  children: [
+                    ContactSearchBarWidget(),
 
-                  // Heading & Export button
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          AppMessage.contactList,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              color: AppColors.appColors,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15.sp),
+                    // Heading & Export button
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            AppMessage.contactList,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                color: AppColors.appColors,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15.sp),
+                          ),
                         ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
+                        Container(
+                          decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(1.w),
                             border: Border.all(
-                                color: AppColors.appColors, width: 1)),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.file_download,
-                              size: 4.w,
                               color: AppColors.appColors,
+                              width: 1,
                             ),
-                            const SizedBox(width: 5),
-
-                            Text(
-                              AppMessage.export,
-                              style: TextStyle(
+                          ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.file_download,
+                                size: 4.w,
+                                color: AppColors.appColors,
+                              ),
+                              const SizedBox(width: 5),
+                              Text(
+                                AppMessage.export,
+                                style: TextStyle(
                                   color: AppColors.appColors,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 10.sp),
-                            )
-                          ],
-                        ).paddingAll(4),
-                      ),
-                    ],
-                  ).paddingOnly(top: 8),
-                  const CustomDivider(),
+                                  fontSize: 10.sp,
+                                ),
+                              )
+                            ],
+                          ).paddingAll(4),
+                        ),
+                      ],
+                    ).paddingOnly(top: 8),
+                    const CustomDivider(),
 
-                  //
-                  Expanded(child: ContactListWidget()),
-
-                ],
-              ).paddingOnly(left: 10, right: 10),
+                    //
+                    Expanded(child: ContactListWidget()),
+                  ],
+                ).paddingOnly(left: 10, right: 10),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        heroTag: 'b',
+        onPressed: () {
+          Get.to(() => ContactManageScreen(),
+              arguments: [
+                ContactOption.create,
+                contactListScreenController.companyId.toString(),
+                // contactListScreenController.companyId.toString(),
+              
+              ],
+              transition: Transition.zoom);
+          //     .then((value) async {
+          //   contactListScreenController.addressList.clear();
+          //   contactListScreenController.pageIndex = 1;
+          //   contactListScreenController.hasMore = true;
+          //   await contactListScreenController.getAddressList();
+          // });
+        },
+        backgroundColor: AppColors.appColors,
+        child: const Icon(Icons.add),
       ),
     );
   }

@@ -55,8 +55,19 @@ class AddressListScreenController extends GetxController {
           isLoading(false);
         }
       } catch (e) {
-        log("getAddressList catch $e");
+      if (e is dio.DioError && e.response != null) {
+        final response = e.response;
+        final statusCode = response!.statusCode;
+        if (statusCode == 400) {
+          Fluttertoast.showToast(msg: "Record Already Exist");
+          log("Record Already Exist");
+          isLoading(false);
+        } else if(statusCode == 401) {
+          log('Please login again!');
+        }
       }
+      log('Error :$e');
+    }
       // isLoading(false);
 
       loadUI();
@@ -94,7 +105,18 @@ class AddressListScreenController extends GetxController {
         log('Delete Note Else');
       }
     } catch (e) {
-      log('Delete Note Error :$e');
+      if (e is dio.DioError && e.response != null) {
+        final response = e.response;
+        final statusCode = response!.statusCode;
+        if (statusCode == 400) {
+          Fluttertoast.showToast(msg: "Record Already Exist");
+          log("Record Already Exist");
+          isLoading(false);
+        } else if(statusCode == 401) {
+          log('Please login again!');
+        }
+      }
+      log('Error :$e');
     }
     isLoading(false);
   }

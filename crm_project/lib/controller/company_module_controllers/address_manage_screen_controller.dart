@@ -86,7 +86,18 @@ class AddressManageScreenController extends GetxController {
         isLoading(false);
       }
     } catch (e) {
-      log("GetAllAddressTypeFunction catch $e");
+      if (e is dio.DioError && e.response != null) {
+        final response = e.response;
+        final statusCode = response!.statusCode;
+        if (statusCode == 400) {
+          Fluttertoast.showToast(msg: "Record Already Exist");
+          log("Record Already Exist");
+          isLoading(false);
+        } else if(statusCode == 401) {
+          log('Please login again!');
+        }
+      }
+      log('Error :$e');
     }
 
     await getAllStateFunction();
@@ -133,7 +144,18 @@ class AddressManageScreenController extends GetxController {
         // isLoading(false);
       }
     } catch (e) {
-      log("getAllStateFunction catch $e");
+      if (e is dio.DioError && e.response != null) {
+        final response = e.response;
+        final statusCode = response!.statusCode;
+        if (statusCode == 400) {
+          Fluttertoast.showToast(msg: "Record Already Exist");
+          log("Record Already Exist");
+          isLoading(false);
+        } else if(statusCode == 401) {
+          log('Please login again!');
+        }
+      }
+      log('Error :$e');
     }
 
     if (addressOption == AddressOption.update) {
@@ -194,7 +216,18 @@ class AddressManageScreenController extends GetxController {
         }*/
       }
     } catch (e) {
-      log("citygetByIdFunction catch $e");
+      if (e is dio.DioError && e.response != null) {
+        final response = e.response;
+        final statusCode = response!.statusCode;
+        if (statusCode == 400) {
+          Fluttertoast.showToast(msg: "Record Already Exist");
+          log("Record Already Exist");
+          isLoading(false);
+        } else if(statusCode == 401) {
+          log('Please login again!');
+        }
+      }
+      log('Error :$e');
     }
 
     if (addressOption == AddressOption.update) {
@@ -253,17 +286,18 @@ class AddressManageScreenController extends GetxController {
         isLoading(false);
       }
     } catch (e) {
-      log("addAddressDetails catch");
       if (e is dio.DioError && e.response != null) {
         final response = e.response;
         final statusCode = response!.statusCode;
-        log("addAddressDetails statusCode $statusCode");
         if (statusCode == 400) {
           Fluttertoast.showToast(msg: "Record Already Exist");
           log("Record Already Exist");
           isLoading(false);
+        } else if(statusCode == 401) {
+          log('Please login again!');
         }
       }
+      log('Error :$e');
     }
     isLoading(false);
   }
@@ -305,7 +339,18 @@ class AddressManageScreenController extends GetxController {
         isAddressStatus.value = getByIdAddressModel.data.isActive;
       }
     } catch (e) {
-      log("getByIdAddressFunction error : $e");
+      if (e is dio.DioError && e.response != null) {
+        final response = e.response;
+        final statusCode = response!.statusCode;
+        if (statusCode == 400) {
+          Fluttertoast.showToast(msg: "Record Already Exist");
+          log("Record Already Exist");
+          isLoading(false);
+        } else if(statusCode == 401) {
+          log('Please login again!');
+        }
+      }
+      log('Error :$e');
     }
     isLoading(false);
   }
@@ -347,7 +392,18 @@ class AddressManageScreenController extends GetxController {
         // isLoading(false);
       }
     } catch (e) {
-      log("updateAddressDetails error $e");
+      if (e is dio.DioError && e.response != null) {
+        final response = e.response;
+        final statusCode = response!.statusCode;
+        if (statusCode == 400) {
+          Fluttertoast.showToast(msg: "Record Already Exist");
+          log("Record Already Exist");
+          isLoading(false);
+        } else if(statusCode == 401) {
+          log('Please login again!');
+        }
+      }
+      log('Error :$e');
     }
     isLoading(false);
   }

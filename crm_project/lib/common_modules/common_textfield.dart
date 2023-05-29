@@ -49,10 +49,10 @@ class TextFieldModule extends StatelessWidget {
         decoration: InputDecoration(
           fillColor: backgroundColor,
           border: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(8)),
+            borderRadius: BorderRadius.all(Radius.circular(5)),
           ),
           focusedBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
+              borderRadius: BorderRadius.all(Radius.circular(5)),
               borderSide: BorderSide(color: AppColors.appColors, width: 1.5)),
           errorBorder: inputBorder(),
           filled: true,
@@ -63,7 +63,7 @@ class TextFieldModule extends StatelessWidget {
           suffixIcon: icon,
           suffixIconColor: AppColors.appColors,
           suffix: suffixIcon,
-          prefix: prifixIcon,
+          prefixIcon: prifixIcon,
           counterText: '',
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 15, vertical: 11),

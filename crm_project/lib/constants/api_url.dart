@@ -51,40 +51,71 @@ class ApiUrl {
 
   // Company Ledger Api
   static String companyGetAllLedgerApi = "$baseUrl/AccountLedger/Filter";
-  static String companyLedgerStatusChangeApi = "$baseUrl/AccountLedger/ChangeStatus";
+  static String companyLedgerStatusChangeApi =
+      "$baseUrl/AccountLedger/ChangeStatus";
   static String companyLedgerGetByIdApi = "$baseUrl/AccountLedger/GetById";
-  static String companyLedgerUpdateApi = "$baseUrl/AccountLedger/UpdateAccountLedger";
-  static String companyLedgerDeleteApi = "$baseUrl/AccountLedger/SoftDeleteAccountLedger";
+  static String companyLedgerUpdateApi =
+      "$baseUrl/AccountLedger/UpdateAccountLedger";
+  static String companyLedgerDeleteApi =
+      "$baseUrl/AccountLedger/SoftDeleteAccountLedger";
   static String companyLedgerAddApi = "$baseUrl/AccountLedger/AddAccountLedger";
 
   // Add Ledger Field API - DD using
-  static String activeAccountCategoryGetAllApi = "$baseUrl/AccountCategory/GetAllActiveAccountCategory";
-  static String activePropertyGetAllApi = "$baseUrl/Property/GetAllActiveProperty";
+  static String activeAccountCategoryGetAllApi =
+      "$baseUrl/AccountCategory/GetAllActiveAccountCategory";
+  static String activePropertyGetAllApi =
+      "$baseUrl/Property/GetAllActiveProperty";
   static String activeCompanyGetAllApi = "$baseUrl/Company/GetAllActiveCompany";
-  static String activeWorkOrderGetAllApi = "$baseUrl/WorkOrder/GetAllActiveWorkOrder";
-  static String activeCampaignGetAllApi = "$baseUrl/Campaign/GetAllActiveCampaign";
+  static String activeWorkOrderGetAllApi =
+      "$baseUrl/WorkOrder/GetAllActiveWorkOrder";
+  static String activeCampaignGetAllApi =
+      "$baseUrl/Campaign/GetAllActiveCampaign";
   static String activeContactGetAllApi = "$baseUrl/Contact/GetAllActiveContact";
-  static String activeMortgageGetAllApi = "$baseUrl/Mortgage/GetAllActiveMortgage";
+  static String activeMortgageGetAllApi =
+      "$baseUrl/Mortgage/GetAllActiveMortgage";
   static String activeLeaseGetAllApi = "$baseUrl/Lease/GetAllActiveLease";
-  static String activePropertyManagementGetAllApi = "$baseUrl/PropertyManagement/GetAllActivePropertyManagementNew";
-  static String activeProspectsManagementGetAllApi = "$baseUrl/Prospect/GetAllActiveProspect";
+  static String activePropertyManagementGetAllApi =
+      "$baseUrl/PropertyManagement/GetAllActivePropertyManagementNew";
+  static String activeProspectsManagementGetAllApi =
+      "$baseUrl/Prospect/GetAllActiveProspect";
+  static String activeContactTypeGetAllApi =
+      "$baseUrl/ContactType/GetAllActiveContactType";
+  static String activeContactCategoryGetAllApi =
+      "$baseUrl/ContactCategory/GetAllActiveContactCategory";
+  static String activeAreaOfintrestGetAllApi =
+      "$baseUrl/ContactCategory/GetAllActiveContactCategory";
+  static String contactRoleGetAllApi =
+      "$baseUrl/ContactRole/GetAllActiveContactRole";
 
   //company Attachment Api
-  static String companyAttachmentListApi = "$baseUrl/Attachment/PaginationByType";
-  static String companyAttachmentDeleteApi = "$baseUrl/Attachment/SoftDeleteAttachment";
-  static String companyAttachmentChangeStatusApi = "$baseUrl/Attachment/ChangeStatus";
+  static String companyAttachmentListApi =
+      "$baseUrl/Attachment/PaginationByType";
+  static String companyAttachmentDeleteApi =
+      "$baseUrl/Attachment/SoftDeleteAttachment";
+  static String companyAttachmentChangeStatusApi =
+      "$baseUrl/Attachment/ChangeStatus";
   static String companyAttachmentAddApi = "$baseUrl/Attachment/AddAttach";
-  static String companyAttachmentTypeList = "$baseUrl/AttachmentType/GetAllActiveAttachmentType";
+  static String companyAttachmentTypeList =
+      "$baseUrl/AttachmentType/GetAllActiveAttachmentType";
 
   //work order Api
-  static String companyWorkOrderAddApi="$baseUrl/WorkOrder/AddWorkOrder";
-  static String companyWorkOrderList="$baseUrl/WorkOrder/Filter";
-  static String companyWorkOrderSoftDeleteApi="$baseUrl/WorkOrder/SoftDeleteWorkOrder";
-  static String companyWorkOrderChangeStatusApi="$baseUrl/WorkOrder/ChangeStatus";
-  static String companyWorkOrderAddTypeListApi="$baseUrl/WorkOrder/GetAllActiveWorkOrder";
+  static String companyWorkOrderAddApi = "$baseUrl/WorkOrder/AddWorkOrder";
+  static String companyWorkOrderList = "$baseUrl/WorkOrder/Filter";
+  static String companyWorkOrderSoftDeleteApi =
+      "$baseUrl/WorkOrder/SoftDeleteWorkOrder";
+  static String companyWorkOrderChangeStatusApi =
+      "$baseUrl/WorkOrder/ChangeStatus";
+  static String companyWorkOrderAddTypeListApi =
+      "$baseUrl/WorkOrder/GetAllActiveWorkOrder";
 
+// Bill Api
+  static String getAllBillApi = "$baseUrl/Bill/Filter";
+  static String getAllBillByIdApi = "$baseUrl/Bill/GetById";
+  static String changeBillStatusApi = "$baseUrl/Bill/ChangeStatus";
+  static String updateBillApi = "$baseUrl/Bill/UpdateBill";
+  static String addBillApi = "$baseUrl/Bill/AddBill";
+  static String deleteBillApi = "$baseUrl/Bill/SoftDeleteBill";
   //under Management Api
-  static String companyUnderManagementListApi="$baseUrl/PropertyManagement/ListBy";
-
-
+  static String companyUnderManagementListApi =
+      "$baseUrl/PropertyManagement/ListBy";
 }

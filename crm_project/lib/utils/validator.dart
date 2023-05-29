@@ -1,37 +1,39 @@
-
-
 import 'package:crm_project/constants/colors.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class FieldValidation {
-
   validateZip(String value) {
-    if(value.isEmpty) {
+    if (value.isEmpty) {
       return "Please enter zip value.";
-    } else if(value.contains(".")|| value.contains(" ")||value.contains("-") ||value.contains(",") || value.length > 6) {
+    } else if (value.contains(".") ||
+        value.contains(" ") ||
+        value.contains("-") ||
+        value.contains(",") ||
+        value.length > 6) {
       return "Please enter valid zip value.";
-    }
-    else {
+    } else {
       return null;
     }
   }
 
-  validateEmpty(String value,String fieldName){
-    if(value.isEmpty || value == ' '){
+  validateEmpty(String value, String fieldName) {
+    if (value.isEmpty || value == ' ') {
       return "Please enter valid $fieldName.";
     } else {
       return null;
     }
   }
 
-  validateAmount(String value,String fieldName){
-    if(value.isEmpty){
+
+
+  validateAmount(String value, String fieldName) {
+    if (value.isEmpty) {
       return "Please enter valid $fieldName.";
-    }
-    else if( value.contains(" ")||value.contains("-") ||value.contains(",")) {
+    } else if (value.contains(" ") ||
+        value.contains("-") ||
+        value.contains(",")) {
       return "Please enter valid $fieldName.";
-    }
-    else {
+    } else {
       return null;
     }
   }
@@ -39,7 +41,7 @@ class FieldValidation {
   validateMobileNumber(String value) {
     RegExp mobileNumberRegex = RegExp(r'^[0-9+\s]+$');
 
-    if (mobileNumberRegex.hasMatch(value)&& !value.contains('+')) {
+    if (mobileNumberRegex.hasMatch(value) && !value.contains('+')) {
       return null; // Valid mobile number
     } else {
       return "Please Enter Valid mobile number"; // Invalid mobile number
@@ -49,7 +51,7 @@ class FieldValidation {
   validateFaxNumber(String value) {
     RegExp mobileNumberRegex = RegExp(r'^[0-9+\s]+$');
 
-    if (mobileNumberRegex.hasMatch(value)&& !value.contains('+')) {
+    if (mobileNumberRegex.hasMatch(value) && !value.contains('+')) {
       return null; // Valid mobile number
     } else {
       return "Please Enter Valid Fax number"; // Invalid mobile number
@@ -68,15 +70,15 @@ class FieldValidation {
       return 'Please valid email address';
     }
   }
-  validateDropDown(String value){
+
+  validateDropDown(String value) {
     if (value.isEmpty || value == null) {
-      Fluttertoast.showToast(msg: 'Please select company type',backgroundColor: AppColors.redColor);
+      Fluttertoast.showToast(
+          msg: 'Please select company type',
+          backgroundColor: AppColors.redColor);
       return null;
     } else {
       return null;
     }
-
   }
-
-
 }
