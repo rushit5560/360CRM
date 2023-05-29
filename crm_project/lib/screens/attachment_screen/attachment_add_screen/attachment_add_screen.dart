@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../constants/colors.dart';
+import '../../../common_modules/common_textfield_header_module.dart';
 
 class AttachmentAddScreen extends StatelessWidget {
   AttachmentAddScreen({Key? key}) : super(key: key);
@@ -30,25 +31,22 @@ class AttachmentAddScreen extends StatelessWidget {
               : SingleChildScrollView(
                   child: Form(
                     key: attachmentAddScreenController.attachmentKey,
-                    child: Column(children: [
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                      CommonTextFieldHeaderModule(header: AppMessage.description,required: true),
+                      const SizedBox(height: 5,),
                       TextFieldModule(
                           fieldController: attachmentAddScreenController
                               .descriptionTextFieldController,
-                          hintText: 'Description',
+                          hintText: AppMessage.description,
                           validate: (value) => FieldValidation()
                               .validateEmpty(value, 'Description'),
                           keyboardType: TextInputType.text),
                       const SizedBox(height: 10),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Attachment Type',
-                          style: TextStyle(fontSize: 9.sp),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
+
+                          CommonTextFieldHeaderModule(header: AppMessage.selectAttachmentType,required: true),
+                          const SizedBox(height: 5,),
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
@@ -88,16 +86,8 @@ class AttachmentAddScreen extends StatelessWidget {
                               ).paddingOnly(left: 8, right: 8),
                       ),
                       const SizedBox(height: 10),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          AppMessage.chooseFile,
-                          style: TextStyle(fontSize: 9.sp),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
+                          CommonTextFieldHeaderModule(header: AppMessage.chooseFile,required: true),
+                          const SizedBox(height: 5,),
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),

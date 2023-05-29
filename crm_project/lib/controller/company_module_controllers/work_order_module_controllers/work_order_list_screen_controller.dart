@@ -9,7 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart' as dio;
 
-import '../../utils/messaging.dart';
+import '../../../utils/messaging.dart';
 
 class WorkOrderListScreenController extends GetxController {
   String companyId = Get.arguments[0].toString();

@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:crm_project/screens/work_order_screen/edit_work_order_screen/edit_work_order_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,7 +9,7 @@ import 'package:sizer/sizer.dart';
 import '../../../common_modules/common_bottomsheet_module.dart';
 import '../../../common_modules/text_row.dart';
 import '../../../constants/colors.dart';
-import '../../../controller/company_module_controllers/work_order_list_screen_controller.dart';
+import '../../controller/company_module_controllers/work_order_module_controllers/work_order_list_screen_controller.dart';
 import '../../../utils/common_functions.dart';
 import '../../../utils/messaging.dart';
 
@@ -99,12 +102,13 @@ class WorkOrderListWidget extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
-                          // Get.to(() => EditCompanyDetailsScreen(),
-                          //     arguments: [
-                          //       companyListScreenController.companyList[i].companyName,
-                          //       companyListScreenController.companyList[i].companyId,
-                          //
-                          //     ]);
+                          Get.to(() => EditWorkOrderScreen(),
+                              arguments: [
+                                workOrderListScreenController.workOrderList[index].workOrderId.toString(),]
+                                // workOrderListScreenController.workOrderList[index].workOrderStatus.name!.toString()]
+                          );
+                          log('work Order Id : ${workOrderListScreenController.workOrderList[index].workOrderId.toString()}');
+                          // log('workerOrder Type : ${workOrderListScreenController.workOrderList[index].workOrderStatus.name.toString()}');
                         },
                         child: Icon(
                           Icons.edit_sharp,

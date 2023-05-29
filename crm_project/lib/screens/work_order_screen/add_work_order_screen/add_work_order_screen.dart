@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:crm_project/common_modules/common_toast_module.dart';
 import 'package:crm_project/common_widgets/custom_appbar.dart';
-import 'package:crm_project/controller/company_module_controllers/add_work_order_screen_controller.dart';
+import 'package:crm_project/controller/company_module_controllers/work_order_module_controllers/add_work_order_screen_controller.dart';
 import 'package:crm_project/utils/messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +12,7 @@ import 'package:sizer/sizer.dart';
 import '../../../../common_modules/common_loader.dart';
 import '../../../../constants/colors.dart';
 import '../../../../models/work_order_screen_models/active_work_order_list_model.dart';
+import '../../../common_modules/common_textfield_header_module.dart';
 
 class AddWorkOrderScreen extends StatelessWidget {
    AddWorkOrderScreen({Key? key}) : super(key: key);
@@ -29,6 +30,8 @@ class AddWorkOrderScreen extends StatelessWidget {
         const SizedBox(
           height: 15,
         ),
+        CommonTextFieldHeaderModule(header: AppMessage.selectWorkOrder,required: true),
+        const SizedBox(height: 5,),
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),

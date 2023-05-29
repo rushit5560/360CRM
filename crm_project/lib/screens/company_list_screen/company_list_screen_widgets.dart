@@ -55,9 +55,10 @@ class CompanyListWidget extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: AppColors.appColors.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(2.w)),
-                  child: Column(
+                  child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
+                        width: Get.width,
                           decoration: BoxDecoration(
                             // color: AppColors.appColors.withOpacity(0.1),
                             borderRadius: BorderRadius.only(
@@ -65,205 +66,172 @@ class CompanyListWidget extends StatelessWidget {
                               topRight: Radius.circular(2.w),
                             ),
                           ),
-                          child: Row(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Expanded(
-                                flex: 8,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      companyListScreenController
-                                          .companyList[i].companyName,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        fontSize: 17.sp,
-                                        fontWeight: FontWeight.bold,
-                                        color: AppColors.blackColor,
-                                      ),
-                                    ),
-                                    Text(
-                                      '${AppMessage.type}: ${companyListScreenController.companyList[i].companyType.companyTypes}',
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 11.sp,
-                                        color: AppColors.blackColor
-                                            .withOpacity(0.6),
-                                      ),
-                                    ),
-                                  ],
+                              Text(
+                                companyListScreenController
+                                    .companyList[i].companyName,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 17.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.blackColor,
                                 ),
                               ),
-                              Expanded(
-                                flex: 2,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        InkWell(
-                                          onTap: () {
-                                            Get.to(
-                                                    () =>
-                                                        EditCompanyDetailsScreen(),
-                                                    arguments: [
-                                                  companyListScreenController
-                                                      .companyList[i]
-                                                      .companyName,
-                                                  companyListScreenController
-                                                      .companyList[i].companyId,
-                                                ])!
-                                                .then(
-                                              (value) async {
-                                                companyListScreenController
-                                                    .companyList
-                                                    .clear();
-                                                companyListScreenController
-                                                    .pageIndex = 1;
-                                                companyListScreenController
-                                                    .hasMore = true;
-                                                await companyListScreenController
-                                                    .getCompanyListFunction();
-                                              },
-                                            );
-                                          },
-                                          child: Icon(
-                                            Icons.edit_sharp,
-                                            size: 7.w,
-                                            color: AppColors.appColors,
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            CommonbottomSheetModule(
-                                              context: context,
-                                              icon: Icon(Icons.info_outline,
-                                                  color: AppColors.greyColor,
-                                                  size: Get.width * .4),
-                                              titleText: AppMessage.areYouSure,
-                                              subTitleText: AppMessage
-                                                  .doYouWantToDeleteThisRecord,
-                                              onYesText: AppMessage.yesDeleteIt,
-                                              onCancelText: AppMessage.cancel,
-                                              onYesTap: () =>
-                                                  companyListScreenController
-                                                      .deleteCompanyFunction(
-                                                          context: context,
-                                                          companyId:
-                                                              companyListScreenController
-                                                                  .companyList[
-                                                                      i]
-                                                                  .companyId,
-                                                          index: i),
-                                              onCancelTap: () =>
-                                                  Navigator.of(context)
-                                                      .pop(false),
-                                            );
-                                          },
-                                          child: Icon(
-                                            Icons.delete,
-                                            size: 7.w,
-                                            color: AppColors.redColor,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                              Text(
+                                '${AppMessage.type}: ${companyListScreenController.companyList[i].companyType.companyTypes}',
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 11.sp,
+                                  color: AppColors.blackColor
+                                      .withOpacity(0.6),
                                 ),
                               ),
+                              const SizedBox(height: 5,),
+                              Row(
+                                children: [
+                                  Icon(Icons.call, size: 6.w),
+                                  SizedBox(width: 2.w),
+                                  Expanded(
+                                    child: Text(
+                                        companyListScreenController
+                                            .companyList[i].phone,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(fontSize: 13.sp)),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 5,),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.browse_gallery_rounded,
+                                    size: 6.w,
+                                  ),
+                                  SizedBox(width: 2.w),
+                                  Expanded(
+                                    child: Text(
+                                        companyListScreenController
+                                            .companyList[i].website,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(fontSize: 13.sp)),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 5,),
                             ],
                           ).paddingOnly(
                               left: 10, right: 10, top: 10, bottom: 0)),
-                      Row(
-                        children: [
-                          Expanded(
-                            flex: 8,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(Icons.call, size: 6.w),
-                                    SizedBox(width: 2.w),
-                                    Expanded(
-                                      child: Text(
-                                          companyListScreenController
-                                              .companyList[i].phone,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(fontSize: 13.sp)),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.browse_gallery_rounded,
-                                      size: 6.w,
-                                    ),
-                                    SizedBox(width: 2.w),
-                                    Expanded(
-                                      child: Text(
-                                          companyListScreenController
-                                              .companyList[i].website,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(fontSize: 13.sp)),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
+
+                      Container(
+                        decoration: BoxDecoration(
+                          color: AppColors.appColors.withOpacity(0.1),
+                          borderRadius: const BorderRadius.only(
+                            bottomRight: Radius.circular(10),
+                            bottomLeft: Radius.circular(10),
                           ),
-                          Expanded(
-                              flex: 2,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Obx(
-                                    () => companyListScreenController
-                                            .isLoading.value
-                                        ? Container()
-                                        : Transform.scale(
-                                            alignment:
-                                                AlignmentDirectional.centerEnd,
-                                            scale: 0.8,
-                                            child: CupertinoSwitch(
-                                              activeColor: AppColors.appColors,
-                                              trackColor:
-                                                  AppColors.appColorsSecondry,
-                                              value: companyListScreenController
-                                                  .companyList[i].isActive,
-                                              onChanged: (value) async {
-                                                await companyListScreenController
-                                                    .changeCompanyStatusFunction(
-                                                        companyId:
-                                                            companyListScreenController
-                                                                .companyList[i]
-                                                                .companyId,
-                                                        status: value,
-                                                        index: i);
-                                              },
-                                            ),
-                                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Transform.scale(
+                                  alignment: AlignmentDirectional.centerEnd,
+                                  scale: 0.8,
+                                  child: CupertinoSwitch(
+                                    activeColor: AppColors.appColors,
+                                    trackColor: AppColors.appColorsSecondry,
+                                    value:companyListScreenController
+                                        .companyList[i].isActive,
+                                    onChanged: (value) async {
+                                      await companyListScreenController
+                                          .changeCompanyStatusFunction(
+                                          companyId:
+                                          companyListScreenController
+                                              .companyList[i]
+                                              .companyId,
+                                          status: value,
+                                          index: i);
+                                    },
                                   ),
-                                  // Obx(
-                                  //       ()=> Text(companyListScreenController
-                                  //       .isCompanyStatus.value ? "Active":"inactive",style: TextStyle(color: companyListScreenController
-                                  //       .isCompanyStatus.value ?AppColors.greenColor:AppColors.redColor,fontSize: 12.sp,fontWeight: FontWeight.bold),),
-                                  // ),
-                                ],
-                              ))
-                        ],
-                      ).paddingAll(10),
+                                ),
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Get.to(
+                                        () =>
+                                        EditCompanyDetailsScreen(),
+                                    arguments: [
+                                      companyListScreenController
+                                          .companyList[i]
+                                          .companyName,
+                                      companyListScreenController
+                                          .companyList[i].companyId,
+                                    ])!
+                                    .then(
+                                      (value) async {
+                                    companyListScreenController
+                                        .companyList
+                                        .clear();
+                                    companyListScreenController
+                                        .pageIndex = 1;
+                                    companyListScreenController
+                                        .hasMore = true;
+                                    await companyListScreenController
+                                        .getCompanyListFunction();
+                                  },
+                                );
+                              },
+                              child: Icon(
+                                Icons.edit_sharp,
+                                size: 7.w,
+                                color: AppColors.appColors,
+                              ),
+                            ).paddingSymmetric(horizontal: 8),
+                            InkWell(
+                              onTap: () {
+                                CommonbottomSheetModule(
+                                  context: context,
+                                  icon: Icon(Icons.info_outline,
+                                      color: AppColors.greyColor,
+                                      size: Get.width * .4),
+                                  titleText: AppMessage.areYouSure,
+                                  subTitleText: AppMessage
+                                      .doYouWantToDeleteThisRecord,
+                                  onYesText: AppMessage.yesDeleteIt,
+                                  onCancelText: AppMessage.cancel,
+                                  onYesTap: () =>
+                                      companyListScreenController
+                                          .deleteCompanyFunction(
+                                          context: context,
+                                          companyId:
+                                          companyListScreenController
+                                              .companyList[
+                                          i]
+                                              .companyId,
+                                          index: i),
+                                  onCancelTap: () =>
+                                      Navigator.of(context)
+                                          .pop(false),
+                                );
+                              },
+                              child: Icon(
+                                Icons.delete,
+                                size: 7.w,
+                                color: AppColors.redColor,
+                              ),
+                            ).paddingSymmetric(horizontal: 8),
+                          ],
+                        ),
+                      )
                     ],
                   ),
                 ).paddingOnly(bottom: 5);
@@ -276,6 +244,6 @@ class CompanyListWidget extends StatelessWidget {
                       ));
               }
             },
-          ).paddingOnly(top: 5, bottom: 10);
+          ).paddingOnly(top: 5);
   }
 }

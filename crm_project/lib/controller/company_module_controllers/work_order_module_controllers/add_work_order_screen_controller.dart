@@ -1,10 +1,13 @@
 import 'dart:developer';
 
+import 'package:crm_project/common_modules/common_toast_module.dart';
+import 'package:crm_project/constants/colors.dart';
+import 'package:crm_project/models/success_model/success_model.dart';
 import 'package:crm_project/models/work_order_screen_models/active_work_order_list_model.dart';
 import 'package:get/get.dart';
 
-import '../../constants/api_url.dart';
-import '../../utils/messaging.dart';
+import '../../../constants/api_url.dart';
+import '../../../utils/messaging.dart';
 import 'package:dio/dio.dart' as dio;
 
 class AddWorkOrderScreenController extends GetxController {
@@ -47,7 +50,18 @@ class AddWorkOrderScreenController extends GetxController {
         log('Else get work order list data : ${activeWorkOrderListModel.statusCode}');
       }
     } catch (e) {
-      log('catch get work order list data : $e');
+      if (e is dio.DioError && e.response != null) {
+        final response = e.response;
+        final statusCode = response!.statusCode;
+        if (statusCode == 400) {
+          CommonToastModule(msg: "Record Already Exist");
+          log("Record Already Exist");
+          isLoading(false);
+        } else if(statusCode == 401) {
+          log('Please login again!');
+        }
+      }
+      log('Error :$e');
     }
     isLoading(false);
   }
@@ -80,9 +94,30 @@ class AddWorkOrderScreenController extends GetxController {
           data: addWorkOrderData,
           options: dio.Options(
               headers: {"Authorization": "Bearer ${AppMessage.token}"}));
-      log('catch add work order : $response');
+      SuccessModel successModel=SuccessModel.fromJson(response.data);
+      isSuccessStatusCode.value = successModel.statusCode;
+      log('add work order responce: $response');
+      if(isSuccessStatusCode.value ==200){
+        CommonToastModule(msg: successModel.message,backgroundColor: AppColors.greenColor);
+        Get.back();
+        log('add work order : ${successModel.message}');
+      }
+      else{
+        log('else add work order : ${successModel.message}');
+      }
     } catch (e) {
-      log('catch add work order : $e');
+      if (e is dio.DioError && e.response != null) {
+        final response = e.response;
+        final statusCode = response!.statusCode;
+        if (statusCode == 400) {
+          CommonToastModule(msg: "Record Already Exist");
+          log("Record Already Exist");
+          isLoading(false);
+        } else if(statusCode == 401) {
+          log('Please login again!');
+        }
+      }
+      log('Error :$e');
     }
   }
 

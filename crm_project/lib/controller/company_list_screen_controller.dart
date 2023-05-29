@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 
 import 'package:dio/dio.dart' as dio;
 
+import '../common_modules/common_toast_module.dart';
 import '../models/company_list_screen_models/company_list_model.dart';
 
 class CompanyListScreenController extends GetxController {
@@ -63,18 +64,18 @@ class CompanyListScreenController extends GetxController {
           log('Get Company Error Message :${companyListModel.data.message}');
         }
       }  catch (e) {
-        log("catch");
         if (e is dio.DioError && e.response != null) {
           final response = e.response;
           final statusCode = response!.statusCode;
-          log("statusCode $statusCode");
           if (statusCode == 400) {
-            log("no data found");
+            CommonToastModule(msg: "Record Already Exist");
+            log("Record Already Exist");
             isLoading(false);
+          } else if(statusCode == 401) {
+            log('Please login again!');
           }
         }
-        // log('Get Notes Function Error :$e');
-        rethrow;
+        log('Error :$e');
       }
 
       loadUI();
@@ -112,7 +113,18 @@ class CompanyListScreenController extends GetxController {
       }
 
     } catch (e) {
-      log('Catch change Company Status : $e');
+      if (e is dio.DioError && e.response != null) {
+        final response = e.response;
+        final statusCode = response!.statusCode;
+        if (statusCode == 400) {
+          CommonToastModule(msg: "Record Already Exist");
+          log("Record Already Exist");
+          isLoading(false);
+        } else if(statusCode == 401) {
+          log('Please login again!');
+        }
+      }
+      log('Error :$e');
     }
   }
 
@@ -142,10 +154,19 @@ class CompanyListScreenController extends GetxController {
         log('else Company delete : ${successModel.message}');
       }
     } catch (e) {
-      log('Company delete catch : $e');
+      if (e is dio.DioError && e.response != null) {
+        final response = e.response;
+        final statusCode = response!.statusCode;
+        if (statusCode == 400) {
+          CommonToastModule(msg: "Record Already Exist");
+          log("Record Already Exist");
+          isLoading(false);
+        } else if(statusCode == 401) {
+          log('Please login again!');
+        }
+      }
+      log('Error :$e');
     }
-    isLoading(false);
-  }
 
   @override
   void onInit() {

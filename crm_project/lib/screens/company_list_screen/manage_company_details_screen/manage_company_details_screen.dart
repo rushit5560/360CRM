@@ -3,6 +3,7 @@ import 'dart:developer';
 // import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:crm_project/common_modules/common_loader.dart';
 import 'package:crm_project/common_modules/common_textfield.dart';
+import 'package:crm_project/common_modules/common_textfield_header_module.dart';
 import 'package:crm_project/constants/colors.dart';
 import 'package:crm_project/constants/extension.dart';
 import 'package:flutter/cupertino.dart';
@@ -64,10 +65,12 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                       const SizedBox(
                         height: 20,
                       ),
+                      CommonTextFieldHeaderModule(header: AppMessage.companyName,required: true),
+                      const SizedBox(height: 5,),
                       TextFieldModule(
                         fieldController: manageCompanyDetailsScreenController
                             .companyNameTextField,
-                        hintText: 'Company Name',
+                        hintText: AppMessage.companyName,
                         keyboardType: TextInputType.text,
                         validate: (value) => FieldValidation()
                             .validateEmpty(value, 'gross monthly revenue'),
@@ -75,10 +78,12 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
+                      CommonTextFieldHeaderModule(header: AppMessage.phone,required: false),
+                      const SizedBox(height: 5,),
                       TextFieldModule(
                         fieldController:
                             manageCompanyDetailsScreenController.phoneTextField,
-                        hintText: 'Phone',
+                        hintText: AppMessage.phone,
                         prifixIcon: Text(
                           'US(+1)',
                           style: TextStyle(
@@ -91,6 +96,8 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
+                      CommonTextFieldHeaderModule(header: 'Phone 2',required: false),
+                      const SizedBox(height: 5,),
                       TextFieldModule(
                         fieldController:
                             manageCompanyDetailsScreenController.phone2TextField,
@@ -107,6 +114,8 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
+                      CommonTextFieldHeaderModule(header: 'Fax',required: false),
+                      const SizedBox(height: 5,),
                       TextFieldModule(
                         fieldController:
                             manageCompanyDetailsScreenController.faxTextField,
@@ -123,6 +132,8 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
+                      CommonTextFieldHeaderModule(header: 'Fax 2',required: false),
+                      const SizedBox(height: 5,),
                       TextFieldModule(
                         fieldController:
                             manageCompanyDetailsScreenController.fax2TextField,
@@ -139,6 +150,8 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
+                      CommonTextFieldHeaderModule(header: 'Website',required: false),
+                      const SizedBox(height: 5,),
                       TextFieldModule(
                           fieldController: manageCompanyDetailsScreenController
                               .websiteTextField,
@@ -148,6 +161,8 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
+                      CommonTextFieldHeaderModule(header: 'Email',required: false),
+                      const SizedBox(height: 5,),
                       TextFieldModule(
                         fieldController:
                             manageCompanyDetailsScreenController.emailTextField,
@@ -157,13 +172,8 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                         //     FieldValidation().validateEmail(value),
                       ),
                       const SizedBox(height: 10),
-                      Text(
-                        'Select company Type',
-                        style: TextStyle(fontSize: 9.sp),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
+                      CommonTextFieldHeaderModule(header: 'Select company Type',required: true),
+                      const SizedBox(height: 5,),
 
                       Obx(
                         () => Container(
