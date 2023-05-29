@@ -161,17 +161,16 @@ class CompanyListScreenController extends GetxController {
           CommonToastModule(msg: "Record Already Exist");
           log("Record Already Exist");
           isLoading(false);
-        } else if(statusCode == 401) {
+        } else if (statusCode == 401) {
           log('Please login again!');
         }
       }
       log('Error :$e');
     }
-
+  }
   @override
   void onInit() {
     initMethod();
-
     super.onInit();
   }
 
