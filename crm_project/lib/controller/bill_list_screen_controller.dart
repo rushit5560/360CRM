@@ -1,19 +1,18 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:crm_project/constants/api_url.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart' as dio;
 
-import '../../models/ledger_screen_model/ledger_list_model.dart';
-import '../../models/success_model/success_model.dart';
-import '../../utils/messaging.dart';
+import '../constants/api_url.dart';
+import '../models/bill_screen_model/bill_list_model.dart';
+import '../models/success_model/success_model.dart';
+import '../utils/messaging.dart';
 
 
-
-class LedgerListScreenController extends GetxController {
+class BillListScreenController extends GetxController {
   String companyId = Get.arguments[0];
 
   RxBool isLoading = false.obs;
@@ -22,18 +21,18 @@ class LedgerListScreenController extends GetxController {
   final dioRequest = dio.Dio();
 
   TextEditingController searchTextFieldController = TextEditingController();
-  List<LedgerData> ledgerList = [];
+  List<BillData> billList = [];
 
   final ScrollController scrollController = ScrollController();
   bool hasMore = true;
   int pageIndex = 1;
   int pageCount = 10;
 
-
-  Future<void> getLedgersFunction() async {
+  // Get Bills list function
+  Future<void> getBillFunction() async {
     if(hasMore == true) {
-      String url = "${ApiUrl.companyGetAllLedgerApi}?PageNumber=$pageIndex&PageSize=$pageCount&type=company&id=$companyId";
-      log('Get Ledger Api Url : $url');
+      String url = "${ApiUrl.getAllBillApi}?PageNumber=$pageIndex&PageSize=$pageCount&type=company&id=$companyId";
+      log('Get Bill Api Url : $url');
 
       try {
         final response = await dioRequest.get(
@@ -42,19 +41,20 @@ class LedgerListScreenController extends GetxController {
               headers: {"Authorization": "Bearer ${AppMessage.token}"}
           ),
         );
-        log('Get Ledger Api Response : ${jsonEncode(response.data)}');
-        LedgerListModel ledgerListModel = LedgerListModel.fromJson(response.data);
-        isSuccessStatusCode.value = ledgerListModel.statusCode;
+        log('Get Bill Api Response : ${jsonEncode(response.data)}');
+
+        BillListModel billListModel = BillListModel.fromJson(response.data);
+        isSuccessStatusCode.value = billListModel.statusCode;
 
         if(isSuccessStatusCode.value == 200) {
-          ledgerList.addAll(ledgerListModel.data.data);
-
-          if(ledgerListModel.data.data.length < pageCount) {
+          billList.addAll(billListModel.data.data);
+          log('billList Length : ${billList.length}');
+          if(billListModel.data.data.length < pageCount) {
             hasMore = false;
           }
 
         } else {
-          log('getLedgersFunction Else');
+          log('getBillFunction Else');
         }
 
       } catch (e) {
@@ -78,15 +78,15 @@ class LedgerListScreenController extends GetxController {
     }
   }
 
-
-  // Change Ledger status function
-  Future<void> changeLedgerStatusFunction({required String ledgerId, required bool status, required int index}) async {
+  // Change Bill status function
+  Future<void> changeBillStatusFunction({required String billId, required bool status, required int index}) async {
     isLoading(true);
-    String url = ApiUrl.companyLedgerStatusChangeApi;
+    String url = ApiUrl.changeBillStatusApi;
+    log('Change Bill Status Api Url :$url');
 
     try {
       Map<String, dynamic> bodyData = {
-        "AccountLedgerID": ledgerId,
+        "BillID": billId,
         "IsActive": status
       };
 
@@ -105,11 +105,10 @@ class LedgerListScreenController extends GetxController {
       if(isSuccessStatusCode.value == 200) {
 
         Fluttertoast.showToast(msg: successModel.message);
-        ledgerList[index].isActive = status;
+        billList[index].isActive = status;
       } else {
         log('Change Status Function Else');
       }
-
     } catch (e) {
       if (e is dio.DioError && e.response != null) {
         final response = e.response;
@@ -129,14 +128,14 @@ class LedgerListScreenController extends GetxController {
   }
 
   // Delete Ledger Function
-  Future<void> deleteLedgerFunction({required String ledgerId, required int index}) async {
+  Future<void> deleteBillFunction({required String billId, required int index}) async {
     isLoading(true);
-    String url = ApiUrl.companyLedgerDeleteApi;
-    log('Delete Ledger Api Url : $url');
+    String url = ApiUrl.deleteBillApi;
+    log('Delete Bill Api Url : $url');
 
     try {
       Map<String, dynamic> bodyData = {
-        "AccountLedgerID": ledgerId,
+        "BillID": billId,
         "IsDeleted" : true
       };
 
@@ -147,14 +146,14 @@ class LedgerListScreenController extends GetxController {
             headers: {"Authorization": "Bearer ${AppMessage.token}"}
         ),
       );
-      log('Delete Ledger Api Response : ${jsonEncode(response.data)}');
+      log('Delete Bill Api Response : ${jsonEncode(response.data)}');
 
       SuccessModel successModel = SuccessModel.fromJson(response.data);
       isSuccessStatusCode.value == successModel.statusCode;
 
       if(isSuccessStatusCode.value == 200) {
         Fluttertoast.showToast(msg: successModel.message);
-        ledgerList.removeAt(index);
+        billList.removeAt(index);
 
       } else {
         log('Delete Ledger Else');
@@ -174,9 +173,10 @@ class LedgerListScreenController extends GetxController {
       }
       log('Error :$e');
     }
-    isLoading(false);
 
+    isLoading(false);
   }
+
 
 
   @override
@@ -187,7 +187,7 @@ class LedgerListScreenController extends GetxController {
 
   Future<void> initMethod() async {
     isLoading(true);
-    await getLedgersFunction();
+    await getBillFunction();
 
     scrollController.addListener(() async {
       if (scrollController.position.maxScrollExtent ==
@@ -197,7 +197,7 @@ class LedgerListScreenController extends GetxController {
           pageIndex++;
         }
         log("pageIndex : $pageIndex");
-        await getLedgersFunction();
+        await getBillFunction();
       }
     });
 
@@ -207,6 +207,4 @@ class LedgerListScreenController extends GetxController {
     isLoading(true);
     isLoading(false);
   }
-
-
 }

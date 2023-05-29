@@ -154,8 +154,19 @@ class LedgerManageScreenController extends GetxController {
         log('addLedgerFunction Else');
       }
 
-    } catch (e) {
-      log('addLedgerFunction Error :$e');
+    }catch (e) {
+      if (e is dio.DioError && e.response != null) {
+        final response = e.response;
+        final statusCode = response!.statusCode;
+        if (statusCode == 400) {
+          Fluttertoast.showToast(msg: "Record Already Exist");
+          log("Record Already Exist");
+          isLoading(false);
+        } else if(statusCode == 401) {
+          log('Please login again!');
+        }
+      }
+      log('Error :$e');
     }
   }
 
@@ -223,8 +234,19 @@ class LedgerManageScreenController extends GetxController {
       }
 
 
-    } catch(e) {
-      log('updateLedgerFunction Error :$e');
+    } catch (e) {
+      if (e is dio.DioError && e.response != null) {
+        final response = e.response;
+        final statusCode = response!.statusCode;
+        if (statusCode == 400) {
+          Fluttertoast.showToast(msg: "Record Already Exist");
+          log("Record Already Exist");
+          isLoading(false);
+        } else if(statusCode == 401) {
+          log('Please login again!');
+        }
+      }
+      log('Error :$e');
     }
 
   }
@@ -339,9 +361,19 @@ class LedgerManageScreenController extends GetxController {
       }
 
 
-    } catch(e) {
-
-      log('getLedgerDetailsFunction Error :$e');
+    } catch (e) {
+      if (e is dio.DioError && e.response != null) {
+        final response = e.response;
+        final statusCode = response!.statusCode;
+        if (statusCode == 400) {
+          Fluttertoast.showToast(msg: "Record Already Exist");
+          log("Record Already Exist");
+          isLoading(false);
+        } else if(statusCode == 401) {
+          log('Please login again!');
+        }
+      }
+      log('Error :$e');
     }
 
 
@@ -409,7 +441,18 @@ class LedgerManageScreenController extends GetxController {
         log('getAllActiveCategoryFunction Else');
       }
     } catch (e) {
-      log('getAllActiveCategoryFunction Error :$e');
+      if (e is dio.DioError && e.response != null) {
+        final response = e.response;
+        final statusCode = response!.statusCode;
+        if (statusCode == 400) {
+          Fluttertoast.showToast(msg: "Record Already Exist");
+          log("Record Already Exist");
+          isLoading(false);
+        } else if(statusCode == 401) {
+          log('Please login again!');
+        }
+      }
+      log('Error :$e');
     }
 
     // isLoading(false);
@@ -444,7 +487,18 @@ class LedgerManageScreenController extends GetxController {
         log('getAllActivePropertyFunction Else');
       }
     } catch (e) {
-      log('getAllActivePropertyFunction Error :$e');
+      if (e is dio.DioError && e.response != null) {
+        final response = e.response;
+        final statusCode = response!.statusCode;
+        if (statusCode == 400) {
+          Fluttertoast.showToast(msg: "Record Already Exist");
+          log("Record Already Exist");
+          isLoading(false);
+        } else if(statusCode == 401) {
+          log('Please login again!');
+        }
+      }
+      log('Error :$e');
     }
     // isLoading(false);
     await getAllActiveCompanyFunction();
@@ -484,7 +538,18 @@ class LedgerManageScreenController extends GetxController {
         log('getAllActiveCompanyFunction Else');
       }
     } catch (e) {
-      log('getAllActiveCompanyFunction Error :$e');
+      if (e is dio.DioError && e.response != null) {
+        final response = e.response;
+        final statusCode = response!.statusCode;
+        if (statusCode == 400) {
+          Fluttertoast.showToast(msg: "Record Already Exist");
+          log("Record Already Exist");
+          isLoading(false);
+        } else if(statusCode == 401) {
+          log('Please login again!');
+        }
+      }
+      log('Error :$e');
     }
 
     // isLoading(false);
@@ -519,7 +584,18 @@ class LedgerManageScreenController extends GetxController {
         log('getAllActiveCompanyFunction Else');
       }
     } catch (e) {
-      log('getAllActiveCompanyFunction Error :$e');
+      if (e is dio.DioError && e.response != null) {
+        final response = e.response;
+        final statusCode = response!.statusCode;
+        if (statusCode == 400) {
+          Fluttertoast.showToast(msg: "Record Already Exist");
+          log("Record Already Exist");
+          isLoading(false);
+        } else if(statusCode == 401) {
+          log('Please login again!');
+        }
+      }
+      log('Error :$e');
     }
 
     // isLoading(false);
@@ -554,7 +630,18 @@ class LedgerManageScreenController extends GetxController {
         log('getAllActiveCompanyFunction Else');
       }
     } catch (e) {
-      log('getAllActiveCompanyFunction Error :$e');
+      if (e is dio.DioError && e.response != null) {
+        final response = e.response;
+        final statusCode = response!.statusCode;
+        if (statusCode == 400) {
+          Fluttertoast.showToast(msg: "Record Already Exist");
+          log("Record Already Exist");
+          isLoading(false);
+        } else if(statusCode == 401) {
+          log('Please login again!');
+        }
+      }
+      log('Error :$e');
     }
 
     // isLoading(false);
@@ -589,7 +676,18 @@ class LedgerManageScreenController extends GetxController {
         log('getAllActiveCompanyFunction Else');
       }
     } catch (e) {
-      log('getAllActiveCompanyFunction Error :$e');
+      if (e is dio.DioError && e.response != null) {
+        final response = e.response;
+        final statusCode = response!.statusCode;
+        if (statusCode == 400) {
+          Fluttertoast.showToast(msg: "Record Already Exist");
+          log("Record Already Exist");
+          isLoading(false);
+        } else if(statusCode == 401) {
+          log('Please login again!');
+        }
+      }
+      log('Error :$e');
     }
 
     // isLoading(false);
@@ -625,7 +723,18 @@ class LedgerManageScreenController extends GetxController {
         log('getAllActiveMortgageFunction Else');
       }
     } catch (e) {
-      log('getAllActiveCompanyFunction Error :$e');
+      if (e is dio.DioError && e.response != null) {
+        final response = e.response;
+        final statusCode = response!.statusCode;
+        if (statusCode == 400) {
+          Fluttertoast.showToast(msg: "Record Already Exist");
+          log("Record Already Exist");
+          isLoading(false);
+        } else if(statusCode == 401) {
+          log('Please login again!');
+        }
+      }
+      log('Error :$e');
     }
 
     // isLoading(false);
@@ -663,7 +772,18 @@ class LedgerManageScreenController extends GetxController {
         log('getAllActiveLeaseFunction Else');
       }
     } catch (e) {
-      log('getAllActiveLeaseFunction Error :$e');
+      if (e is dio.DioError && e.response != null) {
+        final response = e.response;
+        final statusCode = response!.statusCode;
+        if (statusCode == 400) {
+          Fluttertoast.showToast(msg: "Record Already Exist");
+          log("Record Already Exist");
+          isLoading(false);
+        } else if(statusCode == 401) {
+          log('Please login again!');
+        }
+      }
+      log('Error :$e');
     }
 
     // isLoading(false);
@@ -700,7 +820,18 @@ class LedgerManageScreenController extends GetxController {
         log('getAllPropertyManagementFunction Else');
       }
     } catch (e) {
-      log('getAllPropertyManagementFunction Error :$e');
+      if (e is dio.DioError && e.response != null) {
+        final response = e.response;
+        final statusCode = response!.statusCode;
+        if (statusCode == 400) {
+          Fluttertoast.showToast(msg: "Record Already Exist");
+          log("Record Already Exist");
+          isLoading(false);
+        } else if(statusCode == 401) {
+          log('Please login again!');
+        }
+      }
+      log('Error :$e');
     }
 
     // isLoading(false);
@@ -736,7 +867,18 @@ class LedgerManageScreenController extends GetxController {
         log('getAllProspectFunction Else');
       }
     } catch (e) {
-      log('getAllProspectFunction Error :$e');
+      if (e is dio.DioError && e.response != null) {
+        final response = e.response;
+        final statusCode = response!.statusCode;
+        if (statusCode == 400) {
+          Fluttertoast.showToast(msg: "Record Already Exist");
+          log("Record Already Exist");
+          isLoading(false);
+        } else if(statusCode == 401) {
+          log('Please login again!');
+        }
+      }
+      log('Error :$e');
     }
 
     isLoading(false);

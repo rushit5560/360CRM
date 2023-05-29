@@ -1,15 +1,15 @@
+import 'package:crm_project/utils/messaging.dart';
 import 'package:crm_project/utils/validator.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-
 import '../../../../common_modules/common_loader.dart';
 import '../../../../common_modules/common_textfield.dart';
 import '../../../../common_widgets/custom_appbar.dart';
 import '../../../../constants/colors.dart';
 import '../../../../controller/company_module_controllers/ledger_manage_screen_controller.dart';
 import 'ledger_manage_screen_widget.dart';
+
 
 class LedgerManageScreen extends StatelessWidget {
   LedgerManageScreen({Key? key}) : super(key: key);
@@ -37,7 +37,7 @@ class LedgerManageScreen extends StatelessWidget {
                       RichText(
                         textAlign: TextAlign.left,
                         text: TextSpan(
-                          text: "Date",
+                          text: AppMessage.dateLabel,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 11.sp,
@@ -103,7 +103,7 @@ class LedgerManageScreen extends StatelessWidget {
                           RichText(
                             textAlign: TextAlign.left,
                             text: TextSpan(
-                              text: "Amount",
+                              text: AppMessage.amountLabel,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 11.sp,
@@ -122,11 +122,11 @@ class LedgerManageScreen extends StatelessWidget {
                           TextFieldModule(
                             fieldController: ledgerManageScreenController
                                 .amountFieldController,
-                            hintText: 'Amount',
+                            hintText: AppMessage.amountLabel,
                             // labelText: 'Amount',
                             keyboardType: TextInputType.number,
                             validate: (value) =>
-                                FieldValidation().validateAmount(value, "amount"),
+                                FieldValidation().validateAmount(value, AppMessage.amountLabel.toLowerCase()),
                           )
                         ],
                       ).paddingSymmetric(vertical: 10),
@@ -138,7 +138,7 @@ class LedgerManageScreen extends StatelessWidget {
                           RichText(
                             textAlign: TextAlign.left,
                             text: TextSpan(
-                              text: "Type",
+                              text: AppMessage.typeLabel,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 11.sp,
@@ -156,7 +156,7 @@ class LedgerManageScreen extends StatelessWidget {
                           RichText(
                             textAlign: TextAlign.left,
                             text: TextSpan(
-                              text: "Reference",
+                              text: AppMessage.referenceLabel,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 11.sp,
@@ -175,10 +175,10 @@ class LedgerManageScreen extends StatelessWidget {
                           TextFieldModule(
                             fieldController: ledgerManageScreenController
                                 .referenceFieldController,
-                            hintText: 'Reference',
+                            hintText: AppMessage.referenceLabel,
                             keyboardType: TextInputType.text,
                             validate: (value) => FieldValidation()
-                                .validateEmpty(value, "reference"),
+                                .validateEmpty(value, AppMessage.referenceLabel.toLowerCase()),
                           )
                         ],
                       ).paddingSymmetric(vertical: 10),
@@ -190,7 +190,7 @@ class LedgerManageScreen extends StatelessWidget {
                           RichText(
                             textAlign: TextAlign.left,
                             text: TextSpan(
-                              text: "Details",
+                              text: AppMessage.detailsLabel,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 11.sp,
@@ -209,10 +209,10 @@ class LedgerManageScreen extends StatelessWidget {
                           TextFieldModule(
                             fieldController: ledgerManageScreenController
                                 .detailsFieldController,
-                            hintText: 'Details',
+                            hintText: AppMessage.detailsLabel,
                             keyboardType: TextInputType.text,
                             validate: (value) =>
-                                FieldValidation().validateEmpty(value, "details"),
+                                FieldValidation().validateEmpty(value, AppMessage.detailsLabel.toLowerCase()),
                           )
                         ],
                       ).paddingSymmetric(vertical: 10),
@@ -247,7 +247,7 @@ class LedgerManageScreen extends StatelessWidget {
                       ProspectDropDownModule(),
 
                       //CupertinoSwitch and button module
-                      CupertinoSwitchAndbuttonmodule()
+                      CupertinoSwitchAndButtonModule()
 
                     ],
                   ).paddingSymmetric(horizontal: 8, vertical: 8),

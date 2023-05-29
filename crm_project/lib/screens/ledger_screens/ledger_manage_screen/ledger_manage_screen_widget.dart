@@ -1,6 +1,6 @@
+import 'package:crm_project/utils/messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import '../../../../common_modules/common_loader.dart';
@@ -18,6 +18,7 @@ import '../../../../models/ledger_screen_model/active_prospect_screen_model.dart
 import '../../../../models/ledger_screen_model/active_work_order_list_model.dart';
 import '../../../../utils/enums.dart';
 
+
 class TypeDropdownModule extends StatelessWidget {
   TypeDropdownModule({Key? key}) : super(key: key);
   final screenController = Get.find<LedgerManageScreenController>();
@@ -31,9 +32,9 @@ class TypeDropdownModule extends StatelessWidget {
       ),
       child: DropdownButtonFormField<String>(
         decoration: const InputDecoration(border: InputBorder.none),
-        hint: const Text(
-          "Select Ledger Type",
-          style: TextStyle(color: AppColors.appColors),
+        hint: Text(
+          AppMessage.selectLedgerTypeLabel,
+          style: const TextStyle(color: AppColors.appColors),
         ),
         value: screenController.selectedTypeValue.value,
         onChanged: (newValue) async {
@@ -63,7 +64,7 @@ class AccountCategoryDropDownModule extends StatelessWidget {
         RichText(
           textAlign: TextAlign.left,
           text: TextSpan(
-            text: "Account Category",
+            text: AppMessage.accountCategoryLabel,
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 11.sp,
@@ -77,9 +78,9 @@ class AccountCategoryDropDownModule extends StatelessWidget {
           ),
           child: DropdownButtonFormField<CategoryTypeData>(
             decoration: const InputDecoration(border: InputBorder.none),
-            hint: const Text(
-              "Select Account Category",
-              style: TextStyle(color: AppColors.appColors),
+            hint: Text(
+              AppMessage.selectAccountCategoryLabel,
+              style: const TextStyle(color: AppColors.appColors),
             ),
             value: screenController.categoryTypeDataValue,
             onChanged: (newValue) async {
@@ -112,7 +113,7 @@ class PropertyDropDownModule extends StatelessWidget {
         RichText(
           textAlign: TextAlign.left,
           text: TextSpan(
-            text: "Property",
+            text: AppMessage.propertyLabel,
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 11.sp,
@@ -126,9 +127,9 @@ class PropertyDropDownModule extends StatelessWidget {
           ),
           child: DropdownButtonFormField<PropertyData>(
             decoration: const InputDecoration(border: InputBorder.none),
-            hint: const Text(
-              "Select Property",
-              style: TextStyle(color: AppColors.appColors),
+            hint: Text(
+              AppMessage.selectPropertyLabel,
+              style: const TextStyle(color: AppColors.appColors),
             ),
             value: screenController.propertyDataValue,
             onChanged: (newValue) async {
@@ -160,7 +161,7 @@ class CompanyDropDownModule extends StatelessWidget {
         RichText(
           textAlign: TextAlign.left,
           text: TextSpan(
-            text: "Company",
+            text: AppMessage.companyLabel,
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 11.sp,
@@ -183,9 +184,9 @@ class CompanyDropDownModule extends StatelessWidget {
           ),
           child: DropdownButtonFormField<CompanyData>(
             decoration: const InputDecoration(border: InputBorder.none),
-            hint: const Text(
-              "Select Company",
-              style: TextStyle(color: AppColors.appColors),
+            hint: Text(
+              AppMessage.selectCompanyLabel,
+              style: const TextStyle(color: AppColors.appColors),
             ),
             // Not necessary for Option 1
             onChanged: (newValue) async {
@@ -218,7 +219,7 @@ class WorkOrderDropDownModule extends StatelessWidget {
         RichText(
           textAlign: TextAlign.left,
           text: TextSpan(
-            text: "Work Order",
+            text: AppMessage.workOrderLabel,
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 11.sp,
@@ -232,9 +233,9 @@ class WorkOrderDropDownModule extends StatelessWidget {
           ),
           child: DropdownButtonFormField<WorkOrderData>(
             decoration: const InputDecoration(border: InputBorder.none),
-            hint: const Text(
-              "Select Work Order",
-              style: TextStyle(color: AppColors.appColors),
+            hint: Text(
+              AppMessage.selectWorkOrderLabel,
+              style: const TextStyle(color: AppColors.appColors),
             ),
             // Not necessary for Option 1
             onChanged: (newValue) async {
@@ -267,7 +268,7 @@ class MarketingDropDownModule extends StatelessWidget {
         RichText(
           textAlign: TextAlign.left,
           text: TextSpan(
-            text: "Marketing",
+            text: AppMessage.marketingLabel,
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 11.sp,
@@ -281,9 +282,9 @@ class MarketingDropDownModule extends StatelessWidget {
           ),
           child: DropdownButtonFormField<MarketingData>(
             decoration: const InputDecoration(border: InputBorder.none),
-            hint: const Text(
-              "Select Marketing",
-              style: TextStyle(color: AppColors.appColors),
+            hint: Text(
+              AppMessage.selectMarketingLabel,
+              style: const TextStyle(color: AppColors.appColors),
             ),
             // Not necessary for Option 1
             onChanged: (newValue) async {
@@ -316,7 +317,7 @@ class ContactDropDownModule extends StatelessWidget {
         RichText(
           textAlign: TextAlign.left,
           text: TextSpan(
-            text: "Contact",
+            text: AppMessage.contact,
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 11.sp,
@@ -330,9 +331,9 @@ class ContactDropDownModule extends StatelessWidget {
           ),
           child: DropdownButtonFormField<ContactData>(
             decoration: const InputDecoration(border: InputBorder.none),
-            hint: const Text(
-              "Select Contact",
-              style: TextStyle(color: AppColors.appColors),
+            hint: Text(
+              AppMessage.selectContactLabel,
+              style: const TextStyle(color: AppColors.appColors),
             ),
             // Not necessary for Option 1
             onChanged: (newValue) async {
@@ -365,7 +366,7 @@ class MortgageDropDownModule extends StatelessWidget {
         RichText(
           textAlign: TextAlign.left,
           text: TextSpan(
-            text: "Mortgage",
+            text: AppMessage.mortgageLabel,
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 11.sp,
@@ -379,9 +380,9 @@ class MortgageDropDownModule extends StatelessWidget {
           ),
           child: DropdownButtonFormField<MortgageData>(
             decoration: const InputDecoration(border: InputBorder.none),
-            hint: const Text(
-              "Select Mortgage",
-              style: TextStyle(color: AppColors.appColors),
+            hint: Text(
+              AppMessage.selectMortgageLabel,
+              style: const TextStyle(color: AppColors.appColors),
             ),
             // Not necessary for Option 1
             onChanged: (newValue) async {
@@ -414,7 +415,7 @@ class LeaseDropDownModule extends StatelessWidget {
         RichText(
           textAlign: TextAlign.left,
           text: TextSpan(
-            text: "Lease",
+            text: AppMessage.leaseLabel,
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 11.sp,
@@ -428,8 +429,8 @@ class LeaseDropDownModule extends StatelessWidget {
           ),
           child: DropdownButtonFormField<LeaseData>(
             decoration: const InputDecoration(border: InputBorder.none),
-            hint: const Text(
-              "Select Lease",
+            hint: Text(
+              AppMessage.selectLeaseLabel,
               style: TextStyle(color: AppColors.appColors),
             ),
             // Not necessary for Option 1
@@ -463,7 +464,7 @@ class PropertyManagementDropDownModule extends StatelessWidget {
         RichText(
           textAlign: TextAlign.left,
           text: TextSpan(
-            text: "Property Managemen",
+            text: AppMessage.propertyManagementLabel,
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 11.sp,
@@ -477,9 +478,9 @@ class PropertyManagementDropDownModule extends StatelessWidget {
           ),
           child: DropdownButtonFormField<PropertyManagementData>(
             decoration: const InputDecoration(border: InputBorder.none),
-            hint: const Text(
-              "Select PropertyManagemen",
-              style: TextStyle(color: AppColors.appColors),
+            hint: Text(
+              AppMessage.selectPropertyManagementLabel,
+              style: const TextStyle(color: AppColors.appColors),
             ),
             // Not necessary for Option 1
             onChanged: (newValue) async {
@@ -512,7 +513,7 @@ class ProspectDropDownModule extends StatelessWidget {
         RichText(
           textAlign: TextAlign.left,
           text: TextSpan(
-            text: "Prospect",
+            text: AppMessage.prospectLabel,
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 11.sp,
@@ -526,9 +527,9 @@ class ProspectDropDownModule extends StatelessWidget {
           ),
           child: DropdownButtonFormField<ProspectManageData>(
             decoration: const InputDecoration(border: InputBorder.none),
-            hint: const Text(
-              "Select Prospect",
-              style: TextStyle(color: AppColors.appColors),
+            hint: Text(
+              AppMessage.selectProspectLabel,
+              style: const TextStyle(color: AppColors.appColors),
             ),
             // Not necessary for Option 1
             onChanged: (newValue) async {
@@ -549,8 +550,8 @@ class ProspectDropDownModule extends StatelessWidget {
   }
 }
 
-class CupertinoSwitchAndbuttonmodule extends StatelessWidget {
-  CupertinoSwitchAndbuttonmodule({Key? key}) : super(key: key);
+class CupertinoSwitchAndButtonModule extends StatelessWidget {
+  CupertinoSwitchAndButtonModule({Key? key}) : super(key: key);
   final screenController = Get.find<LedgerManageScreenController>();
 
   @override
@@ -604,8 +605,8 @@ class CupertinoSwitchAndbuttonmodule extends StatelessWidget {
                       child: CommonLoader().showLoader(),
                     ).paddingAll(5)
                   : LedgerOption.update == screenController.ledgerOption
-                      ? const Text('Update')
-                      : const Text('Submit'),
+                      ? const Text(AppMessage.update)
+                      : const Text(AppMessage.submitLabel),
             ),
           ),
         ),

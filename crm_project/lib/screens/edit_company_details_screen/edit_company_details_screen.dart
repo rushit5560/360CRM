@@ -10,6 +10,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../common_modules/common_listtile_module.dart';
 import '../../utils/messaging.dart';
+import '../bill_screens/bill_list_screen/bill_list_screen.dart';
 import '../company_list_screen/manage_company_details_screen/manage_company_details_screen.dart';
 import 'package:crm_project/screens/attachment_screen/attachment_list_screen.dart';
 import 'package:crm_project/screens/address_screen/address_list_screen.dart';
@@ -141,6 +142,14 @@ class EditCompanyDetailsScreen extends StatelessWidget {
               CommonListTitleModule(
                 icon: Icon(Icons.file_copy, size: 20.sp),
                 titleText: AppMessage.bill,
+                ontap: () {
+                  Get.to(
+                    () => BillListScreen(),
+                    arguments: [
+                      editCompanyDetailsScreenController.companyId.toString()
+                    ],
+                  );
+                },
               ),
 
               // Company Invoice Module

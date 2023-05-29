@@ -1,10 +1,8 @@
 import 'dart:developer';
-
 import 'package:crm_project/common_modules/common_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-
 import '../../../../common_modules/common_textfield.dart';
 import '../../../../common_modules/divider.dart';
 import '../../../../common_widgets/custom_appbar.dart';
@@ -14,6 +12,8 @@ import '../../../../utils/enums.dart';
 import '../../../../utils/messaging.dart';
 import '../ledger_manage_screen/ledger_manage_screen.dart';
 import 'ledger_list_screen_widgets.dart';
+
+
 
 class LedgerListScreen extends StatelessWidget {
   LedgerListScreen({Key? key}) : super(key: key);
@@ -38,7 +38,7 @@ class LedgerListScreen extends StatelessWidget {
                   TextFieldModule(
                           fieldController: ledgerListScreenController
                               .searchTextFieldController,
-                          hintText: 'Search...',
+                          hintText: AppMessage.searchFieldText,
                           onChange: (text) {
                             log(text.toString());
                           },
@@ -103,7 +103,7 @@ class LedgerListScreen extends StatelessWidget {
       ),
 
       floatingActionButton: FloatingActionButton(
-        heroTag: 'Add Ledger',
+        heroTag: AppMessage.addLedger,
         onPressed: () {
           Get.to(() => LedgerManageScreen(),
               arguments: [
