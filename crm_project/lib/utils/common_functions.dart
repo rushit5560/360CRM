@@ -8,3 +8,10 @@ class DateFormatChanger {
   }
 
 }
+
+class DateFormatChangerYMD {
+  String dateFormat(DateTime date) {
+    String formatDate = DateFormat("yyyy-MM-dd").format(date);
+    return formatDate;
+  }
+}
