@@ -59,7 +59,7 @@ class BillListScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      AppMessage.ledgerList,
+                      AppMessage.billList,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                           color: AppColors.appColors,

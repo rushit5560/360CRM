@@ -32,7 +32,7 @@ class Data {
   DateTime billDate;
   DateTime dueDate;
   String address;
-  int totalAmount;
+  String totalAmount;
   bool paid;
   // dynamic parentId;
   // int campaignId;
@@ -123,7 +123,7 @@ class Data {
     billDate: DateTime.parse(json["billDate"] ?? DateTime.now()),
     dueDate: DateTime.parse(json["dueDate"] ?? DateTime.now()),
     address: json["address"] ?? "",
-    totalAmount: json["totalAmount"] ?? 0,
+    totalAmount: (json["totalAmount"] ?? 0.0).toString(),
     paid: json["paid"] ?? false,
     // parentId: json["parentID"],
     // campaignId: json["campaignID"],
@@ -168,16 +168,16 @@ class BillItem {
   // dynamic accountCategory;
   String itemDescription;
   String unit;
-  int price;
-  int itemTotal;
+  String price;
+  String itemTotal;
   // int pageNumber;
   // int pageSize;
-  int totalRecords;
+  String totalRecords;
   // dynamic createdBy;
   // DateTime createdOn;
   // dynamic modifiedBy;
   // dynamic modifiedOn;
-  // bool isActive;
+  bool isActive;
   // bool isDeleted;
   // dynamic createdUser;
   // dynamic modifiedUser;
@@ -200,7 +200,7 @@ class BillItem {
     // this.createdOn,
     // this.modifiedBy,
     // this.modifiedOn,
-    // this.isActive,
+    required this.isActive,
     // this.isDeleted,
     // this.createdUser,
     // this.modifiedUser,
@@ -215,16 +215,16 @@ class BillItem {
     // accountCategory: json["accountCategory"],
     itemDescription: json["itemDescription"] ?? "",
     unit: json["unit"] ?? "",
-    price: json["price"] ?? 0,
-    itemTotal: json["itemTotal"] ?? 0,
+    price: (json["price"] ?? 0.0).toString(),
+    itemTotal: (json["itemTotal"] ?? 0.0).toString(),
     // pageNumber: json["pageNumber"],
     // pageSize: json["pageSize"],
-    totalRecords: json["totalRecords"] ?? 0,
+    totalRecords: (json["totalRecords"] ?? 0).toString(),
     // createdBy: json["createdBy"],
     // createdOn: DateTime.parse(json["createdOn"]),
     // modifiedBy: json["modifiedBy"],
     // modifiedOn: json["modifiedOn"],
-    // isActive: json["isActive"],
+    isActive: json["isActive"] ?? false,
     // isDeleted: json["isDeleted"],
     // createdUser: json["createdUser"],
     // modifiedUser: json["modifiedUser"],
@@ -463,7 +463,7 @@ class Payment {
   int paymentId;
   int billId;
   // dynamic bill;
-  int amount;
+  String amount;
   DateTime paymentDate;
   // int paymentTypeId;
   // dynamic paymentType;
@@ -514,7 +514,7 @@ class Payment {
     paymentId: json["paymentID"] ?? 0,
     billId: json["billID"] ?? 0,
     // bill: json["bill"],
-    amount: json["amount"] ?? 0,
+    amount: (json["amount"] ?? 0).toString(),
     paymentDate: DateTime.parse(json["paymentDate"] ?? DateTime.now()),
     // paymentTypeId: json["paymentTypeID"],
     // paymentType: json["paymentType"],
