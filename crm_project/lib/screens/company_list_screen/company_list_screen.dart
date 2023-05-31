@@ -20,9 +20,10 @@ class CompanyListScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.appColorsSecondry,
       appBar: CustomAppBar(
-          titleText: AppMessage.companyList,
-          leadingShow: false,
-          actionShow: false),
+        titleText: AppMessage.companyList,
+        leadingShow: false,
+        actionShow: false,
+      ),
       body: Obx(
         () => companyListScreenController.isLoading.value
             ? const Center(child: CircularProgressIndicator())

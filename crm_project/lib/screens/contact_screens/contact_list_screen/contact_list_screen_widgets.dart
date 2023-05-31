@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:crm_project/common_modules/common_loader.dart';
 import 'package:crm_project/constants/extension.dart';
 import 'package:crm_project/controller/company_module_controllers/contact_list_screen_controller.dart';
+import 'package:crm_project/utils/enums.dart';
 import 'package:crm_project/utils/messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,9 @@ import 'package:sizer/sizer.dart';
 
 import '../../../../common_modules/common_textfield.dart';
 import '../../../../constants/colors.dart';
+import '../../../common_modules/common_bottomsheet_module.dart';
 import '../../../common_widgets/header_and_content_module.dart';
+import '../contact_manage_screen/contact_manage_screen.dart';
 
 class ContactSearchBarWidget extends StatelessWidget {
   ContactSearchBarWidget({Key? key}) : super(key: key);
@@ -45,6 +48,7 @@ class ContactListWidget extends StatelessWidget {
         ? const Center(child: Text('No Data'))
         : ListView.builder(
             itemCount: contactListScreenController.contactList.length + 1,
+            controller: contactListScreenController.scrollController,
             itemBuilder: (context, i) {
               if (i < contactListScreenController.contactList.length) {
                 return Container(
@@ -68,25 +72,23 @@ class ContactListWidget extends StatelessWidget {
                             contentText: contactListScreenController
                                 .contactList[i].contact.lastName,
                           ),
-                          // phone
-                          HeaderAndContentModule(
-                            headerText: AppMessage.phone.toUpperCase(),
-                            contentText: contactListScreenController
-                                .contactList[i].contact.phone,
-                          ),
 
-                          // email
+                          // role
                           HeaderAndContentModule(
-                            headerText: AppMessage.email.toUpperCase(),
+                            headerText: AppMessage.role.toUpperCase(),
                             contentText: contactListScreenController
-                                .contactList[i].contact.email1,
+                                .contactList[i].contactRole!.name
+                                .toString(),
                           ),
-                          // phone number
-                          HeaderAndContentModule(
-                            headerText: AppMessage.mobileNumber.toUpperCase(),
-                            contentText: contactListScreenController
-                                .contactList[i].contact.mobilePhone,
-                          ),
+                          // contact categories
+
+                          // HeaderAndContentModule(
+                          //   headerText:
+                          //       AppMessage.contactCatecory.toUpperCase(),
+                          //   contentText: contactListScreenController
+                          //       .contactList[i].contactRole!.contactCategorys
+                          //       .toString(),
+                          // ),
                         ],
                       ).commonSymmetricPaddng(vertical: 8, horizontal: 8),
                       const SizedBox(height: 10),
@@ -130,12 +132,22 @@ class ContactListWidget extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () {
-                                // Get.to(() => EditCompanyDetailsScreen(),
-                                //     arguments: [
-                                //       companyListScreenController.companyList[i].companyName,
-                                //       companyListScreenController.companyList[i].companyId,
-                                //
-                                //     ]);
+                                Get.to(() => ContactManageScreen(), arguments: [
+                                  ContactOption.update,
+                                  contactListScreenController.companyId,
+                                  contactListScreenController
+                                      .contactList[i].contactId,
+                                ])!
+                                    .then((value) async {
+                                  contactListScreenController.isLoading(true);
+                                  contactListScreenController.hasMore = true;
+                                  contactListScreenController.pageIndex = 1;
+                                  contactListScreenController.contactList
+                                      .clear();
+                                  await contactListScreenController
+                                      .getContactsFunction();
+                                });
+                                log("contactListScreenControlle.contactList[i].contactId ${contactListScreenController.contactList[i].contactId}");
                               },
                               child: Icon(
                                 Icons.edit_sharp,
@@ -145,16 +157,30 @@ class ContactListWidget extends StatelessWidget {
                             ).paddingSymmetric(horizontal: 8),
                             InkWell(
                               onTap: () {
-                                // CommonbottomSheetModule(
-                                //   context: context,
-                                //   icon: Icon(Icons.info_outline,color: AppColors.greyColor,size: Get.width*.4),
-                                //   titleText: AppMessage.areYouSure,
-                                //   subTitleText:AppMessage.doYouWantToDeleteThisRecord,
-                                //   onYesText: AppMessage.yesDeleteIt,
-                                //   onCancelText: AppMessage.cancel,
-                                //   onYesTap: () => null,
-                                //   onCancelTap: () => Navigator.of(context).pop(false),
-                                // );
+                                CommonbottomSheetModule(
+                                  context: context,
+                                  icon: Icon(Icons.info_outline,
+                                      color: AppColors.greyColor,
+                                      size: Get.width * .4),
+                                  titleText: AppMessage.areYouSure,
+                                  subTitleText:
+                                      AppMessage.doYouWantToDeleteThisRecord,
+                                  onYesText: AppMessage.yesDeleteIt,
+                                  onCancelText: AppMessage.cancel,
+                                  onYesTap: () async {
+                                    Get.back();
+                                    log("contactListScreenController.contactList[i].contactId ${contactListScreenController.contactList[i].contactId}");
+                                    await contactListScreenController
+                                        .deleteContactFunction(
+                                      contactId: contactListScreenController
+                                          .contactList[i].mtmCompanyContactId
+                                          .toString(),
+                                      index: i,
+                                    );
+                                  },
+                                  onCancelTap: () =>
+                                      Navigator.of(context).pop(false),
+                                );
                               },
                               child: Icon(
                                 Icons.delete,

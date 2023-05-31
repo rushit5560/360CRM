@@ -1,4 +1,5 @@
 import 'package:crm_project/screens/contact_screens/contact_manage_screen/contact_manage_screen_widgets.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../common_modules/common_loader.dart';
@@ -26,28 +27,44 @@ class ContactManageScreen extends StatelessWidget {
                 child: Form(
                   key: contactManageScreenController.contactGlobalKey,
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       //first name
-                      FirstNametextFormFeildModule(),
+                      FirstNametextFormFieldModule(),
                       // last name
-                      LastNametextFormFeildModule(),
+                      LastNametextFormFieldModule(),
                       // contact role
                       ContactRoleDropDownModule(),
                       // Contact Category
                       ContactCategoryDropDownModule(),
-
                       // Company Module
                       CompanyDropDownModule(),
-
                       // Contact Module
                       ContactDropDownModule(),
-
                       // AreaofInterest Module
                       AreaofInterestDropDownModule(),
-// phone module
-                      PhoneTextFormFeildModule(),
+                      // phone module
+                      PhoneTextFormFieldModule(),
                       // phone two module
-                      PhoneTwotextFormFeildModule(),
+                      PhoneTwoTextFormFieldModule(),
+                      // phone number module
+                      PhoneNumberTextFormFieldModule(),
+                      // Fax module
+                      FaxTextFormFieldModule(),
+                      // Other Phone
+                      OtherPhoneFaxTextFormFieldModule(),
+                      // email one
+                      EmailOneTextFormFieldModule(),
+                      // email two
+                      EmailTwoTextFormFieldModule(),
+                      //Messenger Client
+                      MessengerClientTextFormFieldModule(),
+                      //Messenger ID
+                      MessengerIDTextFormFieldModule(),
+                      //Email Opt Out and datepicker
+                      EmailOptOutAndDatePickerModule(),
+                      // active status
+                      ActiveStatusModule()
                     ],
                   ).paddingSymmetric(horizontal: 8, vertical: 8),
                 ),

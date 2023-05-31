@@ -42,9 +42,10 @@ class ContactListScreen extends StatelessWidget {
                             AppMessage.contactList,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                                color: AppColors.appColors,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15.sp),
+                              color: AppColors.appColors,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15.sp,
+                            ),
                           ),
                         ),
                         Container(
@@ -90,19 +91,19 @@ class ContactListScreen extends StatelessWidget {
         heroTag: 'b',
         onPressed: () {
           Get.to(() => ContactManageScreen(),
-              arguments: [
-                ContactOption.create,
-                contactListScreenController.companyId.toString(),
-                // contactListScreenController.companyId.toString(),
-              
-              ],
-              transition: Transition.zoom);
-          //     .then((value) async {
-          //   contactListScreenController.addressList.clear();
-          //   contactListScreenController.pageIndex = 1;
-          //   contactListScreenController.hasMore = true;
-          //   await contactListScreenController.getAddressList();
-          // });
+                  arguments: [
+                    ContactOption.create,
+                    contactListScreenController.companyId.toString(),
+                    "",
+                    // contactListScreenController.companyId.toString(),
+                  ],
+                  transition: Transition.zoom)!
+              .then((value) async {
+            contactListScreenController.contactList.clear();
+            contactListScreenController.pageIndex = 1;
+            contactListScreenController.hasMore = true;
+            await contactListScreenController.getContactsFunction();
+          });
         },
         backgroundColor: AppColors.appColors,
         child: const Icon(Icons.add),

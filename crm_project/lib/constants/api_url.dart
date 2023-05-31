@@ -80,12 +80,22 @@ class ApiUrl {
       "$baseUrl/Prospect/GetAllActiveProspect";
   static String activeContactTypeGetAllApi =
       "$baseUrl/ContactType/GetAllActiveContactType";
+  static String getAllActivePaymentTypeApi = "$baseUrl/PaymentType/GetAllActivePaymentType";
+  static String getAllActivePaymentMethodApi = "$baseUrl/PaymentMethod/GetAllActivePaymentMethod";
+
+  //  company contact api
   static String activeContactCategoryGetAllApi =
       "$baseUrl/ContactCategory/GetAllActiveContactCategory";
   static String activeAreaOfintrestGetAllApi =
       "$baseUrl/ContactCategory/GetAllActiveContactCategory";
   static String contactRoleGetAllApi =
       "$baseUrl/ContactRole/GetAllActiveContactRole";
+  static String contactAddApi = "$baseUrl/Contact/AddContact";
+
+  static String deleteContactApi =
+      "$baseUrl/MTMCompanyContact/SoftDeleteMTMCompanyContact";
+  static String getByIdContactApi = "$baseUrl/MTMCompanyContact/GetMTMCompanyContactByContactID";
+  static String contactUpdateApi = "$baseUrl/Contact/UpdateContact";
 
   //company Attachment Api
   static String companyAttachmentListApi =
@@ -118,4 +128,14 @@ class ApiUrl {
   //under Management Api
   static String companyUnderManagementListApi =
       "$baseUrl/PropertyManagement/ListBy";
+
+  //Work order Details Api
+  static String  workOrderDetailsApi = "$baseUrl/WorkOrder/GetWorkOrderById";
+  static String workOrderTypeApi  = "$baseUrl/WorkOrderType/GetAllActiveWorkOrderType";
+  static String workOrderStatusApi = "$baseUrl/WorkOrderStatus/GetAllActiveWorkOrderStatus";
+  static String workOrderPropertyApi = "$baseUrl/Property/GetAllActiveProperty";
+  static String workOrderCompanyApi = "$baseUrl/Company/GetAllActiveCompany";
+  static String workOrderUpdateApi = "$baseUrl/WorkOrder/UpdateWorkOrder";
+
+
 }

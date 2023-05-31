@@ -50,6 +50,9 @@ class AppMessage {
   static String firstName = "Firest Name";
   static String lasttName = "Last Name";
   static String phone = "phone";
+  static String role = "Role";
+  static String contactCatecory = "Contact Catecory";
+
   static String email = "Email";
   static String mobileNumber = "Mobile Number";
   static String companyName = 'Company Name';
@@ -110,8 +113,33 @@ class AppMessage {
   static String selectPropertyManagementLabel = "Select Property Management";
   static String prospectLabel = "Prospect";
   static String selectProspectLabel = "Select Prospect";
+
+  static const String qty = "Qty";
+  static const String itemNameLabel = "item Name";
+  static const String paymentDateLabel = "Payment Date";
+  static const String paymentTypeLabel = "Payment Type";
+  static const String selectPaymentTypeLabel = "Select Payment Type";
+  static const String paymentMethodLabel = "Payment Method";
+  static const String selectPaymentMethodLabel = "Select Payment Method";
+  static const String categoryTypeLabel = "Category Type";
+  static const String selectCategoryTypeLabel = "Select Category Type";
+
+  static String totalAmountLabel = "Total Amount";
+  static String price = 'Price';
+  static String paid = 'Paid';
+
+  static String startDate = "Start Date";
+  static String endDate = "End Date";
+  static String renewalType = "Renewal Type";
+  static String noMoreWorkOrders = "No more work orders!";
+  static String selectWorkOrderType = "Select Work Order Type";
+  static String selectWorkOrderStatus = "Select Work Order Status";
+  static String selectWorkOrderProperty = "Select Work Order Property";
+  static String selectWorkOrderCompany = "Select Work Order Company";
+
+
 //token
   static String token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiRGhydXZpIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQ3VzdG9tZXIiLCJleHAiOjE2ODUzNTcyMzUsImlzcyI6Imh0dHA6Ly81LjE4OS4xNDcuMTU5OjcwMDMvIiwiYXVkIjoiaHR0cDovLzUuMTg5LjE0Ny4xNTk6NzAwMy8ifQ.Ky8ANx745q3V5wEcnKArpS6VOX17hJFBYr655PFiVZE";
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiRGhydXZpIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQ3VzdG9tZXIiLCJleHAiOjE2ODU1MjQ0MzMsImlzcyI6Imh0dHA6Ly81LjE4OS4xNDcuMTU5OjcwMDMvIiwiYXVkIjoiaHR0cDovLzUuMTg5LjE0Ny4xNTk6NzAwMy8ifQ.SH6KOawgEHJU0KSRD8Yt2Pq2GhS28OetCc_iqF30Bfw";
   static String customerId = "2";
 }

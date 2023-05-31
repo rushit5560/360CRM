@@ -32,9 +32,8 @@ class ContactListScreenController extends GetxController {
     if (hasMore == true) {
       // isLoading(true);
       String url =
-          "${ApiUrl.companyContactListApi}?id=$companyId&PageNumber=$pageIndex&PageSize=$pageCount&contact.FirstName=${searchTextFieldController.text.trim()}";
+          "${ApiUrl.companyContactListApi}?PageNumber=$pageIndex&PageSize=$pageCount&Contact.ContactCategory.ContactCategorys=&CompanyID=$companyId";
       log('getContactsFunction Api Url :$url');
-
       try {
         final response = await dioRequest.get(
           url,
@@ -49,27 +48,28 @@ class ContactListScreenController extends GetxController {
 
         if (isSuccessStatusCode.value == 200) {
           contactList.addAll(getContactListModel.data.data);
-
+          log("contactList.length ${contactList.length}");
           if (getContactListModel.data.data.length < 10) {
             hasMore = false;
           }
         } else {
           log('getContactsFunction Function Else ${getContactListModel.statusCode}');
+          isLoading(false);
         }
       } catch (e) {
-      if (e is dio.DioError && e.response != null) {
-        final response = e.response;
-        final statusCode = response!.statusCode;
-        if (statusCode == 400) {
-          Fluttertoast.showToast(msg: "Record Already Exist");
-          log("Record Already Exist");
-          isLoading(false);
-        } else if(statusCode == 401) {
-          log('Please login again!');
+        if (e is dio.DioError && e.response != null) {
+          final response = e.response;
+          final statusCode = response!.statusCode;
+          if (statusCode == 400) {
+            Fluttertoast.showToast(msg: "Record Already Exist");
+            log("Record Already Exist");
+            isLoading(false);
+          } else if (statusCode == 401) {
+            log('Please login again!');
+          }
         }
+        log('Error :$e');
       }
-      log('Error :$e');
-    }
       loadUI();
       // isLoading(false);
     } else {
@@ -81,18 +81,21 @@ class ContactListScreenController extends GetxController {
   // Change contact list status function
   Future<void> changeContactFunction(
       {required String contactId,
-        required bool status,
-        required int index}) async {
+      required bool status,
+      required int index}) async {
     isLoading(true);
     String url = ApiUrl.companyContactStatusChangeApi;
 
-    Map<String, dynamic> bodyData = {"MTMCompanyContactId": contactId, "IsActive": status};
+    Map<String, dynamic> bodyData = {
+      "MTMCompanyContactId": contactId,
+      "IsActive": status
+    };
 
     final response = await dioRequest.put(
       url,
       data: bodyData,
       options:
-      dio.Options(headers: {"Authorization": "Bearer ${AppMessage.token}"}),
+          dio.Options(headers: {"Authorization": "Bearer ${AppMessage.token}"}),
     );
 
     log('Change Status Response :${jsonEncode(response.data)}');
@@ -108,6 +111,53 @@ class ContactListScreenController extends GetxController {
 
     isLoading(false);
   }
+
+  Future<void> deleteContactFunction(
+      {required String contactId, required int index}) async {
+    isLoading(true);
+    String url = ApiUrl.deleteContactApi;
+    log("deleteContactFunction api url: $url");
+    try {
+      Map<String, dynamic> bodyData = {
+        "MTMCompanyContactId": contactId,
+        "IsDeleted": true,
+        // "Type": "Company"
+      };
+
+      final response = await dioRequest.put(
+        url,
+        data: bodyData,
+        options: dio.Options(
+            headers: {"Authorization": "Bearer ${AppMessage.token}"}),
+      );
+      log('deleteContactFunction Api Response : ${jsonEncode(response.data)}');
+
+      SuccessModel successModel = SuccessModel.fromJson(response.data);
+      isSuccessStatusCode.value == successModel.statusCode;
+
+      if (isSuccessStatusCode.value == 200) {
+        Fluttertoast.showToast(msg: successModel.message);
+        contactList.removeAt(index);
+      } else {
+        log('deleteContactFunction Else');
+      }
+    } catch (e) {
+      if (e is dio.DioError && e.response != null) {
+        final response = e.response;
+        final statusCode = response!.statusCode;
+        if (statusCode == 400) {
+          Fluttertoast.showToast(msg: "Record Already Exist");
+          log("Record Already Exist");
+          isLoading(false);
+        } else if (statusCode == 401) {
+          log('Please login again!');
+        }
+      }
+      log('Error :$e');
+    }
+    isLoading(false);
+  }
+
   @override
   void onInit() {
     initMethod();

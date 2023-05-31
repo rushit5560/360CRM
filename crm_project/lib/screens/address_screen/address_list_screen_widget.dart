@@ -11,6 +11,7 @@ import '../../../common_widgets/header_and_content_module.dart';
 import '../../../constants/colors.dart';
 import '../../../utils/enums.dart';
 import '../../../utils/messaging.dart';
+import '../../common_modules/common_loader.dart';
 import 'address_manage_screen/address_manage_screen.dart';
 
 class AddressSearchWidget extends StatelessWidget {
@@ -175,7 +176,7 @@ class AddressListWidget extends StatelessWidget {
                 ).paddingSymmetric(vertical: 5);
               } else {
                 return addressListScreenController.hasMore
-                    ? const Center(child: CircularProgressIndicator())
+                    ?  Center(child: CommonLoader().showLoader())
                     : Container();
               }
             },
