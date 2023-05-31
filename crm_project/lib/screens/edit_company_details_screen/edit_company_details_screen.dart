@@ -1,5 +1,6 @@
 import 'package:crm_project/common_widgets/custom_appbar.dart';
 import 'package:crm_project/controller/edit_company_details_screen_controller.dart';
+import 'package:crm_project/screens/invoice_screen/invoice_list_screen.dart';
 import 'package:crm_project/screens/ledger_screens/ledger_list_screen/ledger_list_screen.dart';
 import 'package:crm_project/screens/under_management_screen/under_management_screen.dart';
 import 'package:crm_project/screens/work_order_screen/work_order_list_screen.dart';
@@ -156,6 +157,14 @@ class EditCompanyDetailsScreen extends StatelessWidget {
               CommonListTitleModule(
                 icon: Icon(Icons.featured_play_list_outlined, size: 20.sp),
                 titleText: AppMessage.invoice,
+                ontap: (){
+                  Get.to(
+                        () => InvoiceListScreen(),
+                    arguments: [
+                      editCompanyDetailsScreenController.companyId.toString()
+                    ],
+                  );
+                },
               ),
             ],
           ).paddingAll(10),

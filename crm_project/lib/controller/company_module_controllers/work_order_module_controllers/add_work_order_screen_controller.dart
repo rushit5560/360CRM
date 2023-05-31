@@ -129,6 +129,7 @@ class AddWorkOrderScreenController extends GetxController {
   }
 
   Future<void> initMethod() async {
+
     await getWorkOrderListData();
   }
 }

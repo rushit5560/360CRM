@@ -1,4 +1,3 @@
-
 import 'dart:developer';
 
 import 'package:crm_project/common_modules/divider.dart';
@@ -27,8 +26,7 @@ class PropertyDetails extends StatelessWidget {
       decoration: BoxDecoration(
           color: AppColors.appColorsSecondry,
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: AppColors.appColors.withOpacity(.7))
-      ),
+          border: Border.all(color: AppColors.appColors.withOpacity(.7))),
       child: Form(
         key: homeScreenController.propertyDetailsKey,
         child: Column(
@@ -49,7 +47,7 @@ class PropertyDetails extends StatelessWidget {
                   homeScreenController.propertyAddressFieldController,
               keyboardType: TextInputType.streetAddress,
               validate: (value) =>
-                  FieldValidation().validateEmpty(value,'property address'),
+                  FieldValidation().validateEmpty(value, 'property address'),
               backgroundColor: AppColors.whiteColor1,
             ),
             const SizedBox(
@@ -59,8 +57,8 @@ class PropertyDetails extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
-                Expanded(flex: 5,
+                Expanded(
+                  flex: 5,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -68,37 +66,44 @@ class PropertyDetails extends StatelessWidget {
                         "State",
                         style: TextStyle(color: AppColors.appColors),
                       ),
-                      const SizedBox(height: 5,),
+                      const SizedBox(
+                        height: 5,
+                      ),
                       Container(
-                        width: Get.width*.5,
+                        width: Get.width * .5,
                         decoration: BoxDecoration(
-                          // color: AppColors.appColors,
+                            // color: AppColors.appColors,
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(color: AppColors.appColors)),
                         child: Obx(
-                              () => homeScreenController.isLoading.value
+                          () => homeScreenController.isLoading.value
                               ? Container()
                               : DropdownButtonHideUnderline(
-                            child: DropdownButton(
-                              hint: Text(homeScreenController.stateSelect.value,style: const TextStyle(color: AppColors.appColors),),
-                              // Not necessary for Option 1
-                              // value: selectedLocation.isNotEmpty ?  selectedLocation: null ,
-                              onChanged: (newValue) {
-                                homeScreenController.stateSelect.value =
-                                newValue!;
-                                homeScreenController.loadUI();
-                                log(newValue);
-                              },
-                              items: homeScreenController.stateDropDownList
-                                  .map((location) {
-                                return DropdownMenuItem(
-                                  value: location,
-                                  child:  Text(location),
-                                );
-                              }).toList(),
-                            ),
-                          ),
-                        ).paddingOnly(left: 5,right: 5),
+                                  child: DropdownButton(
+                                    hint: Text(
+                                      homeScreenController.stateSelect.value,
+                                      style: const TextStyle(
+                                          color: AppColors.appColors),
+                                    ),
+                                    // Not necessary for Option 1
+                                    // value: selectedLocation.isNotEmpty ?  selectedLocation: null ,
+                                    onChanged: (newValue) {
+                                      homeScreenController.stateSelect.value =
+                                          newValue!;
+                                      homeScreenController.loadUI();
+                                      log(newValue);
+                                    },
+                                    items: homeScreenController
+                                        .stateDropDownList
+                                        .map((location) {
+                                      return DropdownMenuItem(
+                                        value: location,
+                                        child: Text(location),
+                                      );
+                                    }).toList(),
+                                  ),
+                                ),
+                        ).paddingOnly(left: 5, right: 5),
                       ),
                     ],
                   ),
@@ -113,23 +118,29 @@ class PropertyDetails extends StatelessWidget {
                         "City",
                         style: TextStyle(color: AppColors.appColors),
                       ),
-                      const SizedBox(height: 5,),
+                      const SizedBox(
+                        height: 5,
+                      ),
                       Container(
-                        width: Get.width*.5,
-                          decoration: BoxDecoration(
+                        width: Get.width * .5,
+                        decoration: BoxDecoration(
                             // color: AppColors.appColors,
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: AppColors.appColors)),
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color: AppColors.appColors)),
                         child: Obx(
                           () => homeScreenController.isLoading.value
                               ? Container()
                               : DropdownButtonHideUnderline(
-                                child: DropdownButton(
-                                    hint: Text(homeScreenController.citySelect.value,style: const TextStyle(color: AppColors.appColors)),
+                                  child: DropdownButton(
+                                    hint: Text(
+                                        homeScreenController.citySelect.value,
+                                        style: const TextStyle(
+                                            color: AppColors.appColors)),
                                     // Not necessary for Option 1
                                     // value: selectedLocation.isNotEmpty ?  selectedLocation: null ,
                                     onChanged: (newValue) {
-                                      homeScreenController.citySelect.value = newValue!;
+                                      homeScreenController.citySelect.value =
+                                          newValue!;
                                       homeScreenController.loadUI();
                                       print(newValue);
                                     },
@@ -137,17 +148,16 @@ class PropertyDetails extends StatelessWidget {
                                         .map((location) {
                                       return DropdownMenuItem(
                                         value: location,
-                                        child:  Text(location),
+                                        child: Text(location),
                                       );
                                     }).toList(),
                                   ),
-                              ),
-                        ).paddingOnly(left: 5,right: 5),
+                                ),
+                        ).paddingOnly(left: 5, right: 5),
                       ),
                     ],
                   ),
                 )
-
               ],
             ),
             const SizedBox(height: 20),
@@ -156,8 +166,7 @@ class PropertyDetails extends StatelessWidget {
               fieldController: homeScreenController.zipFieldController,
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
-              validate: (value) =>
-                  FieldValidation().validateZip(value!),
+              validate: (value) => FieldValidation().validateZip(value!),
             ),
             const SizedBox(
               height: 20,
@@ -165,8 +174,8 @@ class PropertyDetails extends StatelessWidget {
             TextFieldModule(
               fieldController: homeScreenController.leadSourceFieldController,
               hintText: "Lead Source",
-              validate: (value) => FieldValidation().validateEmpty(value, 'lead source'),
-
+              validate: (value) =>
+                  FieldValidation().validateEmpty(value, 'lead source'),
               keyboardType: TextInputType.multiline,
               backgroundColor: AppColors.whiteColor1,
             ),
@@ -175,13 +184,15 @@ class PropertyDetails extends StatelessWidget {
               fieldController:
                   homeScreenController.expectedAfterRepairValueFieldController,
               hintText: 'Expected After Repair Value',
-              validate: (value) => FieldValidation().validateAmount(value, 'expected after repair value'),
+              validate: (value) => FieldValidation()
+                  .validateAmount(value, 'expected after repair value'),
               prifixIcon: Align(
                 widthFactor: 1.0,
                 heightFactor: 1.0,
                 child: Text(
                   '\$',
-                  style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  style:
+                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                 ),
               ).commonOnlyPadding(right: 5),
               keyboardType: TextInputType.number,
@@ -193,13 +204,15 @@ class PropertyDetails extends StatelessWidget {
             TextFieldModule(
               fieldController: homeScreenController.landValueFieldController,
               hintText: 'Land Value',
-              validate: (value) => FieldValidation().validateAmount(value, 'land value'),
+              validate: (value) =>
+                  FieldValidation().validateAmount(value, 'land value'),
               prifixIcon: Align(
                 widthFactor: 1.0,
                 heightFactor: 1.0,
                 child: Text(
                   '\$',
-                  style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  style:
+                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                 ),
               ).commonOnlyPadding(right: 5),
               keyboardType: TextInputType.number,
@@ -210,17 +223,19 @@ class PropertyDetails extends StatelessWidget {
             ),
             TextFieldModule(
               fieldController: homeScreenController.offerPriceFieldController,
-              onChange: (val){
+              onChange: (val) {
                 homeScreenController.downPaymentAmountFunction();
               },
               hintText: 'Offer Price',
-              validate: (value) => FieldValidation().validateAmount(value, 'offer price'),
+              validate: (value) =>
+                  FieldValidation().validateAmount(value, 'offer price'),
               prifixIcon: Align(
                 widthFactor: 1.0,
                 heightFactor: 1.0,
                 child: Text(
                   '\$',
-                  style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  style:
+                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                 ),
               ).commonOnlyPadding(right: 5),
               keyboardType: TextInputType.number,
@@ -261,16 +276,17 @@ class FinancialDetails extends StatelessWidget {
                     fontSize: 14.sp),
               ).commonOnlyPadding(bottom: 20, top: 10),
             ),
-
             TextFieldModule(
               fieldController:
                   homeScreenController.grossMonthlyRevenueFieldController,
               hintText: 'Gross Monthly Revenue',
-              validate: (value) => FieldValidation().validateAmount(value, 'gross monthly revenue'),
+              validate: (value) => FieldValidation()
+                  .validateAmount(value, 'gross monthly revenue'),
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
-              onChange: (text){
-                homeScreenController.propertyManagementFeesAmountCountFunction();
+              onChange: (text) {
+                homeScreenController
+                    .propertyManagementFeesAmountCountFunction();
                 homeScreenController.vacancyandReplacementAmountFunction();
               },
               prifixIcon: Align(
@@ -278,7 +294,8 @@ class FinancialDetails extends StatelessWidget {
                 heightFactor: 1.0,
                 child: Text(
                   '\$',
-                  style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  style:
+                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                 ),
               ).commonOnlyPadding(right: 5),
             ),
@@ -288,8 +305,9 @@ class FinancialDetails extends StatelessWidget {
             TextFieldModule(
               fieldController: homeScreenController
                   .propertyManagementFeesPercentageFieldController,
-              onChange: (text){
-                homeScreenController.propertyManagementFeesAmountCountFunction();
+              onChange: (text) {
+                homeScreenController
+                    .propertyManagementFeesAmountCountFunction();
               },
               hintText: 'Property Management Fees percentage',
               prifixIcon: Align(
@@ -297,19 +315,21 @@ class FinancialDetails extends StatelessWidget {
                 heightFactor: 1.0,
                 child: Text(
                   '%',
-                  style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  style:
+                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                 ),
               ).commonOnlyPadding(right: 5),
-              validate: (value) => FieldValidation().validateAmount(value, 'property management fees percentage'),
+              validate: (value) => FieldValidation()
+                  .validateAmount(value, 'property management fees percentage'),
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
             const SizedBox(
               height: 20,
             ),
-
             TextFieldModule(
-              fieldController: homeScreenController.propertyManagementFeesAmountFieldController,
+              fieldController: homeScreenController
+                  .propertyManagementFeesAmountFieldController,
               hintText: 'Property Management Fees amount',
               keyboardType: TextInputType.number,
               prifixIcon: Align(
@@ -317,7 +337,8 @@ class FinancialDetails extends StatelessWidget {
                 heightFactor: 1.0,
                 child: Text(
                   '\$',
-                  style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  style:
+                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                 ),
               ).commonOnlyPadding(right: 5),
               readOnly: true,
@@ -328,17 +349,19 @@ class FinancialDetails extends StatelessWidget {
             TextFieldModule(
               fieldController: homeScreenController
                   .vacancyandReplacementReservesFieldController,
-              onChange: (val){
+              onChange: (val) {
                 homeScreenController.vacancyandReplacementAmountFunction();
               },
               hintText: 'Vacancy and Replacement Reserves',
-              validate: (value) => FieldValidation().validateAmount(value, 'vacancy and replacement reserves'),
+              validate: (value) => FieldValidation()
+                  .validateAmount(value, 'vacancy and replacement reserves'),
               prifixIcon: Align(
                 widthFactor: 1.0,
                 heightFactor: 1.0,
                 child: Text(
                   '%',
-                  style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  style:
+                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                 ),
               ).commonOnlyPadding(right: 5),
               keyboardType: TextInputType.number,
@@ -348,8 +371,8 @@ class FinancialDetails extends StatelessWidget {
               height: 20,
             ),
             TextFieldModule(
-              fieldController:
-                  homeScreenController.vacancyandReplacementAmountFieldController,
+              fieldController: homeScreenController
+                  .vacancyandReplacementAmountFieldController,
               hintText: 'Vacancy and Replacement amount',
               keyboardType: TextInputType.number,
               prifixIcon: Align(
@@ -357,7 +380,8 @@ class FinancialDetails extends StatelessWidget {
                 heightFactor: 1.0,
                 child: Text(
                   '\$',
-                  style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  style:
+                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                 ),
               ).commonOnlyPadding(right: 5),
               readOnly: true,
@@ -368,13 +392,15 @@ class FinancialDetails extends StatelessWidget {
             TextFieldModule(
               fieldController: homeScreenController.monthlyCondoFieldController,
               hintText: 'Monthly Condo /Association fees',
-              validate: (value) => FieldValidation().validateAmount(value, 'monthly condo /association fees'),
+              validate: (value) => FieldValidation()
+                  .validateAmount(value, 'monthly condo /association fees'),
               prifixIcon: Align(
                 widthFactor: 1.0,
                 heightFactor: 1.0,
                 child: Text(
                   '\$',
-                  style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  style:
+                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                 ),
               ).commonOnlyPadding(right: 5),
               keyboardType: TextInputType.number,
@@ -386,13 +412,15 @@ class FinancialDetails extends StatelessWidget {
             TextFieldModule(
               fieldController: homeScreenController.monthlyTaxesFieldController,
               hintText: 'Monthly taxes',
-              validate: (value) => FieldValidation().validateAmount(value, 'monthly taxes'),
+              validate: (value) =>
+                  FieldValidation().validateAmount(value, 'monthly taxes'),
               prifixIcon: Align(
                 widthFactor: 1.0,
                 heightFactor: 1.0,
                 child: Text(
                   '\$',
-                  style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  style:
+                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                 ),
               ).commonOnlyPadding(right: 5),
               keyboardType: TextInputType.number,
@@ -405,15 +433,18 @@ class FinancialDetails extends StatelessWidget {
               fieldController:
                   homeScreenController.monthlyRepairsMaintenanceFieldController,
               hintText: 'Monthly Repairs & Maintenance',
-              validate: (value) => FieldValidation().validateAmount(value, 'monthly repairs & maintenance'),
-              keyboardType: TextInputType.number, prifixIcon: Align(
-              widthFactor: 1.0,
-              heightFactor: 1.0,
-              child: Text(
-                '\$',
-                style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-              ),
-            ).commonOnlyPadding(right: 5),
+              validate: (value) => FieldValidation()
+                  .validateAmount(value, 'monthly repairs & maintenance'),
+              keyboardType: TextInputType.number,
+              prifixIcon: Align(
+                widthFactor: 1.0,
+                heightFactor: 1.0,
+                child: Text(
+                  '\$',
+                  style:
+                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                ),
+              ).commonOnlyPadding(right: 5),
               backgroundColor: AppColors.whiteColor1,
             ),
             const SizedBox(
@@ -423,13 +454,15 @@ class FinancialDetails extends StatelessWidget {
               fieldController:
                   homeScreenController.adminstrativeAllowanceFieldController,
               hintText: 'Adminstrative Allowance',
-              validate: (value) => FieldValidation().validateAmount(value, 'adminstrative allowance'),
+              validate: (value) => FieldValidation()
+                  .validateAmount(value, 'adminstrative allowance'),
               prifixIcon: Align(
                 widthFactor: 1.0,
                 heightFactor: 1.0,
                 child: Text(
                   '\$',
-                  style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  style:
+                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                 ),
               ).commonOnlyPadding(right: 5),
               keyboardType: TextInputType.number,
@@ -442,14 +475,17 @@ class FinancialDetails extends StatelessWidget {
               fieldController:
                   homeScreenController.monthlyInsuranceFieldController,
               hintText: 'Monthly Insurance',
-              validate: (value) => FieldValidation().validateAmount(value, 'monthly insurance'), prifixIcon: Align(
-              widthFactor: 1.0,
-              heightFactor: 1.0,
-              child: Text(
-                '\$',
-                style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-              ),
-            ).commonOnlyPadding(right: 5),
+              validate: (value) =>
+                  FieldValidation().validateAmount(value, 'monthly insurance'),
+              prifixIcon: Align(
+                widthFactor: 1.0,
+                heightFactor: 1.0,
+                child: Text(
+                  '\$',
+                  style:
+                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                ),
+              ).commonOnlyPadding(right: 5),
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
@@ -460,14 +496,17 @@ class FinancialDetails extends StatelessWidget {
               fieldController:
                   homeScreenController.mortgagePayment1FieldController,
               hintText: '1 st Mortgage Payment',
-              validate: (value) => FieldValidation().validateAmount(value, '1 st mortgage payment'), prifixIcon: Align(
-              widthFactor: 1.0,
-              heightFactor: 1.0,
-              child: Text(
-                '\$',
-                style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-              ),
-            ).commonOnlyPadding(right: 5),
+              validate: (value) => FieldValidation()
+                  .validateAmount(value, '1 st mortgage payment'),
+              prifixIcon: Align(
+                widthFactor: 1.0,
+                heightFactor: 1.0,
+                child: Text(
+                  '\$',
+                  style:
+                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                ),
+              ).commonOnlyPadding(right: 5),
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
@@ -478,14 +517,17 @@ class FinancialDetails extends StatelessWidget {
               fieldController:
                   homeScreenController.mortgagePayment2FieldController,
               hintText: '2 st Mortgage Payment',
-              validate: (value) => FieldValidation().validateAmount(value, '2 st mortgage payment'), prifixIcon: Align(
-              widthFactor: 1.0,
-              heightFactor: 1.0,
-              child: Text(
-                '\$',
-                style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-              ),
-            ).commonOnlyPadding(right: 5),
+              validate: (value) => FieldValidation()
+                  .validateAmount(value, '2 st mortgage payment'),
+              prifixIcon: Align(
+                widthFactor: 1.0,
+                heightFactor: 1.0,
+                child: Text(
+                  '\$',
+                  style:
+                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                ),
+              ).commonOnlyPadding(right: 5),
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
@@ -496,13 +538,15 @@ class FinancialDetails extends StatelessWidget {
               fieldController:
                   homeScreenController.monthlyUtilitiesFieldController,
               hintText: 'Monthly Utilities',
-              validate: (value) => FieldValidation().validateAmount(value, 'monthly utilities'),
+              validate: (value) =>
+                  FieldValidation().validateAmount(value, 'monthly utilities'),
               prifixIcon: Align(
                 widthFactor: 1.0,
                 heightFactor: 1.0,
                 child: Text(
                   '\$',
-                  style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  style:
+                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                 ),
               ).commonOnlyPadding(right: 5),
               keyboardType: TextInputType.number,
@@ -534,26 +578,27 @@ class ProjectCosts extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text(
                 "Project Costs",
-
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: AppColors.appColors,
                     fontSize: 14.sp),
               ).commonOnlyPadding(bottom: 20, top: 10),
             ),
-
             TextFieldModule(
               fieldController:
-              homeScreenController.costsPaidoutPocketFieldController,
+                  homeScreenController.costsPaidoutPocketFieldController,
               hintText: 'Rehab Costs Paid out of Pocket',
-              validate: (value) => FieldValidation().validateAmount(value, 'rehab costs paid out of pocket'), prifixIcon: Align(
-              widthFactor: 1.0,
-              heightFactor: 1.0,
-              child: Text(
-                '\$',
-                style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-              ),
-            ).commonOnlyPadding(right: 5),
+              validate: (value) => FieldValidation()
+                  .validateAmount(value, 'rehab costs paid out of pocket'),
+              prifixIcon: Align(
+                widthFactor: 1.0,
+                heightFactor: 1.0,
+                child: Text(
+                  '\$',
+                  style:
+                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                ),
+              ).commonOnlyPadding(right: 5),
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
@@ -561,17 +606,19 @@ class ProjectCosts extends StatelessWidget {
               height: 10,
             ),
             TextFieldModule(
-              fieldController:
-              homeScreenController.costFinancedFieldController,
+              fieldController: homeScreenController.costFinancedFieldController,
               hintText: 'Rehab Costs Financed',
-              validate: (value) => FieldValidation().validateAmount(value, 'rehab costs financed'), prifixIcon: Align(
-              widthFactor: 1.0,
-              heightFactor: 1.0,
-              child: Text(
-                '\$',
-                style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-              ),
-            ).commonOnlyPadding(right: 5),
+              validate: (value) => FieldValidation()
+                  .validateAmount(value, 'rehab costs financed'),
+              prifixIcon: Align(
+                widthFactor: 1.0,
+                heightFactor: 1.0,
+                child: Text(
+                  '\$',
+                  style:
+                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                ),
+              ).commonOnlyPadding(right: 5),
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
@@ -609,16 +656,19 @@ class AcquisitionCosts extends StatelessWidget {
             ),
             TextFieldModule(
               fieldController:
-              homeScreenController.appraisalCostsFieldController,
+                  homeScreenController.appraisalCostsFieldController,
               hintText: 'Appraisal',
-              validate: (value) => FieldValidation().validateAmount(value, 'appraisal'), prifixIcon: Align(
-              widthFactor: 1.0,
-              heightFactor: 1.0,
-              child: Text(
-                '\$',
-                style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-              ),
-            ).commonOnlyPadding(right: 5),
+              validate: (value) =>
+                  FieldValidation().validateAmount(value, 'appraisal'),
+              prifixIcon: Align(
+                widthFactor: 1.0,
+                heightFactor: 1.0,
+                child: Text(
+                  '\$',
+                  style:
+                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                ),
+              ).commonOnlyPadding(right: 5),
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
@@ -627,16 +677,19 @@ class AcquisitionCosts extends StatelessWidget {
             ),
             TextFieldModule(
               fieldController:
-              homeScreenController.inspectionCostsFieldController,
+                  homeScreenController.inspectionCostsFieldController,
               hintText: 'Inspection',
-              validate: (value) => FieldValidation().validateAmount(value, 'inspection'), prifixIcon: Align(
-              widthFactor: 1.0,
-              heightFactor: 1.0,
-              child: Text(
-                '\$',
-                style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-              ),
-            ).commonOnlyPadding(right: 5),
+              validate: (value) =>
+                  FieldValidation().validateAmount(value, 'inspection'),
+              prifixIcon: Align(
+                widthFactor: 1.0,
+                heightFactor: 1.0,
+                child: Text(
+                  '\$',
+                  style:
+                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                ),
+              ).commonOnlyPadding(right: 5),
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
@@ -644,17 +697,19 @@ class AcquisitionCosts extends StatelessWidget {
               height: 10,
             ),
             TextFieldModule(
-              fieldController:
-              homeScreenController.surveyCostsFieldController,
+              fieldController: homeScreenController.surveyCostsFieldController,
               hintText: 'Survey',
-              validate: (value) => FieldValidation().validateAmount(value, 'survey'), prifixIcon: Align(
-              widthFactor: 1.0,
-              heightFactor: 1.0,
-              child: Text(
-                '\$',
-                style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-              ),
-            ).commonOnlyPadding(right: 5),
+              validate: (value) =>
+                  FieldValidation().validateAmount(value, 'survey'),
+              prifixIcon: Align(
+                widthFactor: 1.0,
+                heightFactor: 1.0,
+                child: Text(
+                  '\$',
+                  style:
+                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                ),
+              ).commonOnlyPadding(right: 5),
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
@@ -663,16 +718,19 @@ class AcquisitionCosts extends StatelessWidget {
             ),
             TextFieldModule(
               fieldController:
-              homeScreenController.wholesaleFeeCostsFieldController,
+                  homeScreenController.wholesaleFeeCostsFieldController,
               hintText: 'Wholesale Fee',
-              validate: (value) => FieldValidation().validateAmount(value, 'wholesale fee'), prifixIcon: Align(
-              widthFactor: 1.0,
-              heightFactor: 1.0,
-              child: Text(
-                '\$',
-                style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-              ),
-            ).commonOnlyPadding(right: 5),
+              validate: (value) =>
+                  FieldValidation().validateAmount(value, 'wholesale fee'),
+              prifixIcon: Align(
+                widthFactor: 1.0,
+                heightFactor: 1.0,
+                child: Text(
+                  '\$',
+                  style:
+                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                ),
+              ).commonOnlyPadding(right: 5),
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
@@ -688,7 +746,8 @@ class AcquisitionCosts extends StatelessWidget {
 
 class MortgageDetails1 extends StatelessWidget {
   MortgageDetails1({Key? key}) : super(key: key);
-final homeScreenController = Get.find<HomeScreenController>();
+  final homeScreenController = Get.find<HomeScreenController>();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -712,10 +771,10 @@ final homeScreenController = Get.find<HomeScreenController>();
             ),
             TextFieldModule(
               fieldController:
-              homeScreenController.mortgageTermMonthsFieldController,
+                  homeScreenController.mortgageTermMonthsFieldController,
               hintText: "Mortgage Term (Months)",
-              validate: (value) => FieldValidation().validateAmount(value, 'mortgage term (months)'),
-
+              validate: (value) => FieldValidation()
+                  .validateAmount(value, 'mortgage term (months)'),
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
@@ -724,9 +783,10 @@ final homeScreenController = Get.find<HomeScreenController>();
             ),
             TextFieldModule(
               fieldController:
-              homeScreenController.paymentsPerYearFieldController,
+                  homeScreenController.paymentsPerYearFieldController,
               hintText: "Payments Per Year",
-              validate: (value) => FieldValidation().validateAmount(value, 'payments per year'),
+              validate: (value) =>
+                  FieldValidation().validateAmount(value, 'payments per year'),
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
@@ -735,22 +795,23 @@ final homeScreenController = Get.find<HomeScreenController>();
             ),
             TextFieldModule(
               fieldController:
-              homeScreenController.downPaymentPercentageFieldController,
+                  homeScreenController.downPaymentPercentageFieldController,
               hintText: "Down Payment Percentage",
-              validate: (value) => FieldValidation().validateAmount(value, 'down payment percentage'),
+              validate: (value) => FieldValidation()
+                  .validateAmount(value, 'down payment percentage'),
               prifixIcon: Align(
                 widthFactor: 1.0,
                 heightFactor: 1.0,
                 child: Text(
                   '%',
-                  style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  style:
+                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                 ),
               ).commonOnlyPadding(right: 5),
-              onChange: (val){
+              onChange: (val) {
                 homeScreenController.downPaymentAmountFunction();
                 homeScreenController.financedAmountFunction();
               },
-
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
@@ -759,14 +820,15 @@ final homeScreenController = Get.find<HomeScreenController>();
             ),
             TextFieldModule(
               fieldController:
-              homeScreenController.downPaymentAmountFieldController,
+                  homeScreenController.downPaymentAmountFieldController,
               readOnly: true,
               prifixIcon: Align(
                 widthFactor: 1.0,
                 heightFactor: 1.0,
                 child: Text(
                   '\$',
-                  style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  style:
+                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                 ),
               ).commonOnlyPadding(right: 5),
               hintText: "Down Payment Amount",
@@ -776,14 +838,16 @@ final homeScreenController = Get.find<HomeScreenController>();
               height: 10,
             ),
             TextFieldModule(
-              fieldController: homeScreenController.financedAmountFieldController,
+              fieldController:
+                  homeScreenController.financedAmountFieldController,
               readOnly: true,
               prifixIcon: Align(
                 widthFactor: 1.0,
                 heightFactor: 1.0,
                 child: Text(
                   '\$',
-                  style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  style:
+                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                 ),
               ).commonOnlyPadding(right: 5),
               hintText: "Financed Amount",
@@ -795,13 +859,15 @@ final homeScreenController = Get.find<HomeScreenController>();
             TextFieldModule(
               fieldController: homeScreenController.interestRateFieldController,
               hintText: "Interest Rate",
-              validate: (value) => FieldValidation().validateAmount(value, 'interest rate'),
+              validate: (value) =>
+                  FieldValidation().validateAmount(value, 'interest rate'),
               prifixIcon: Align(
                 widthFactor: 1.0,
                 heightFactor: 1.0,
                 child: Text(
                   '%',
-                  style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  style:
+                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                 ),
               ).commonOnlyPadding(right: 5),
               keyboardType: TextInputType.number,
@@ -812,19 +878,25 @@ final homeScreenController = Get.find<HomeScreenController>();
             ),
             //radioButton Interest Only (0=Yes, 1=No)
             Obx(
-                  () => Row(
+              () => Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Points Financed',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12.sp),),
+                  Text(
+                    'Points Financed',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp),
+                  ),
                   Row(
                     children: [
                       Row(
                         children: [
                           Radio(
-                            value: homeScreenController.pointsFinancedButton.value,
+                            value:
+                                homeScreenController.pointsFinancedButton.value,
                             groupValue: 0,
                             onChanged: (val) {
-                              homeScreenController.pointsFinancedButton.value = 0;
+                              homeScreenController.pointsFinancedButton.value =
+                                  0;
                             },
                           ),
                           const Text(
@@ -836,10 +908,12 @@ final homeScreenController = Get.find<HomeScreenController>();
                       Row(
                         children: [
                           Radio(
-                            value: homeScreenController.pointsFinancedButton.value,
+                            value:
+                                homeScreenController.pointsFinancedButton.value,
                             groupValue: 1,
                             onChanged: (val) {
-                              homeScreenController.pointsFinancedButton.value = 1;
+                              homeScreenController.pointsFinancedButton.value =
+                                  1;
                             },
                           ),
                           const Text(
@@ -850,7 +924,6 @@ final homeScreenController = Get.find<HomeScreenController>();
                       ),
                     ],
                   ),
-
                 ],
               ),
             ),
@@ -860,17 +933,18 @@ final homeScreenController = Get.find<HomeScreenController>();
             TextFieldModule(
               fieldController: homeScreenController.loanPointsFieldController,
               hintText: "Loan Points",
-              validate: (value) => FieldValidation().validateAmount(value, 'loan points'),
-              onChange: (val){
+              validate: (value) =>
+                  FieldValidation().validateAmount(value, 'loan points'),
+              onChange: (val) {
                 homeScreenController.pointsAmountFunction();
               },
-
               prifixIcon: Align(
                 widthFactor: 1.0,
                 heightFactor: 1.0,
                 child: Text(
                   '%',
-                  style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  style:
+                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                 ),
               ).commonOnlyPadding(right: 5),
               keyboardType: TextInputType.number,
@@ -888,7 +962,8 @@ final homeScreenController = Get.find<HomeScreenController>();
                 heightFactor: 1.0,
                 child: Text(
                   '\$',
-                  style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  style:
+                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                 ),
               ).commonOnlyPadding(right: 5),
               keyboardType: TextInputType.number,
@@ -898,16 +973,21 @@ final homeScreenController = Get.find<HomeScreenController>();
             ),
             //Radio Button Points Financed (0=Yes, 1=No)
             Obx(
-                  () => Row(
+              () => Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Interest Only',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12.sp),),
+                  Text(
+                    'Interest Only',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp),
+                  ),
                   Row(
                     children: [
                       Row(
                         children: [
                           Radio(
-                            value: homeScreenController.interestOnlyButton.value,
+                            value:
+                                homeScreenController.interestOnlyButton.value,
                             groupValue: 0,
                             onChanged: (val) {
                               homeScreenController.interestOnlyButton.value = 0;
@@ -922,7 +1002,8 @@ final homeScreenController = Get.find<HomeScreenController>();
                       Row(
                         children: [
                           Radio(
-                            value: homeScreenController.interestOnlyButton.value,
+                            value:
+                                homeScreenController.interestOnlyButton.value,
                             groupValue: 1,
                             onChanged: (val) {
                               homeScreenController.interestOnlyButton.value = 1;
@@ -936,7 +1017,6 @@ final homeScreenController = Get.find<HomeScreenController>();
                       ),
                     ],
                   ),
-
                 ],
               ),
             ),
@@ -951,7 +1031,8 @@ final homeScreenController = Get.find<HomeScreenController>();
                 heightFactor: 1.0,
                 child: Text(
                   '\$',
-                  style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  style:
+                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                 ),
               ).commonOnlyPadding(right: 5),
               readOnly: true,
@@ -962,19 +1043,25 @@ final homeScreenController = Get.find<HomeScreenController>();
             ),
             //Radio Button Closing Costs Financed (0=Yes, 1=No)
             Obx(
-                  () => Row(
+              () => Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Closing Costs Financed',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12.sp),),
+                  Text(
+                    'Closing Costs Financed',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp),
+                  ),
                   Row(
                     children: [
                       Row(
                         children: [
                           Radio(
-                            value: homeScreenController.closingCostsFinancedButton.value,
+                            value: homeScreenController
+                                .closingCostsFinancedButton.value,
                             groupValue: 0,
                             onChanged: (val) {
-                              homeScreenController.closingCostsFinancedButton.value = 0;
+                              homeScreenController
+                                  .closingCostsFinancedButton.value = 0;
                             },
                           ),
                           const Text(
@@ -986,10 +1073,12 @@ final homeScreenController = Get.find<HomeScreenController>();
                       Row(
                         children: [
                           Radio(
-                            value: homeScreenController.closingCostsFinancedButton.value,
+                            value: homeScreenController
+                                .closingCostsFinancedButton.value,
                             groupValue: 1,
                             onChanged: (val) {
-                              homeScreenController.closingCostsFinancedButton.value = 1;
+                              homeScreenController
+                                  .closingCostsFinancedButton.value = 1;
                             },
                           ),
                           const Text(
@@ -1000,7 +1089,6 @@ final homeScreenController = Get.find<HomeScreenController>();
                       ),
                     ],
                   ),
-
                 ],
               ),
             ),
@@ -1014,11 +1102,11 @@ final homeScreenController = Get.find<HomeScreenController>();
   }
 }
 
-
 //Mortgage Ditails2
 class MortgageDetails2 extends StatelessWidget {
- MortgageDetails2({Key? key}) : super(key: key);
-final homeScreenController = Get.find<HomeScreenController>();
+  MortgageDetails2({Key? key}) : super(key: key);
+  final homeScreenController = Get.find<HomeScreenController>();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -1042,9 +1130,10 @@ final homeScreenController = Get.find<HomeScreenController>();
             ),
             TextFieldModule(
               fieldController:
-              homeScreenController.mortgageTermMonths2FieldController,
+                  homeScreenController.mortgageTermMonths2FieldController,
               hintText: "Mortgage Term (Months)",
-              validate: (value) => FieldValidation().validateAmount(value, 'mortgage term (months)'),
+              validate: (value) => FieldValidation()
+                  .validateAmount(value, 'mortgage term (months)'),
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
@@ -1053,9 +1142,10 @@ final homeScreenController = Get.find<HomeScreenController>();
             ),
             TextFieldModule(
               fieldController:
-              homeScreenController.paymentsPerYear2FieldController,
+                  homeScreenController.paymentsPerYear2FieldController,
               hintText: "Payments Per Year",
-              validate: (value) => FieldValidation().validateAmount(value, 'payments per year'),
+              validate: (value) =>
+                  FieldValidation().validateAmount(value, 'payments per year'),
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
@@ -1064,15 +1154,17 @@ final homeScreenController = Get.find<HomeScreenController>();
             ),
             TextFieldModule(
               fieldController:
-              homeScreenController.mortgageAmount2FieldController,
+                  homeScreenController.mortgageAmount2FieldController,
               hintText: "2nd Mortgage Amount",
-              validate: (value) => FieldValidation().validateAmount(value, '2nd mortgage amount'),
+              validate: (value) => FieldValidation()
+                  .validateAmount(value, '2nd mortgage amount'),
               prifixIcon: Align(
                 widthFactor: 1.0,
                 heightFactor: 1.0,
                 child: Text(
                   '%',
-                  style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  style:
+                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                 ),
               ).commonOnlyPadding(right: 5),
               keyboardType: TextInputType.number,
@@ -1083,19 +1175,21 @@ final homeScreenController = Get.find<HomeScreenController>();
             ),
 
             TextFieldModule(
-              fieldController: homeScreenController.financedAmount2FieldController,
+              fieldController:
+                  homeScreenController.financedAmount2FieldController,
               readOnly: true,
               prifixIcon: Align(
                 widthFactor: 1.0,
                 heightFactor: 1.0,
                 child: Text(
                   '\$',
-                  style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  style:
+                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                 ),
               ).commonOnlyPadding(right: 5),
-onChange: (val){
-  homeScreenController.pointsAmountFunction2();
-},
+              onChange: (val) {
+                homeScreenController.pointsAmountFunction2();
+              },
               hintText: "Financed Amount",
               keyboardType: TextInputType.number,
             ),
@@ -1103,15 +1197,18 @@ onChange: (val){
               height: 10,
             ),
             TextFieldModule(
-              fieldController: homeScreenController.interestRate2FieldController,
+              fieldController:
+                  homeScreenController.interestRate2FieldController,
               hintText: "Interest Rate",
-              validate: (value) => FieldValidation().validateAmount(value, 'interest rate'),
+              validate: (value) =>
+                  FieldValidation().validateAmount(value, 'interest rate'),
               prifixIcon: Align(
                 widthFactor: 1.0,
                 heightFactor: 1.0,
                 child: Text(
                   '%',
-                  style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  style:
+                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                 ),
               ).commonOnlyPadding(right: 5),
               keyboardType: TextInputType.number,
@@ -1122,19 +1219,25 @@ onChange: (val){
             ),
             //radioButton Interest Only (0=Yes, 1=No)
             Obx(
-                  () => Row(
+              () => Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Points Financed',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12.sp),),
+                  Text(
+                    'Points Financed',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp),
+                  ),
                   Row(
                     children: [
                       Row(
                         children: [
                           Radio(
-                            value: homeScreenController.pointsFinancedButton2.value,
+                            value: homeScreenController
+                                .pointsFinancedButton2.value,
                             groupValue: 0,
                             onChanged: (val) {
-                              homeScreenController.pointsFinancedButton2.value = 0;
+                              homeScreenController.pointsFinancedButton2.value =
+                                  0;
                             },
                           ),
                           const Text(
@@ -1146,10 +1249,12 @@ onChange: (val){
                       Row(
                         children: [
                           Radio(
-                            value: homeScreenController.pointsFinancedButton2.value,
+                            value: homeScreenController
+                                .pointsFinancedButton2.value,
                             groupValue: 1,
                             onChanged: (val) {
-                              homeScreenController.pointsFinancedButton2.value = 1;
+                              homeScreenController.pointsFinancedButton2.value =
+                                  1;
                             },
                           ),
                           const Text(
@@ -1160,7 +1265,6 @@ onChange: (val){
                       ),
                     ],
                   ),
-
                 ],
               ),
             ),
@@ -1170,7 +1274,7 @@ onChange: (val){
             TextFieldModule(
               fieldController: homeScreenController.loanPoints2FieldController,
               hintText: "Loan Points",
-              onChange: (val){
+              onChange: (val) {
                 homeScreenController.pointsAmountFunction2();
               },
               prifixIcon: Align(
@@ -1178,10 +1282,12 @@ onChange: (val){
                 heightFactor: 1.0,
                 child: Text(
                   '%',
-                  style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  style:
+                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                 ),
               ).commonOnlyPadding(right: 5),
-              validate: (value) => FieldValidation().validateAmount(value, 'loan points'),
+              validate: (value) =>
+                  FieldValidation().validateAmount(value, 'loan points'),
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
             ),
@@ -1189,14 +1295,16 @@ onChange: (val){
               height: 10,
             ),
             TextFieldModule(
-              fieldController: homeScreenController.pointsAmount2FieldController,
+              fieldController:
+                  homeScreenController.pointsAmount2FieldController,
               hintText: "Points Amount",
               prifixIcon: Align(
                 widthFactor: 1.0,
                 heightFactor: 1.0,
                 child: Text(
                   '\$',
-                  style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  style:
+                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                 ),
               ).commonOnlyPadding(right: 5),
               readOnly: true,
@@ -1207,19 +1315,25 @@ onChange: (val){
             ),
             //Radio Button Points Financed (0=Yes, 1=No)
             Obx(
-                  () => Row(
+              () => Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Interest Only',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12.sp),),
+                  Text(
+                    'Interest Only',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp),
+                  ),
                   Row(
                     children: [
                       Row(
                         children: [
                           Radio(
-                            value: homeScreenController.interestOnlyButton2.value,
+                            value:
+                                homeScreenController.interestOnlyButton2.value,
                             groupValue: 0,
                             onChanged: (val) {
-                              homeScreenController.interestOnlyButton2.value = 0;
+                              homeScreenController.interestOnlyButton2.value =
+                                  0;
                             },
                           ),
                           const Text(
@@ -1231,10 +1345,12 @@ onChange: (val){
                       Row(
                         children: [
                           Radio(
-                            value: homeScreenController.interestOnlyButton2.value,
+                            value:
+                                homeScreenController.interestOnlyButton2.value,
                             groupValue: 1,
                             onChanged: (val) {
-                              homeScreenController.interestOnlyButton2.value = 1;
+                              homeScreenController.interestOnlyButton2.value =
+                                  1;
                             },
                           ),
                           const Text(
@@ -1245,7 +1361,6 @@ onChange: (val){
                       ),
                     ],
                   ),
-
                 ],
               ),
             ),
@@ -1253,14 +1368,16 @@ onChange: (val){
               height: 10,
             ),
             TextFieldModule(
-              fieldController: homeScreenController.closingCosts2FieldController,
+              fieldController:
+                  homeScreenController.closingCosts2FieldController,
               hintText: "Closing Costs",
               prifixIcon: Align(
                 widthFactor: 1.0,
                 heightFactor: 1.0,
                 child: Text(
                   '\$',
-                  style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  style:
+                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                 ),
               ).commonOnlyPadding(right: 5),
               readOnly: true,
@@ -1271,33 +1388,39 @@ onChange: (val){
             ),
             //Radio Button Closing Costs Financed (0=Yes, 1=No)
             Obx(
-                  () => Row(
+              () => Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Closing Costs Financed',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12.sp),),
+                  Text(
+                    'Closing Costs Financed',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp),
+                  ),
                   Row(
                     children: [
                       Row(
                         children: [
                           Radio(
-                            value: homeScreenController.closingCostsFinancedButton2.value,
+                            value: homeScreenController
+                                .closingCostsFinancedButton2.value,
                             groupValue: 0,
                             onChanged: (val) {
-                              homeScreenController.closingCostsFinancedButton2.value = 0;
+                              homeScreenController
+                                  .closingCostsFinancedButton2.value = 0;
                             },
                           ),
-                          const Text(
-                            'Yes'
-                          ),
+                          const Text('Yes'),
                         ],
                       ),
                       Row(
                         children: [
                           Radio(
-                            value: homeScreenController.closingCostsFinancedButton2.value,
+                            value: homeScreenController
+                                .closingCostsFinancedButton2.value,
                             groupValue: 1,
                             onChanged: (val) {
-                              homeScreenController.closingCostsFinancedButton2.value = 1;
+                              homeScreenController
+                                  .closingCostsFinancedButton2.value = 1;
                             },
                           ),
                           const Text(
@@ -1308,7 +1431,6 @@ onChange: (val){
                       ),
                     ],
                   ),
-
                 ],
               ),
             ),
@@ -1321,7 +1443,6 @@ onChange: (val){
     ).commonAllSidePadding(10);
   }
 }
-
 
 class AnnualCashFlowAnalysis extends StatelessWidget {
   AnnualCashFlowAnalysis({Key? key}) : super(key: key);
@@ -1335,7 +1456,7 @@ class AnnualCashFlowAnalysis extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: AppColors.appColors.withOpacity(.7))),
       child: Obx(
-        ()=> Column(
+        () => Column(
           children: [
             Align(
               alignment: Alignment.centerLeft,
@@ -1347,25 +1468,69 @@ class AnnualCashFlowAnalysis extends StatelessWidget {
                     fontSize: 14.sp),
               ).commonOnlyPadding(bottom: 20, top: 10),
             ),
-
-            TextRow(title: 'Effective Gross Income',subTitle: '${homeScreenController.effectiveGrossIncome.value}',suffix: '\$'),
-            const SizedBox(height: 10,),
-            TextRow(title: 'Operating Expenses',subTitle: '${homeScreenController.operatingExpenses.value}' ,suffix: '\$'),
-            const SizedBox(height: 10,),
-            TextRow(title: 'Net Operating Income',subTitle: '${homeScreenController.netOperatingIncome.value}',suffix: '\$'),
-            const SizedBox(height: 10,),
-            TextRow(title: 'Capitalization Rate',subTitle: '${homeScreenController.capitalizationRate}',suffix: '%'),
-            const SizedBox(height: 10,),
-            TextRow(title: 'Annual Debt Service',subTitle: '${homeScreenController.annualDebtService.value}',suffix: '\$'),
-            const SizedBox(height: 10,),
-            TextRow(title: 'Debt Coverage Ratio',subTitle: '${homeScreenController.debtCoverageRatio}',suffix: '%'),
-            const SizedBox(height: 10,),
-            TextRow(title: 'Annual Cash Flow',subTitle: '${homeScreenController.annualCashFlow.value}',suffix: '\$'),
-            const SizedBox(height: 10,),
-            TextRow(title: 'Total Out of Pocket',subTitle: '${homeScreenController.totalOutPocket.value}',suffix: '\$'),
-            const SizedBox(height: 10,),
-            TextRow(title: 'Return on Investment',subTitle: '${homeScreenController.returnonInvestment.value}',suffix: '%'),
-            const SizedBox(height: 10,),
+            TextRow(
+                title: 'Effective Gross Income',
+                subTitle: '${homeScreenController.effectiveGrossIncome.value}',
+                suffix: '\$'),
+            const SizedBox(
+              height: 10,
+            ),
+            TextRow(
+                title: 'Operating Expenses',
+                subTitle: '${homeScreenController.operatingExpenses.value}',
+                suffix: '\$'),
+            const SizedBox(
+              height: 10,
+            ),
+            TextRow(
+                title: 'Net Operating Income',
+                subTitle: '${homeScreenController.netOperatingIncome.value}',
+                suffix: '\$'),
+            const SizedBox(
+              height: 10,
+            ),
+            TextRow(
+                title: 'Capitalization Rate',
+                subTitle: '${homeScreenController.capitalizationRate}',
+                suffix: '%'),
+            const SizedBox(
+              height: 10,
+            ),
+            TextRow(
+                title: 'Annual Debt Service',
+                subTitle: '${homeScreenController.annualDebtService.value}',
+                suffix: '\$'),
+            const SizedBox(
+              height: 10,
+            ),
+            TextRow(
+                title: 'Debt Coverage Ratio',
+                subTitle: '${homeScreenController.debtCoverageRatio}',
+                suffix: '%'),
+            const SizedBox(
+              height: 10,
+            ),
+            TextRow(
+                title: 'Annual Cash Flow',
+                subTitle: '${homeScreenController.annualCashFlow.value}',
+                suffix: '\$'),
+            const SizedBox(
+              height: 10,
+            ),
+            TextRow(
+                title: 'Total Out of Pocket',
+                subTitle: '${homeScreenController.totalOutPocket.value}',
+                suffix: '\$'),
+            const SizedBox(
+              height: 10,
+            ),
+            TextRow(
+                title: 'Return on Investment',
+                subTitle: '${homeScreenController.returnonInvestment.value}',
+                suffix: '%'),
+            const SizedBox(
+              height: 10,
+            ),
           ],
         ).commonAllSidePadding(10),
       ),
@@ -1374,8 +1539,9 @@ class AnnualCashFlowAnalysis extends StatelessWidget {
 }
 
 class QuickFlipAnalysis extends StatelessWidget {
- QuickFlipAnalysis ({Key? key}) : super(key: key);
-final homeScreenController = Get.find<HomeScreenController>();
+  QuickFlipAnalysis({Key? key}) : super(key: key);
+  final homeScreenController = Get.find<HomeScreenController>();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -1384,53 +1550,105 @@ final homeScreenController = Get.find<HomeScreenController>();
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: AppColors.appColors.withOpacity(.7))),
       child: Column(
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "Quick Flip Analysis",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.appColors,
-                    fontSize: 14.sp),
-              ).commonOnlyPadding(bottom: 20, top: 10),
-            ),
-            TextRow(title: 'Sales Price',subTitle: '${homeScreenController.salesPrice.value}',suffix: '\$'),
-            const SizedBox(height: 10,),
-
-            SubTextRow(title: 'Purchase Price',subTitle:'${homeScreenController.purchasePrice.value}',suffix: '\$', ),
-            const SizedBox(height: 10,),
-
-            SubTextRow(title: 'Acquisition Costs',subTitle:'${homeScreenController.acquisitionCosts.value}',suffix: '\$', ),
-            const SizedBox(height: 10,),
-
-            SubTextRow(title: 'Carrying Costs',subTitle:'${homeScreenController.carryingCosts.value}',suffix: '\$', ),
-            const SizedBox(height: 10,),
-
-            SubTextRow(title: 'Rehab Costs',subTitle:'${homeScreenController.rehabCosts.value}',suffix: '\$', ),
-            const SizedBox(height: 10,),
-
-            SubTextRow(title: 'Selling Expenses',subTitle:'${homeScreenController.sellingExpenses.value}',suffix: '\$', ),
-            const SizedBox(height: 10,),
-            const CustomDivider(),
-            TextRow(title: 'Total Project Cost',subTitle: '${homeScreenController.totalProjectCost.value}',suffix: '\$'),
-            const SizedBox(height: 10,),
-            TextRow(title: 'Net Profit', subTitle: '${homeScreenController.netProfit.value}',suffix: '\$',subTitleColor: AppColors.blackColor),
-            const SizedBox(height: 10,),
-            const CustomDivider(),
-            TextRow(title: 'Total Out of Pocket',subTitle: '${homeScreenController.totalOutofPocket.value}',suffix: '\$'),
-            const SizedBox(height: 10,),
-            TextRow(title: 'Annualized ROI',subTitle: '${homeScreenController.annualizedROI.value}',suffix: '\$'),
-            const SizedBox(height: 10,),
-          ],
-        ).commonAllSidePadding(10),
+        children: [
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              "Quick Flip Analysis",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.appColors,
+                  fontSize: 14.sp),
+            ).commonOnlyPadding(bottom: 20, top: 10),
+          ),
+          TextRow(
+              title: 'Sales Price',
+              subTitle: '${homeScreenController.salesPrice.value}',
+              suffix: '\$'),
+          const SizedBox(
+            height: 10,
+          ),
+          SubTextRow(
+            title: 'Purchase Price',
+            subTitle: '${homeScreenController.purchasePrice.value}',
+            suffix: '\$',
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          SubTextRow(
+            title: 'Acquisition Costs',
+            subTitle: '${homeScreenController.acquisitionCosts.value}',
+            suffix: '\$',
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          SubTextRow(
+            title: 'Carrying Costs',
+            subTitle: '${homeScreenController.carryingCosts.value}',
+            suffix: '\$',
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          SubTextRow(
+            title: 'Rehab Costs',
+            subTitle: '${homeScreenController.rehabCosts.value}',
+            suffix: '\$',
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          SubTextRow(
+            title: 'Selling Expenses',
+            subTitle: '${homeScreenController.sellingExpenses.value}',
+            suffix: '\$',
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          const CustomDivider(),
+          TextRow(
+              title: 'Total Project Cost',
+              subTitle: '${homeScreenController.totalProjectCost.value}',
+              suffix: '\$'),
+          const SizedBox(
+            height: 10,
+          ),
+          TextRow(
+              title: 'Net Profit',
+              subTitle: '${homeScreenController.netProfit.value}',
+              suffix: '\$',
+              subTitleColor: AppColors.blackColor),
+          const SizedBox(
+            height: 10,
+          ),
+          const CustomDivider(),
+          TextRow(
+              title: 'Total Out of Pocket',
+              subTitle: '${homeScreenController.totalOutofPocket.value}',
+              suffix: '\$'),
+          const SizedBox(
+            height: 10,
+          ),
+          TextRow(
+              title: 'Annualized ROI',
+              subTitle: '${homeScreenController.annualizedROI.value}',
+              suffix: '\$'),
+          const SizedBox(
+            height: 10,
+          ),
+        ],
+      ).commonAllSidePadding(10),
     ).commonAllSidePadding(10);
   }
 }
 
 class PropertyPurchaseDetails extends StatelessWidget {
-   PropertyPurchaseDetails ({Key? key}) : super(key: key);
+  PropertyPurchaseDetails({Key? key}) : super(key: key);
   final homeScreenController = Get.find<HomeScreenController>();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -1450,21 +1668,62 @@ class PropertyPurchaseDetails extends StatelessWidget {
                   fontSize: 14.sp),
             ).commonOnlyPadding(bottom: 20, top: 10),
           ),
-          const SizedBox(height: 10,),
-          TextRow(title: 'Purchase Price', subTitle: '${homeScreenController.purchasePrice.value}',suffix: '\$',),
-          const SizedBox(height: 10,),
-          TextRow(title: 'Down Payment', subTitle: '${homeScreenController.downPayment.value}',suffix: '\$',),
-          const SizedBox(height: 10,),
-          TextRow(title: 'Closing Closts', subTitle: '${homeScreenController.closingClosts.value}',suffix: '\$',),
-          const SizedBox(height: 10,),
-          TextRow(title: 'Loan Points', subTitle: '${homeScreenController.loanPoints.value}',suffix: '\$',),
-          const SizedBox(height: 10,),
-          TextRow(title: 'Total Investment', subTitle: '${homeScreenController.totalInvestment.value}',suffix: '\$',),
-          const SizedBox(height: 10,),
-          TextRow(title: 'Expense Esclator', subTitle: '${homeScreenController.expenseEsclator.value}',suffix: '%',),
-          const SizedBox(height: 10,),
-          TextRow(title: 'Income Escalator', subTitle: '${homeScreenController.incomeEscalator.value}',suffix: '%',),
-
+          const SizedBox(
+            height: 10,
+          ),
+          TextRow(
+            title: 'Purchase Price',
+            subTitle: '${homeScreenController.purchasePrice.value}',
+            suffix: '\$',
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          TextRow(
+            title: 'Down Payment',
+            subTitle: '${homeScreenController.downPayment.value}',
+            suffix: '\$',
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          TextRow(
+            title: 'Closing Closts',
+            subTitle: '${homeScreenController.closingClosts.value}',
+            suffix: '\$',
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          TextRow(
+            title: 'Loan Points',
+            subTitle: '${homeScreenController.loanPoints.value}',
+            suffix: '\$',
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          TextRow(
+            title: 'Total Investment',
+            subTitle: '${homeScreenController.totalInvestment.value}',
+            suffix: '\$',
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          TextRow(
+            title: 'Expense Esclator',
+            subTitle: '${homeScreenController.expenseEsclator.value}',
+            suffix: '%',
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          TextRow(
+            title: 'Income Escalator',
+            subTitle: '${homeScreenController.incomeEscalator.value}',
+            suffix: '%',
+          ),
         ],
       ).commonAllSidePadding(10),
     ).commonAllSidePadding(10);

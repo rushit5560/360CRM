@@ -72,6 +72,7 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                             .companyNameTextField,
                         hintText: AppMessage.companyName,
                         keyboardType: TextInputType.text,
+
                         validate: (value) => FieldValidation()
                             .validateEmpty(value, 'gross monthly revenue'),
                       ),
@@ -84,11 +85,16 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                         fieldController:
                             manageCompanyDetailsScreenController.phoneTextField,
                         hintText: AppMessage.phone,
-                        prifixIcon: Text(
-                          'US(+1)',
-                          style: TextStyle(
-                              fontSize: 12.sp, fontWeight: FontWeight.bold),
-                        ).commonOnlyPadding(right: 5),
+                        prifixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: Text(
+                            'US(+1)',
+                            style:
+                            TextStyle(fontSize: 11.sp, fontWeight: FontWeight.bold),
+                          ),
+                        ).commonOnlyPadding(right: 8,left: 8),
+
                         keyboardType: TextInputType.text,
                         // validate: (value) =>
                         //     FieldValidation().validateMobileNumber(value),
@@ -102,11 +108,15 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                         fieldController:
                             manageCompanyDetailsScreenController.phone2TextField,
                         hintText: 'Phone 2',
-                        prifixIcon: Text(
-                          'US(+1)',
-                          style: TextStyle(
-                              fontSize: 12.sp, fontWeight: FontWeight.bold),
-                        ).commonOnlyPadding(right: 5),
+                        prifixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: Text(
+                            'US(+1)',
+                            style:
+                            TextStyle(fontSize: 11.sp, fontWeight: FontWeight.bold),
+                          ),
+                        ).commonOnlyPadding(right: 8,left: 8),
                         keyboardType: TextInputType.text,
                         // validate: (value) =>
                         //     FieldValidation().validateMobileNumber(value),
@@ -120,11 +130,15 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                         fieldController:
                             manageCompanyDetailsScreenController.faxTextField,
                         hintText: 'Fax',
-                        prifixIcon: Text(
-                          'US(+1)',
-                          style: TextStyle(
-                              fontSize: 12.sp, fontWeight: FontWeight.bold),
-                        ).commonOnlyPadding(right: 5),
+                        prifixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: Text(
+                            'US(+1)',
+                            style:
+                            TextStyle(fontSize: 11.sp, fontWeight: FontWeight.bold),
+                          ),
+                        ).commonOnlyPadding(right: 8,left: 8),
                         keyboardType: TextInputType.text,
                         // validate: (value) =>
                         //     FieldValidation().validateFaxNumber(value),
@@ -138,11 +152,15 @@ class ManageCompanyDetailsScreen extends StatelessWidget {
                         fieldController:
                             manageCompanyDetailsScreenController.fax2TextField,
                         hintText: 'Fax 2',
-                        prifixIcon: Text(
-                          'US(+1)',
-                          style: TextStyle(
-                              fontSize: 12.sp, fontWeight: FontWeight.bold),
-                        ).commonOnlyPadding(right: 5),
+                        prifixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: Text(
+                            'US(+1)',
+                            style:
+                            TextStyle(fontSize: 11.sp, fontWeight: FontWeight.bold),
+                          ),
+                        ).commonOnlyPadding(right: 8,left: 8),
                         keyboardType: TextInputType.text,
                         // validate: (value) =>
                         //     FieldValidation().validateFaxNumber(value),

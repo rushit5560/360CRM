@@ -105,8 +105,13 @@ class WorkOrderListWidget extends StatelessWidget {
                           Get.to(() => EditWorkOrderScreen(),
                               arguments: [
                                 workOrderListScreenController.workOrderList[index].workOrderId.toString(),]
-                                // workOrderListScreenController.workOrderList[index].workOrderStatus.name!.toString()]
-                          );
+                          )!.then((value) async{
+                            workOrderListScreenController.isLoading(true);
+                            workOrderListScreenController.hasMore = true;
+                            workOrderListScreenController.pageIndex = 1;
+                            workOrderListScreenController.workOrderList.clear();
+                            await workOrderListScreenController.getWorkOrderList();
+                          });
                           log('work Order Id : ${workOrderListScreenController.workOrderList[index].workOrderId.toString()}');
                           // log('workerOrder Type : ${workOrderListScreenController.workOrderList[index].workOrderStatus.name.toString()}');
                         },
@@ -153,7 +158,7 @@ class WorkOrderListWidget extends StatelessWidget {
         } else {
           return workOrderListScreenController.hasMore
               ? const Center(child: CircularProgressIndicator())
-              : const Center(child: Text('No more attachments!'));
+              : const Center(child: Text('No more work orders!'));
         }
       },
     ));

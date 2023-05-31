@@ -143,8 +143,7 @@ class WorkOrderListScreenController extends GetxController {
   Future<void> initMethod() async {
     await getWorkOrderList();
     scrollController.addListener(() async {
-      if (scrollController.position.maxScrollExtent ==
-          scrollController.offset) {
+      if (scrollController.position.maxScrollExtent == scrollController.offset) {
         //api call for more notes
         if (hasMore == true) {
           pageIndex++;
