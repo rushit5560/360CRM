@@ -23,6 +23,7 @@ class AppMessage {
   static const String addAddress = "Add address";
   static const String updateAddress = "update address";
   static const String add = "Add";
+  static const String active = "Active";
   static const String update = "Update";
   static const String addContact = "Add Contact";
 
