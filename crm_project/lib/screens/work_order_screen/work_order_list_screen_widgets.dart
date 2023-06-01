@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:crm_project/screens/work_order_screen/edit_work_order_screen/edit_work_order_screen.dart';
+import 'package:crm_project/screens/work_order_screen/edit_work_order_screen/edit_work_order_options_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -102,9 +102,11 @@ class WorkOrderListWidget extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
-                          Get.to(() => EditWorkOrderScreen(),
+                          Get.to(() => EditWorkOrderOptionsScreen(),
                               arguments: [
-                                workOrderListScreenController.workOrderList[index].workOrderId.toString(),]
+                                workOrderListScreenController.companyId,
+                                workOrderListScreenController.workOrderList[index].workOrderId.toString(),
+                              ]
                           )!.then((value) async{
                             workOrderListScreenController.isLoading(true);
                             workOrderListScreenController.hasMore = true;

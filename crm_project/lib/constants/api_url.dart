@@ -49,16 +49,13 @@ class ApiUrl {
   static String companyContactStatusChangeApi =
       "$baseUrl/MTMCompanyContact/ChangeStatus";
 
-  // Company Ledger Api
-  static String companyGetAllLedgerApi = "$baseUrl/AccountLedger/Filter";
-  static String companyLedgerStatusChangeApi =
-      "$baseUrl/AccountLedger/ChangeStatus";
-  static String companyLedgerGetByIdApi = "$baseUrl/AccountLedger/GetById";
-  static String companyLedgerUpdateApi =
-      "$baseUrl/AccountLedger/UpdateAccountLedger";
-  static String companyLedgerDeleteApi =
-      "$baseUrl/AccountLedger/SoftDeleteAccountLedger";
-  static String companyLedgerAddApi = "$baseUrl/AccountLedger/AddAccountLedger";
+  // Ledger Api
+  static String getAllLedgerApi = "$baseUrl/AccountLedger/Filter";
+  static String ledgerStatusChangeApi = "$baseUrl/AccountLedger/ChangeStatus";
+  static String ledgerGetByIdApi = "$baseUrl/AccountLedger/GetById";
+  static String ledgerUpdateApi = "$baseUrl/AccountLedger/UpdateAccountLedger";
+  static String ledgerDeleteApi = "$baseUrl/AccountLedger/SoftDeleteAccountLedger";
+  static String ledgerAddApi = "$baseUrl/AccountLedger/AddAccountLedger";
 
   // Add Ledger Field API - DD using
   static String activeAccountCategoryGetAllApi =
@@ -86,8 +83,8 @@ class ApiUrl {
   //  company contact api
   static String activeContactCategoryGetAllApi =
       "$baseUrl/ContactCategory/GetAllActiveContactCategory";
-  static String activeAreaOfintrestGetAllApi =
-      "$baseUrl/ContactCategory/GetAllActiveContactCategory";
+  static String activeAreaOfInterestGetAllApi =
+      "$baseUrl/AreaOfInterest/GetAllActiveAreaOfInterest";
   static String contactRoleGetAllApi =
       "$baseUrl/ContactRole/GetAllActiveContactRole";
   static String contactAddApi = "$baseUrl/Contact/AddContact";
@@ -136,6 +133,10 @@ class ApiUrl {
   static String workOrderPropertyApi = "$baseUrl/Property/GetAllActiveProperty";
   static String workOrderCompanyApi = "$baseUrl/Company/GetAllActiveCompany";
   static String workOrderUpdateApi = "$baseUrl/WorkOrder/UpdateWorkOrder";
-
+  //invoice Api
+  static String invoiceListApi = "$baseUrl/Invoice/Filter";
+  static String invoiceStatusChangeApi = "$baseUrl/Invoice/ChangeStatus";
+  static String invoiceSoftDeleteApi = "$baseUrl/Invoice/SoftDeleteInvoice";
+//?PageNumber=1&PageSize=10&SearchString=&type=company&id=9
 
 }

@@ -3,7 +3,8 @@ import 'dart:developer';
 import 'package:get/get.dart';
 
 class EditWorkOrderScreenController extends GetxController{
-  String workOrderID = Get.arguments[0];
+  String companyId = Get.arguments[0];
+  String workOrderID = Get.arguments[1];
   RxBool isLoading = false.obs;
 
   @override

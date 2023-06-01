@@ -1,20 +1,21 @@
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:crm_project/constants/api_url.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart' as dio;
-
 import '../../models/ledger_screen_model/ledger_list_model.dart';
 import '../../models/success_model/success_model.dart';
+import '../../utils/enums.dart';
 import '../../utils/messaging.dart';
+
 
 
 
 class LedgerListScreenController extends GetxController {
   String companyId = Get.arguments[0];
+  LedgerComingFrom ledgerComingFrom = Get.arguments[1];
 
   RxBool isLoading = false.obs;
   RxInt isSuccessStatusCode = 0.obs;
@@ -30,9 +31,11 @@ class LedgerListScreenController extends GetxController {
   int pageCount = 10;
 
 
+  /// Get All Ledger Function
   Future<void> getLedgersFunction() async {
     if(hasMore == true) {
-      String url = "${ApiUrl.companyGetAllLedgerApi}?PageNumber=$pageIndex&PageSize=$pageCount&type=company&id=$companyId";
+      String url = ledgerComingFrom == LedgerComingFrom.company ? "${ApiUrl.getAllLedgerApi}?PageNumber=$pageIndex&PageSize=$pageCount&type=company&id=$companyId"
+      : "${ApiUrl.getAllLedgerApi}?PageNumber=$pageIndex&PageSize=$pageCount&type=Workorder&id=$companyId";
       log('Get Ledger Api Url : $url');
 
       try {
@@ -62,8 +65,8 @@ class LedgerListScreenController extends GetxController {
           final response = e.response;
           final statusCode = response!.statusCode;
           if (statusCode == 400) {
-            Fluttertoast.showToast(msg: "Record Already Exist");
-            log("Record Already Exist");
+            // Fluttertoast.showToast(msg: "Record Already Exist");
+            // log("Record Already Exist");
             isLoading(false);
           } else if(statusCode == 401) {
             log('Please login again!');
@@ -78,11 +81,10 @@ class LedgerListScreenController extends GetxController {
     }
   }
 
-
-  // Change Ledger status function
+  /// Change Ledger status function
   Future<void> changeLedgerStatusFunction({required String ledgerId, required bool status, required int index}) async {
     isLoading(true);
-    String url = ApiUrl.companyLedgerStatusChangeApi;
+    String url = ApiUrl.ledgerStatusChangeApi;
 
     try {
       Map<String, dynamic> bodyData = {
@@ -128,10 +130,10 @@ class LedgerListScreenController extends GetxController {
     isLoading(false);
   }
 
-  // Delete Ledger Function
+  /// Delete Ledger Function
   Future<void> deleteLedgerFunction({required String ledgerId, required int index}) async {
     isLoading(true);
-    String url = ApiUrl.companyLedgerDeleteApi;
+    String url = ApiUrl.ledgerDeleteApi;
     log('Delete Ledger Api Url : $url');
 
     try {

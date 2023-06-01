@@ -123,6 +123,7 @@ class EditCompanyDetailsScreen extends StatelessWidget {
                     () => LedgerListScreen(),
                     arguments: [
                       editCompanyDetailsScreenController.companyId.toString(),
+                      LedgerComingFrom.company,
                     ],
                   );
                 },

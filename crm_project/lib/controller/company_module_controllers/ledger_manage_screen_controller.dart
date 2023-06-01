@@ -26,6 +26,7 @@ class LedgerManageScreenController extends GetxController {
   LedgerOption ledgerOption = Get.arguments[0];
   String ledgerId = Get.arguments[1];
   String companyId = Get.arguments[2];
+  LedgerComingFrom ledgerComingFrom = Get.arguments[3];
 
   RxBool isLoading = false.obs;
   RxInt isSuccessStatusCode = 0.obs;
@@ -94,11 +95,11 @@ class LedgerManageScreenController extends GetxController {
   /// Add Ledger Function
   Future<void> addLedgerFunction() async {
     // isLoading(true);
-    String url = ApiUrl.companyLedgerAddApi;
+    String url = ApiUrl.ledgerAddApi;
     log('addLedgerFunction Api Url :$url');
 
     String amount = amountFieldController.text.trim();
-    String type = "company";
+    String type = ledgerComingFrom == LedgerComingFrom.company ? "company" : "Workorder"; //todo
     String accountCategoryId = categoryTypeDataValue.category == "Select Account Category" ? "" : categoryTypeDataValue.accountCategoryId.toString();
     String reference = referenceFieldController.text.trim();
     String details = detailsFieldController.text.trim();
@@ -173,11 +174,11 @@ class LedgerManageScreenController extends GetxController {
   /// Update Ledger Function
   Future<void> updateLedgerFunction() async {
     isLoading(true);
-    String url = ApiUrl.companyLedgerUpdateApi;
+    String url = ApiUrl.ledgerUpdateApi;
     log("updateLedgerFunction Api Url :$url");
 
     String amount = amountFieldController.text.trim();
-    String type = "company";
+    String type = ledgerComingFrom == LedgerComingFrom.company ? "company" : "Workorder"; //todo
     String accountCategoryId = categoryTypeDataValue.category == "Select Account Category" ? "" : categoryTypeDataValue.accountCategoryId.toString();
     String reference = referenceFieldController.text.trim();
     String details = detailsFieldController.text.trim();
@@ -254,7 +255,7 @@ class LedgerManageScreenController extends GetxController {
   /// Get Ledger Details Get By Id Function
   Future<void> getLedgerDetailsFunction() async {
     isLoading(true);
-    String url = "${ApiUrl.companyLedgerGetByIdApi}?accountLedgerId=$ledgerId";
+    String url = "${ApiUrl.ledgerGetByIdApi}?accountLedgerId=$ledgerId";
     log('getLedgerDetailsFunction Api Url :$url');
 
     try {

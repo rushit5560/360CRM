@@ -264,7 +264,7 @@ class ContactManageScreenController extends GetxController {
   Future<void> getAllActiveAreaOfIntrestFunction() async {
     isLoading(true);
     String url =
-        "${ApiUrl.activeAreaOfintrestGetAllApi}?customerId=${AppMessage.customerId}";
+        "${ApiUrl.activeAreaOfInterestGetAllApi}?customerId=${AppMessage.customerId}";
     log('getAllActiveAreaOfIntrestFunction Api Url :$url');
 
     try {

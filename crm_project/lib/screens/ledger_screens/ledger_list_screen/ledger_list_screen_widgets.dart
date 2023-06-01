@@ -35,7 +35,7 @@ class LedgerListWidget extends StatelessWidget {
                     children: [
                       Column(
                         children: [
-                          // Display name Module
+                          // Amount Module
                           HeaderAndContentModule(
                             headerText: AppMessage.amountLabel,
                             contentText: singleItem.amount.toString(),
@@ -117,6 +117,7 @@ class LedgerListWidget extends StatelessWidget {
                                       LedgerOption.update,
                                       singleItem.accountLedgerId.toString(),
                                       screenController.companyId.toString(),
+                                      LedgerComingFrom.workOrder,
                                     ],
                                     transition: Transition.zoom)!.then((value) async {
                                   screenController.isLoading(true);

@@ -40,7 +40,7 @@ class ManageCompanyDetailsScreenController extends GetxController {
   //Update Time get Company Details
   Future<void> getCompanyDetailsFunction() async {
     isLoading(true);
-    String url = '${ApiUrl.companyDetailsGetApi}+$companyId';
+    String url = '${ApiUrl.companyDetailsGetApi}$companyId';
     log("Get Company Details Api Url : $url");
 
     try {
