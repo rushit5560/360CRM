@@ -5,6 +5,7 @@ import 'active_payment_method_list_model.dart';
 import 'active_payment_type_list_model.dart';
 
 class PaymentListModel {
+  String? paymentId;
   TextEditingController amountFieldController;
   DateTime paymentDate;
   PaymentTypeData paymentTypeDataValue;
@@ -13,6 +14,7 @@ class PaymentListModel {
   TextEditingController referenceFieldController;
 
   PaymentListModel({
+    this.paymentId,
     required this.amountFieldController,
     required this.paymentDate,
     required this.paymentTypeDataValue,
