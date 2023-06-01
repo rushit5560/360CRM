@@ -57,7 +57,18 @@ class WorkOrderListScreenController extends GetxController {
           log('else Work Order List Response : ${response.statusMessage}');
         }
       } catch (e) {
-        log('Catch get work order List : $e');
+        if (e is dio.DioError && e.response != null) {
+          final response = e.response;
+          final statusCode = response!.statusCode;
+          if (statusCode == 400) {
+            CommonToastModule(msg: "Record Already Exist");
+            log("Record Already Exist");
+            isLoading(false);
+          } else if (statusCode == 401) {
+            log('Please login again!');
+          }
+        }
+        log('Error :$e');
       }
     }
     loadUi();

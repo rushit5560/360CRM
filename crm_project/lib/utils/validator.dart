@@ -28,11 +28,11 @@ class FieldValidation {
 
   validateAmount(String value, String fieldName) {
     if (value.isEmpty) {
-      return "Please enter valid $fieldName.";
+      return "Please enter $fieldName.";
     } else if (value.contains(" ") ||
         value.contains("-") ||
         value.contains(",")) {
-      return "Please enter valid $fieldName.";
+      return "Please enter $fieldName.";
     } else {
       return null;
     }
@@ -79,6 +79,16 @@ class FieldValidation {
       return null;
     } else {
       return null;
+    }
+  }
+
+  validateNum(String value) {
+    RegExp mobileNumberRegex = RegExp(r'^[0-9.]');
+
+    if (mobileNumberRegex.hasMatch(value)&& !value.contains('+')&& !value.contains('-')&& !value.contains(' ')&& !value.contains(',')) {
+      return null; // Valid mobile number
+    } else {
+      return "Please Enter amount between 0 to 99999999"; // Invalid mobile number
     }
   }
 }

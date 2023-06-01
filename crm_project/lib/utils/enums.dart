@@ -8,3 +8,6 @@ enum ContactOption {create, update}
 enum WorkOrderDetailsDate {date, projectStartDate,dueDate,completeDate}
 enum BillOption {create, update}
 enum SelectedDateType {date, dueDate}
+
+enum LedgerComingFrom {company, workOrder}
+enum InvoiceOption {create, update}

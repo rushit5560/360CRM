@@ -24,57 +24,59 @@ class WorkOrderScreen extends StatelessWidget {
           titleText: AppMessage.workOrder,
           leadingShow: false,
           actionShow: false),
-      body: Obx(() => workOrderListScreenController.isLoading.value
-          ? Center(
-              child: CommonLoader().showLoader(),
-            )
-          : Column(
-              children: [
-                TextFieldModule(
-                        fieldController: workOrderListScreenController
-                            .searchTextFieldController,
-                        hintText: 'Search...',
-                        onChange: (text) {
-                          // log(text.toString());
-                        },
-                        backgroundColor: AppColors.whiteColor,
-                        icon: GestureDetector(
-                            onTap: () {
-                              // log('Search... ${companyListScreenController.searchTextFieldController.text}');
-                            },
-                            child: const Icon(Icons.search)
-                                .paddingOnly(left: 5, right: 5)),
-                        keyboardType: TextInputType.text)
-                    .paddingOnly(bottom: 5),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        AppMessage.workOrderList,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: AppColors.appColors,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15.sp,
+      body: SafeArea(
+        child: Obx(() => workOrderListScreenController.isLoading.value
+            ? Center(
+                child: CommonLoader().showLoader(),
+              )
+            : Column(
+                children: [
+                  TextFieldModule(
+                          fieldController: workOrderListScreenController
+                              .searchTextFieldController,
+                          hintText: 'Search...',
+                          onChange: (text) {
+                            // log(text.toString());
+                          },
+                          backgroundColor: AppColors.whiteColor,
+                          icon: GestureDetector(
+                              onTap: () {
+                                // log('Search... ${companyListScreenController.searchTextFieldController.text}');
+                              },
+                              child: const Icon(Icons.search)
+                                  .paddingOnly(left: 5, right: 5)),
+                          keyboardType: TextInputType.text)
+                      .paddingOnly(bottom: 5),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          AppMessage.workOrderList,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: AppColors.appColors,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15.sp,
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(1.w),
-                        border: Border.all(
-                          color: AppColors.appColors,
-                          width: 1,
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(1.w),
+                          border: Border.all(
+                            color: AppColors.appColors,
+                            width: 1,
+                          ),
                         ),
-                      ),
-                    )
-                  ],
-                ).paddingOnly(top: 8),
-                const CustomDivider(),
-                WorkOrderListWidget()
-              ],
-            ).paddingOnly(left: 15, top: 20, right: 15)),
+                      )
+                    ],
+                  ).paddingOnly(top: 8),
+                  const CustomDivider(),
+                  WorkOrderListWidget()
+                ],
+              ).paddingOnly(left: 15, top: 20, right: 15)),
+      ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.appColors,
         onPressed: () {

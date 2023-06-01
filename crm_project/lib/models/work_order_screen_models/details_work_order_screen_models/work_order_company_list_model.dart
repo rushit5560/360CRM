@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+// Company List
+
 WorkOrderCompanyListModel workOrderCompanyListModelFromJson(String str) => WorkOrderCompanyListModel.fromJson(json.decode(str));
 
 String workOrderCompanyListModelToJson(WorkOrderCompanyListModel data) => json.encode(data.toJson());
