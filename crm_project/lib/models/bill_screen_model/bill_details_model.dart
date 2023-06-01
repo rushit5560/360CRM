@@ -465,9 +465,9 @@ class Payment {
   // dynamic bill;
   String amount;
   DateTime paymentDate;
-  // int paymentTypeId;
+  int paymentTypeId;
   // dynamic paymentType;
-  // int paymentMethodId;
+  int paymentMethodId;
   // dynamic paymentMethod;
   int accountCategoryId;
   // dynamic accountCategory;
@@ -490,9 +490,9 @@ class Payment {
     // this.bill,
     required this.amount,
     required this.paymentDate,
-    // this.paymentTypeId,
+    required this.paymentTypeId,
     // this.paymentType,
-    // this.paymentMethodId,
+    required this.paymentMethodId,
     // this.paymentMethod,
     required this.accountCategoryId,
     // this.accountCategory,
@@ -516,9 +516,9 @@ class Payment {
     // bill: json["bill"],
     amount: (json["amount"] ?? 0).toString(),
     paymentDate: DateTime.parse(json["paymentDate"] ?? DateTime.now()),
-    // paymentTypeId: json["paymentTypeID"],
+    paymentTypeId: json["paymentTypeID"] ?? 0,
     // paymentType: json["paymentType"],
-    // paymentMethodId: json["paymentMethodID"],
+    paymentMethodId: json["paymentMethodID"] ?? 0,
     // paymentMethod: json["paymentMethod"],
     accountCategoryId: json["accountCategoryId"] ?? 0,
     // accountCategory: json["accountCategory"],

@@ -56,9 +56,16 @@ class BillManageScreenController extends GetxController {
   DateTime dueDate = DateTime.now();
   RxString showDueDate = "".obs;
 
+  RxBool isItemModuleShow = true.obs;
+
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   GlobalKey<FormState> itemFormKey = GlobalKey<FormState>();
   GlobalKey<FormState> paymentFormKey = GlobalKey<FormState>();
+
+  List<GlobalKey<FormState>> formKeyList = [];
+
+  TabController? tabController;
+  int selectedTabIndex = 0;
 
   TextEditingController addressFieldController = TextEditingController();
   TextEditingController referenceFieldController = TextEditingController();
@@ -385,45 +392,74 @@ class BillManageScreenController extends GetxController {
           }
         }
 
+        /// Set Bill Item List
         if(billDetailsModel.data.billItem.isNotEmpty) {
-          for(var element in billDetailsModel.data.billItem) {
+          for(var element in billDetailsModel.data.billItem.reversed) {
             TextEditingController qtyFieldController = TextEditingController(text: element.qty.toString());
             TextEditingController descriptionFieldController = TextEditingController(text: element.itemDescription.toString());
             TextEditingController unitFieldController = TextEditingController(text: element.unit.toString());
             TextEditingController priceFieldController = TextEditingController(text: element.price.toString());
             TextEditingController itemTotalFieldController = TextEditingController(text: element.itemTotal.toString());
             bool isActive = element.isActive;
-
             CategoryTypeData categoryTypeData = CategoryTypeData();
 
             var contain = categoryTypeList.where((element1) => element1.accountCategoryId == element.accountCategoryId);
-            log('contain $contain');
-            // if(contain.isEmpty) {
-            //   categoryTypeData = categoryTypeList[0];
-            // } else {
-            //
-            // }
+            categoryTypeData = contain.first;
+            log('contain ${contain.first.category}');
+            log('contain ${contain.first.accountCategoryId}');
 
-            // for(var value in categoryTypeList) {
-            //   if(value.accountCategoryId == )
-            // }
-
-            // mainItemList.add(
-            //   ItemDetailsModel(
-            //       qtyFieldController: qtyFieldController,
-            //       categoryTypeDataValue: categoryTypeData,
-            //       descriptionFieldController: descriptionFieldController,
-            //       unitFieldController: unitFieldController,
-            //       priceFieldController: priceFieldController,
-            //       itemTotalFieldController: itemTotalFieldController,
-            //       isActive: isActive),
-            // );
+            mainItemList.add(
+              ItemDetailsModel(
+                itemId: element.billItemId.toString(),
+                  qtyFieldController: qtyFieldController,
+                  categoryTypeDataValue: categoryTypeData,
+                  descriptionFieldController: descriptionFieldController,
+                  unitFieldController: unitFieldController,
+                  priceFieldController: priceFieldController,
+                  itemTotalFieldController: itemTotalFieldController,
+                  isActive: isActive),
+            );
           }
         } else {
           setMainItemListFunction();
-          // setMainPaymentListFunction();
         }
 
+        /// Set Payment Item List
+        if(billDetailsModel.data.payments.isNotEmpty) {
+          for(var paymentElement in billDetailsModel.data.payments.reversed) {
+            TextEditingController amountFieldController = TextEditingController(text: paymentElement.amount);
+            DateTime paymentDate = paymentElement.paymentDate;
+            PaymentTypeData paymentTypeDataValue = PaymentTypeData();
+            PaymentMethodData paymentMethodDataValue = PaymentMethodData();
+            CategoryTypeData categoryTypeDataValue = CategoryTypeData();
+            TextEditingController referenceFieldController = TextEditingController(text: paymentElement.reference);
+
+            var paymentTypeContain = paymentTypeList.where((element1) => element1.paymentTypeId == paymentElement.paymentTypeId);
+            paymentTypeDataValue = paymentTypeContain.first;
+
+            var paymentMethodContain = paymentMethodList.where((element1) => element1.paymentMethodsId == paymentElement.paymentMethodId);
+            paymentMethodDataValue = paymentMethodContain.first;
+
+            var categoryTypeContain = categoryTypeList.where((element1) => element1.accountCategoryId == paymentElement.accountCategoryId);
+            categoryTypeDataValue = categoryTypeContain.first;
+
+            mainPaymentList.add(
+              PaymentListModel(
+                paymentId: paymentElement.paymentId.toString(),
+                amountFieldController: amountFieldController,
+                paymentDate: paymentDate,
+                paymentTypeDataValue: paymentTypeDataValue,
+                paymentMethodDataValue: paymentMethodDataValue,
+                categoryTypeDataValue: categoryTypeDataValue,
+                referenceFieldController: referenceFieldController,
+              ),
+            );
+
+
+          }
+        } else {
+          setMainPaymentListFunction();
+        }
 
 
 
@@ -473,6 +509,7 @@ class BillManageScreenController extends GetxController {
 
   Future<void> addBillFunction() async {
     // isLoading(true);
+    // String url = billOption == BillOption.create ? ApiUrl.addBillApi : ApiUrl.updateBillApi;
     String url = ApiUrl.addBillApi;
     log('Add Bill Api Url :$url');
 
@@ -543,6 +580,97 @@ class BillManageScreenController extends GetxController {
       }
 
 
+    } catch (e) {
+      if (e is dio.DioError && e.response != null) {
+        final response = e.response;
+        final statusCode = response!.statusCode;
+        if (statusCode == 400) {
+          Fluttertoast.showToast(msg: "Record Already Exist");
+          log("Record Already Exist");
+          isLoading(false);
+        } else if(statusCode == 401) {
+          log('Please login again!');
+        }
+      }
+      log('Error :$e');
+    }
+
+  }
+
+  Future<void> updateBillFunction() async {
+    // isLoading(true);
+    // String url = billOption == BillOption.create ? ApiUrl.addBillApi : ApiUrl.updateBillApi;
+    String url = ApiUrl.updateBillApi;
+    log('Add Bill Api Url :$url');
+
+    try {
+      List<Map<String, dynamic>> billItemList = [];
+      for(int i =0; i < mainItemList.length; i++) {
+        Map<String, dynamic> singleItemData = {
+          "BillItemID": mainItemList[i].itemId ?? "",
+          "Qty": mainItemList[i].qtyFieldController.text.trim(),
+          "AccountCategoryId": mainItemList[i].categoryTypeDataValue.accountCategoryId.toString(),
+          "ItemDescription": mainItemList[i].descriptionFieldController.text.trim(),
+          "Unit": mainItemList[i].unitFieldController.text.trim(),
+          "Price": mainItemList[i].priceFieldController.text.trim(),
+          "ItemTotal": mainItemList[i].itemTotalFieldController.text.trim(),
+          "IsActive": mainItemList[i].isActive
+        };
+        billItemList.add(singleItemData);
+      }
+
+      List<Map<String, dynamic>> paymentList = [];
+      for(var element in mainPaymentList) {
+        Map<String, dynamic> singleItemData = {
+          "PaymentID": element.paymentId ?? "",
+          "Amount": element.amountFieldController.text.trim(),
+          "PaymentDate": DateFormatChangerYMD().dateFormat(element.paymentDate),
+          "PaymentTypeID": element.paymentTypeDataValue.paymentTypeId,
+          "PaymentMethodID": element.paymentMethodDataValue.paymentMethodsId,
+          "AccountCategoryId": element.categoryTypeDataValue.accountCategoryId,
+          "Reference": element.referenceFieldController.text.trim(),
+        };
+        paymentList.add(singleItemData);
+      }
+      // log('billItemList : $billItemList');
+      // log('paymentList : $paymentList');
+
+      Map<String, dynamic> mainBodyData = {
+        "BillID": billId,
+        "CompanyID": companyId,
+        "Reference": referenceFieldController.text.trim(),
+        "BillDate": DateFormatChangerYMD().dateFormat(date),
+        "DueDate": DateFormatChangerYMD().dateFormat(dueDate),
+        "Address": addressFieldController.text.trim(),
+        "TotalAmount": totalFieldController.text.trim(),
+        "Paid": isPaidValue.value,
+        "IsActive": true,
+        "type" : "Company",
+        "billItem": billItemList,
+        "payments": paymentList
+      };
+
+      log('mainBodyData :${jsonEncode(mainBodyData)}');
+
+      final response = await dioRequest.put(
+        url,
+        data: mainBodyData,
+        options: dio.Options(
+            headers: {"Authorization": "Bearer ${AppMessage.token}"}),
+      );
+
+      SuccessModel successModel = SuccessModel.fromJson(response.data);
+      isSuccessStatusCode.value = successModel.statusCode;
+
+      if(isSuccessStatusCode.value == 200) {
+        Get.back();
+        CommonToastModule(
+          msg: successModel.message,
+          backgroundColor: AppColors.greenColor,
+        );
+      } else {
+        log('Add Bill Function Else');
+      }
 
 
     } catch (e) {
@@ -588,6 +716,8 @@ class BillManageScreenController extends GetxController {
       setMainItemListFunction();
       setMainPaymentListFunction();
     }
+
+    formKeyList = [itemFormKey, paymentFormKey];
 
     // showSelectedDate.value = DateFormatChanger().dateFormat(selectedDate);
 

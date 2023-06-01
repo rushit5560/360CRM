@@ -121,9 +121,30 @@ class BillPropertyDropDownModule extends StatelessWidget {
   }
 }
 
+// class KeepAliveWrapper extends StatefulWidget {
+//   final Widget child;
+//
+//   const KeepAliveWrapper({Key? key, required this.child}) : super(key: key);
+//
+//   @override
+//   __KeepAliveWrapperState createState() => __KeepAliveWrapperState();
+// }
+//
+// class __KeepAliveWrapperState extends State<KeepAliveWrapper>
+//     with AutomaticKeepAliveClientMixin {
+//   @override
+//   Widget build(BuildContext context) {
+//     super.build(context);
+//     return widget.child;
+//   }
+//
+//   @override
+//   bool get wantKeepAlive => true;
+// }
+
 class ItemListModule extends StatelessWidget {
-  GlobalKey<FormState> formKey;
-  ItemListModule({Key? key, required this.formKey}) : super(key: key);
+  // GlobalKey<FormState> formKey;
+  ItemListModule({Key? key, /*required this.formKey*/}) : super(key: key);
   final screenController = Get.find<BillManageScreenController>();
 
   @override
@@ -131,32 +152,29 @@ class ItemListModule extends StatelessWidget {
     return ListView(
       shrinkWrap: true,
       children: [
-        Form(
-          key: formKey,
-          child: ListView.builder(
-            itemCount: screenController.mainItemList.length,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, i) {
-              ItemDetailsModel singleItem = screenController.mainItemList[i];
-              return ItemListTile(
-                index: i,
-                singleItem: singleItem,
-                billManageScreenController: screenController,
+        ListView.builder(
+          itemCount: screenController.mainItemList.length,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemBuilder: (context, i) {
+            ItemDetailsModel singleItem = screenController.mainItemList[i];
+            return ItemListTile(
+              index: i,
+              singleItem: singleItem,
+              billManageScreenController: screenController,
 
-              );
-              /*return ExpansionTile(
-                title: Text('${i+1}'),
-                children: [
-                  ItemListTile(
-                    index: i,
-                    singleItem: singleItem,
-                    billManageScreenController: screenController,
-                  ),
-                ],
-              );*/
-            },
-          ),
+            );
+            /*return ExpansionTile(
+              title: Text('${i+1}'),
+              children: [
+                ItemListTile(
+                  index: i,
+                  singleItem: singleItem,
+                  billManageScreenController: screenController,
+                ),
+              ],
+            );*/
+          },
         ),
 
         CustomSubmitButton(
@@ -424,8 +442,8 @@ class ItemListTile extends StatelessWidget {
 
 
 class PaymentListModule extends StatelessWidget {
-  GlobalKey<FormState> formKey;
-  PaymentListModule({Key? key, required this.formKey}) : super(key: key);
+  // GlobalKey<FormState> formKey;
+  PaymentListModule({Key? key, /*required this.formKey*/}) : super(key: key);
   final screenController = Get.find<BillManageScreenController>();
 
   @override
@@ -433,31 +451,28 @@ class PaymentListModule extends StatelessWidget {
     return ListView(
       children: [
 
-        Form(
-          key: formKey,
-          child: ListView.builder(
-            itemCount: screenController.mainPaymentList.length,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, i) {
-              PaymentListModel singleItem = screenController.mainPaymentList[i];
-              return PaymentListTile(
-                index: i,
-                singleItem: singleItem,
-                billManageScreenController: screenController,
-              );
-              /*return ExpansionTile(
-                title: Text('${i+1}'),
-                children: [
-                  PaymentListTile(
-                    index: i,
-                    singleItem: singleItem,
-                    billManageScreenController: screenController,
-                  ),
-                ],
-              );*/
-            },
-          ),
+        ListView.builder(
+          itemCount: screenController.mainPaymentList.length,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemBuilder: (context, i) {
+            PaymentListModel singleItem = screenController.mainPaymentList[i];
+            return PaymentListTile(
+              index: i,
+              singleItem: singleItem,
+              billManageScreenController: screenController,
+            );
+            /*return ExpansionTile(
+              title: Text('${i+1}'),
+              children: [
+                PaymentListTile(
+                  index: i,
+                  singleItem: singleItem,
+                  billManageScreenController: screenController,
+                ),
+              ],
+            );*/
+          },
         ),
 
 
