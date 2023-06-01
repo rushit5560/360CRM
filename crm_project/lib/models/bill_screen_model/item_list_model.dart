@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../ledger_screen_model/active_category_type_list_model.dart';
 
 class ItemDetailsModel {
+  String? itemId;
   TextEditingController qtyFieldController;
   CategoryTypeData categoryTypeDataValue;
   // List<CategoryTypeData> categoryTypeList;
@@ -13,6 +14,7 @@ class ItemDetailsModel {
   bool isActive;
 
   ItemDetailsModel({
+    this.itemId,
     required this.qtyFieldController,
     required this.categoryTypeDataValue,
     // required this.categoryTypeList,
