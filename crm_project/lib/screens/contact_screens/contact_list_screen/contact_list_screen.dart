@@ -6,7 +6,7 @@ import '../../../../common_modules/common_loader.dart';
 import '../../../../common_modules/divider.dart';
 import '../../../../common_widgets/custom_appbar.dart';
 import '../../../../constants/colors.dart';
-import '../../../../controller/company_module_controllers/contact_list_screen_controller.dart';
+import '../../../controller/company_module_controllers/contact_module_controller/contact_list_screen_controller.dart';
 import '../../../../utils/messaging.dart';
 import '../../../utils/enums.dart';
 import '../contact_manage_screen/contact_manage_screen.dart';

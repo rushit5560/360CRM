@@ -1,20 +1,19 @@
 import 'dart:developer';
-
 import 'package:crm_project/common_modules/common_loader.dart';
 import 'package:crm_project/constants/extension.dart';
-import 'package:crm_project/controller/company_module_controllers/contact_list_screen_controller.dart';
+import 'package:crm_project/controller/company_module_controllers/contact_module_controller/contact_list_screen_controller.dart';
 import 'package:crm_project/utils/enums.dart';
 import 'package:crm_project/utils/messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-
 import '../../../../common_modules/common_textfield.dart';
 import '../../../../constants/colors.dart';
 import '../../../common_modules/common_bottomsheet_module.dart';
 import '../../../common_widgets/header_and_content_module.dart';
 import '../contact_manage_screen/contact_manage_screen.dart';
+import '../edit_contact_options_screen.dart';
 
 class ContactSearchBarWidget extends StatelessWidget {
   ContactSearchBarWidget({Key? key}) : super(key: key);
@@ -132,13 +131,15 @@ class ContactListWidget extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () {
-                                Get.to(() => ContactManageScreen(), arguments: [
-                                  ContactOption.update,
-                                  contactListScreenController.companyId,
-                                  contactListScreenController
-                                      .contactList[i].contactId,
-                                ])!
-                                    .then((value) async {
+                                Get.to(
+                                  () => ContactOptionsScreen(),
+                                  arguments: [
+                                    ContactOption.update,
+                                    contactListScreenController.companyId,
+                                    contactListScreenController
+                                        .contactList[i].contactId,
+                                  ],
+                                )!.then((value) async {
                                   contactListScreenController.isLoading(true);
                                   contactListScreenController.hasMore = true;
                                   contactListScreenController.pageIndex = 1;
@@ -146,8 +147,15 @@ class ContactListWidget extends StatelessWidget {
                                       .clear();
                                   await contactListScreenController
                                       .getContactsFunction();
-                                });
-                                log("contactListScreenControlle.contactList[i].contactId ${contactListScreenController.contactList[i].contactId}");
+                                });;
+                                // Get.to(() => ContactManageScreen(), arguments: [
+                                //   ContactOption.update,
+                                //   contactListScreenController.companyId,
+                                //   contactListScreenController
+                                //       .contactList[i].contactId,
+                                // ])!
+
+                                // log("contactListScreenControlle.contactList[i].contactId ${contactListScreenController.contactList[i].contactId}");
                               },
                               child: Icon(
                                 Icons.edit_sharp,

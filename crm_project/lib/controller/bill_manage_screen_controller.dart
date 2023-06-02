@@ -25,6 +25,8 @@ class BillManageScreenController extends GetxController {
   BillOption billOption = Get.arguments[0];
   String billId = Get.arguments[1];
   String companyId = Get.arguments[2];
+  BillComingFrom billComingFrom = Get.arguments[3];
+  String contactId = Get.arguments[4];
 
   RxBool isLoading = false.obs;
   RxInt isSuccessStatusCode = 0.obs;
@@ -75,6 +77,7 @@ class BillManageScreenController extends GetxController {
 
   /// Item List Data
   List<ItemDetailsModel> mainItemList = [];
+
   void setMainItemListFunction() {
     /// List Module Data
     TextEditingController qtyFieldController = TextEditingController();
@@ -95,11 +98,11 @@ class BillManageScreenController extends GetxController {
           itemTotalFieldController: itemTotalFieldController,
           isActive: isActive),
     );
-
   }
 
   /// Payment List Data
   List<PaymentListModel> mainPaymentList = [];
+
   void setMainPaymentListFunction() {
     TextEditingController amountFieldController = TextEditingController();
     TextEditingController referenceFieldController = TextEditingController();
@@ -117,7 +120,6 @@ class BillManageScreenController extends GetxController {
     );
   }
 
-
   /// Get All Active Company Function
   Future<void> getAllActiveCompanyFunction() async {
     isLoading(true);
@@ -131,10 +133,10 @@ class BillManageScreenController extends GetxController {
         options: dio.Options(
             headers: {"Authorization": "Bearer ${AppMessage.token}"}),
       );
-      // log('Get All Active Company Response :${jsonEncode(response.data)}');
+      log('Get All Active Company Response :${jsonEncode(response.data)}');
 
       ActiveCompanyListModel activeCompanyListModel =
-      ActiveCompanyListModel.fromJson(response.data);
+          ActiveCompanyListModel.fromJson(response.data);
       isSuccessStatusCode.value = activeCompanyListModel.statusCode;
 
       if (isSuccessStatusCode.value == 200) {
@@ -146,7 +148,6 @@ class BillManageScreenController extends GetxController {
             companyDataValue = element;
           }
         }
-
       } else {
         log('getAllActiveCompanyFunction Else');
       }
@@ -158,7 +159,7 @@ class BillManageScreenController extends GetxController {
           Fluttertoast.showToast(msg: "Record Already Exist");
           log("Record Already Exist");
           isLoading(false);
-        } else if(statusCode == 401) {
+        } else if (statusCode == 401) {
           log('Please login again!');
         }
       }
@@ -185,7 +186,7 @@ class BillManageScreenController extends GetxController {
       // log('Get All Active Property Response :${response.data}');
 
       ActivePropertyListModel activePropertyListModel =
-      ActivePropertyListModel.fromJson(response.data);
+          ActivePropertyListModel.fromJson(response.data);
       isSuccessStatusCode.value = activePropertyListModel.statusCode;
 
       if (isSuccessStatusCode.value == 200) {
@@ -204,7 +205,7 @@ class BillManageScreenController extends GetxController {
           Fluttertoast.showToast(msg: "Record Already Exist");
           log("Record Already Exist");
           isLoading(false);
-        } else if(statusCode == 401) {
+        } else if (statusCode == 401) {
           log('Please login again!');
         }
       }
@@ -230,12 +231,13 @@ class BillManageScreenController extends GetxController {
       // log('Get All Active Property Response :${response.data}');
 
       ActivePaymentTypeListModel activePaymentTypeListModel =
-      ActivePaymentTypeListModel.fromJson(response.data);
+          ActivePaymentTypeListModel.fromJson(response.data);
       isSuccessStatusCode.value = activePaymentTypeListModel.statusCode;
 
       if (isSuccessStatusCode.value == 200) {
         paymentTypeList.clear();
-        paymentTypeList.add(PaymentTypeData(paymentTypes: "Select Payment Type"));
+        paymentTypeList
+            .add(PaymentTypeData(paymentTypes: "Select Payment Type"));
         paymentTypeDataValue = paymentTypeList[0];
         paymentTypeList.addAll(activePaymentTypeListModel.data);
       } else {
@@ -249,7 +251,7 @@ class BillManageScreenController extends GetxController {
           Fluttertoast.showToast(msg: "Record Already Exist");
           log("Record Already Exist");
           isLoading(false);
-        } else if(statusCode == 401) {
+        } else if (statusCode == 401) {
           log('Please login again!');
         }
       }
@@ -262,7 +264,8 @@ class BillManageScreenController extends GetxController {
   /// Get All Active Payment Method Function
   Future<void> getAllActivePaymentMethodFunction() async {
     isLoading(true);
-    String url = "${ApiUrl.getAllActivePaymentMethodApi}?customerId=${AppMessage.customerId}";
+    String url =
+        "${ApiUrl.getAllActivePaymentMethodApi}?customerId=${AppMessage.customerId}";
     log('Get All Active Payment Method Api Url :$url');
 
     try {
@@ -274,12 +277,13 @@ class BillManageScreenController extends GetxController {
       // log('Get All Active Property Response :${response.data}');
 
       ActivePaymentMethodListModel activePaymentMethodListModel =
-      ActivePaymentMethodListModel.fromJson(response.data);
+          ActivePaymentMethodListModel.fromJson(response.data);
       isSuccessStatusCode.value = activePaymentMethodListModel.statusCode;
 
       if (isSuccessStatusCode.value == 200) {
         paymentMethodList.clear();
-        paymentMethodList.add(PaymentMethodData(paymentMethods: "Select Payment Method"));
+        paymentMethodList
+            .add(PaymentMethodData(paymentMethods: "Select Payment Method"));
         paymentMethodDataValue = paymentMethodList[0];
         paymentMethodList.addAll(activePaymentMethodListModel.data);
       } else {
@@ -293,7 +297,7 @@ class BillManageScreenController extends GetxController {
           Fluttertoast.showToast(msg: "Record Already Exist");
           log("Record Already Exist");
           isLoading(false);
-        } else if(statusCode == 401) {
+        } else if (statusCode == 401) {
           log('Please login again!');
         }
       }
@@ -319,7 +323,7 @@ class BillManageScreenController extends GetxController {
       // log('Get All Active Category Response :${response.data}');
 
       ActiveCategoryTypeListModel activeCategoryTypeListModel =
-      ActiveCategoryTypeListModel.fromJson(response.data);
+          ActiveCategoryTypeListModel.fromJson(response.data);
       isSuccessStatusCode.value = activeCategoryTypeListModel.statusCode;
 
       if (isSuccessStatusCode.value == 200) {
@@ -328,12 +332,10 @@ class BillManageScreenController extends GetxController {
         categoryTypeDataValue = categoryTypeList[0];
         categoryTypeList.addAll(activeCategoryTypeListModel.data);
 
-
         itemNameList.clear();
         itemNameList.add(CategoryTypeData(category: "Select Item Name"));
         itemNameDataValue = itemNameList[0];
         itemNameList.addAll(activeCategoryTypeListModel.data);
-
       } else {
         log('getAllActiveCategoryFunction Else');
       }
@@ -345,17 +347,17 @@ class BillManageScreenController extends GetxController {
           Fluttertoast.showToast(msg: "Record Already Exist");
           log("Record Already Exist");
           isLoading(false);
-        } else if(statusCode == 401) {
+        } else if (statusCode == 401) {
           log('Please login again!');
         }
       }
       log('Error :$e');
     }
 
-    if(billOption == BillOption.create) {
+    if (billOption == BillOption.create) {
       // initializeMainItemListFunction();
       isLoading(false);
-    } else if(billOption == BillOption.update) {
+    } else if (billOption == BillOption.update) {
       await billDetailsGetByIdFunction();
     }
   }
@@ -373,44 +375,54 @@ class BillManageScreenController extends GetxController {
             headers: {"Authorization": "Bearer ${AppMessage.token}"}),
       );
       log('Bill Details Get By Id response : ${jsonEncode(response.data)}');
-      BillDetailsModel billDetailsModel = BillDetailsModel.fromJson(response.data);
+      BillDetailsModel billDetailsModel =
+          BillDetailsModel.fromJson(response.data);
       isSuccessStatusCode.value = billDetailsModel.statusCode;
 
-      if(isSuccessStatusCode.value == 200) {
+      if (isSuccessStatusCode.value == 200) {
         date = billDetailsModel.data.billDate;
         showDate.value = DateFormatChanger().dateFormat(date);
         dueDate = billDetailsModel.data.dueDate;
         showDueDate.value = DateFormatChanger().dateFormat(dueDate);
 
         referenceFieldController.text = billDetailsModel.data.reference;
-        balanceFieldController.text = billDetailsModel.data.totalAmount.toString();
-        totalFieldController.text = billDetailsModel.data.totalAmount.toString();
+        balanceFieldController.text =
+            billDetailsModel.data.totalAmount.toString();
+        totalFieldController.text =
+            billDetailsModel.data.totalAmount.toString();
 
-        for(var element in propertyList) {
-          if(element.propertyId.toString() == billDetailsModel.data.propertyId) {
+        for (var element in propertyList) {
+          if (element.propertyId.toString() ==
+              billDetailsModel.data.propertyId) {
             propertyDataValue = element;
           }
         }
 
         /// Set Bill Item List
-        if(billDetailsModel.data.billItem.isNotEmpty) {
-          for(var element in billDetailsModel.data.billItem.reversed) {
-            TextEditingController qtyFieldController = TextEditingController(text: element.qty.toString());
-            TextEditingController descriptionFieldController = TextEditingController(text: element.itemDescription.toString());
-            TextEditingController unitFieldController = TextEditingController(text: element.unit.toString());
-            TextEditingController priceFieldController = TextEditingController(text: element.price.toString());
-            TextEditingController itemTotalFieldController = TextEditingController(text: element.itemTotal.toString());
+        if (billDetailsModel.data.billItem.isNotEmpty) {
+          for (var element in billDetailsModel.data.billItem.reversed) {
+            TextEditingController qtyFieldController =
+                TextEditingController(text: element.qty.toString());
+            TextEditingController descriptionFieldController =
+                TextEditingController(text: element.itemDescription.toString());
+            TextEditingController unitFieldController =
+                TextEditingController(text: element.unit.toString());
+            TextEditingController priceFieldController =
+                TextEditingController(text: element.price.toString());
+            TextEditingController itemTotalFieldController =
+                TextEditingController(text: element.itemTotal.toString());
             bool isActive = element.isActive;
             CategoryTypeData categoryTypeData = CategoryTypeData();
 
-            var contain = categoryTypeList.where((element1) => element1.accountCategoryId == element.accountCategoryId);
+            var contain = categoryTypeList.where((element1) =>
+                element1.accountCategoryId == element.accountCategoryId);
             categoryTypeData = contain.first;
             log('contain ${contain.first.category}');
             log('contain ${contain.first.accountCategoryId}');
 
             mainItemList.add(
               ItemDetailsModel(
-                itemId: element.billItemId.toString(),
+                  itemId: element.billItemId.toString(),
                   qtyFieldController: qtyFieldController,
                   categoryTypeDataValue: categoryTypeData,
                   descriptionFieldController: descriptionFieldController,
@@ -425,22 +437,27 @@ class BillManageScreenController extends GetxController {
         }
 
         /// Set Payment Item List
-        if(billDetailsModel.data.payments.isNotEmpty) {
-          for(var paymentElement in billDetailsModel.data.payments.reversed) {
-            TextEditingController amountFieldController = TextEditingController(text: paymentElement.amount);
+        if (billDetailsModel.data.payments.isNotEmpty) {
+          for (var paymentElement in billDetailsModel.data.payments.reversed) {
+            TextEditingController amountFieldController =
+                TextEditingController(text: paymentElement.amount);
             DateTime paymentDate = paymentElement.paymentDate;
             PaymentTypeData paymentTypeDataValue = PaymentTypeData();
             PaymentMethodData paymentMethodDataValue = PaymentMethodData();
             CategoryTypeData categoryTypeDataValue = CategoryTypeData();
-            TextEditingController referenceFieldController = TextEditingController(text: paymentElement.reference);
+            TextEditingController referenceFieldController =
+                TextEditingController(text: paymentElement.reference);
 
-            var paymentTypeContain = paymentTypeList.where((element1) => element1.paymentTypeId == paymentElement.paymentTypeId);
+            var paymentTypeContain = paymentTypeList.where((element1) =>
+                element1.paymentTypeId == paymentElement.paymentTypeId);
             paymentTypeDataValue = paymentTypeContain.first;
 
-            var paymentMethodContain = paymentMethodList.where((element1) => element1.paymentMethodsId == paymentElement.paymentMethodId);
+            var paymentMethodContain = paymentMethodList.where((element1) =>
+                element1.paymentMethodsId == paymentElement.paymentMethodId);
             paymentMethodDataValue = paymentMethodContain.first;
 
-            var categoryTypeContain = categoryTypeList.where((element1) => element1.accountCategoryId == paymentElement.accountCategoryId);
+            var categoryTypeContain = categoryTypeList.where((element1) =>
+                element1.accountCategoryId == paymentElement.accountCategoryId);
             categoryTypeDataValue = categoryTypeContain.first;
 
             mainPaymentList.add(
@@ -454,20 +471,13 @@ class BillManageScreenController extends GetxController {
                 referenceFieldController: referenceFieldController,
               ),
             );
-
-
           }
         } else {
           setMainPaymentListFunction();
         }
-
-
-
       } else {
         log('billDetailsGetByIdFunction Else');
       }
-
-
     } catch (e) {
       if (e is dio.DioError && e.response != null) {
         final response = e.response;
@@ -476,18 +486,20 @@ class BillManageScreenController extends GetxController {
           Fluttertoast.showToast(msg: "Record Already Exist");
           log("Record Already Exist");
           isLoading(false);
-        } else if(statusCode == 401) {
+        } else if (statusCode == 401) {
           log('Please login again!');
         }
       }
       log('Error :$e');
     }
     isLoading(false);
-
   }
 
   /// Select Date Module
-  Future<void> selectDate({required BuildContext context, required DateTime initialDate, required SelectedDateType selectedDateType}) async {
+  Future<void> selectDate(
+      {required BuildContext context,
+      required DateTime initialDate,
+      required SelectedDateType selectedDateType}) async {
     DateTime? picked = await showDatePicker(
       context: context,
       initialDate: initialDate,
@@ -496,14 +508,13 @@ class BillManageScreenController extends GetxController {
     );
 
     if (picked != null) {
-      if(selectedDateType == SelectedDateType.date) {
+      if (selectedDateType == SelectedDateType.date) {
         date = picked;
         showDate.value = DateFormatChanger().dateFormat(date);
-      } else if(selectedDateType == SelectedDateType.dueDate) {
+      } else if (selectedDateType == SelectedDateType.dueDate) {
         dueDate = picked;
         showDueDate.value = DateFormatChanger().dateFormat(dueDate);
       }
-
     }
   }
 
@@ -515,11 +526,15 @@ class BillManageScreenController extends GetxController {
 
     try {
       List<Map<String, dynamic>> billItemList = [];
-      for(int i =0; i < mainItemList.length; i++) {
+      for (int i = 0; i < mainItemList.length; i++) {
         Map<String, dynamic> singleItemData = {
           "Qty": mainItemList[i].qtyFieldController.text.trim(),
-          "AccountCategoryId": mainItemList[i].categoryTypeDataValue.accountCategoryId.toString(),
-          "ItemDescription": mainItemList[i].descriptionFieldController.text.trim(),
+          "AccountCategoryId": mainItemList[i]
+              .categoryTypeDataValue
+              .accountCategoryId
+              .toString(),
+          "ItemDescription":
+              mainItemList[i].descriptionFieldController.text.trim(),
           "Unit": mainItemList[i].unitFieldController.text.trim(),
           "Price": mainItemList[i].priceFieldController.text.trim(),
           "ItemTotal": mainItemList[i].itemTotalFieldController.text.trim(),
@@ -529,7 +544,7 @@ class BillManageScreenController extends GetxController {
       }
 
       List<Map<String, dynamic>> paymentList = [];
-      for(var element in mainPaymentList) {
+      for (var element in mainPaymentList) {
         Map<String, dynamic> singleItemData = {
           "Amount": element.amountFieldController.text.trim(),
           "PaymentDate": DateFormatChangerYMD().dateFormat(element.paymentDate),
@@ -543,7 +558,7 @@ class BillManageScreenController extends GetxController {
       // log('billItemList : $billItemList');
       // log('paymentList : $paymentList');
 
-      Map<String, dynamic> mainBodyData = {
+      Map<String, dynamic> companyMainBodyData = {
         "CompanyID": companyId,
         "Reference": referenceFieldController.text.trim(),
         "BillDate": DateFormatChangerYMD().dateFormat(date),
@@ -552,16 +567,29 @@ class BillManageScreenController extends GetxController {
         "TotalAmount": totalFieldController.text.trim(),
         "Paid": isPaidValue.value,
         "IsActive": true,
-        "type" : "Company",
+        "type": "Company",
+        "billItem": billItemList,
+        "payments": paymentList
+      };
+      Map<String, dynamic> contactMainBodyData = {
+        "contactID": companyId,
+        "Reference": referenceFieldController.text.trim(),
+        "BillDate": DateFormatChangerYMD().dateFormat(date),
+        "DueDate": DateFormatChangerYMD().dateFormat(dueDate),
+        "Address": addressFieldController.text.trim(),
+        "TotalAmount": totalFieldController.text.trim(),
+        "Paid": isPaidValue.value,
+        "IsActive": true,
+        "type": "contact",
         "billItem": billItemList,
         "payments": paymentList
       };
 
-      log('mainBodyData :${jsonEncode(mainBodyData)}');
-
       final response = await dioRequest.post(
         url,
-        data: mainBodyData,
+        data: billComingFrom == BillComingFrom.company
+            ? companyMainBodyData
+            : contactMainBodyData,
         options: dio.Options(
             headers: {"Authorization": "Bearer ${AppMessage.token}"}),
       );
@@ -569,7 +597,7 @@ class BillManageScreenController extends GetxController {
       SuccessModel successModel = SuccessModel.fromJson(response.data);
       isSuccessStatusCode.value = successModel.statusCode;
 
-      if(isSuccessStatusCode.value == 201) {
+      if (isSuccessStatusCode.value == 201) {
         Get.back();
         CommonToastModule(
           msg: successModel.message,
@@ -578,8 +606,6 @@ class BillManageScreenController extends GetxController {
       } else {
         log('Add Bill Function Else');
       }
-
-
     } catch (e) {
       if (e is dio.DioError && e.response != null) {
         final response = e.response;
@@ -588,13 +614,12 @@ class BillManageScreenController extends GetxController {
           Fluttertoast.showToast(msg: "Record Already Exist");
           log("Record Already Exist");
           isLoading(false);
-        } else if(statusCode == 401) {
+        } else if (statusCode == 401) {
           log('Please login again!');
         }
       }
       log('Error :$e');
     }
-
   }
 
   Future<void> updateBillFunction() async {
@@ -605,12 +630,16 @@ class BillManageScreenController extends GetxController {
 
     try {
       List<Map<String, dynamic>> billItemList = [];
-      for(int i =0; i < mainItemList.length; i++) {
+      for (int i = 0; i < mainItemList.length; i++) {
         Map<String, dynamic> singleItemData = {
           "BillItemID": mainItemList[i].itemId ?? "",
           "Qty": mainItemList[i].qtyFieldController.text.trim(),
-          "AccountCategoryId": mainItemList[i].categoryTypeDataValue.accountCategoryId.toString(),
-          "ItemDescription": mainItemList[i].descriptionFieldController.text.trim(),
+          "AccountCategoryId": mainItemList[i]
+              .categoryTypeDataValue
+              .accountCategoryId
+              .toString(),
+          "ItemDescription":
+              mainItemList[i].descriptionFieldController.text.trim(),
           "Unit": mainItemList[i].unitFieldController.text.trim(),
           "Price": mainItemList[i].priceFieldController.text.trim(),
           "ItemTotal": mainItemList[i].itemTotalFieldController.text.trim(),
@@ -620,7 +649,7 @@ class BillManageScreenController extends GetxController {
       }
 
       List<Map<String, dynamic>> paymentList = [];
-      for(var element in mainPaymentList) {
+      for (var element in mainPaymentList) {
         Map<String, dynamic> singleItemData = {
           "PaymentID": element.paymentId ?? "",
           "Amount": element.amountFieldController.text.trim(),
@@ -635,7 +664,7 @@ class BillManageScreenController extends GetxController {
       // log('billItemList : $billItemList');
       // log('paymentList : $paymentList');
 
-      Map<String, dynamic> mainBodyData = {
+      Map<String, dynamic> companyMainBodyData = {
         "BillID": billId,
         "CompanyID": companyId,
         "Reference": referenceFieldController.text.trim(),
@@ -645,16 +674,30 @@ class BillManageScreenController extends GetxController {
         "TotalAmount": totalFieldController.text.trim(),
         "Paid": isPaidValue.value,
         "IsActive": true,
-        "type" : "Company",
+        "type": "Company",
+        "billItem": billItemList,
+        "payments": paymentList
+      };
+      Map<String, dynamic> contactMainBodyData = {
+        "BillID": billId,
+        "contactID": companyId,
+        "Reference": referenceFieldController.text.trim(),
+        "BillDate": DateFormatChangerYMD().dateFormat(date),
+        "DueDate": DateFormatChangerYMD().dateFormat(dueDate),
+        "Address": addressFieldController.text.trim(),
+        "TotalAmount": totalFieldController.text.trim(),
+        "Paid": isPaidValue.value,
+        "IsActive": true,
+        "type": "contact",
         "billItem": billItemList,
         "payments": paymentList
       };
 
-      log('mainBodyData :${jsonEncode(mainBodyData)}');
-
       final response = await dioRequest.put(
         url,
-        data: mainBodyData,
+        data: billComingFrom == BillComingFrom.company
+            ? companyMainBodyData
+            : contactMainBodyData,
         options: dio.Options(
             headers: {"Authorization": "Bearer ${AppMessage.token}"}),
       );
@@ -662,7 +705,7 @@ class BillManageScreenController extends GetxController {
       SuccessModel successModel = SuccessModel.fromJson(response.data);
       isSuccessStatusCode.value = successModel.statusCode;
 
-      if(isSuccessStatusCode.value == 200) {
+      if (isSuccessStatusCode.value == 200) {
         Get.back();
         CommonToastModule(
           msg: successModel.message,
@@ -671,8 +714,6 @@ class BillManageScreenController extends GetxController {
       } else {
         log('Add Bill Function Else');
       }
-
-
     } catch (e) {
       if (e is dio.DioError && e.response != null) {
         final response = e.response;
@@ -681,13 +722,12 @@ class BillManageScreenController extends GetxController {
           Fluttertoast.showToast(msg: "Record Already Exist");
           log("Record Already Exist");
           isLoading(false);
-        } else if(statusCode == 401) {
+        } else if (statusCode == 401) {
           log('Please login again!');
         }
       }
       log('Error :$e');
     }
-
   }
 
   loadUI() {
@@ -703,16 +743,17 @@ class BillManageScreenController extends GetxController {
 
   Future<void> initMethod() async {
     log('billId :$billId');
+    log('Init companyId :$companyId');
     bool isCreate = billOption == BillOption.create ? true : false;
     appBarHeader.value =
-    isCreate == true ? AppMessage.addBill : AppMessage.billDetails;
+        isCreate == true ? AppMessage.addBill : AppMessage.billDetails;
 
     showDate.value = DateFormatChanger().dateFormat(date);
     showDueDate.value = DateFormatChanger().dateFormat(dueDate);
 
     await getAllActiveCompanyFunction();
 
-    if(BillOption.create == billOption) {
+    if (BillOption.create == billOption) {
       setMainItemListFunction();
       setMainPaymentListFunction();
     }
@@ -723,7 +764,4 @@ class BillManageScreenController extends GetxController {
 
     // await getAllActiveCategoryFunction();
   }
-
-
-
 }

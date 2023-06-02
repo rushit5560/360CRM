@@ -24,7 +24,6 @@ class LedgerListWidget extends StatelessWidget {
         : ListView.builder(
             itemCount: screenController.ledgerList.length + 1,
             itemBuilder: (context, i) {
-
               if (i < screenController.ledgerList.length) {
                 LedgerData singleItem = screenController.ledgerList[i];
                 return Container(
@@ -100,8 +99,8 @@ class LedgerListWidget extends StatelessWidget {
                                     onChanged: (value) async {
                                       await screenController
                                           .changeLedgerStatusFunction(
-                                        ledgerId:
-                                        singleItem.accountLedgerId.toString(),
+                                        ledgerId: singleItem.accountLedgerId
+                                            .toString(),
                                         status: value,
                                         index: i,
                                       );
@@ -113,13 +112,15 @@ class LedgerListWidget extends StatelessWidget {
                             InkWell(
                               onTap: () {
                                 Get.to(() => LedgerManageScreen(),
-                                    arguments: [
-                                      LedgerOption.update,
-                                      singleItem.accountLedgerId.toString(),
-                                      screenController.companyId.toString(),
-                                      LedgerComingFrom.workOrder,
-                                    ],
-                                    transition: Transition.zoom)!.then((value) async {
+                                        arguments: [
+                                          LedgerOption.update,
+                                          singleItem.accountLedgerId.toString(),
+                                          screenController.companyId.toString(),
+                                          screenController.ledgerComingFrom,
+                                          screenController.contactId,
+                                        ],
+                                        transition: Transition.zoom)!
+                                    .then((value) async {
                                   screenController.isLoading(true);
                                   screenController.hasMore = true;
                                   screenController.pageIndex = 1;
@@ -142,14 +143,14 @@ class LedgerListWidget extends StatelessWidget {
                                       size: Get.width * .4),
                                   titleText: AppMessage.areYouSure,
                                   subTitleText:
-                                  AppMessage.doYouWantToDeleteThisRecord,
+                                      AppMessage.doYouWantToDeleteThisRecord,
                                   onYesText: AppMessage.yesDeleteIt,
                                   onCancelText: AppMessage.cancel,
                                   onYesTap: () async {
                                     Get.back();
                                     await screenController.deleteLedgerFunction(
                                       ledgerId:
-                                      singleItem.accountLedgerId.toString(),
+                                          singleItem.accountLedgerId.toString(),
                                       index: i,
                                     );
                                   },
@@ -169,11 +170,11 @@ class LedgerListWidget extends StatelessWidget {
                     ],
                   ),
                 ).paddingSymmetric(vertical: 5);
-        } else {
-          return screenController.hasMore
-              ? Center(child: CommonLoader().showLoader())
-              : Container();
-        }
+              } else {
+                return screenController.hasMore
+                    ? Center(child: CommonLoader().showLoader())
+                    : Container();
+              }
             },
           );
   }

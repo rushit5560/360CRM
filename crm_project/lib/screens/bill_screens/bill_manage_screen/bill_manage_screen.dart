@@ -24,6 +24,7 @@ class BillManageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log("BillManageScreen company id : ${billManageScreenController.companyId}");
     return Scaffold(
       backgroundColor: AppColors.appColorsSecondry,
       appBar: CustomAppBar(

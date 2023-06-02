@@ -31,7 +31,6 @@ class NotesListScreen extends StatelessWidget {
             : Column(
                 children: [
                   NoteSearchBarWidget().paddingOnly(top: 20, bottom: 5),
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -40,9 +39,10 @@ class NotesListScreen extends StatelessWidget {
                           AppMessage.notesList,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                              color: AppColors.appColors,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15.sp),
+                            color: AppColors.appColors,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15.sp,
+                          ),
                         ),
                       ),
                       Container(
@@ -60,7 +60,6 @@ class NotesListScreen extends StatelessWidget {
                               color: AppColors.appColors,
                             ),
                             const SizedBox(width: 5),
-
                             Text(
                               AppMessage.export,
                               style: TextStyle(
@@ -74,15 +73,10 @@ class NotesListScreen extends StatelessWidget {
                     ],
                   ).paddingOnly(top: 8),
                   const CustomDivider(),
-
                   Expanded(child: NotesListWidget()),
-
-
                 ],
               ).paddingOnly(left: 10, right: 10),
       ),
-
-
       floatingActionButton: FloatingActionButton(
         heroTag: 'a',
         onPressed: () {
@@ -91,21 +85,21 @@ class NotesListScreen extends StatelessWidget {
                     NotesOption.create,
                     "",
                     notesListScreenController.companyId.toString(),
+                    notesListScreenController.notesComingFrom,
+                    // notesListScreenController.contactId.toString(),
                   ],
-                  transition: Transition.zoom)!.then((value) async {
-                notesListScreenController.isLoading(true);
-                notesListScreenController.hasMore = true;
-                notesListScreenController.pageIndex = 1;
-                notesListScreenController.notesList.clear();
-                await notesListScreenController.getNotesFunction();
-
+                  transition: Transition.zoom)!
+              .then((value) async {
+            notesListScreenController.isLoading(true);
+            notesListScreenController.hasMore = true;
+            notesListScreenController.pageIndex = 1;
+            notesListScreenController.notesList.clear();
+            await notesListScreenController.getNotesFunction();
           });
         },
         backgroundColor: AppColors.appColors,
         child: const Icon(Icons.add),
       ),
-
-
     );
   }
 }

@@ -7,14 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart' as dio;
-import '../../constants/api_url.dart';
-import '../../models/contact_screen_models/active_Contact_category_model.dart';
-import '../../models/contact_screen_models/active_area_of_interest_model.dart';
-import '../../models/contact_screen_models/active_contact_type_model.dart';
-import '../../models/contact_screen_models/get_contact_role_model.dart';
-import '../../models/success_model/success_model.dart';
-import '../../utils/common_functions.dart';
-import '../../utils/messaging.dart';
+import '../../../constants/api_url.dart';
+import '../../../models/contact_screen_models/active_Contact_category_model.dart';
+import '../../../models/contact_screen_models/active_area_of_interest_model.dart';
+import '../../../models/contact_screen_models/active_contact_type_model.dart';
+import '../../../models/contact_screen_models/get_contact_role_model.dart';
+import '../../../models/success_model/success_model.dart';
+import '../../../utils/common_functions.dart';
+import '../../../utils/messaging.dart';
 
 class ContactManageScreenController extends GetxController {
   ContactOption contactOption = Get.arguments[0];

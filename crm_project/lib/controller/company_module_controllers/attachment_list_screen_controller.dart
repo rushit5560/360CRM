@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:crm_project/constants/api_url.dart';
 import 'package:crm_project/models/success_model/success_model.dart';
+import 'package:crm_project/utils/enums.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -12,10 +13,11 @@ import '../../utils/messaging.dart';
 
 class AttachmentListScreenController extends GetxController {
   String companyId = Get.arguments[0];
+  AttachmentComingFrom attachmentComingFrom = Get.arguments[1];
+
   RxBool isLoading = false.obs;
   RxInt isSuccessStatusCode = 0.obs;
   final dioRequest = dio.Dio();
-
   final searchTextFieldController = TextEditingController();
   final scrollController = ScrollController();
 
@@ -29,8 +31,9 @@ class AttachmentListScreenController extends GetxController {
 //Get Attachment List
   Future<void> attachmentListFunction() async {
     if (hasMore == true) {
-      String url =
-          "${ApiUrl.companyAttachmentListApi}?PageNumber=$pageIndex&PageSize=$itemCount&type=company&id=$companyId";
+      String url = attachmentComingFrom == AttachmentComingFrom.company
+          ? "${ApiUrl.companyAttachmentListApi}?PageNumber=$pageIndex&PageSize=$itemCount&type=company&id=$companyId"
+          : "${ApiUrl.contactAttachmentApi}?PageNumber=$pageIndex&PageSize=$itemCount&type=contact&id=$companyId";
       log('Get Attachment Url: $url');
       try {
         final response = await dioRequest.get(url,
@@ -72,7 +75,8 @@ class AttachmentListScreenController extends GetxController {
   }
 
 //Delete Attachment
-  Future<void> deleteAttachmentFunction({required int index, required String attachmentId}) async {
+  Future<void> deleteAttachmentFunction(
+      {required int index, required String attachmentId}) async {
     isLoading(true);
     final url = ApiUrl.companyAttachmentDeleteApi;
     log('Attachment Delete URL: $url');
@@ -90,15 +94,13 @@ class AttachmentListScreenController extends GetxController {
       log('Attachment delete responce: ${response.data}');
       SuccessModel successModel = SuccessModel.fromJson(response.data);
       isSuccessStatusCode.value = successModel.statusCode;
-      if(isSuccessStatusCode.value == 200){
+      if (isSuccessStatusCode.value == 200) {
         log('Attachment delete Success : $isSuccessStatusCode');
         Fluttertoast.showToast(msg: successModel.message);
         attachmentList.removeAt(index);
-      }else{
+      } else {
         log('Attachment delete else: $isSuccessStatusCode');
       }
-
-
     } catch (e) {
       log('Catch delete attachment: $e');
     }
@@ -106,38 +108,41 @@ class AttachmentListScreenController extends GetxController {
   }
 
 //Attachment status Change
-  Future<void> statusChangeAttachmentFunction({required String attachmentId,required bool status,required int index})async{
+  Future<void> statusChangeAttachmentFunction(
+      {required String attachmentId,
+      required bool status,
+      required int index}) async {
     isLoading(true);
-    final url =  ApiUrl.companyAttachmentChangeStatusApi;
+    final url = ApiUrl.companyAttachmentChangeStatusApi;
     log('status change Attachment URL: $url');
-    try{
-      Map<String,dynamic> attachmentStatusData={
+    try {
+      Map<String, dynamic> attachmentStatusData = {
         "AttachmentID": attachmentId,
         "IsActive": status
       };
 
       final response = await dioRequest.put(url,
-      data: attachmentStatusData,options: dio.Options(
-              headers: {"Authorization": "Bearer ${AppMessage.token}"}
-          ));
+          data: attachmentStatusData,
+          options: dio.Options(
+              headers: {"Authorization": "Bearer ${AppMessage.token}"}));
       log('status change Attachment responce: ${response.data}');
       SuccessModel successModel = SuccessModel.fromJson(response.data);
-      isSuccessStatusCode.value =  successModel.statusCode;
+      isSuccessStatusCode.value = successModel.statusCode;
 
-      if(isSuccessStatusCode.value == 200){
+      if (isSuccessStatusCode.value == 200) {
         Fluttertoast.showToast(msg: successModel.message);
         attachmentList[index].isActive = status;
         log('status change Attachment : ${successModel.message}');
-      }else{
+      } else {
         log('status change Attachment else ');
       }
-    }
-    catch(e){
+    } catch (e) {
       log('Catch Attachment change status: $e');
     }
 
     isLoading(false);
   }
+
   @override
   void onInit() {
     initMethod();

@@ -8,7 +8,7 @@ import '../../../utils/enums.dart';
 import '../../../utils/messaging.dart';
 import '../../ledger_screens/ledger_list_screen/ledger_list_screen.dart';
 import 'details_work_order_screen/details_work_order_screen.dart';
-
+import 'package:crm_project/screens/work_order_screen/edit_work_order_screen/repair_list_screen/repair_list_screen.dart';
 class EditWorkOrderOptionsScreen extends StatelessWidget {
   EditWorkOrderOptionsScreen({Key? key}) : super(key: key);
   final editWorkOrderScreenController =
@@ -40,14 +40,11 @@ class EditWorkOrderOptionsScreen extends StatelessWidget {
               CommonListTitleModule(
                 icon: Icon(Icons.list, size: 20.sp),
                 titleText: AppMessage.repairList,
-                // ontap: () => Get.to(
-                //       () => ManageCompanyDetailsScreen(),
-                //   arguments: [
-                //     CompanyOption.update,
-                //     editCompanyDetailsScreenController.companyName.toString(),
-                //     editCompanyDetailsScreenController.companyId.toString(),
-                //   ],
-                // ),
+                ontap: () {
+                  Get.to(()=> RepairListScreen(),
+                    arguments: [editWorkOrderScreenController.companyId],
+                  );
+                },
               ),
               CommonListTitleModule(
                 icon: Icon(Icons.contacts, size: 20.sp),
@@ -70,6 +67,7 @@ class EditWorkOrderOptionsScreen extends StatelessWidget {
                     arguments: [
                       editWorkOrderScreenController.companyId,
                       LedgerComingFrom.workOrder,
+                      "",
                     ],
                   );
                 },

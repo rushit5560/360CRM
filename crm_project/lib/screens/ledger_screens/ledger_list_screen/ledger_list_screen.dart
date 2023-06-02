@@ -110,7 +110,9 @@ class LedgerListScreen extends StatelessWidget {
                 LedgerOption.create,
                 "",
                 ledgerListScreenController.companyId.toString(),
-                LedgerComingFrom.company,
+                ledgerListScreenController.ledgerComingFrom,
+                ledgerListScreenController.contactId,
+
               ],
               transition: Transition.zoom)!.then((value) async {
             ledgerListScreenController.isLoading(true);

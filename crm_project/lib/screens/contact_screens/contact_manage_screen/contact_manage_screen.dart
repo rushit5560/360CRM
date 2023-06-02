@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import '../../../common_modules/common_loader.dart';
 import '../../../common_widgets/custom_appbar.dart';
 import '../../../constants/colors.dart';
-import '../../../controller/company_module_controllers/contact_manage_screen_controller.dart';
+import '../../../controller/company_module_controllers/contact_module_controller/contact_manage_screen_controller.dart';
 
 class ContactManageScreen extends StatelessWidget {
   ContactManageScreen({super.key});

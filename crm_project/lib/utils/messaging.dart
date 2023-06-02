@@ -4,6 +4,11 @@ class AppMessage {
   static String address = 'Address';
   static String contact = 'Contact';
   static String notes = 'Notes';
+  static String tenantInfo = 'Tenant Info';
+  static String tenantEmployment = "Tenant Employment";
+  static String tenantFinance = "Tenant Finance";
+  static String attachments = "Attachments";
+  static String relatedContacts = 'Related Contacts';
   static String attachment = 'Attachment';
   static String underManagement = 'Under Management';
   static String ledger = 'Ledger';
@@ -53,10 +58,10 @@ class AppMessage {
   static String phone = "phone";
   static String role = "Role";
   static String contactCatecory = "Contact Catecory";
-
   static String email = "Email";
   static String mobileNumber = "Mobile Number";
   static String companyName = 'Company Name';
+
   // static String phone = 'Phone';
   static String description = 'Description';
   static String repairList = 'Repair List';
@@ -78,12 +83,17 @@ class AppMessage {
   static String date = 'Date';
   static String contacts = 'Contacts';
   static const String submitLabel = "Submit";
+
   // Bill Messages
   static String billList = "Bill List";
+  static String preQualificationList = "Pre qualification List";
+
   static String totalLabel = "Total";
   static const String addBill = "Add Bill";
   static const String billDetails = "Bill Details";
   static const String balanceLabel = "Balance";
+  static const String preQualification = "Pre qualification checklist";
+
   // Ledger Messages
   static String searchFieldText = "Search...";
   static String noData = "No Data";
@@ -109,12 +119,13 @@ class AppMessage {
   static String mortgageLabel = "Mortgage";
   static String selectMortgageLabel = "Select Mortgage";
   static String leaseLabel = "Lease";
+  static String preQualificationChecklist = "Pre-Qualification Checklist";
+  static String activities = "Activities";
   static String selectLeaseLabel = "Select Lease";
   static String propertyManagementLabel = "Property Management";
   static String selectPropertyManagementLabel = "Select Property Management";
   static String prospectLabel = "Prospect";
   static String selectProspectLabel = "Select Prospect";
-
   static const String qty = "Qty";
   static const String itemNameLabel = "item Name";
   static const String paymentDateLabel = "Payment Date";
@@ -124,11 +135,9 @@ class AppMessage {
   static const String selectPaymentMethodLabel = "Select Payment Method";
   static const String categoryTypeLabel = "Category Type";
   static const String selectCategoryTypeLabel = "Select Category Type";
-
   static String totalAmountLabel = "Total Amount";
   static String price = 'Price';
   static String paid = 'Paid';
-
   static String startDate = "Start Date";
   static String endDate = "End Date";
   static String renewalType = "Renewal Type";
@@ -137,20 +146,90 @@ class AppMessage {
   static String selectWorkOrderStatus = "Select Work Order Status";
   static String selectWorkOrderProperty = "Select Work Order Property";
   static String selectWorkOrderCompany = "Select Work Order Company";
-
-
   static String invoiceList = "Invoice List";
   static String total = "Total";
   static String billingAddress = "Billing Address";
   static String shippingAddress = "Shipping Address";
-
   static String selectBillingCompany = "Select Billing Company";
   static String selectShippingCompany = "Select Shipping Company";
   static String printed = "Printed";
+  static String unitCostLabel = 'Unit Cost';
+  static const String itemLabel = "item";
+  static String propertyDetails = "Property Details";
+  static String financialDetails = "Financial Details";
+  static String propertyAddress = "Property Address";
+  static String state = "State";
+  static String city = "City";
+  static String zip = "Zip";
+  static String leadSource = "Lead Source";
+  static String expectedAfterRepairValue = "Expected After Repair Value";
+  static String landValue = "Land Value";
+  static String offerPrice = "Offer Price";
+  static String howDidYouFindThisProperty  = "How did you find this property?";
+  static String grossMonthlyRevenue  = "Gross Monthly Revenue";
+  static String condoAssociationFees  = "Condo Association Fees";
+  static String monthlyRepairsMaintenance  = "Monthly Repairs & Maintenance";
+  static String monthlyTaxes  = "Monthly Taxes";
+  static String administrativeAllowance  = "Administrative Allowance";
+  static String monthlyInsurance  = "Monthly Insurance";
+  static String monthlyUtilities  = "Monthly Utilities";
+  static String projectCosts  = "Project Costs";
+  static String rehabCostsPaidOutOfPocket  = 'Rehab Costs Paid out of Pocket';
+  static String acquisitionCosts  = 'Acquisition Costs';
+  static String appraisal  = 'Appraisal';
+  static String inspection  = 'Inspection';
+  static String survey  = 'Survey';
+  static String wholesaleFee  = 'Wholesale Fee';
+  static String mortgageTermMonths  = 'Mortgage Term (Months)';
+  static String paymentsPerYear  = 'Payments Per Year';
+  static String expectedHoldingTerm  = 'Expected Holding Term';
+  static String downPaymentPercentage  = 'Down Payment Percentage ';
+  static String downPaymentPerAmt  = 'Down Payment % / Amt.';
+  static String downPaymentAmount  = 'Down Payment Amount.';
+  static String financedAmount  = 'Financed Amount';
+  static String interestRate  = 'Interest Rate';
+  static String interestOnly  = 'Interest Only';
+  static String loanPoints  = 'Loan Points';
+  static String preferredRateOfReturn  = 'Preferred Rate of Return';
+  static String pointsFinanced  = 'Points Financed';
+  static String annualCashFlowAnalysis  = 'Annual Cash Flow Analysis';
+  static String  effectiveGrossIncome = 'Effective Gross Income';
+  static String  operatingExpenses = 'Operating Expenses';
+  static String  netOperatingIncome = 'Net Operating Income';
+  static String  capitalizationRate = 'Capitalization Rate';
+  static String  annualDebtService = 'Annual Debt Service';
+  static String  debtCoverageRatio = 'Debt Coverage Ratio';
+  static String  annualCashFlow = 'Annual Cash Flow';
+  static String  totalOutOfPocket = 'Total Out of Pocket';
+  static String  returnOnInvestment = 'Return on Investment';
+  static String  quickFlipAnalysis = 'Quick Flip Analysis';
+  static String salesPrice =   'Sales Price';
+  static String purchasePrice =  'Purchase Price';
+  // static String acquisitionCosts =  ;
+  static String carryingCosts =  'Carrying Costs';
+  static String rehabCosts =   'Rehab Costs';
+  static String sellingExpenses =  'Selling Expenses';
+  static String totalProjectCost=  'Total Project Cost';
+  static String netProfit =   'Net Profit';
+  // static String totalOutOfPocket =  '';
+  static String annualizedROI =  'Annualized ROI';
+  static String quickFlip =  'Quick Flip';
+  // static String purchasePrice = 'Purchase Price';
+  static String sellingCosts  = 'Selling Costs';
+  static String outOfPocket = 'Out Of Pocket';
+  static String loanCost = 'Loan Cost';
+  static String totalOfProject = 'Total of Project';
+  // static String annualizedROI = 'Annualized ROI';
+  static String carryingCost = 'Carrying Cost';
+  // static String salesPrice = 'Sales Price';
+  static String projectCost = 'Project cost';
+  // static String netProfit = 'Net Profit';
 
-
+// Repair Messages
+  static const String repairListLabel= "Repair List";
+  static const String areaLabel= "Area";
 //token
   static String token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiRGhydXZpIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQ3VzdG9tZXIiLCJleHAiOjE2ODU2MDc5NjIsImlzcyI6Imh0dHA6Ly81LjE4OS4xNDcuMTU5OjcwMDMvIiwiYXVkIjoiaHR0cDovLzUuMTg5LjE0Ny4xNTk6NzAwMy8ifQ.ogSEGlnrJCBBWbGMwdbYENvc3J0FGWtt1BCfABEYnTg";
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiRGhydXZpIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQ3VzdG9tZXIiLCJleHAiOjE2ODU3MTUwMjUsImlzcyI6Imh0dHA6Ly81LjE4OS4xNDcuMTU5OjcwMDMvIiwiYXVkIjoiaHR0cDovLzUuMTg5LjE0Ny4xNTk6NzAwMy8ifQ.BLJ5B2QFYR7SXsR9ajmfYiN4O7cDkrq8GE2KLfRO5Io";
   static String customerId = "2";
 }

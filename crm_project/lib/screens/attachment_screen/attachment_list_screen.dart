@@ -37,7 +37,10 @@ class AttachmentListScreen extends StatelessWidget {
         onPressed: () {
           Get.to(
             () => AttachmentAddScreen(),
-              arguments: [attachmentListScreenController.companyId.toString()]
+              arguments: [attachmentListScreenController.companyId.toString(),
+                attachmentListScreenController.attachmentComingFrom,
+
+              ]
           )!.then((value)async {
             attachmentListScreenController.isLoading(true);
             attachmentListScreenController.hasMore = true;

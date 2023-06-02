@@ -6,10 +6,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart' as dio;
 
-import '../../constants/api_url.dart';
-import '../../models/contact_screen_models/contact_list_model.dart';
-import '../../models/success_model/success_model.dart';
-import '../../utils/messaging.dart';
+import '../../../constants/api_url.dart';
+import '../../../models/contact_screen_models/contact_list_model.dart';
+import '../../../models/success_model/success_model.dart';
+import '../../../utils/messaging.dart';
 
 class ContactListScreenController extends GetxController {
   String companyId = Get.arguments[0];

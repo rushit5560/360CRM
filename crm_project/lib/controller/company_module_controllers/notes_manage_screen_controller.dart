@@ -15,6 +15,7 @@ class NotesManageScreenController extends GetxController {
   NotesOption notesOption = Get.arguments[0];
   String notesId = Get.arguments[1];
   String companyId = Get.arguments[2];
+  NotesComingFrom notesComingFrom = Get.arguments[3];
 
   RxBool isLoading = false.obs;
   RxInt isSuccessStatusCode = 0.obs;
@@ -38,34 +39,39 @@ class NotesManageScreenController extends GetxController {
     log('Create Notes Api Url :$url');
 
     try {
-
-      Map<String, dynamic> bodyData = {
+      Map<String, dynamic> companyBodyData = {
         "Notes": notesFieldController.text.trim(),
         "customerId": AppMessage.customerId,
         "type": "company",
         "CompanyID": companyId,
         "isActive": isStatusSelected.value
       };
-
+      Map<String, dynamic> contactBodyData = {
+        "Notes": notesFieldController.text.trim(),
+        "customerId": AppMessage.customerId,
+        "type": "contact",
+        "contactID": companyId,
+        "isActive": isStatusSelected.value
+      };
       final response = await dioRequest.post(
         url,
-        data: bodyData,
+        data: notesComingFrom == NotesComingFrom.company
+            ? companyBodyData
+            : contactBodyData,
         options: dio.Options(
-            headers: {"Authorization": "Bearer ${AppMessage.token}"}
-        ),
+            headers: {"Authorization": "Bearer ${AppMessage.token}"}),
       );
       log('Notes Create Response :${jsonEncode(response.data)}');
       SuccessModel successModel = SuccessModel.fromJson(response.data);
       isSuccessStatusCode.value = successModel.statusCode;
 
-      if(isSuccessStatusCode.value == 201) {
+      if (isSuccessStatusCode.value == 201) {
         Fluttertoast.showToast(msg: successModel.message);
         Get.back();
       } else {
         log('Notes Create Else');
       }
-
-    } catch(e) {
+    } catch (e) {
       log('Create Notes Error :$e');
       // rethrow;
     }
@@ -82,27 +88,25 @@ class NotesManageScreenController extends GetxController {
       final response = await dioRequest.get(
         url,
         options: dio.Options(
-            headers: {"Authorization": "Bearer ${AppMessage.token}"}
-        ),
+            headers: {"Authorization": "Bearer ${AppMessage.token}"}),
       );
       log('Get Notes Details Response : ${jsonEncode(response.data)}');
 
-      NoteDetailsModel noteDetailsModel = NoteDetailsModel.fromJson(response.data);
+      NoteDetailsModel noteDetailsModel =
+          NoteDetailsModel.fromJson(response.data);
       isSuccessStatusCode.value = noteDetailsModel.statusCode;
 
-      if(isSuccessStatusCode.value == 200) {
+      if (isSuccessStatusCode.value == 200) {
         notesFieldController.text = noteDetailsModel.data.notes;
         isStatusSelected.value = noteDetailsModel.data.isActive;
       } else {
         log('Get Notes Details Else');
       }
-
-    } catch(e) {
+    } catch (e) {
       log('Get Notes Details By Id Error :$e');
     }
     isLoading(false);
   }
-
 
   // Update Notes Function
   Future<void> updateNotesFunction() async {
@@ -111,7 +115,7 @@ class NotesManageScreenController extends GetxController {
     log('Update Note Function Api Url : $url');
 
     try {
-      Map<String, dynamic> bodyData = {
+      Map<String, dynamic> companyBodyData = {
         "Notes": notesFieldController.text.trim(),
         "customerId": AppMessage.customerId,
         "type": "company",
@@ -119,29 +123,36 @@ class NotesManageScreenController extends GetxController {
         "isActive": isStatusSelected.value,
         "NoteID": notesId
       };
-      log('Update Body Data : $bodyData');
-
+      log('Update Body Data : $companyBodyData');
+      Map<String, dynamic> contactBodyData = {
+        "Notes": notesFieldController.text.trim(),
+        "customerId": AppMessage.customerId,
+        "type": "contact",
+        "contactID": companyId,
+        "isActive": isStatusSelected.value,
+        "NoteID": notesId
+      };
 
       final response = await dioRequest.put(
         url,
-        data: bodyData,
+        data: notesComingFrom == NotesComingFrom.company
+            ? companyBodyData
+            : contactBodyData,
         options: dio.Options(
-            headers: {"Authorization": "Bearer ${AppMessage.token}"}
-        ),
+            headers: {"Authorization": "Bearer ${AppMessage.token}"}),
       );
       log('Update Notes Response : ${jsonEncode(response.data)}');
 
       SuccessModel successModel = SuccessModel.fromJson(response.data);
       isSuccessStatusCode.value == successModel.statusCode;
 
-      if(isSuccessStatusCode.value == 200) {
+      if (isSuccessStatusCode.value == 200) {
         Fluttertoast.showToast(msg: successModel.message);
         Get.back();
       } else {
         log('Update Notes Function Else');
       }
-
-    } catch(e) {
+    } catch (e) {
       log('Update Notes Function Error :$e');
     }
 
@@ -162,14 +173,13 @@ class NotesManageScreenController extends GetxController {
   Future<void> initMethod() async {
     log('notesId :$notesId');
     bool isCreate = notesOption == NotesOption.create ? true : false;
-    appBarHeader.value = isCreate == true ? AppMessage.addNotes : AppMessage.notesDetails;
+    appBarHeader.value =
+        isCreate == true ? AppMessage.addNotes : AppMessage.notesDetails;
     // appBarHeader.value = notesOption == NotesOption.create ? AppMessage.addNotes : AppMessage.notesDetails;
     // appBarHeader.value = "";
 
-    if(notesOption == NotesOption.update) {
+    if (notesOption == NotesOption.update) {
       await getNotesDetailsFunction();
     }
-
   }
-
 }

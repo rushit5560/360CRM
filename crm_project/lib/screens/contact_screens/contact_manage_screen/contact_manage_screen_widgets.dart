@@ -12,7 +12,7 @@ import '../../../common_modules/common_loader.dart';
 import '../../../common_modules/common_textfield.dart';
 import '../../../common_modules/common_toast_module.dart';
 import '../../../constants/colors.dart';
-import '../../../controller/company_module_controllers/contact_manage_screen_controller.dart';
+import '../../../controller/company_module_controllers/contact_module_controller/contact_manage_screen_controller.dart';
 import '../../../models/contact_screen_models/active_Contact_category_model.dart';
 import '../../../models/contact_screen_models/active_area_of_interest_model.dart';
 import '../../../models/contact_screen_models/active_contact_type_model.dart';

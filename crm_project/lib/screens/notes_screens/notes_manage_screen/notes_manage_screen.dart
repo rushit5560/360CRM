@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:crm_project/common_modules/common_loader.dart';
 import 'package:crm_project/utils/enums.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,7 +11,6 @@ import '../../../../constants/colors.dart';
 import '../../../../controller/company_module_controllers/notes_manage_screen_controller.dart';
 import '../../../../utils/validator.dart';
 
-
 class NotesManageScreen extends StatelessWidget {
   NotesManageScreen({Key? key}) : super(key: key);
   final notesManageScreenController = Get.put(NotesManageScreenController());
@@ -22,36 +20,36 @@ class NotesManageScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.appColorsSecondry,
       appBar: CustomAppBar(
-          actionShow: false, leadingShow: false,
-          titleText: notesManageScreenController.appBarHeader.value,
+        actionShow: false,
+        leadingShow: false,
+        titleText: notesManageScreenController.appBarHeader.value,
       ),
-
-
       body: Obx(
         () => notesManageScreenController.isLoading.value
             ? CommonLoader().showLoader()
             : Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextFieldModule(
-                      fieldController: notesManageScreenController
-                          .notesFieldController,
-                      hintText: 'Notes',
-                      keyboardType: TextInputType.text,
-                      validate: (value) => FieldValidation()
-                          .validateEmpty(value, 'notes')),
-
+                    fieldController:
+                        notesManageScreenController.notesFieldController,
+                    hintText: 'Notes',
+                    keyboardType: TextInputType.text,
+                    validate: (value) =>
+                        FieldValidation().validateEmpty(value, 'notes'),
+                  ),
                   Row(
                     children: [
-                      Text('Active',
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 11.sp,
-                              color: AppColors.blackColor
-                                  .withOpacity(0.6))),
-
+                      Text(
+                        'Active',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11.sp,
+                          color: AppColors.blackColor.withOpacity(0.6),
+                        ),
+                      ),
                       Expanded(
                         child: Align(
                           alignment: Alignment.centerLeft,
@@ -70,9 +68,9 @@ class NotesManageScreen extends StatelessWidget {
                             ),
                           ),
                           /*child: Obx(
-                            () => *//*notesManageScreenController.isLoading.value
+                            () => */ /*notesManageScreenController.isLoading.value
                                 ? Container()
-                                : *//*Transform.scale(
+                                : */ /*Transform.scale(
                                     alignment: AlignmentDirectional.centerEnd,
                                     scale: 0.8,
                                     child: CupertinoSwitch(
@@ -89,11 +87,8 @@ class NotesManageScreen extends StatelessWidget {
                           ),*/
                         ),
                       ),
-
-
                     ],
                   ),
-
                   Align(
                     alignment: AlignmentDirectional.centerEnd,
                     child: SizedBox(
@@ -102,14 +97,21 @@ class NotesManageScreen extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: AppColors.appColors),
                             onPressed: () async {
-                              if(notesManageScreenController.notesOption == NotesOption.create) {
-                                await notesManageScreenController.createNotesFunction();
+                              if (notesManageScreenController.notesOption ==
+                                  NotesOption.create) {
+                                await notesManageScreenController
+                                    .createNotesFunction();
                               } else {
-                                await notesManageScreenController.updateNotesFunction();
+                                await notesManageScreenController
+                                    .updateNotesFunction();
                               }
                               // log("${notesManageScreenController.companyTypeTextField.text}");
                             },
-                            child: Text(notesManageScreenController.notesOption == NotesOption.create ?'Add' : 'Submit'))),
+                            child: Text(
+                                notesManageScreenController.notesOption ==
+                                        NotesOption.create
+                                    ? 'Add'
+                                    : 'Submit'))),
                   ),
                 ],
               ).paddingAll(10),

@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:crm_project/constants/api_url.dart';
 import 'package:crm_project/models/attachment_list_screen_models/attachment_type_list_model.dart';
 import 'package:crm_project/models/success_model/success_model.dart';
+import 'package:crm_project/utils/enums.dart';
 import 'package:crm_project/utils/messaging.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:file_picker/file_picker.dart';
@@ -15,20 +16,17 @@ import 'package:get/get.dart';
 import '../../constants/colors.dart';
 
 class AttachmentAddScreenController extends GetxController {
-
   String companyId = Get.arguments[0];
+  AttachmentComingFrom attachmentComingFrom = Get.arguments[1];
   RxBool isLoading = false.obs;
-
   final dioRequest = dio.Dio();
   RxInt isSuccessStatusCode = 0.obs;
-
   GlobalKey<FormState> attachmentKey = GlobalKey<FormState>();
   final descriptionTextFieldController = TextEditingController();
   RxBool attachmentIsActive = true.obs;
   RxString attachmentTypeSelected = AppMessage.selectAttachmentType.obs;
   RxString attachmentTypeId = ''.obs;
   List<attachmentTypeList> attachmentTypeListDropDown = [];
-  // attachmentTypeList attachmentTypeValue = attachmentTypeList();
 
   RxString filePath = ''.obs;
   RxString fileName = ''.obs;
@@ -58,7 +56,8 @@ class AttachmentAddScreenController extends GetxController {
 //Get Attachment Type List
   Future<void> getAttachmentTypeList() async {
     isLoading(true);
-    final url = "${ApiUrl.companyAttachmentTypeList}?customerId=${AppMessage.customerId}";
+    final url =
+        "${ApiUrl.companyAttachmentTypeList}?customerId=${AppMessage.customerId}";
     log('Attachment List Type URL: $url');
     try {
       final response = await dioRequest.get(url,
@@ -87,32 +86,42 @@ class AttachmentAddScreenController extends GetxController {
     log('Add Attachment URL: $url');
 
     try {
-
-      final formData = dio.FormData.fromMap({
+      final companyFormData = dio.FormData.fromMap({
         'Description': descriptionTextFieldController.text.toString(),
         'CompanyID': companyId.toString(),
         'IsActive': attachmentIsActive.toString(),
-        'AttachmentTypeId':attachmentTypeId.toString(),
+        'AttachmentTypeId': attachmentTypeId.toString(),
         'type': 'company',
-        'file': await dio.MultipartFile.fromFile(filePath.toString(), filename: fileName.toString()),
+        'file': await dio.MultipartFile.fromFile(filePath.toString(),
+            filename: fileName.toString()),
+      });
+      final contactFormData = dio.FormData.fromMap({
+        'Description': descriptionTextFieldController.text.toString(),
+        "contactID": companyId.toString(),
+        'IsActive': attachmentIsActive.toString(),
+        'AttachmentTypeId': attachmentTypeId.toString(),
+        "type": "contact",
+        'file': await dio.MultipartFile.fromFile(filePath.toString(),
+            filename: fileName.toString()),
       });
 
       log('Add Attachment URL: $url');
       final response = await dioRequest.post(url,
-          data: formData,
+          data: attachmentComingFrom == AttachmentComingFrom.company
+              ? companyFormData
+              : contactFormData,
           options: dio.Options(
               headers: {"Authorization": "Bearer ${AppMessage.token}"}));
       log('Attachment Add Responce >>> : ${response.data}');
 
       SuccessModel successModel = SuccessModel.fromJson(response.data);
       isSuccessStatusCode.value = successModel.statusCode;
-      if(isSuccessStatusCode.value == 200){
+      if (isSuccessStatusCode.value == 200) {
         Get.back();
-        Fluttertoast.showToast(msg: successModel.message,
-            backgroundColor: AppColors.greenColor);
+        Fluttertoast.showToast(
+            msg: successModel.message, backgroundColor: AppColors.greenColor);
         log('Attachment Add : ${successModel.message}');
-      }
-      else{
+      } else {
         log('else Attachment Add : ${successModel.message}');
       }
     } catch (e) {

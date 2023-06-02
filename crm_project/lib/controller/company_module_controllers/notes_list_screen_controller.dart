@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:crm_project/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -12,6 +13,8 @@ import '../../utils/messaging.dart';
 
 class NotesListScreenController extends GetxController {
   String companyId = Get.arguments[0];
+  NotesComingFrom notesComingFrom = Get.arguments[1];
+  // String contactId = Get.arguments[2];
 
   RxBool isLoading = false.obs;
   RxInt isSuccessStatusCode = 0.obs;
@@ -26,22 +29,20 @@ class NotesListScreenController extends GetxController {
   int pageIndex = 1;
   int pageCount = 10;
 
-
-
   // Get Notes List Function
   Future<void> getNotesFunction() async {
-    if(hasMore == true) {
+    if (hasMore == true) {
       // isLoading(true);
-      String url = "${ApiUrl
-          .companyNotesListApi}?id=$companyId&PageNumber=$pageIndex&PageSize=$pageCount&type=company";
+      String url = notesComingFrom == NotesComingFrom.company
+          ? "${ApiUrl.companyNotesListApi}?id=$companyId&PageNumber=$pageIndex&PageSize=$pageCount&type=company"
+          : "${ApiUrl.contactNotesGetApi}?id=$companyId&PageNumber=$pageIndex&PageSize=$pageCount&type=contact";
       log('Get Notes Api Url :$url');
 
       try {
         final response = await dioRequest.get(
           url,
           options: dio.Options(
-              headers: {"Authorization": "Bearer ${AppMessage.token}"}
-          ),
+              headers: {"Authorization": "Bearer ${AppMessage.token}"}),
         );
         log('Get Notes Api Response : ${jsonEncode(response.data)}');
 
@@ -57,8 +58,6 @@ class NotesListScreenController extends GetxController {
         } else {
           log('Get Notes Function Else ${notesListModel.data.message}');
         }
-
-
       } catch (e) {
         // log("catch");
         if (e is dio.DioError && e.response != null) {
@@ -82,77 +81,67 @@ class NotesListScreenController extends GetxController {
   }
 
   // Change notes status function
-  Future<void> changeNoteFunction({required String noteId, required bool status, required int index}) async {
+  Future<void> changeNoteFunction(
+      {required String noteId,
+      required bool status,
+      required int index}) async {
     isLoading(true);
     String url = ApiUrl.companyNotesChangeStatusApi;
 
-    Map<String, dynamic> bodyData = {
-      "NoteID": noteId,
-      "IsActive": status
-    };
+    Map<String, dynamic> bodyData = {"NoteID": noteId, "IsActive": status};
 
     final response = await dioRequest.put(
       url,
       data: bodyData,
-      options: dio.Options(
-          headers: {"Authorization": "Bearer ${AppMessage.token}"}
-      ),
+      options:
+          dio.Options(headers: {"Authorization": "Bearer ${AppMessage.token}"}),
     );
 
     log('Change Status Response :${jsonEncode(response.data)}');
     SuccessModel successModel = SuccessModel.fromJson(response.data);
     isSuccessStatusCode.value = successModel.statusCode;
 
-    if(isSuccessStatusCode.value == 200) {
-
+    if (isSuccessStatusCode.value == 200) {
       Fluttertoast.showToast(msg: successModel.message);
       notesList[index].isActive = status;
     } else {
-     log('Change Status Function Else');
+      log('Change Status Function Else');
     }
 
     isLoading(false);
   }
 
   // Delete Note Function
-  Future<void> deleteNoteFunction({required String noteId, required int index}) async {
+  Future<void> deleteNoteFunction(
+      {required String noteId, required int index}) async {
     isLoading(true);
     String url = ApiUrl.companyNotesDeleteApi;
     log('Delete Note Api Url : $url');
 
     try {
-      Map<String, dynamic> bodyData = {
-        "NoteID": noteId,
-        "IsDeleted" : true
-      };
+      Map<String, dynamic> bodyData = {"NoteID": noteId, "IsDeleted": true};
 
       final response = await dioRequest.put(
         url,
         data: bodyData,
         options: dio.Options(
-            headers: {"Authorization": "Bearer ${AppMessage.token}"}
-        ),
+            headers: {"Authorization": "Bearer ${AppMessage.token}"}),
       );
       log('Delete Notes Api Response : ${jsonEncode(response.data)}');
 
       SuccessModel successModel = SuccessModel.fromJson(response.data);
       isSuccessStatusCode.value == successModel.statusCode;
 
-      if(isSuccessStatusCode.value == 200) {
+      if (isSuccessStatusCode.value == 200) {
         Fluttertoast.showToast(msg: successModel.message);
         notesList.removeAt(index);
-
-
       } else {
         log('Delete Note Else');
       }
-
-
-    } catch(e) {
+    } catch (e) {
       log('Delete Note Error :$e');
     }
     isLoading(false);
-
   }
 
   @override
@@ -160,7 +149,6 @@ class NotesListScreenController extends GetxController {
     initMethod();
     super.onInit();
   }
-
 
   Future<void> initMethod() async {
     await getNotesFunction();
@@ -176,7 +164,6 @@ class NotesListScreenController extends GetxController {
         await getNotesFunction();
       }
     });
-
   }
 
   loadUI() {

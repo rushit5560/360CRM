@@ -86,7 +86,9 @@ class EditCompanyDetailsScreen extends StatelessWidget {
                   Get.to(
                     () => NotesListScreen(),
                     arguments: [
-                      editCompanyDetailsScreenController.companyId.toString()
+                      editCompanyDetailsScreenController.companyId.toString(),
+                      NotesComingFrom.company,
+                      // "",
                     ],
                   );
                 },
@@ -97,9 +99,13 @@ class EditCompanyDetailsScreen extends StatelessWidget {
                 icon: Icon(Icons.link, size: 20.sp),
                 titleText: AppMessage.attachment,
                 ontap: () {
-                  Get.to(() => AttachmentListScreen(), arguments: [
-                    editCompanyDetailsScreenController.companyId.toString()
-                  ]);
+                  Get.to(
+                    () => AttachmentListScreen(),
+                    arguments: [
+                      editCompanyDetailsScreenController.companyId.toString(),
+                      AttachmentComingFrom.company,
+                    ],
+                  );
                 },
               ),
 
@@ -108,9 +114,12 @@ class EditCompanyDetailsScreen extends StatelessWidget {
                 icon: Icon(Icons.manage_history, size: 20.sp),
                 titleText: AppMessage.underManagement,
                 ontap: () {
-                  Get.to(()=>UnderManagementScreen(), arguments: [
-                    editCompanyDetailsScreenController.companyId.toString()
-                  ]);
+                  Get.to(
+                    () => UnderManagementScreen(),
+                    arguments: [
+                      editCompanyDetailsScreenController.companyId.toString(),
+                    ],
+                  );
                 },
               ),
 
@@ -124,6 +133,7 @@ class EditCompanyDetailsScreen extends StatelessWidget {
                     arguments: [
                       editCompanyDetailsScreenController.companyId.toString(),
                       LedgerComingFrom.company,
+                      "",
                     ],
                   );
                 },
@@ -134,9 +144,9 @@ class EditCompanyDetailsScreen extends StatelessWidget {
                 icon: Icon(Icons.work_outline_sharp, size: 20.sp),
                 titleText: AppMessage.workOrder,
                 ontap: () {
-                   Get.to(()=> WorkOrderScreen(),arguments: [
-                     editCompanyDetailsScreenController.companyId.toString()
-                   ]);
+                  Get.to(() => WorkOrderScreen(), arguments: [
+                    editCompanyDetailsScreenController.companyId.toString()
+                  ]);
                 },
               ),
 
@@ -148,7 +158,9 @@ class EditCompanyDetailsScreen extends StatelessWidget {
                   Get.to(
                     () => BillListScreen(),
                     arguments: [
-                      editCompanyDetailsScreenController.companyId.toString()
+                      editCompanyDetailsScreenController.companyId.toString(),
+                      BillComingFrom.company,
+                      "",
                     ],
                   );
                 },
@@ -158,9 +170,9 @@ class EditCompanyDetailsScreen extends StatelessWidget {
               CommonListTitleModule(
                 icon: Icon(Icons.featured_play_list_outlined, size: 20.sp),
                 titleText: AppMessage.invoice,
-                ontap: (){
+                ontap: () {
                   Get.to(
-                        () => InvoiceListScreen(),
+                    () => InvoiceListScreen(),
                     arguments: [
                       editCompanyDetailsScreenController.companyId.toString()
                     ],

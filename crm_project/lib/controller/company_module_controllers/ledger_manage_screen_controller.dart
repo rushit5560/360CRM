@@ -27,11 +27,11 @@ class LedgerManageScreenController extends GetxController {
   String ledgerId = Get.arguments[1];
   String companyId = Get.arguments[2];
   LedgerComingFrom ledgerComingFrom = Get.arguments[3];
+  String contactId = Get.arguments[4];
 
   RxBool isLoading = false.obs;
   RxInt isSuccessStatusCode = 0.obs;
   GlobalKey<FormState> ledgerGlobalKey = GlobalKey<FormState>();
-
 
   final dioRequest = dio.Dio();
 
@@ -90,8 +90,6 @@ class LedgerManageScreenController extends GetxController {
   List<ProspectManageData> prospectManageList = [];
   ProspectManageData prospectManageDataValue = ProspectManageData();
 
-
-
   /// Add Ledger Function
   Future<void> addLedgerFunction() async {
     // isLoading(true);
@@ -99,25 +97,53 @@ class LedgerManageScreenController extends GetxController {
     log('addLedgerFunction Api Url :$url');
 
     String amount = amountFieldController.text.trim();
-    String type = ledgerComingFrom == LedgerComingFrom.company ? "company" : "Workorder"; //todo
-    String accountCategoryId = categoryTypeDataValue.category == "Select Account Category" ? "" : categoryTypeDataValue.accountCategoryId.toString();
+    String type = ledgerComingFrom == LedgerComingFrom.company
+        ? "company"
+        : ledgerComingFrom == LedgerComingFrom.workOrder
+            ? "Workorder"
+            : "contact"; //todo
+    String accountCategoryId =
+        categoryTypeDataValue.category == "Select Account Category"
+            ? ""
+            : categoryTypeDataValue.accountCategoryId.toString();
     String reference = referenceFieldController.text.trim();
     String details = detailsFieldController.text.trim();
-    String propertyId = propertyDataValue.propertyName == "Select Property" ? "" : propertyDataValue.propertyId.toString();
+    String propertyId = propertyDataValue.propertyName == "Select Property"
+        ? ""
+        : propertyDataValue.propertyId.toString();
     String companyId = companyDataValue.companyId.toString();
-    String workOrderId = workOrderDataValue.workOrderDetails == "Select Work Order" ? "" : workOrderDataValue.workOrderId.toString() ;
-    String marketingId = marketingDataValue.campaignName == "Select Marketing" ? "" : marketingDataValue.campaignId.toString();
-    String contactId = contactDataValue.firstName == "Select" ? "" : contactDataValue.contactId.toString();
-    String mortgageId = mortgageDataValue.mortgageName == "Select Mortgage" ? "" : mortgageDataValue.mortgageId.toString();
-    String leaseId = leaseDataValue.gracePeriod == "Select Lease" ? "" : leaseDataValue.leaseId.toString();
-    String propertyManagementId = propertyManagementDataValue.terminationTerms == "Select Property Management" ? "" : propertyManagementDataValue.propertyManagementId.toString();
-    String prospectId = prospectManageDataValue.propertyAddress == "Select Prospect" ? "" : prospectManageDataValue.prospectId.toString();
-    String ledgerType = selectedTypeValue.value == "Select Category type" ? "" : selectedTypeValue.value;
-
+    String workOrderId =
+        workOrderDataValue.workOrderDetails == "Select Work Order"
+            ? ""
+            : workOrderDataValue.workOrderId.toString();
+    String marketingId = marketingDataValue.campaignName == "Select Marketing"
+        ? ""
+        : marketingDataValue.campaignId.toString();
+    String contactId = contactDataValue.firstName == "Select"
+        ? ""
+        : contactDataValue.contactId.toString();
+    String mortgageId = mortgageDataValue.mortgageName == "Select Mortgage"
+        ? ""
+        : mortgageDataValue.mortgageId.toString();
+    String leaseId = leaseDataValue.gracePeriod == "Select Lease"
+        ? ""
+        : leaseDataValue.leaseId.toString();
+    String propertyManagementId =
+        propertyManagementDataValue.terminationTerms ==
+                "Select Property Management"
+            ? ""
+            : propertyManagementDataValue.propertyManagementId.toString();
+    String prospectId =
+        prospectManageDataValue.propertyAddress == "Select Prospect"
+            ? ""
+            : prospectManageDataValue.prospectId.toString();
+    String ledgerType = selectedTypeValue.value == "Select Category type"
+        ? ""
+        : selectedTypeValue.value;
 
     try {
       Map<String, dynamic> bodyData = {
-        "LedgerDate" : selectedDate.toString().split(" ")[0],
+        "LedgerDate": selectedDate.toString().split(" ")[0],
         "Amount": amount,
         "type": type,
         "AccountCategoryID": accountCategoryId,
@@ -148,14 +174,13 @@ class LedgerManageScreenController extends GetxController {
       SuccessModel successModel = SuccessModel.fromJson(response.data);
       isSuccessStatusCode.value == successModel.statusCode;
 
-      if(isSuccessStatusCode.value == 200) {
+      if (isSuccessStatusCode.value == 200) {
         Fluttertoast.showToast(msg: successModel.message);
         Get.back();
       } else {
         log('addLedgerFunction Else');
       }
-
-    }catch (e) {
+    } catch (e) {
       if (e is dio.DioError && e.response != null) {
         final response = e.response;
         final statusCode = response!.statusCode;
@@ -163,7 +188,7 @@ class LedgerManageScreenController extends GetxController {
           Fluttertoast.showToast(msg: "Record Already Exist");
           log("Record Already Exist");
           isLoading(false);
-        } else if(statusCode == 401) {
+        } else if (statusCode == 401) {
           log('Please login again!');
         }
       }
@@ -178,25 +203,54 @@ class LedgerManageScreenController extends GetxController {
     log("updateLedgerFunction Api Url :$url");
 
     String amount = amountFieldController.text.trim();
-    String type = ledgerComingFrom == LedgerComingFrom.company ? "company" : "Workorder"; //todo
-    String accountCategoryId = categoryTypeDataValue.category == "Select Account Category" ? "" : categoryTypeDataValue.accountCategoryId.toString();
+    String type = ledgerComingFrom == LedgerComingFrom.company
+        ? "company"
+        : ledgerComingFrom == LedgerComingFrom.workOrder
+            ? "Workorder"
+            : "contact"; //todo
+    String accountCategoryId =
+        categoryTypeDataValue.category == "Select Account Category"
+            ? ""
+            : categoryTypeDataValue.accountCategoryId.toString();
     String reference = referenceFieldController.text.trim();
     String details = detailsFieldController.text.trim();
-    String propertyId = propertyDataValue.propertyName == "Select Property" ? "" : propertyDataValue.propertyId.toString();
+    String propertyId = propertyDataValue.propertyName == "Select Property"
+        ? ""
+        : propertyDataValue.propertyId.toString();
     String companyId = companyDataValue.companyId.toString();
-    String workOrderId = workOrderDataValue.workOrderDetails == "Select Work Order" ? "" : workOrderDataValue.workOrderId.toString() ;
-    String marketingId = marketingDataValue.campaignName == "Select Marketing" ? "" : marketingDataValue.campaignId.toString();
-    String contactId = contactDataValue.firstName == "Select" ? "" : contactDataValue.contactId.toString();
-    String mortgageId = mortgageDataValue.mortgageName == "Select Mortgage" ? "" : mortgageDataValue.mortgageId.toString();
-    String leaseId = leaseDataValue.gracePeriod == "Select Lease" ? "" : leaseDataValue.leaseId.toString();
-    String propertyManagementId = propertyManagementDataValue.terminationTerms == "Select Property Management" ? "" : propertyManagementDataValue.propertyManagementId.toString();
-    String prospectId = prospectManageDataValue.propertyAddress == "Select Prospect" ? "" : prospectManageDataValue.prospectId.toString();
-    String ledgerType = selectedTypeValue.value == "Select Category type" ? "" : selectedTypeValue.value;
+    String workOrderId =
+        workOrderDataValue.workOrderDetails == "Select Work Order"
+            ? ""
+            : workOrderDataValue.workOrderId.toString();
+    String marketingId = marketingDataValue.campaignName == "Select Marketing"
+        ? ""
+        : marketingDataValue.campaignId.toString();
+    String contactId = contactDataValue.firstName == "Select"
+        ? ""
+        : contactDataValue.contactId.toString();
+    String mortgageId = mortgageDataValue.mortgageName == "Select Mortgage"
+        ? ""
+        : mortgageDataValue.mortgageId.toString();
+    String leaseId = leaseDataValue.gracePeriod == "Select Lease"
+        ? ""
+        : leaseDataValue.leaseId.toString();
+    String propertyManagementId =
+        propertyManagementDataValue.terminationTerms ==
+                "Select Property Management"
+            ? ""
+            : propertyManagementDataValue.propertyManagementId.toString();
+    String prospectId =
+        prospectManageDataValue.propertyAddress == "Select Prospect"
+            ? ""
+            : prospectManageDataValue.prospectId.toString();
+    String ledgerType = selectedTypeValue.value == "Select Category type"
+        ? ""
+        : selectedTypeValue.value;
 
     try {
       Map<String, dynamic> bodyData = {
         "AccountLedgerID": ledgerId,
-        "LedgerDate" : selectedDate.toString().split(" ")[0],
+        "LedgerDate": selectedDate.toString().split(" ")[0],
         "Amount": amount,
         "type": type,
         "AccountCategoryID": accountCategoryId,
@@ -227,14 +281,12 @@ class LedgerManageScreenController extends GetxController {
       SuccessModel successModel = SuccessModel.fromJson(response.data);
       isSuccessStatusCode.value == successModel.statusCode;
 
-      if(isSuccessStatusCode.value == 200) {
+      if (isSuccessStatusCode.value == 200) {
         Fluttertoast.showToast(msg: successModel.message);
         Get.back();
       } else {
         log('addLedgerFunction Else');
       }
-
-
     } catch (e) {
       if (e is dio.DioError && e.response != null) {
         final response = e.response;
@@ -243,13 +295,12 @@ class LedgerManageScreenController extends GetxController {
           Fluttertoast.showToast(msg: "Record Already Exist");
           log("Record Already Exist");
           isLoading(false);
-        } else if(statusCode == 401) {
+        } else if (statusCode == 401) {
           log('Please login again!');
         }
       }
       log('Error :$e');
     }
-
   }
 
   /// Get Ledger Details Get By Id Function
@@ -266,12 +317,15 @@ class LedgerManageScreenController extends GetxController {
       );
       log('getLedgerDetailsFunction Response :${jsonEncode(response.data)}');
 
-      LedgerDetailsGetByIdModel ledgerDetailsGetByIdModel = LedgerDetailsGetByIdModel.fromJson(response.data);
+      LedgerDetailsGetByIdModel ledgerDetailsGetByIdModel =
+          LedgerDetailsGetByIdModel.fromJson(response.data);
       isSuccessStatusCode.value = ledgerDetailsGetByIdModel.statusCode;
 
-      if(isSuccessStatusCode.value == 200) {
-        amountFieldController.text = ledgerDetailsGetByIdModel.data.amount.toString();
-        referenceFieldController.text = ledgerDetailsGetByIdModel.data.reference;
+      if (isSuccessStatusCode.value == 200) {
+        amountFieldController.text =
+            ledgerDetailsGetByIdModel.data.amount.toString();
+        referenceFieldController.text =
+            ledgerDetailsGetByIdModel.data.reference;
         detailsFieldController.text = ledgerDetailsGetByIdModel.data.details;
 
         isStatusSelected.value = ledgerDetailsGetByIdModel.data.isActive;
@@ -315,53 +369,54 @@ class LedgerManageScreenController extends GetxController {
 
         // Set Marketing object value
         for (var element in marketingList) {
-          if (element.campaignId.toString() == ledgerDetailsGetByIdModel.data.campaignId) {
+          if (element.campaignId.toString() ==
+              ledgerDetailsGetByIdModel.data.campaignId) {
             marketingDataValue = element;
           }
         }
 
         // Set Contact object value
         for (var element in contactList) {
-          if (element.contactId.toString() == ledgerDetailsGetByIdModel.data.contactId) {
+          if (element.contactId.toString() ==
+              ledgerDetailsGetByIdModel.data.contactId) {
             contactDataValue = element;
           }
         }
 
         // Set Mortgage object value
         for (var element in mortgageList) {
-          if (element.mortgageId.toString() == ledgerDetailsGetByIdModel.data.mortgageId) {
+          if (element.mortgageId.toString() ==
+              ledgerDetailsGetByIdModel.data.mortgageId) {
             mortgageDataValue = element;
           }
         }
 
         // Set Lease object value
         for (var element in leaseList) {
-          if (element.leaseId.toString() == ledgerDetailsGetByIdModel.data.leaseId) {
+          if (element.leaseId.toString() ==
+              ledgerDetailsGetByIdModel.data.leaseId) {
             leaseDataValue = element;
           }
         }
 
         // Set Property management object value
         for (var element in propertyManagementList) {
-          if (element.propertyManagementId.toString() == ledgerDetailsGetByIdModel.data.propertyManagementId) {
+          if (element.propertyManagementId.toString() ==
+              ledgerDetailsGetByIdModel.data.propertyManagementId) {
             propertyManagementDataValue = element;
           }
         }
 
         // Set prospect object value
         for (var element in prospectManageList) {
-          if (element.prospectId.toString() == ledgerDetailsGetByIdModel.data.prospectId) {
+          if (element.prospectId.toString() ==
+              ledgerDetailsGetByIdModel.data.prospectId) {
             prospectManageDataValue = element;
           }
         }
-
-
-
       } else {
         log('getLedgerDetailsFunction Else');
       }
-
-
     } catch (e) {
       if (e is dio.DioError && e.response != null) {
         final response = e.response;
@@ -370,13 +425,12 @@ class LedgerManageScreenController extends GetxController {
           Fluttertoast.showToast(msg: "Record Already Exist");
           log("Record Already Exist");
           isLoading(false);
-        } else if(statusCode == 401) {
+        } else if (statusCode == 401) {
           log('Please login again!');
         }
       }
       log('Error :$e');
     }
-
 
     isLoading(false);
   }
@@ -391,9 +445,8 @@ class LedgerManageScreenController extends GetxController {
     );
 
     if (picked != null /*&& picked != selectedDate*/) {
-        selectedDate = picked;
-        showSelectedDate.value = DateFormatChanger().dateFormat(selectedDate);
-
+      selectedDate = picked;
+      showSelectedDate.value = DateFormatChanger().dateFormat(selectedDate);
     }
   }
 
@@ -449,7 +502,7 @@ class LedgerManageScreenController extends GetxController {
           Fluttertoast.showToast(msg: "Record Already Exist");
           log("Record Already Exist");
           isLoading(false);
-        } else if(statusCode == 401) {
+        } else if (statusCode == 401) {
           log('Please login again!');
         }
       }
@@ -495,7 +548,7 @@ class LedgerManageScreenController extends GetxController {
           Fluttertoast.showToast(msg: "Record Already Exist");
           log("Record Already Exist");
           isLoading(false);
-        } else if(statusCode == 401) {
+        } else if (statusCode == 401) {
           log('Please login again!');
         }
       }
@@ -518,7 +571,7 @@ class LedgerManageScreenController extends GetxController {
         options: dio.Options(
             headers: {"Authorization": "Bearer ${AppMessage.token}"}),
       );
-      // log('Get All Active Company Response :${jsonEncode(response.data)}');
+      log('Get All Active Company Response :${jsonEncode(response.data)}');
 
       ActiveCompanyListModel activeCompanyListModel =
           ActiveCompanyListModel.fromJson(response.data);
@@ -533,6 +586,7 @@ class LedgerManageScreenController extends GetxController {
             companyDataValue = element;
           }
         }
+        log("companyList ${companyList.length}");
         // log('companyDataValue companyId: ${companyDataValue.companyId}');
         // log('companyDataValue companyName: ${companyDataValue.companyName}');
       } else {
@@ -546,7 +600,7 @@ class LedgerManageScreenController extends GetxController {
           Fluttertoast.showToast(msg: "Record Already Exist");
           log("Record Already Exist");
           isLoading(false);
-        } else if(statusCode == 401) {
+        } else if (statusCode == 401) {
           log('Please login again!');
         }
       }
@@ -592,7 +646,7 @@ class LedgerManageScreenController extends GetxController {
           Fluttertoast.showToast(msg: "Record Already Exist");
           log("Record Already Exist");
           isLoading(false);
-        } else if(statusCode == 401) {
+        } else if (statusCode == 401) {
           log('Please login again!');
         }
       }
@@ -638,7 +692,7 @@ class LedgerManageScreenController extends GetxController {
           Fluttertoast.showToast(msg: "Record Already Exist");
           log("Record Already Exist");
           isLoading(false);
-        } else if(statusCode == 401) {
+        } else if (statusCode == 401) {
           log('Please login again!');
         }
       }
@@ -684,7 +738,7 @@ class LedgerManageScreenController extends GetxController {
           Fluttertoast.showToast(msg: "Record Already Exist");
           log("Record Already Exist");
           isLoading(false);
-        } else if(statusCode == 401) {
+        } else if (statusCode == 401) {
           log('Please login again!');
         }
       }
@@ -731,7 +785,7 @@ class LedgerManageScreenController extends GetxController {
           Fluttertoast.showToast(msg: "Record Already Exist");
           log("Record Already Exist");
           isLoading(false);
-        } else if(statusCode == 401) {
+        } else if (statusCode == 401) {
           log('Please login again!');
         }
       }
@@ -780,7 +834,7 @@ class LedgerManageScreenController extends GetxController {
           Fluttertoast.showToast(msg: "Record Already Exist");
           log("Record Already Exist");
           isLoading(false);
-        } else if(statusCode == 401) {
+        } else if (statusCode == 401) {
           log('Please login again!');
         }
       }
@@ -828,7 +882,7 @@ class LedgerManageScreenController extends GetxController {
           Fluttertoast.showToast(msg: "Record Already Exist");
           log("Record Already Exist");
           isLoading(false);
-        } else if(statusCode == 401) {
+        } else if (statusCode == 401) {
           log('Please login again!');
         }
       }
@@ -860,7 +914,8 @@ class LedgerManageScreenController extends GetxController {
 
       if (isSuccessStatusCode.value == 200) {
         prospectManageList.clear();
-        prospectManageList.add(ProspectManageData(propertyAddress: "Select Prospect"));
+        prospectManageList
+            .add(ProspectManageData(propertyAddress: "Select Prospect"));
         prospectManageDataValue = prospectManageList[0];
         prospectManageList.addAll(activeProspectManageListModel.data);
         // log("getAllProspectFunction.length ${prospectManageList.length}");
@@ -875,7 +930,7 @@ class LedgerManageScreenController extends GetxController {
           Fluttertoast.showToast(msg: "Record Already Exist");
           log("Record Already Exist");
           isLoading(false);
-        } else if(statusCode == 401) {
+        } else if (statusCode == 401) {
           log('Please login again!');
         }
       }
@@ -884,16 +939,14 @@ class LedgerManageScreenController extends GetxController {
 
     isLoading(false);
 
-    if(ledgerOption == LedgerOption.update) {
+    if (ledgerOption == LedgerOption.update) {
       await getLedgerDetailsFunction();
-    }
-    else if(ledgerOption == LedgerOption.create) {
+    } else if (ledgerOption == LedgerOption.create) {
       isLoading(false);
     }
 
     // await getAllActiveLeaseFunction();
   }
-
 
   // Change Ledger Label
   changeStatusFunction() {

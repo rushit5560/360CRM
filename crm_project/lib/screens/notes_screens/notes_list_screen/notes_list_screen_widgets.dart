@@ -62,6 +62,7 @@ class NotesListWidget extends StatelessWidget {
                                           .toString(),
                                       notesListScreenController.companyId
                                           .toString(),
+                                      NotesComingFrom.contact
                                     ],
                                   )!
                                       .then((value) async {
