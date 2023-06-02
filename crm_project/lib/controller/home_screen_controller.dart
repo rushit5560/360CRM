@@ -120,6 +120,7 @@ class HomeScreenController extends GetxController {
   //1st Mortgage
   GlobalKey<FormState> mortgage1Key = GlobalKey<FormState>();
   final mortgageTermMonthsFieldController = TextEditingController();
+  final expectedHoldingTermFieldController = TextEditingController();
   final paymentsPerYearFieldController = TextEditingController();
   final downPaymentPercentageFieldController = TextEditingController();
   final downPaymentAmountFieldController = TextEditingController(text: "0.0");
@@ -127,7 +128,10 @@ class HomeScreenController extends GetxController {
   final interestRateFieldController = TextEditingController();
   final loanPointsFieldController = TextEditingController();
   final pointsAmountFieldController = TextEditingController();
+  final pointsPercentageFieldController = TextEditingController();
   final closingCostsFieldController = TextEditingController(text: "0.0");
+  final preferredRateOfReturnFieldController = TextEditingController(text: "0.0");
+  final offerPriceMortgageFieldController = TextEditingController();
 
   RxInt interestOnlyButton = 0.obs; //(0=Yes, 1=No)
   RxInt pointsFinancedButton = 0.obs; //(0=Yes, 1=No)
@@ -218,6 +222,7 @@ class HomeScreenController extends GetxController {
 //2nd Mortgage
   GlobalKey<FormState> mortgage2Key = GlobalKey<FormState>();
   final mortgageTermMonths2FieldController = TextEditingController();
+  final expectedHoldingTerm2FieldController = TextEditingController();
   final paymentsPerYear2FieldController = TextEditingController();
   final mortgageAmount2FieldController = TextEditingController();
   final financedAmount2FieldController = TextEditingController();
@@ -250,6 +255,17 @@ class HomeScreenController extends GetxController {
   void closingCostsFunction() {}
 
 //Annual Cash Flow Analysis
+
+  final effectiveGrossIncomeTextFieldController = TextEditingController();
+  final operatingExpensesTextFieldController = TextEditingController();
+  final netOperatingIncomeTextFieldController = TextEditingController();
+  final capitalizationRateTextFieldController = TextEditingController();
+  final annualDebtServiceTextFieldController = TextEditingController();
+  final debtCoverageRatioTextFieldController = TextEditingController();
+  final annualCashFlowTextFieldController = TextEditingController();
+  final totalOutPocketTextFieldController = TextEditingController();
+  final returnOnInvestmentTextFieldController = TextEditingController();
+
 
   RxDouble effectiveGrossIncome = 0.0.obs;
   RxDouble operatingExpenses = 0.0.obs;
@@ -317,6 +333,19 @@ class HomeScreenController extends GetxController {
   void returnonInvestmentFunction() {}
 
 //Quick Flip Analysis
+  final salesPriceTextFieldController = TextEditingController();
+  final purchasePriceTextFieldController = TextEditingController();
+  final acquisitionCostsTextFieldController = TextEditingController();
+  final carryingCostsTextFieldController = TextEditingController();
+  final rehabCostsTextFieldController = TextEditingController();
+  final sellingExpensesTextFieldController = TextEditingController();
+  final totalProjectCostTextFieldController = TextEditingController();
+  final netProfitTextFieldController = TextEditingController();
+  final totalOutOfPocketTextFieldController = TextEditingController();
+  final annualizedROITextFieldController = TextEditingController();
+
+
+
   RxDouble salesPrice = 0.0.obs;
   RxDouble purchasePrice = 0.0.obs;
   RxDouble acquisitionCosts = 0.0.obs;
@@ -369,6 +398,20 @@ class HomeScreenController extends GetxController {
     expenseEsclator.value = 0;
     incomeEscalator.value = 0;
   }
+
+
+//Quick Flip
+  final purchasePriceQFTextFieldController = TextEditingController();
+  final sellingCostsQFTextFieldController = TextEditingController();
+  final outOfPocketQFTextFieldController = TextEditingController();
+  final loanCostQFTextFieldController = TextEditingController();
+  final totalOfProjectQFTextFieldController = TextEditingController();
+  final annualizedROIQFTextFieldController = TextEditingController();
+  final carryingCostQFTextFieldController = TextEditingController();
+  final salesPriceQFTextFieldController = TextEditingController();
+  final projectCostQFTextFieldController = TextEditingController();
+  final netProfitQFTextFieldController = TextEditingController();
+
 
   loadUI() {
     isLoading(true);

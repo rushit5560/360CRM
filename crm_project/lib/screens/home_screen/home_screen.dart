@@ -47,6 +47,9 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(height: 10),
               PropertyPurchaseDetails(),
               const SizedBox(height: 10),
+              QuickFlip(),
+              const SizedBox(height: 10),
+//Anual Financial Forecast
               SizedBox(
                 height: 45,
                 width: Get.width * .9,
@@ -59,8 +62,8 @@ class HomeScreen extends StatelessWidget {
                     child: Text('Annual Financial Forecast',
                         style: TextStyle(fontSize: 13.sp))),
               ),
-
               const SizedBox(height: 10),
+//mtg amort schedule list
               SizedBox(
                 height: 45,
                 width: Get.width * .9,
@@ -73,6 +76,7 @@ class HomeScreen extends StatelessWidget {
                     child: Text('Mtg Amort Schedule List',
                         style: TextStyle(fontSize: 13.sp))),
               ),
+//company List
               const SizedBox(height: 10),
               SizedBox(
                 height: 45,
@@ -87,7 +91,7 @@ class HomeScreen extends StatelessWidget {
                         style: TextStyle(fontSize: 13.sp))),
               ),
             ],
-          ),
+          ).paddingAll(10),
         ),
       ),
     );
