@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import '../../../../common_modules/common_textfield.dart';
 import '../../../../common_modules/common_textfield_header_module.dart';
+import '../../../../common_modules/custom_submit_button.dart';
 import '../../../../common_widgets/custom_appbar.dart';
 import '../../../../constants/colors.dart';
 import '../../../../controller/company_module_controllers/work_order_module_controllers/repair_list_screen_controller.dart';
@@ -255,17 +256,82 @@ class RepairListScreen extends StatelessWidget {
                               ),
                               const SizedBox(height: 8),
 
-                              // Due Date & Completed Date
+                              // Due Date Module
+                              CommonTextFieldHeaderModule(
+                                header: AppMessage.dueDateLabel,
+                                required: true,
+                              ).paddingOnly(bottom: 5),
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  border: Border.all(
+                                      color: AppColors.appColors, width: 1.5),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                        child: Text(
+                                          DateFormatChanger().dateFormat(singleItem.dueDate),
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                          style: TextStyle(
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.bold,
+                                            // color: AppColors.greyColor,
+                                          ),
+                                        ).paddingOnly(left: 10)),
+                                    GestureDetector(
+                                      onTap: () async =>
+                                      await selectDate(
+                                        context: context,
+                                        initialDate: singleItem.dueDate,
+                                        index: i,
+                                        // index: index,
+                                      ),
+                                      child: SizedBox(
+                                        child: Center(
+                                          child: const Icon(Icons
+                                              .calendar_today_outlined)
+                                              .paddingAll(12),
+                                        ), //Text(AppMessage.chooseFile,style: TextStyle(fontSize: 10.sp,fontWeight: FontWeight.bold,color: AppColors.appColors),)).paddingAll(5)
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+
+                              //Completed Date Module
                               Row(
                                 children: [
-                                  // Due Date Module
                                   Expanded(
-                                    // flex: 25,
+                                    flex: 25,
+                                    child: Column(
+                                      children: [
+                                        CommonTextFieldHeaderModule(
+                                          header: AppMessage.completedLabel,
+                                          required: false,
+                                        )/*.paddingOnly(bottom: 5)*/,
+                                        Checkbox(
+                                          value: singleItem.isCompleted,
+                                          onChanged: (value) {
+                                            singleItem.isCompleted = value!;
+                                            repairListScreenController.loadUI();
+                                          },
+                                          activeColor: AppColors.appColors,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(5)),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 75,
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         CommonTextFieldHeaderModule(
-                                          header: AppMessage.dueDateLabel,
+                                          header: AppMessage.completedDate,
                                           required: true,
                                         ).paddingOnly(bottom: 5),
                                         Container(
@@ -284,21 +350,28 @@ class RepairListScreen extends StatelessWidget {
                                                     style: TextStyle(
                                                       fontSize: 12.sp,
                                                       fontWeight: FontWeight.bold,
+                                                      color: singleItem.isCompleted == true
+                                                        ? AppColors.blackColor : AppColors.greyColor
                                                       // color: AppColors.greyColor,
                                                     ),
                                                   ).paddingOnly(left: 10)),
                                               GestureDetector(
-                                                onTap: () async =>
-                                                await selectDate(
-                                                  context: context,
-                                                  initialDate: singleItem.dueDate,
-                                                  index: i,
-                                                  // index: index,
-                                                ),
+                                                onTap: () async => singleItem.isCompleted == false
+                                                    ? null
+                                                    : await selectDate(
+                                                        context: context,
+                                                        initialDate:
+                                                            singleItem.dueDate,
+                                                        index: i,
+                                                        // index: index,
+                                                      ),
                                                 child: SizedBox(
                                                   child: Center(
-                                                    child: const Icon(Icons
-                                                        .calendar_today_outlined)
+                                                    child: Icon(Icons
+                                                            .calendar_today_outlined,
+                                                        color: singleItem.isCompleted == true
+                                                            ? AppColors.blackColor : AppColors.greyColor
+                                                    )
                                                         .paddingAll(12),
                                                   ), //Text(AppMessage.chooseFile,style: TextStyle(fontSize: 10.sp,fontWeight: FontWeight.bold,color: AppColors.appColors),)).paddingAll(5)
                                                 ),
@@ -306,41 +379,12 @@ class RepairListScreen extends StatelessWidget {
                                             ],
                                           ),
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(width: 10),
-
-                                  // Total Module
-                                  Expanded(
-                                    // flex: 75,
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        CommonTextFieldHeaderModule(
-                                          header: AppMessage.totalLabel,
-                                          required: true,
-                                        ).paddingOnly(bottom: 5),
-                                        TextFieldModule(
-                                          fieldController: singleItem.totalFieldController,
-                                          hintText: AppMessage.totalLabel,
-                                          keyboardType: TextInputType.number,
-                                          prifixIcon: Align(
-                                            widthFactor: 1.0,
-                                            heightFactor: 1.0,
-                                            child: Text(
-                                              '\$',
-                                              style:
-                                              TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-                                            ),
-                                          ).paddingOnly(right: 5),
-                                        ),
+                                        const SizedBox(height: 8),
                                       ],
                                     ),
                                   ),
                                 ],
                               ),
-                              const SizedBox(height: 8),
 
                             ],
                           ).paddingAll(8),
@@ -353,6 +397,7 @@ class RepairListScreen extends StatelessWidget {
                           backgroundColor: AppColors.appColors),
                       onPressed: () {
                         repairListScreenController.addMainRepairDataItem();
+                        repairListScreenController.loadUI();
                         // if (repairListScreenController.formKey.currentState!.validate()) {
 
                           // if(screenController.ledgerOption == LedgerOption.create) {
@@ -363,13 +408,19 @@ class RepairListScreen extends StatelessWidget {
                         // }
                       },
                       child: const Center(child: Text(AppMessage.add)),
-                    )
+                    ).paddingSymmetric(horizontal: 35.w),
 
 
                   ],
                 ).paddingOnly(left: 10, right: 10),
               ),
       ),
+
+      bottomNavigationBar: CustomSubmitButton(
+        labelText: AppMessage.submitLabel,
+        onPress: () {},
+      ).paddingSymmetric(horizontal: 30.w),
+
     );
   }
 
@@ -388,6 +439,7 @@ class RepairListScreen extends StatelessWidget {
 
     if (picked != null) {
       repairListScreenController.mainRepairDataList[index].dueDate = picked;
+      repairListScreenController.loadUI();
       // singleItem.paymentDate = picked;
     }
   }
