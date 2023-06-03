@@ -29,25 +29,21 @@ class HomeScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              PropertyDetails(),
-              const SizedBox(height: 10),
-              FinancialDetails(),
-            const  SizedBox(height: 10),
-              ProjectCosts(),
-             const SizedBox(height: 10),
-              AcquisitionCosts(),
-              const SizedBox(height: 10),
-              MortgageDetails1(),
-              const SizedBox(height: 10),
-              MortgageDetails2(),
-              const SizedBox(height: 10),
-              AnnualCashFlowAnalysis(),
-              const SizedBox(height: 10),
-              QuickFlipAnalysis(),
-              const SizedBox(height: 10),
-              PropertyPurchaseDetails(),
-              const SizedBox(height: 10),
-              QuickFlip(),
+
+//company List
+
+              SizedBox(
+                height: 45,
+                width: Get.width * .9,
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.appColors),
+                    onPressed: () {
+                      Get.to(() => CompanyListScreen());
+                    },
+                    child: Text('Company List',
+                        style: TextStyle(fontSize: 13.sp))),
+              ),
               const SizedBox(height: 10),
 //Anual Financial Forecast
               SizedBox(
@@ -76,20 +72,36 @@ class HomeScreen extends StatelessWidget {
                     child: Text('Mtg Amort Schedule List',
                         style: TextStyle(fontSize: 13.sp))),
               ),
-//company List
               const SizedBox(height: 10),
-              SizedBox(
-                height: 45,
-                width: Get.width * .9,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.appColors),
-                    onPressed: () {
-                      Get.to(() => CompanyListScreen());
-                    },
-                    child: Text('Company List',
-                        style: TextStyle(fontSize: 13.sp))),
-              ),
+              PropertyDetails(),
+              const SizedBox(height: 10),
+              FinancialDetails(),
+            const  SizedBox(height: 10),
+              ProjectCosts(),
+             const SizedBox(height: 10),
+              AcquisitionCosts(),
+              const SizedBox(height: 10),
+              MortgageDetails1(),
+              const SizedBox(height: 10),
+              MortgageDetails2(),
+              const SizedBox(height: 10),
+              AnnualCashFlowAnalysis(),
+              const SizedBox(height: 10),
+              QuickFlipAnalysis(),
+              const SizedBox(height: 10),
+              PropertyPurchaseDetails(),
+              const SizedBox(height: 10),
+              QuickFlip(),
+              const SizedBox(height: 10),
+              LongTermCashFlow(),
+              const SizedBox(height: 10),
+              ProjectCosts2(),
+              const SizedBox(height: 10),
+              CarryingCosts(),
+              const SizedBox(height: 10),
+              SellingCost(),
+              const SizedBox(height: 10),
+
             ],
           ).paddingAll(10),
         ),

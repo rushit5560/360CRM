@@ -3061,11 +3061,678 @@ class QuickFlip extends StatelessWidget {
             )
           ],
         ),
-        const SizedBox(height: 10),
 
 
 
       ],
     );
+  }
+}
+
+
+//Long term cash flow
+class LongTermCashFlow extends StatelessWidget {
+   LongTermCashFlow({Key? key}) : super(key: key);
+   final homeScreenController = Get.find<HomeScreenController>();
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+      Align(
+      alignment: Alignment.centerLeft,
+      child: Text(
+        AppMessage.longTermCashFlow,
+        style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: AppColors.blackColor,
+            fontSize: 14.sp),
+      ).commonOnlyPadding(bottom: 5, top: 20),
+    ),
+    const CustomDivider(),
+    const SizedBox(height: 10),
+
+//Total Income - Operating Expense
+        Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+//total Income
+                  CommonTextFieldHeaderModule(header: AppMessage.totalIncome , required: true),
+                  const SizedBox(height: 5),
+                  TextFieldModule(
+                    fieldController: homeScreenController.totalIncomeLTCFTextFieldController,
+                    hintText: AppMessage.totalIncome,
+                    validate: (value) =>
+                        FieldValidation().validateAmount(value, AppMessage.totalIncome),
+                  //   prifixIcon: Align(
+                  //   widthFactor: 1.0,
+                  //   heightFactor: 1.0,
+                  //   child: Text(
+                  //     '\$',
+                  //     style:
+                  //     TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  //   ),
+                  // ).commonOnlyPadding(right: 5),
+                    keyboardType: TextInputType.number,
+                    backgroundColor: AppColors.whiteColor1,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 5),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+//operating Expense
+                  CommonTextFieldHeaderModule(header: AppMessage.operatingExpense, required: true),
+                  const SizedBox(height: 5),
+                  TextFieldModule(
+                    fieldController: homeScreenController.operatingExpenseLTCFTextFieldController,
+                    hintText: AppMessage.operatingExpense,
+                    validate: (value) =>
+                        FieldValidation().validateAmount(value, AppMessage.operatingExpense),
+                  //   prifixIcon: Align(
+                  //   widthFactor: 1.0,
+                  //   heightFactor: 1.0,
+                  //   child: Text(
+                  //     '\$',
+                  //     style:
+                  //     TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  //   ),
+                  // ).commonOnlyPadding(right: 5),
+                    keyboardType: TextInputType.number,
+                    backgroundColor: AppColors.whiteColor1,
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+        const SizedBox(height: 10),
+
+//NOI -Capitalization Rate
+        Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+//noi
+                  CommonTextFieldHeaderModule(header: AppMessage.noi, required: true),
+                  const SizedBox(height: 5),
+                  TextFieldModule(
+                    fieldController: homeScreenController.noiLTCFTextFieldController,
+                    hintText: AppMessage.noi,
+                    validate: (value) =>
+                        FieldValidation().validateAmount(value, AppMessage.noi),
+                  //   prifixIcon: Align(
+                  //   widthFactor: 1.0,
+                  //   heightFactor: 1.0,
+                  //   child: Text(
+                  //     '\$',
+                  //     style:
+                  //     TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  //   ),
+                  // ).commonOnlyPadding(right: 5),
+                    keyboardType: TextInputType.number,
+                    backgroundColor: AppColors.whiteColor1,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 5),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+//capitalization Rate
+                  CommonTextFieldHeaderModule(header: AppMessage.capitalizationRate, required: true),
+                  const SizedBox(height: 5),
+                  TextFieldModule(
+                    fieldController: homeScreenController.capitalizationRateLTCFTextFieldController,
+                    hintText: AppMessage.capitalizationRate,
+                    validate: (value) =>
+                        FieldValidation().validateAmount(value, AppMessage.capitalizationRate),
+                  //   prifixIcon: Align(
+                  //   widthFactor: 1.0,
+                  //   heightFactor: 1.0,
+                  //   child: Text(
+                  //     '\$',
+                  //     style:
+                  //     TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  //   ),
+                  // ).commonOnlyPadding(right: 5),
+                    keyboardType: TextInputType.number,
+                    backgroundColor: AppColors.whiteColor1,
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+        const SizedBox(height: 10),
+
+//debitService - Annual Cash Flow
+        Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+//debitService
+                  CommonTextFieldHeaderModule(header: AppMessage.debitService, required: true),
+                  const SizedBox(height: 5),
+                  TextFieldModule(
+                    fieldController: homeScreenController.debitServiceLTCFTextFieldController,
+                    hintText: AppMessage.debitService,
+                    validate: (value) =>
+                        FieldValidation().validateAmount(value, AppMessage.debitService),
+                  //   prifixIcon: Align(
+                  //   widthFactor: 1.0,
+                  //   heightFactor: 1.0,
+                  //   child: Text(
+                  //     '\$',
+                  //     style:
+                  //     TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  //   ),
+                  // ).commonOnlyPadding(right: 5),
+                    keyboardType: TextInputType.number,
+                    backgroundColor: AppColors.whiteColor1,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 5),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+//annualCashFlow
+                  CommonTextFieldHeaderModule(header: AppMessage.annualCashFlow, required: true),
+                  const SizedBox(height: 5),
+                  TextFieldModule(
+                    fieldController: homeScreenController.annualCashFlowLTCFTextFieldController,
+                    hintText: AppMessage.annualCashFlow,
+                    validate: (value) =>
+                        FieldValidation().validateAmount(value, AppMessage.annualCashFlow),
+                  //   prifixIcon: Align(
+                  //   widthFactor: 1.0,
+                  //   heightFactor: 1.0,
+                  //   child: Text(
+                  //     '\$',
+                  //     style:
+                  //     TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  //   ),
+                  // ).commonOnlyPadding(right: 5),
+                    keyboardType: TextInputType.number,
+                    backgroundColor: AppColors.whiteColor1,
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+        const SizedBox(height: 10),
+
+// Total Out Of Pocket - ROI
+        Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+//total Out Of Pocket
+                  CommonTextFieldHeaderModule(header: AppMessage.totalOutOfPocket, required: true),
+                  const SizedBox(height: 5),
+                  TextFieldModule(
+                    fieldController: homeScreenController.totalOutOfPocketLTCFTextFieldController,
+                    hintText: AppMessage.totalOutOfPocket,
+                    validate: (value) =>
+                        FieldValidation().validateAmount(value, AppMessage.totalOutOfPocket),
+                  //   prifixIcon: Align(
+                  //   widthFactor: 1.0,
+                  //   heightFactor: 1.0,
+                  //   child: Text(
+                  //     '\$',
+                  //     style:
+                  //     TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  //   ),
+                  // ).commonOnlyPadding(right: 5),
+                    keyboardType: TextInputType.number,
+                    backgroundColor: AppColors.whiteColor1,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 5),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+//roi
+                  CommonTextFieldHeaderModule(header: AppMessage.roi, required: true),
+                  const SizedBox(height: 5),
+                  TextFieldModule(
+                    fieldController: homeScreenController.roiLTCFTextFieldController,
+                    hintText: AppMessage.roi,
+                    validate: (value) =>
+                        FieldValidation().validateAmount(value, AppMessage.roi),
+                  //   prifixIcon: Align(
+                  //   widthFactor: 1.0,
+                  //   heightFactor: 1.0,
+                  //   child: Text(
+                  //     '\$',
+                  //     style:
+                  //     TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  //   ),
+                  // ).commonOnlyPadding(right: 5),
+                    keyboardType: TextInputType.number,
+                    backgroundColor: AppColors.whiteColor1,
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+
+
+    ]);
+  }
+}
+
+
+//Project Costs for 2page
+class ProjectCosts2 extends StatelessWidget {
+  ProjectCosts2({Key? key}) : super(key: key);
+  final homeScreenController = Get.find<HomeScreenController>();
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+      Align(
+      alignment: Alignment.centerLeft,
+      child: Text(
+        AppMessage.projectCosts,
+        style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: AppColors.blackColor,
+            fontSize: 14.sp),
+      ).commonOnlyPadding(bottom: 5, top: 20),
+    ),
+    const CustomDivider(),
+    const SizedBox(height: 10),
+
+//Wholesale Fees
+        CommonTextFieldHeaderModule(header: AppMessage.wholesaleFees, required: true),
+        const SizedBox(height: 5),
+        TextFieldModule(
+          fieldController: homeScreenController.wholesaleFeesPCTextFieldController,
+          hintText: AppMessage.wholesaleFees,
+          validate: (value) =>
+              FieldValidation().validateAmount(value, AppMessage.wholesaleFees),
+        //   prifixIcon: Align(
+        //   widthFactor: 1.0,
+        //   heightFactor: 1.0,
+        //   child: Text(
+        //     '\$',
+        //     style:
+        //     TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+        //   ),
+        // ).commonOnlyPadding(right: 5),
+          keyboardType: TextInputType.number,
+          backgroundColor: AppColors.whiteColor1,
+        ),
+        const SizedBox(height: 10),
+
+// Rehab Costs
+        CommonTextFieldHeaderModule(header: AppMessage.rehabCosts, required: true),
+        const SizedBox(height: 5),
+        TextFieldModule(
+          fieldController: homeScreenController.rehabCostsPCTextFieldController,
+          hintText: AppMessage.rehabCosts,
+          validate: (value) =>
+              FieldValidation().validateAmount(value, AppMessage.rehabCosts),
+        //   prifixIcon: Align(
+        //   widthFactor: 1.0,
+        //   heightFactor: 1.0,
+        //   child: Text(
+        //     '\$',
+        //     style:
+        //     TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+        //   ),
+        // ).commonOnlyPadding(right: 5),
+          keyboardType: TextInputType.number,
+          backgroundColor: AppColors.whiteColor1,
+        ),
+      ]);
+  }
+}
+
+//Carrying Costs
+class CarryingCosts extends StatelessWidget {
+  CarryingCosts({Key? key}) : super(key: key);
+  final homeScreenController = Get.find<HomeScreenController>();
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+      Align(
+      alignment: Alignment.centerLeft,
+      child: Text(
+        AppMessage.carryingCosts,
+        style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: AppColors.blackColor,
+            fontSize: 14.sp),
+      ).commonOnlyPadding(bottom: 5, top: 20),
+    ),
+    const CustomDivider(),
+    const SizedBox(height: 10),
+
+
+//Taxes - Insurance
+        Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+//taxes
+                  CommonTextFieldHeaderModule(header: AppMessage.taxes , required: true),
+                  const SizedBox(height: 5),
+                  TextFieldModule(
+                    fieldController: homeScreenController.taxesCCTextFieldController,
+                    hintText: AppMessage.taxes,
+                    validate: (value) =>
+                        FieldValidation().validateAmount(value, AppMessage.taxes),
+                  //   prifixIcon: Align(
+                  //   widthFactor: 1.0,
+                  //   heightFactor: 1.0,
+                  //   child: Text(
+                  //     '\$',
+                  //     style:
+                  //     TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  //   ),
+                  // ).commonOnlyPadding(right: 5),
+                    keyboardType: TextInputType.number,
+                    backgroundColor: AppColors.whiteColor1,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 5),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+//Insurance
+                  CommonTextFieldHeaderModule(header: AppMessage.insurance, required: true),
+                  const SizedBox(height: 5),
+                  TextFieldModule(
+                    fieldController: homeScreenController.insuranceCCTextFieldController,
+                    hintText: AppMessage.insurance,
+                    validate: (value) =>
+                        FieldValidation().validateAmount(value, AppMessage.insurance),
+                  //   prifixIcon: Align(
+                  //   widthFactor: 1.0,
+                  //   heightFactor: 1.0,
+                  //   child: Text(
+                  //     '\$',
+                  //     style:
+                  //     TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  //   ),
+                  // ).commonOnlyPadding(right: 5),
+                    keyboardType: TextInputType.number,
+                    backgroundColor: AppColors.whiteColor1,
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+        const SizedBox(height: 10),
+
+//loan - Utilities
+
+        Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+//
+                  CommonTextFieldHeaderModule(header: AppMessage.loan, required: true),
+                  const SizedBox(height: 5),
+                  TextFieldModule(
+                    fieldController: homeScreenController.loanCCTextFieldController,
+                    hintText: AppMessage.loan,
+                    validate: (value) =>
+                        FieldValidation().validateAmount(value, AppMessage.loan),
+                    //   prifixIcon: Align(
+                    //   widthFactor: 1.0,
+                    //   heightFactor: 1.0,
+                    //   child: Text(
+                    //     '\$',
+                    //     style:
+                    //     TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                    //   ),
+                    // ).commonOnlyPadding(right: 5),
+                    keyboardType: TextInputType.number,
+                    backgroundColor: AppColors.whiteColor1,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 5),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+//
+                  CommonTextFieldHeaderModule(header: AppMessage.utilities, required: true),
+                  const SizedBox(height: 5),
+                  TextFieldModule(
+                    fieldController: homeScreenController.utilitiesCCTextFieldController,
+                    hintText: AppMessage.utilities,
+                    validate: (value) =>
+                        FieldValidation().validateAmount(value, AppMessage.utilities),
+                    //   prifixIcon: Align(
+                    //   widthFactor: 1.0,
+                    //   heightFactor: 1.0,
+                    //   child: Text(
+                    //     '\$',
+                    //     style:
+                    //     TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                    //   ),
+                    // ).commonOnlyPadding(right: 5),
+                    keyboardType: TextInputType.number,
+                    backgroundColor: AppColors.whiteColor1,
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+        const SizedBox(height: 10),
+
+//Condo Fee's
+        CommonTextFieldHeaderModule(header: AppMessage.condoFees, required: true),
+        const SizedBox(height: 5),
+        TextFieldModule(
+          fieldController: homeScreenController.condoFeesCCTextFieldController,
+          hintText: AppMessage.condoFees,
+          validate: (value) =>
+              FieldValidation().validateAmount(value, AppMessage.condoFees),
+          //   prifixIcon: Align(
+          //   widthFactor: 1.0,
+          //   heightFactor: 1.0,
+          //   child: Text(
+          //     '\$',
+          //     style:
+          //     TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+          //   ),
+          // ).commonOnlyPadding(right: 5),
+          keyboardType: TextInputType.number,
+          backgroundColor: AppColors.whiteColor1,
+        ),
+      ]);
+  }
+}
+
+
+//Selling Costs
+class SellingCost extends StatelessWidget {
+  SellingCost({Key? key}) : super(key: key);
+  final homeScreenController = Get.find<HomeScreenController>();
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+      Align(
+      alignment: Alignment.centerLeft,
+      child: Text(
+        AppMessage.sellingCosts,
+        style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: AppColors.blackColor,
+            fontSize: 14.sp),
+      ).commonOnlyPadding(bottom: 5, top: 20),
+    ),
+    const CustomDivider(),
+    const SizedBox(height: 10),
+
+//Agent Fees - Concessions
+        Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+//Agent Fees
+                  CommonTextFieldHeaderModule(header: AppMessage.agentFees , required: true),
+                  const SizedBox(height: 5),
+                  TextFieldModule(
+                    fieldController: homeScreenController.agentFeesSCTextFieldController,
+                    hintText: AppMessage.agentFees,
+                    validate: (value) =>
+                        FieldValidation().validateAmount(value, AppMessage.agentFees),
+                    //   prifixIcon: Align(
+                    //   widthFactor: 1.0,
+                    //   heightFactor: 1.0,
+                    //   child: Text(
+                    //     '\$',
+                    //     style:
+                    //     TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                    //   ),
+                    // ).commonOnlyPadding(right: 5),
+                    keyboardType: TextInputType.number,
+                    backgroundColor: AppColors.whiteColor1,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 5),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+//Concessions
+                  CommonTextFieldHeaderModule(header: AppMessage.concessions, required: true),
+                  const SizedBox(height: 5),
+                  TextFieldModule(
+                    fieldController: homeScreenController.concessionsSCTextFieldController,
+                    hintText: AppMessage.concessions,
+                    validate: (value) =>
+                        FieldValidation().validateAmount(value, AppMessage.concessions),
+                    //   prifixIcon: Align(
+                    //   widthFactor: 1.0,
+                    //   heightFactor: 1.0,
+                    //   child: Text(
+                    //     '\$',
+                    //     style:
+                    //     TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                    //   ),
+                    // ).commonOnlyPadding(right: 5),
+                    keyboardType: TextInputType.number,
+                    backgroundColor: AppColors.whiteColor1,
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+        const SizedBox(height: 10),
+
+//Closing Cost - Advertising
+        Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+//Closing Cost
+                  CommonTextFieldHeaderModule(header: AppMessage.closingCost, required: true),
+                  const SizedBox(height: 5),
+                  TextFieldModule(
+                    fieldController: homeScreenController.closingCostSCTextFieldController,
+                    hintText: AppMessage.closingCost,
+                    validate: (value) =>
+                        FieldValidation().validateAmount(value, AppMessage.closingCost),
+                    //   prifixIcon: Align(
+                    //   widthFactor: 1.0,
+                    //   heightFactor: 1.0,
+                    //   child: Text(
+                    //     '\$',
+                    //     style:
+                    //     TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                    //   ),
+                    // ).commonOnlyPadding(right: 5),
+                    keyboardType: TextInputType.number,
+                    backgroundColor: AppColors.whiteColor1,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 5),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+//Advertising
+                  CommonTextFieldHeaderModule(header: AppMessage.advertising, required: true),
+                  const SizedBox(height: 5),
+                  TextFieldModule(
+                    fieldController: homeScreenController.advertisingSCTextFieldController,
+                    hintText: AppMessage.advertising,
+                    validate: (value) =>
+                        FieldValidation().validateAmount(value, AppMessage.advertising),
+                    //   prifixIcon: Align(
+                    //   widthFactor: 1.0,
+                    //   heightFactor: 1.0,
+                    //   child: Text(
+                    //     '\$',
+                    //     style:
+                    //     TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                    //   ),
+                    // ).commonOnlyPadding(right: 5),
+                    keyboardType: TextInputType.number,
+                    backgroundColor: AppColors.whiteColor1,
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+        const SizedBox(height: 10),
+
+
+    ]);
   }
 }

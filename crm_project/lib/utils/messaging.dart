@@ -141,6 +141,7 @@ class AppMessage {
   static String startDate = "Start Date";
   static String endDate = "End Date";
   static String renewalType = "Renewal Type";
+  //Work Order
   static String noMoreWorkOrders = "No more work orders!";
   static String selectWorkOrderType = "Select Work Order Type";
   static String selectWorkOrderStatus = "Select Work Order Status";
@@ -155,6 +156,9 @@ class AppMessage {
   static String printed = "Printed";
   static String unitCostLabel = 'Unit Cost';
   static const String itemLabel = "item";
+
+
+//Home Screen Message
   static String propertyDetails = "Property Details";
   static String financialDetails = "Financial Details";
   static String propertyAddress = "Property Address";
@@ -223,13 +227,33 @@ class AppMessage {
   static String carryingCost = 'Carrying Cost';
   // static String salesPrice = 'Sales Price';
   static String projectCost = 'Project cost';
-  // static String netProfit = 'Net Profit';
+  static String longTermCashFlow = 'Long Term Cash Flow';
+  static String totalIncome = 'Total Income';
+  static String operatingExpense = 'Operating Expense';
+  static String  noi = 'NOI';
+  static String  debitService = 'Debit Service';
+  static String  roi = 'ROI';
+  static String  wholesaleFees = 'Wholesale Fees';
+  static String taxes = 'Taxes';
+  static String insurance = 'Insurance';
+  static String loan = 'Loan';
+  static String utilities = 'Utilities';
+  static String  condoFees = 'Condo Fees';
+  static String  agentFees = 'Agent Fees';
+  static String  concessions = 'Concessions';
+  static String  closingCost = 'Closing Cost';
+  static String  advertising = 'Advertising';
+
+  static String completedDate = 'Completed Date';
+  static const String completedLabel = "Completed";
+
+
 
 // Repair Messages
   static const String repairListLabel= "Repair List";
   static const String areaLabel= "Area";
 //token
   static String token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiRGhydXZpIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQ3VzdG9tZXIiLCJleHAiOjE2ODU3MTUwMjUsImlzcyI6Imh0dHA6Ly81LjE4OS4xNDcuMTU5OjcwMDMvIiwiYXVkIjoiaHR0cDovLzUuMTg5LjE0Ny4xNTk6NzAwMy8ifQ.BLJ5B2QFYR7SXsR9ajmfYiN4O7cDkrq8GE2KLfRO5Io";
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiRGhydXZpIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQ3VzdG9tZXIiLCJleHAiOjE2ODU3ODEyNTMsImlzcyI6Imh0dHA6Ly81LjE4OS4xNDcuMTU5OjcwMDMvIiwiYXVkIjoiaHR0cDovLzUuMTg5LjE0Ny4xNTk6NzAwMy8ifQ.LLDzmxaKtG9t-ymRCBp5kQwaitrEhayr84YoB_9rOrQ";
   static String customerId = "2";
 }
