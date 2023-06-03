@@ -18,6 +18,7 @@ import '../../utils/messaging.dart';
 class InvoiceManageScreenController extends GetxController {
   InvoiceOption invoiceManageOption = Get.arguments[0];
   String invoiceId = Get.arguments[1];
+  InvoiceComingFrom invoiceComingFrom=Get.arguments[2];
   RxBool isLoading = false.obs;
 
   WorkOrderDetailsDate selectedDateType = WorkOrderDetailsDate.date;

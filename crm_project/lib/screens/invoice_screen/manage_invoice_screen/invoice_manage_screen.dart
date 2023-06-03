@@ -21,12 +21,13 @@ class InvoiceManageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-          titleText: InvoiceOption.update ==
-                  invoiceManageScreenController.invoiceManageOption
-              ? 'Edit Invoice'
-              : 'Add Invoice',
-          leadingShow: false,
-          actionShow: false),
+        titleText: InvoiceOption.update ==
+                invoiceManageScreenController.invoiceManageOption
+            ? 'Edit Invoice'
+            : 'Add Invoice',
+        leadingShow: false,
+        actionShow: false,
+      ),
       body: SafeArea(
         child: Obx(
           () => invoiceManageScreenController.isLoading.value
@@ -216,9 +217,14 @@ class InvoiceManageScreen extends StatelessWidget {
                                 width: Get.width,
                                 child: CustomSubmitButton(
                                     onPress: () {
-                                      labelText: invoiceManageScreenController
-                                          .invoiceManageOption ==
-                                          InvoiceOption.create ? invoiceManageScreenController.addInvoiceFunction() : invoiceManageScreenController.updateInvoiceFunction();
+                                      labelText:
+                                      invoiceManageScreenController
+                                                  .invoiceManageOption ==
+                                              InvoiceOption.create
+                                          ? invoiceManageScreenController
+                                              .addInvoiceFunction()
+                                          : invoiceManageScreenController
+                                              .updateInvoiceFunction();
                                     },
                                     labelText: invoiceManageScreenController
                                                 .invoiceManageOption ==

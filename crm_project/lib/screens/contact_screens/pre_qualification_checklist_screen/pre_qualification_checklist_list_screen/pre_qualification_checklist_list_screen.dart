@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'package:crm_project/controller/company_module_controllers/contact_module_controller/pre_qualification_checklist_list_screen_controller.dart';
 import 'package:crm_project/screens/contact_screens/pre_qualification_checklist_screen/pre_qualification_checklist_list_screen/pre_qualification_checklist_screen_widgets.dart';
-import 'package:crm_project/screens/contact_screens/pre_qualification_checklist_screen/pre_qualification_checklist_manage_screen/pre_qualification_manage_screen_widgets.dart';
 import 'package:crm_project/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,6 +11,7 @@ import '../../../../common_modules/divider.dart';
 import '../../../../common_widgets/custom_appbar.dart';
 import '../../../../constants/colors.dart';
 import '../../../../utils/messaging.dart';
+import '../pre_qualification_checklist_manage_screen/pre_qualificatipon_manage_screen.dart';
 
 class PreQualificationListScreen extends StatelessWidget {
   PreQualificationListScreen({Key? key}) : super(key: key);
@@ -104,15 +104,17 @@ class PreQualificationListScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         heroTag: AppMessage.addLedger,
         onPressed: () {
-          Get.to(() => PreQualificationManageScreen(),
-              arguments: [
-                preQualificationCheckListScreenController.contactId,
-                PreQualificationChecklistOption.create,
-                // "",
-                // billListScreenController.companyId.toString(),
-                // billListScreenController.billComingFrom,
-              ],
-              transition: Transition.zoom);
+          Get.to(
+            () => PreQualificationCheckListManageScreen(),
+            arguments: [
+              preQualificationCheckListScreenController.contactId,
+              PreQualificationChecklistOption.create,
+              // "",
+              // billListScreenController.companyId.toString(),
+              // billListScreenController.billComingFrom,
+            ],
+            transition: Transition.zoom,
+          );
           // !
           //     .then((value) async {
           //   billListScreenController.isLoading(true);

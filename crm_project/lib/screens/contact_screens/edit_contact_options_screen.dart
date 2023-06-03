@@ -3,6 +3,7 @@ import 'package:crm_project/screens/attachment_screen/attachment_list_screen.dar
 import 'package:crm_project/screens/bill_screens/bill_list_screen/bill_list_screen.dart';
 import 'package:crm_project/screens/contact_screens/contact_manage_screen/contact_manage_screen.dart';
 import 'package:crm_project/screens/contact_screens/pre_qualification_checklist_screen/pre_qualification_checklist_list_screen/pre_qualification_checklist_list_screen.dart';
+import 'package:crm_project/screens/invoice_screen/invoice_list_screen.dart';
 import 'package:crm_project/screens/ledger_screens/ledger_list_screen/ledger_list_screen.dart';
 import 'package:crm_project/screens/notes_screens/notes_list_screen/notes_list_screen.dart';
 import 'package:flutter/material.dart';
@@ -165,7 +166,16 @@ class ContactOptionsScreen extends StatelessWidget {
               CommonListTitleModule(
                 icon: Icon(Icons.home, size: 20.sp),
                 titleText: AppMessage.invoice,
-                ontap: () {},
+                ontap: () {
+                  Get.to(
+                    () => InvoiceListScreen(),
+                    arguments: [
+                      contactOptionController.companyId,
+                      InvoiceComingFrom.contact,
+                      contactOptionController.contactId,
+                    ],
+                  );
+                },
               ),
 
               const SizedBox(height: 10),

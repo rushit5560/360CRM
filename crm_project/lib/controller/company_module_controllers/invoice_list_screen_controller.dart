@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:crm_project/common_modules/common_toast_module.dart';
 import 'package:crm_project/models/success_model/success_model.dart';
+import 'package:crm_project/utils/enums.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart' as dio;
@@ -11,6 +12,8 @@ import '../../utils/messaging.dart';
 
 class InvoiceListScreenController extends GetxController {
   String companyId = Get.arguments[0];
+  InvoiceComingFrom invoiceComingFrom = Get.arguments[1];
+  String contactId = Get.arguments[2];
 
   RxInt isSuccessStatusCode = 0.obs;
   RxBool isLoading = false.obs;
@@ -27,8 +30,9 @@ class InvoiceListScreenController extends GetxController {
 //get invoice list
   Future<void> getInvoiceListFunction() async {
     if (hasMore) {
-      final url =
-          '${ApiUrl.invoiceListApi}?PageNumber=$pageIndex&PageSize=$pageCount&SearchString=&type=company&id=$companyId';
+      final url = invoiceComingFrom == InvoiceComingFrom.company
+          ? '${ApiUrl.invoiceListApi}?PageNumber=$pageIndex&PageSize=$pageCount&SearchString=&type=company&id=$companyId'
+          : '${ApiUrl.invoiceListApi}?PageNumber=$pageIndex&PageSize=$pageCount&SearchString=&type=contact&id=$contactId';
       log('Invoice List URL : $url');
       try {
         final response = await dioRequest.get(url,
@@ -48,7 +52,7 @@ class InvoiceListScreenController extends GetxController {
             log('Invoice List hasMore : $hasMore');
           }
         } else {
-          log("else invoice List Responce : ${invoiceListModel.statusCode}");
+          log("else invoice List response : ${invoiceListModel.statusCode}");
         }
       } catch (e) {
         if (e is dio.DioError && e.response != null) {
@@ -80,23 +84,21 @@ class InvoiceListScreenController extends GetxController {
         "IsActive": status
       };
 
-      final response = await dioRequest.put(url,data: invoiceData,options: dio.Options(
-          headers: {"Authorization": "Bearer ${AppMessage.token}"}
-      ));
+      final response = await dioRequest.put(url,
+          data: invoiceData,
+          options: dio.Options(
+              headers: {"Authorization": "Bearer ${AppMessage.token}"}));
 
       log("invoice Status Response : ${response.data}");
-      SuccessModel successModel=SuccessModel.fromJson(response.data);
-      isSuccessStatusCode.value =  successModel.statusCode;
+      SuccessModel successModel = SuccessModel.fromJson(response.data);
+      isSuccessStatusCode.value = successModel.statusCode;
 
-      if(isSuccessStatusCode.value == 200){
+      if (isSuccessStatusCode.value == 200) {
         invoiceList[index].isActive = status;
         log("invoice Status Response : ${successModel.statusCode}");
-      }
-      else{
+      } else {
         log("else invoice Status Response : ${successModel.statusCode}");
       }
-
-
     } catch (e) {
       if (e is dio.DioError && e.response != null) {
         final response = e.response;
@@ -115,33 +117,33 @@ class InvoiceListScreenController extends GetxController {
   }
 
   //Delete
-  Future<void> deleteInvoiceFunction({required invoiceId, required index}) async {
+  Future<void> deleteInvoiceFunction(
+      {required invoiceId, required index}) async {
     final url = ApiUrl.invoiceSoftDeleteApi;
     log("invoice delete URL : $url");
 
-    try{
-      Map<String,dynamic>deleteData ={
-          "InvoiceID": invoiceId,
-          "IsDeleted": true
+    try {
+      Map<String, dynamic> deleteData = {
+        "InvoiceID": invoiceId,
+        "IsDeleted": true
       };
 
-      final response = await dioRequest.put(url,data: deleteData,options: dio.Options(
-          headers: {"Authorization": "Bearer ${AppMessage.token}"}
-      ));
+      final response = await dioRequest.put(url,
+          data: deleteData,
+          options: dio.Options(
+              headers: {"Authorization": "Bearer ${AppMessage.token}"}));
       log('invoice delete Responce : ${response.data}');
-      SuccessModel successModel=SuccessModel.fromJson(response.data);
+      SuccessModel successModel = SuccessModel.fromJson(response.data);
       isSuccessStatusCode.value = successModel.statusCode;
 
-      if(isSuccessStatusCode.value == 200){
+      if (isSuccessStatusCode.value == 200) {
         Get.back();
         invoiceList.removeAt(index);
         log('invoice delete : ${successModel.message}');
-      }
-      else{
+      } else {
         log('else invoice delete : ${successModel.message}');
       }
-    }
-    catch (e) {
+    } catch (e) {
       if (e is dio.DioError && e.response != null) {
         final response = e.response;
         final statusCode = response!.statusCode;

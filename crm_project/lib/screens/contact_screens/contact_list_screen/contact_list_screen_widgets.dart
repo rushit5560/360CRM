@@ -122,6 +122,7 @@ class ContactListWidget extends StatelessWidget {
                                         status: value,
                                         index: i,
                                       );
+
                                       // .notesList[i].isActive = value;
                                       // notesListScreenController.loadUI();
                                     },
@@ -131,6 +132,8 @@ class ContactListWidget extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () {
+                                log("contactListScreenController.contactList[i].contactId ${contactListScreenController.contactList[i].contactId}");
+
                                 Get.to(
                                   () => ContactOptionsScreen(),
                                   arguments: [

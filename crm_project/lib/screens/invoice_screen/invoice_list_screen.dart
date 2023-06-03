@@ -96,6 +96,7 @@ class InvoiceListScreen extends StatelessWidget {
               arguments: [
                 InvoiceOption.create,
                 '',
+                invoiceListScreenController.invoiceComingFrom,
               ]
           )!.then((value) async{
             invoiceListScreenController.isLoading(true);

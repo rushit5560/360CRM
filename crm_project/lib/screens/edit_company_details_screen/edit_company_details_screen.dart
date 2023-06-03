@@ -174,7 +174,9 @@ class EditCompanyDetailsScreen extends StatelessWidget {
                   Get.to(
                     () => InvoiceListScreen(),
                     arguments: [
-                      editCompanyDetailsScreenController.companyId.toString()
+                      editCompanyDetailsScreenController.companyId.toString(),
+                      InvoiceComingFrom.company,
+                      "",
                     ],
                   );
                 },
