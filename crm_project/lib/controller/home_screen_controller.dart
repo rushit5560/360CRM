@@ -333,7 +333,7 @@ class HomeScreenController extends GetxController {
   void returnonInvestmentFunction() {}
 
 //Quick Flip Analysis
-  final salesPriceTextFieldController = TextEditingController();
+  /*final salesPriceTextFieldController = TextEditingController();
   final purchasePriceTextFieldController = TextEditingController();
   final acquisitionCostsTextFieldController = TextEditingController();
   final carryingCostsTextFieldController = TextEditingController();
@@ -342,7 +342,7 @@ class HomeScreenController extends GetxController {
   final totalProjectCostTextFieldController = TextEditingController();
   final netProfitTextFieldController = TextEditingController();
   final totalOutOfPocketTextFieldController = TextEditingController();
-  final annualizedROITextFieldController = TextEditingController();
+  final annualizedROITextFieldController = TextEditingController();*/
 
 
 
@@ -401,7 +401,7 @@ class HomeScreenController extends GetxController {
 
 
 //Quick Flip - QF
-  final purchasePriceQFTextFieldController = TextEditingController();
+/*  final purchasePriceQFTextFieldController = TextEditingController();
   final sellingCostsQFTextFieldController = TextEditingController();
   final outOfPocketQFTextFieldController = TextEditingController();
   final loanCostQFTextFieldController = TextEditingController();
@@ -410,35 +410,35 @@ class HomeScreenController extends GetxController {
   final carryingCostQFTextFieldController = TextEditingController();
   final salesPriceQFTextFieldController = TextEditingController();
   final projectCostQFTextFieldController = TextEditingController();
-  final netProfitQFTextFieldController = TextEditingController();
+  final netProfitQFTextFieldController = TextEditingController();*/
 
 //longTermCashFlow - LTCF
-  final totalIncomeLTCFTextFieldController = TextEditingController();
+/*  final totalIncomeLTCFTextFieldController = TextEditingController();
   final operatingExpenseLTCFTextFieldController = TextEditingController();
   final noiLTCFTextFieldController = TextEditingController();
   final capitalizationRateLTCFTextFieldController = TextEditingController();
   final debitServiceLTCFTextFieldController = TextEditingController();
   final annualCashFlowLTCFTextFieldController = TextEditingController();
   final totalOutOfPocketLTCFTextFieldController = TextEditingController();
-  final roiLTCFTextFieldController = TextEditingController();
+  final roiLTCFTextFieldController = TextEditingController();*/
 
 //project Costs 2 - PC
-  final wholesaleFeesPCTextFieldController = TextEditingController();
-  final rehabCostsPCTextFieldController = TextEditingController();
+/*  final wholesaleFeesPCTextFieldController = TextEditingController();
+  final rehabCostsPCTextFieldController = TextEditingController();*/
 
 
 //Carrying Cost - CC
-  final taxesCCTextFieldController = TextEditingController();
+/*  final taxesCCTextFieldController = TextEditingController();
   final insuranceCCTextFieldController = TextEditingController();
   final loanCCTextFieldController = TextEditingController();
   final utilitiesCCTextFieldController = TextEditingController();
-  final condoFeesCCTextFieldController = TextEditingController();
+  final condoFeesCCTextFieldController = TextEditingController();*/
 
 //Selling Cost
-  final agentFeesSCTextFieldController = TextEditingController();
+/*  final agentFeesSCTextFieldController = TextEditingController();
   final concessionsSCTextFieldController = TextEditingController();
   final closingCostSCTextFieldController = TextEditingController();
-  final advertisingSCTextFieldController = TextEditingController();
+  final advertisingSCTextFieldController = TextEditingController();*/
 
 
   loadUI() {

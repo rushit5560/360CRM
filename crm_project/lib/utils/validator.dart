@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:crm_project/constants/colors.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 
 class FieldValidation {
   validateZip(String value) {
@@ -18,7 +21,7 @@ class FieldValidation {
 
   validateEmpty(String value, String fieldName) {
     if (value.isEmpty || value == ' ') {
-      return "Please enter valid $fieldName.";
+      return "Please enter $fieldName.";
     } else {
       return null;
     }
@@ -91,4 +94,36 @@ class FieldValidation {
       return "Please Enter amount between 0 to 99999999"; // Invalid mobile number
     }
   }
+  startDateValidator(startDate,endDate){
+    DateTime dt1 = DateTime.parse(startDate.toString());
+    if(startDate.toString().isEmpty){
+      return "Select start Date";
+    }
+    else{
+      endDateValidator(startDate,endDate);
+    }
+  }
+
+  endDateValidator(startDate , endDate) {
+    DateTime dt1 = DateTime.parse(startDate.toString());
+    DateTime dt2 = DateTime.parse(endDate.toString());
+
+    log(">>>>>>> $dt1");
+    if(true){
+
+    }
+    if(dt1.compareTo(dt2) == 0){
+      // log("Both date time are at same moment.");
+      return null;
+    }
+    if(dt1.compareTo(dt2) < 0){
+      // log("DT1 is before DT2");
+      return null;
+    }
+
+    if(dt1.compareTo(dt2) > 0) {
+      log("DT1 is after DT2");
+      return "Due date must be after start date";
+    } }
+
 }

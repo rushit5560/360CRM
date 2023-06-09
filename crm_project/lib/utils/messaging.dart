@@ -243,6 +243,7 @@ class AppMessage {
   static String  concessions = 'Concessions';
   static String  closingCost = 'Closing Cost';
   static String  advertising = 'Advertising';
+  static String  pointsAmount = 'Points Amount';
 
   static String completedDate = 'Completed Date';
   static const String completedLabel = "Completed";
@@ -252,8 +253,29 @@ class AppMessage {
 // Repair Messages
   static const String repairListLabel= "Repair List";
   static const String areaLabel= "Area";
+
+//Activity List
+  static const String activityList = "Activity List";
+  static const String addActivity = "Add Activity";
+  static const String editActivity = "Edit Activity";
+  static const String activityDetails = "Activity Details";
+  static const String title = "Title";
+  static const String activityType = "Activity Type";
+  static const String priority = "Priority";
+  static const String  activityStatus  = "Activity Status";
+  static const String  reminder  = "Reminder";
+  static const String  reminderDate  = "Reminder Date";
+  static const String  reminderTime  = "Reminder Time (24hrs)";
+  static const String  reminderNote  = "Reminder Note";
+  static const String   selectActivityType = "Select Activity Type";
+  static const String   selectPriority = "Select Priority";
+  static const String  selectActivityStatus  = "Select Activity Status";
+  static const String  users  = "Users";
+  static const String  usersList  = "Users List";
+  static const String  selectRole  = "Select Role";
+
 //token
   static String token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiRGhydXZpIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQ3VzdG9tZXIiLCJleHAiOjE2ODU3ODEyNTMsImlzcyI6Imh0dHA6Ly81LjE4OS4xNDcuMTU5OjcwMDMvIiwiYXVkIjoiaHR0cDovLzUuMTg5LjE0Ny4xNTk6NzAwMy8ifQ.LLDzmxaKtG9t-ymRCBp5kQwaitrEhayr84YoB_9rOrQ";
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiRGF2aWQiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJDdXN0b21lciIsImV4cCI6MTY4NjIzMDY0MCwiaXNzIjoiaHR0cDovLzUuMTg5LjE0Ny4xNTk6NzAwMy8iLCJhdWQiOiJodHRwOi8vNS4xODkuMTQ3LjE1OTo3MDAzLyJ9.hUEMfVGtyYWWPmYx_UQ8DeOoWgmemXHSaO7G7lnsp_k";
   static String customerId = "2";
 }

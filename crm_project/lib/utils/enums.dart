@@ -27,3 +27,9 @@ enum AttachmentComingFrom { company, contact }
 enum PreQualificationChecklistOption { create, update }
 
 enum InvoiceComingFrom { company, contact }
+
+enum ActivityOption{create, update}
+
+enum ActivityManageDate{startDate, dueDate, completeDate, reminderDate}
+
+enum ActivityUserManageOption {create,update}

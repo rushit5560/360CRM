@@ -202,7 +202,30 @@ class PropertyDetails extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 10),
-          //land value & offer price
+          //Expected After Repair value
+          CommonTextFieldHeaderModule(
+              header: AppMessage.expectedAfterRepairValue, required: true),
+          const SizedBox(height: 5),
+          TextFieldModule(
+            fieldController:
+            homeScreenController.expectedAfterRepairValueFieldController,
+            hintText: AppMessage.expectedAfterRepairValue,
+            validate: (value) => FieldValidation()
+                .validateAmount(value, AppMessage.expectedAfterRepairValue),
+            prifixIcon: Align(
+              widthFactor: 1.0,
+              heightFactor: 1.0,
+              child: Text(
+                '\$',
+                style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+              ),
+            ).commonOnlyPadding(right: 5),
+            keyboardType: TextInputType.number,
+            backgroundColor: AppColors.whiteColor1,
+          ),
+          const SizedBox(height: 10),
+
+//land value & offer price
           Row(
             children: [
               Expanded(
@@ -241,8 +264,7 @@ class PropertyDetails extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CommonTextFieldHeaderModule(
-                        header: AppMessage.leadSource, required: true),
+                    CommonTextFieldHeaderModule(header: AppMessage.leadSource, required: true),
                     const SizedBox(height: 5),
                     TextFieldModule(
                       fieldController:
@@ -269,64 +291,43 @@ class PropertyDetails extends StatelessWidget {
           ),
           const SizedBox(height: 10),
 
-          //Expected After Repair value
-          CommonTextFieldHeaderModule(
-              header: AppMessage.expectedAfterRepairValue, required: true),
-          const SizedBox(height: 5),
-          TextFieldModule(
-            fieldController:
-                homeScreenController.expectedAfterRepairValueFieldController,
-            hintText: AppMessage.expectedAfterRepairValue,
-            validate: (value) => FieldValidation()
-                .validateAmount(value, AppMessage.expectedAfterRepairValue),
-            prifixIcon: Align(
-              widthFactor: 1.0,
-              heightFactor: 1.0,
-              child: Text(
-                '\$',
-                style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-              ),
-            ).commonOnlyPadding(right: 5),
-            keyboardType: TextInputType.number,
-            backgroundColor: AppColors.whiteColor1,
-          ),
-          const SizedBox(height: 10),
-          CommonTextFieldHeaderModule(
-              header: AppMessage.howDidYouFindThisProperty, required: false),
-          const SizedBox(height: 5),
-          Container(
-            width: Get.width,
-            decoration: BoxDecoration(
-                // color: AppColors.appColors,
-                borderRadius: BorderRadius.circular(5),
-                border: Border.all(color: AppColors.appColors)),
-            child: Obx(
-              () => homeScreenController.isLoading.value
-                  ? Container()
-                  : DropdownButtonHideUnderline(
-                      child: DropdownButton(
-                        hint: Text(
-                          homeScreenController.stateSelect.value,
-                          style: const TextStyle(color: AppColors.appColors),
-                        ),
-                        // Not necessary for Option 1
-                        // value: selectedLocation.isNotEmpty ?  selectedLocation: null ,
-                        onChanged: (newValue) {
-                          homeScreenController.stateSelect.value = newValue!;
-                          homeScreenController.loadUI();
-                          log(newValue);
-                        },
-                        items: homeScreenController.stateDropDownList
-                            .map((location) {
-                          return DropdownMenuItem(
-                            value: location,
-                            child: Text(location),
-                          );
-                        }).toList(),
-                      ),
-                    ),
-            ).paddingOnly(left: 5, right: 5),
-          ),
+
+          // CommonTextFieldHeaderModule(
+          //     header: AppMessage.howDidYouFindThisProperty, required: false),
+          // const SizedBox(height: 5),
+          // Container(
+          //   width: Get.width,
+          //   decoration: BoxDecoration(
+          //       // color: AppColors.appColors,
+          //       borderRadius: BorderRadius.circular(5),
+          //       border: Border.all(color: AppColors.appColors)),
+          //   child: Obx(
+          //     () => homeScreenController.isLoading.value
+          //         ? Container()
+          //         : DropdownButtonHideUnderline(
+          //             child: DropdownButton(
+          //               hint: Text(
+          //                 homeScreenController.stateSelect.value,
+          //                 style: const TextStyle(color: AppColors.appColors),
+          //               ),
+          //               // Not necessary for Option 1
+          //               // value: selectedLocation.isNotEmpty ?  selectedLocation: null ,
+          //               onChanged: (newValue) {
+          //                 homeScreenController.stateSelect.value = newValue!;
+          //                 homeScreenController.loadUI();
+          //                 log(newValue);
+          //               },
+          //               items: homeScreenController.stateDropDownList
+          //                   .map((location) {
+          //                 return DropdownMenuItem(
+          //                   value: location,
+          //                   child: Text(location),
+          //                 );
+          //               }).toList(),
+          //             ),
+          //           ),
+          //   ).paddingOnly(left: 5, right: 5),
+          // ),
         ],
       ),
     );
@@ -1007,6 +1008,370 @@ class MortgageDetails1 extends StatelessWidget {
           const CustomDivider(),
           const SizedBox(height: 10),
 
+// Mortgage Term
+          CommonTextFieldHeaderModule(header: AppMessage.mortgageTermMonths, required: true),
+          const SizedBox(height: 5),
+          TextFieldModule(
+            fieldController:
+            homeScreenController.mortgageTermMonthsFieldController,
+            hintText: AppMessage.mortgageTermMonths,
+            validate: (value) => FieldValidation()
+                .validateAmount(value, 'mortgage term (months)'),
+            keyboardType: TextInputType.number,
+            backgroundColor: AppColors.whiteColor1,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+// payments per year
+          CommonTextFieldHeaderModule(header: AppMessage.paymentsPerYear, required: true),
+          const SizedBox(height: 5),
+          TextFieldModule(
+            fieldController:
+            homeScreenController.paymentsPerYearFieldController,
+            hintText: AppMessage.paymentsPerYear,
+            validate: (value) =>
+                FieldValidation().validateAmount(value, 'payments per year'),
+            keyboardType: TextInputType.number,
+            backgroundColor: AppColors.whiteColor1,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+// Down Payment Percentage
+          CommonTextFieldHeaderModule(header: AppMessage.downPaymentPercentage, required: true),
+          const SizedBox(height: 5),
+          TextFieldModule(
+            fieldController:
+            homeScreenController.downPaymentPercentageFieldController,
+            hintText: AppMessage.downPaymentPercentage,
+            validate: (value) => FieldValidation()
+                .validateAmount(value, 'down payment percentage'),
+            prifixIcon: Align(
+              widthFactor: 1.0,
+              heightFactor: 1.0,
+              child: Text(
+                '%',
+                style:
+                TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+              ),
+            ).commonOnlyPadding(right: 5),
+            onChange: (val) {
+              homeScreenController.downPaymentAmountFunction();
+              homeScreenController.financedAmountFunction();
+            },
+            keyboardType: TextInputType.number,
+            backgroundColor: AppColors.whiteColor1,
+          ),
+          const SizedBox(height: 10),
+//Down Payment Amount
+          CommonTextFieldHeaderModule(header: AppMessage.downPaymentAmount, required: true),
+          const SizedBox(height: 5),
+          TextFieldModule(
+            fieldController:
+            homeScreenController.downPaymentAmountFieldController,
+            readOnly: true,
+            prifixIcon: Align(
+              widthFactor: 1.0,
+              heightFactor: 1.0,
+              child: Text(
+                '\$',
+                style:
+                TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+              ),
+            ).commonOnlyPadding(right: 5),
+            hintText: AppMessage.downPaymentAmount,
+            keyboardType: TextInputType.number,
+          ),
+          const SizedBox(height: 10),
+//Financed Amount
+          CommonTextFieldHeaderModule(header: AppMessage.financedAmount, required: true),
+          const SizedBox(height: 5),
+
+          TextFieldModule(
+            fieldController:
+            homeScreenController.financedAmountFieldController,
+            readOnly: true,
+            prifixIcon: Align(
+              widthFactor: 1.0,
+              heightFactor: 1.0,
+              child: Text(
+                '\$',
+                style:
+                TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+              ),
+            ).commonOnlyPadding(right: 5),
+            hintText: "Financed Amount",
+            keyboardType: TextInputType.number,
+          ),
+          const SizedBox(
+            height: 10),
+//Interest Rate
+          CommonTextFieldHeaderModule(header: AppMessage.interestRate, required: true),
+          const SizedBox(height: 5),
+          TextFieldModule(
+            fieldController: homeScreenController.interestRateFieldController,
+            hintText: AppMessage.interestRate,
+            validate: (value) =>
+                FieldValidation().validateAmount(value, 'interest rate'),
+            prifixIcon: Align(
+              widthFactor: 1.0,
+              heightFactor: 1.0,
+              child: Text(
+                '%',
+                style:
+                TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+              ),
+            ).commonOnlyPadding(right: 5),
+            keyboardType: TextInputType.number,
+            backgroundColor: AppColors.whiteColor1,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+//radioButton Interest Only (0=Yes, 1=No)
+          Obx(
+                () => Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Points Financed',
+                  style:
+                  TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp),
+                ),
+                Row(
+                  children: [
+                    Row(
+                      children: [
+                        Radio(
+                          value:
+                          homeScreenController.pointsFinancedButton.value,
+                          groupValue: 0,
+                          onChanged: (val) {
+                            homeScreenController.pointsFinancedButton.value =
+                            0;
+                          },
+                        ),
+                        const Text(
+                          'Yes',
+                          style: TextStyle(),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Radio(
+                          value:
+                          homeScreenController.pointsFinancedButton.value,
+                          groupValue: 1,
+                          onChanged: (val) {
+                            homeScreenController.pointsFinancedButton.value =
+                            1;
+                          },
+                        ),
+                        const Text(
+                          'No',
+                          style: TextStyle(),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 10),
+//loan Points
+          CommonTextFieldHeaderModule(header: AppMessage.loanPoints, required: true),
+          const SizedBox(height: 5),
+          TextFieldModule(
+            fieldController: homeScreenController.loanPointsFieldController,
+            hintText: AppMessage.loanPoints,
+            validate: (value) =>
+                FieldValidation().validateAmount(value, 'loan points'),
+            onChange: (val) {
+              homeScreenController.pointsAmountFunction();
+            },
+            prifixIcon: Align(
+              widthFactor: 1.0,
+              heightFactor: 1.0,
+              child: Text(
+                '%',
+                style:
+                TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+              ),
+            ).commonOnlyPadding(right: 5),
+            keyboardType: TextInputType.number,
+            backgroundColor: AppColors.whiteColor1,
+          ),
+          const SizedBox(
+            height: 10),
+//Points Amount
+          CommonTextFieldHeaderModule(header: AppMessage.pointsAmount, required: true),
+          const SizedBox(height: 5),
+          TextFieldModule(
+            fieldController: homeScreenController.pointsAmountFieldController,
+            hintText: AppMessage.pointsAmount,
+            readOnly: true,
+            prifixIcon: Align(
+              widthFactor: 1.0,
+              heightFactor: 1.0,
+              child: Text(
+                '\$',
+                style:
+                TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+              ),
+            ).commonOnlyPadding(right: 5),
+            keyboardType: TextInputType.number,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          //Radio Button Points Financed (0=Yes, 1=No)
+          Obx(
+                () => Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Interest Only',
+                  style:
+                  TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp),
+                ),
+                Row(
+                  children: [
+                    Row(
+                      children: [
+                        Radio(
+                          value:
+                          homeScreenController.interestOnlyButton.value,
+                          groupValue: 0,
+                          onChanged: (val) {
+                            homeScreenController.interestOnlyButton.value = 0;
+                          },
+                        ),
+                        const Text(
+                          'Yes',
+                          style: TextStyle(),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Radio(
+                          value:
+                          homeScreenController.interestOnlyButton.value,
+                          groupValue: 1,
+                          onChanged: (val) {
+                            homeScreenController.interestOnlyButton.value = 1;
+                          },
+                        ),
+                        const Text(
+                          'No',
+                          style: TextStyle(),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 10),
+//Closing Cost
+          CommonTextFieldHeaderModule(header: AppMessage.closingCost, required: true),
+          const SizedBox(height: 5),
+          TextFieldModule(
+            fieldController: homeScreenController.closingCostsFieldController,
+            hintText: AppMessage.closingCost,
+            prifixIcon: Align(
+              widthFactor: 1.0,
+              heightFactor: 1.0,
+              child: Text(
+                '\$',
+                style:
+                TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+              ),
+            ).commonOnlyPadding(right: 5),
+            readOnly: true,
+            keyboardType: TextInputType.number,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          //Radio Button Closing Costs Financed (0=Yes, 1=No)
+          Obx(
+                () => Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Closing Costs Financed',
+                  style:
+                  TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp),
+                ),
+                Row(
+                  children: [
+                    Row(
+                      children: [
+                        Radio(
+                          value: homeScreenController
+                              .closingCostsFinancedButton.value,
+                          groupValue: 0,
+                          onChanged: (val) {
+                            homeScreenController
+                                .closingCostsFinancedButton.value = 0;
+                          },
+                        ),
+                        const Text(
+                          'Yes',
+                          style: TextStyle(),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Radio(
+                          value: homeScreenController
+                              .closingCostsFinancedButton.value,
+                          groupValue: 1,
+                          onChanged: (val) {
+                            homeScreenController
+                                .closingCostsFinancedButton.value = 1;
+                          },
+                        ),
+                        const Text(
+                          'No',
+                          style: TextStyle(),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 10),
+        ],
+      ),
+    );
+      /*Form(
+      key: homeScreenController.mortgage1Key,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              "1st Mortgage Details",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.blackColor,
+                  fontSize: 14.sp),
+            ).commonOnlyPadding(bottom: 5, top: 20),
+          ),
+          const CustomDivider(),
+          const SizedBox(height: 10),
+
           Row(
             children: [
               Expanded(
@@ -1543,7 +1908,7 @@ class MortgageDetails1 extends StatelessWidget {
           ),
         ],
       ),
-    );
+    );*/
   }
 }
 
@@ -1555,6 +1920,367 @@ class MortgageDetails2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: homeScreenController.mortgage2Key,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              "2st Mortgage Details",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.blackColor,
+                  fontSize: 14.sp),
+            ).commonOnlyPadding(bottom: 5, top: 20),
+          ),
+          const CustomDivider(),
+          const SizedBox(height: 10),
+          // Mortgage Term
+          CommonTextFieldHeaderModule(header: AppMessage.mortgageTermMonths, required: true),
+          const SizedBox(height: 5),
+          TextFieldModule(
+            fieldController:
+            homeScreenController.mortgageTermMonths2FieldController,
+            hintText: "Mortgage Term (Months)",
+            validate: (value) => FieldValidation()
+                .validateAmount(value, 'mortgage term (months)'),
+            keyboardType: TextInputType.number,
+            backgroundColor: AppColors.whiteColor1,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+//payments Per Year
+          CommonTextFieldHeaderModule(header: AppMessage.paymentsPerYear, required: true),
+          const SizedBox(height: 5),
+
+          TextFieldModule(
+            fieldController:
+            homeScreenController.paymentsPerYear2FieldController,
+            hintText: "Payments Per Year",
+            validate: (value) =>
+                FieldValidation().validateAmount(value, 'payments per year'),
+            keyboardType: TextInputType.number,
+            backgroundColor: AppColors.whiteColor1,
+          ),
+          const SizedBox(height: 10),
+ //2nd Mortgage Amount
+          CommonTextFieldHeaderModule(header: "2nd Mortgage Amount", required: true),
+          const SizedBox(height: 5),
+
+          TextFieldModule(
+            fieldController:
+            homeScreenController.mortgageAmount2FieldController,
+            hintText: "2nd Mortgage Amount",
+            validate: (value) => FieldValidation()
+                .validateAmount(value, '2nd mortgage amount'),
+            prifixIcon: Align(
+              widthFactor: 1.0,
+              heightFactor: 1.0,
+              child: Text(
+                '%',
+                style:
+                TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+              ),
+            ).commonOnlyPadding(right: 5),
+            keyboardType: TextInputType.number,
+            backgroundColor: AppColors.whiteColor1,
+          ),
+          const SizedBox(height: 10),
+//financedAmount2
+          CommonTextFieldHeaderModule(header: AppMessage.financedAmount, required: true),
+          const SizedBox(height: 5),
+
+          TextFieldModule(
+            fieldController:
+            homeScreenController.financedAmount2FieldController,
+            readOnly: true,
+            prifixIcon: Align(
+              widthFactor: 1.0,
+              heightFactor: 1.0,
+              child: Text(
+                '\$',
+                style:
+                TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+              ),
+            ).commonOnlyPadding(right: 5),
+            onChange: (val) {
+              homeScreenController.pointsAmountFunction2();
+            },
+            hintText: "Financed Amount",
+            keyboardType: TextInputType.number,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+
+
+//Closing cost
+          CommonTextFieldHeaderModule(header: AppMessage.interestRate, required: true),
+          const SizedBox(height: 5),
+
+          TextFieldModule(
+            fieldController:
+            homeScreenController.interestRate2FieldController,
+            hintText: "Interest Rate",
+            validate: (value) =>
+                FieldValidation().validateAmount(value, 'interest rate'),
+            prifixIcon: Align(
+              widthFactor: 1.0,
+              heightFactor: 1.0,
+              child: Text(
+                '%',
+                style:
+                TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+              ),
+            ).commonOnlyPadding(right: 5),
+            keyboardType: TextInputType.number,
+            backgroundColor: AppColors.whiteColor1,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          //radioButton Interest Only (0=Yes, 1=No)
+          Obx(
+                () => Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Points Financed',
+                  style:
+                  TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp),
+                ),
+                Row(
+                  children: [
+                    Row(
+                      children: [
+                        Radio(
+                          value: homeScreenController
+                              .pointsFinancedButton2.value,
+                          groupValue: 0,
+                          onChanged: (val) {
+                            homeScreenController.pointsFinancedButton2.value =
+                            0;
+                          },
+                        ),
+                        const Text(
+                          'Yes',
+                          style: TextStyle(),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Radio(
+                          value: homeScreenController
+                              .pointsFinancedButton2.value,
+                          groupValue: 1,
+                          onChanged: (val) {
+                            homeScreenController.pointsFinancedButton2.value =
+                            1;
+                          },
+                        ),
+                        const Text(
+                          'No',
+                          style: TextStyle(),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+
+//Loan Points
+          CommonTextFieldHeaderModule(header: AppMessage.loanPoints, required: true),
+          const SizedBox(height: 5),
+
+          TextFieldModule(
+            fieldController: homeScreenController.loanPoints2FieldController,
+            hintText: "Loan Points",
+            onChange: (val) {
+              homeScreenController.pointsAmountFunction2();
+            },
+            prifixIcon: Align(
+              widthFactor: 1.0,
+              heightFactor: 1.0,
+              child: Text(
+                '%',
+                style:
+                TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+              ),
+            ).commonOnlyPadding(right: 5),
+            validate: (value) =>
+                FieldValidation().validateAmount(value, 'loan points'),
+            keyboardType: TextInputType.number,
+            backgroundColor: AppColors.whiteColor1,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+
+//Points Amount
+          CommonTextFieldHeaderModule(header: AppMessage.pointsAmount, required: true),
+          const SizedBox(height: 5),
+
+          TextFieldModule(
+            fieldController:
+            homeScreenController.pointsAmount2FieldController,
+            hintText: "Points Amount",
+            prifixIcon: Align(
+              widthFactor: 1.0,
+              heightFactor: 1.0,
+              child: Text(
+                '\$',
+                style:
+                TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+              ),
+            ).commonOnlyPadding(right: 5),
+            readOnly: true,
+            keyboardType: TextInputType.number,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          //Radio Button Points Financed (0=Yes, 1=No)
+          Obx(
+                () => Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Interest Only',
+                  style:
+                  TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp),
+                ),
+                Row(
+                  children: [
+                    Row(
+                      children: [
+                        Radio(
+                          value:
+                          homeScreenController.interestOnlyButton2.value,
+                          groupValue: 0,
+                          onChanged: (val) {
+                            homeScreenController.interestOnlyButton2.value =
+                            0;
+                          },
+                        ),
+                        const Text(
+                          'Yes',
+                          style: TextStyle(),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Radio(
+                          value:
+                          homeScreenController.interestOnlyButton2.value,
+                          groupValue: 1,
+                          onChanged: (val) {
+                            homeScreenController.interestOnlyButton2.value =
+                            1;
+                          },
+                        ),
+                        const Text(
+                          'No',
+                          style: TextStyle(),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+
+
+//Closing cost
+          CommonTextFieldHeaderModule(header: AppMessage.closingCost, required: true),
+          const SizedBox(height: 5),
+
+          TextFieldModule(
+            fieldController:
+            homeScreenController.closingCosts2FieldController,
+            hintText: "Closing Costs",
+            prifixIcon: Align(
+              widthFactor: 1.0,
+              heightFactor: 1.0,
+              child: Text(
+                '\$',
+                style:
+                TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+              ),
+            ).commonOnlyPadding(right: 5),
+            readOnly: true,
+            keyboardType: TextInputType.number,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          //Radio Button Closing Costs Financed (0=Yes, 1=No)
+          Obx(
+                () => Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Closing Costs Financed',
+                  style:
+                  TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp),
+                ),
+                Row(
+                  children: [
+                    Row(
+                      children: [
+                        Radio(
+                          value: homeScreenController
+                              .closingCostsFinancedButton2.value,
+                          groupValue: 0,
+                          onChanged: (val) {
+                            homeScreenController
+                                .closingCostsFinancedButton2.value = 0;
+                          },
+                        ),
+                        const Text('Yes'),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Radio(
+                          value: homeScreenController
+                              .closingCostsFinancedButton2.value,
+                          groupValue: 1,
+                          onChanged: (val) {
+                            homeScreenController
+                                .closingCostsFinancedButton2.value = 1;
+                          },
+                        ),
+                        const Text(
+                          'No',
+                          style: TextStyle(),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+        ],
+      ),
+    );
+      /*Form(
       key: homeScreenController.mortgage2Key,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1709,7 +2435,7 @@ class MortgageDetails2 extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-//Interest Rate
+//Interest Rate Module
           CommonTextFieldHeaderModule(
               header: AppMessage.interestRate, required: true),
           Row(
@@ -1948,7 +2674,7 @@ class MortgageDetails2 extends StatelessWidget {
           ),
         ],
       ),
-    );
+    );*/
   }
 }
 
@@ -1975,7 +2701,7 @@ class AnnualCashFlowAnalysis extends StatelessWidget {
           const CustomDivider(),
           const SizedBox(height: 10),
 //Effective Gross Income
-          CommonTextFieldHeaderModule(header: AppMessage.effectiveGrossIncome, required: true),
+  /*        CommonTextFieldHeaderModule(header: AppMessage.effectiveGrossIncome, required: true),
           const SizedBox(height: 5),
           TextFieldModule(
             fieldController: homeScreenController.effectiveGrossIncomeTextFieldController,
@@ -2160,74 +2886,73 @@ class AnnualCashFlowAnalysis extends StatelessWidget {
           ).commonOnlyPadding(right: 5),
             keyboardType: TextInputType.number,
             backgroundColor: AppColors.whiteColor1,
-          ),
+          ),*/
 
-
-          // Column(
-          //   children: [
-          //     TextRow(
-          //         title: 'Effective Gross Income',
-          //         subTitle:
-          //             '${homeScreenController.effectiveGrossIncome.value}',
-          //         suffix: '\$'),
-          //     const SizedBox(
-          //       height: 10,
-          //     ),
-          //     TextRow(
-          //         title: 'Operating Expenses',
-          //         subTitle: '${homeScreenController.operatingExpenses.value}',
-          //         suffix: '\$'),
-          //     const SizedBox(
-          //       height: 10,
-          //     ),
-          //     TextRow(
-          //         title: 'Net Operating Income',
-          //         subTitle: '${homeScreenController.netOperatingIncome.value}',
-          //         suffix: '\$'),
-          //     const SizedBox(
-          //       height: 10,
-          //     ),
-          //     TextRow(
-          //         title: 'Capitalization Rate',
-          //         subTitle: '${homeScreenController.capitalizationRate}',
-          //         suffix: '%'),
-          //     const SizedBox(
-          //       height: 10,
-          //     ),
-          //     TextRow(
-          //         title: 'Annual Debt Service',
-          //         subTitle: '${homeScreenController.annualDebtService.value}',
-          //         suffix: '\$'),
-          //     const SizedBox(
-          //       height: 10,
-          //     ),
-          //     TextRow(
-          //         title: 'Debt Coverage Ratio',
-          //         subTitle: '${homeScreenController.debtCoverageRatio}',
-          //         suffix: '%'),
-          //     const SizedBox(
-          //       height: 10,
-          //     ),
-          //     TextRow(
-          //         title: 'Annual Cash Flow',
-          //         subTitle: '${homeScreenController.annualCashFlow.value}',
-          //         suffix: '\$'),
-          //     const SizedBox(
-          //       height: 10,
-          //     ),
-          //     TextRow(
-          //         title: 'Total Out of Pocket',
-          //         subTitle: '${homeScreenController.totalOutPocket.value}',
-          //         suffix: '\$'),
-          //     const SizedBox(
-          //       height: 10,
-          //     ),
-          //     TextRow(
-          //         title: 'Return on Investment',
-          //         subTitle: '${homeScreenController.returnonInvestment.value}',
-          //         suffix: '%'),
-          //   ],
-          // ).paddingOnly(left: 10, right: 10)
+          Column(
+            children: [
+              TextRow(
+                  title: 'Effective Gross Income',
+                  subTitle:
+                      '${homeScreenController.effectiveGrossIncome.value}',
+                  suffix: '\$'),
+              const SizedBox(
+                height: 10,
+              ),
+              TextRow(
+                  title: 'Operating Expenses',
+                  subTitle: '${homeScreenController.operatingExpenses.value}',
+                  suffix: '\$'),
+              const SizedBox(
+                height: 10,
+              ),
+              TextRow(
+                  title: 'Net Operating Income',
+                  subTitle: '${homeScreenController.netOperatingIncome.value}',
+                  suffix: '\$'),
+              const SizedBox(
+                height: 10,
+              ),
+              TextRow(
+                  title: 'Capitalization Rate',
+                  subTitle: '${homeScreenController.capitalizationRate}',
+                  suffix: '%'),
+              const SizedBox(
+                height: 10,
+              ),
+              TextRow(
+                  title: 'Annual Debt Service',
+                  subTitle: '${homeScreenController.annualDebtService.value}',
+                  suffix: '\$'),
+              const SizedBox(
+                height: 10,
+              ),
+              TextRow(
+                  title: 'Debt Coverage Ratio',
+                  subTitle: '${homeScreenController.debtCoverageRatio}',
+                  suffix: '%'),
+              const SizedBox(
+                height: 10,
+              ),
+              TextRow(
+                  title: 'Annual Cash Flow',
+                  subTitle: '${homeScreenController.annualCashFlow.value}',
+                  suffix: '\$'),
+              const SizedBox(
+                height: 10,
+              ),
+              TextRow(
+                  title: 'Total Out of Pocket',
+                  subTitle: '${homeScreenController.totalOutPocket.value}',
+                  suffix: '\$'),
+              const SizedBox(
+                height: 10,
+              ),
+              TextRow(
+                  title: 'Return on Investment',
+                  subTitle: '${homeScreenController.returnonInvestment.value}',
+                  suffix: '%'),
+            ],
+          ).paddingOnly(left: 10, right: 10)
         ],
       );
   }
@@ -2257,7 +2982,7 @@ class QuickFlipAnalysis extends StatelessWidget {
         const CustomDivider(),
         const SizedBox(height: 10),
 
-//Sales Price  - Purchase Price
+/*//Sales Price  - Purchase Price
       Row(
         children: [
           Expanded(
@@ -2562,93 +3287,93 @@ class QuickFlipAnalysis extends StatelessWidget {
 
 
 
-
-
-//list wise
-//         Column(
-//           children: [
-//             TextRow(
-//                 title: 'Sales Price',
-//                 subTitle: '${homeScreenController.salesPrice.value}',
-//                 suffix: '\$'),
-//             const SizedBox(
-//               height: 10,
-//             ),
-//             SubTextRow(
-//               title: 'Purchase Price',
-//               subTitle: '${homeScreenController.purchasePrice.value}',
-//               suffix: '\$',
-//             ),
-//             const SizedBox(
-//               height: 10,
-//             ),
-//             SubTextRow(
-//               title: 'Acquisition Costs',
-//               subTitle: '${homeScreenController.acquisitionCosts.value}',
-//               suffix: '\$',
-//             ),
-//             const SizedBox(
-//               height: 10,
-//             ),
-//             SubTextRow(
-//               title: 'Carrying Costs',
-//               subTitle: '${homeScreenController.carryingCosts.value}',
-//               suffix: '\$',
-//             ),
-//             const SizedBox(
-//               height: 10,
-//             ),
-//             SubTextRow(
-//               title: 'Rehab Costs',
-//               subTitle: '${homeScreenController.rehabCosts.value}',
-//               suffix: '\$',
-//             ),
-//             const SizedBox(
-//               height: 10,
-//             ),
-//             SubTextRow(
-//               title: 'Selling Expenses',
-//               subTitle: '${homeScreenController.sellingExpenses.value}',
-//               suffix: '\$',
-//             ),
-//             const SizedBox(
-//               height: 10,
-//             ),
-//             const CustomDivider(),
-//             TextRow(
-//                 title: 'Total Project Cost',
-//                 subTitle: '${homeScreenController.totalProjectCost.value}',
-//                 suffix: '\$'),
-//             const SizedBox(
-//               height: 10,
-//             ),
-//             TextRow(
-//                 title: 'Net Profit',
-//                 subTitle: '${homeScreenController.netProfit.value}',
-//                 suffix: '\$',
-//                 subTitleColor: AppColors.blackColor),
-//             const SizedBox(
-//               height: 10,
-//             ),
-//             const CustomDivider(),
-//             TextRow(
-//                 title: 'Total Out of Pocket',
-//                 subTitle: '${homeScreenController.totalOutofPocket.value}',
-//                 suffix: '\$'),
-//             const SizedBox(
-//               height: 10,
-//             ),
-//             TextRow(
-//                 title: 'Annualized ROI',
-//                 subTitle: '${homeScreenController.annualizedROI.value}',
-//                 suffix: '\$'),
-//             const SizedBox(
-//               height: 10,
-//             ),
-//           ],
-//         ).paddingOnly(left: 10,right: 10),
+list wise*/
+        Column(
+          children: [
+            TextRow(
+                title: 'Sales Price',
+                subTitle: '${homeScreenController.salesPrice.value}',
+                suffix: '\$'),
+            const SizedBox(
+              height: 10,
+            ),
+            SubTextRow(
+              title: 'Purchase Price',
+              subTitle: '${homeScreenController.purchasePrice.value}',
+              suffix: '\$',
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            SubTextRow(
+              title: 'Acquisition Costs',
+              subTitle: '${homeScreenController.acquisitionCosts.value}',
+              suffix: '\$',
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            SubTextRow(
+              title: 'Carrying Costs',
+              subTitle: '${homeScreenController.carryingCosts.value}',
+              suffix: '\$',
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            SubTextRow(
+              title: 'Rehab Costs',
+              subTitle: '${homeScreenController.rehabCosts.value}',
+              suffix: '\$',
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            SubTextRow(
+              title: 'Selling Expenses',
+              subTitle: '${homeScreenController.sellingExpenses.value}',
+              suffix: '\$',
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            const CustomDivider(),
+            TextRow(
+                title: 'Total Project Cost',
+                subTitle: '${homeScreenController.totalProjectCost.value}',
+                suffix: '\$'),
+            const SizedBox(
+              height: 10,
+            ),
+            TextRow(
+                title: 'Net Profit',
+                subTitle: '${homeScreenController.netProfit.value}',
+                suffix: '\$',
+                subTitleColor: AppColors.blackColor),
+            const SizedBox(
+              height: 10,
+            ),
+            const CustomDivider(),
+            TextRow(
+                title: 'Total Out of Pocket',
+                subTitle: '${homeScreenController.totalOutofPocket.value}',
+                suffix: '\$'),
+            const SizedBox(
+              height: 10,
+            ),
+            TextRow(
+                title: 'Annualized ROI',
+                subTitle: '${homeScreenController.annualizedROI.value}',
+                suffix: '\$'),
+            const SizedBox(
+              height: 10,
+            ),
+          ],
+        ).paddingOnly(left: 10,right: 10),
       ],
     );
+
+
   }
 }
 
@@ -2739,8 +3464,8 @@ class PropertyPurchaseDetails extends StatelessWidget {
 }
 
 
-//Quick flip
-class QuickFlip extends StatelessWidget {
+// //Quick flip
+/*class QuickFlip extends StatelessWidget {
   QuickFlip({Key? key}) : super(key: key);
   final homeScreenController = Get.find<HomeScreenController>();
   @override
@@ -3067,11 +3792,12 @@ class QuickFlip extends StatelessWidget {
       ],
     );
   }
-}
+}*/
 
 
 //Long term cash flow
-class LongTermCashFlow extends StatelessWidget {
+
+/*class LongTermCashFlow extends StatelessWidget {
    LongTermCashFlow({Key? key}) : super(key: key);
    final homeScreenController = Get.find<HomeScreenController>();
   @override
@@ -3342,11 +4068,11 @@ class LongTermCashFlow extends StatelessWidget {
 
     ]);
   }
-}
+}*/
 
 
-//Project Costs for 2page
-class ProjectCosts2 extends StatelessWidget {
+// //Project Costs for 2page
+/*class ProjectCosts2 extends StatelessWidget {
   ProjectCosts2({Key? key}) : super(key: key);
   final homeScreenController = Get.find<HomeScreenController>();
   @override
@@ -3411,10 +4137,10 @@ class ProjectCosts2 extends StatelessWidget {
         ),
       ]);
   }
-}
+}*/
 
-//Carrying Costs
-class CarryingCosts extends StatelessWidget {
+// //Carrying Costs
+/*class CarryingCosts extends StatelessWidget {
   CarryingCosts({Key? key}) : super(key: key);
   final homeScreenController = Get.find<HomeScreenController>();
   @override
@@ -3583,10 +4309,11 @@ class CarryingCosts extends StatelessWidget {
         ),
       ]);
   }
-}
+}*/
 
 
-//Selling Costs
+// //Selling Costs
+/*
 class SellingCost extends StatelessWidget {
   SellingCost({Key? key}) : super(key: key);
   final homeScreenController = Get.find<HomeScreenController>();
@@ -3736,3 +4463,4 @@ class SellingCost extends StatelessWidget {
     ]);
   }
 }
+*/

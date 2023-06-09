@@ -15,3 +15,10 @@ class DateFormatChangerYMD {
     return formatDate;
   }
 }
+
+class TimeFormatChanger{
+  String formatTime(DateTime time) {
+    final formatter = DateFormat('hh:mm'); // Define the desired time format here
+    return formatter.format(time);
+  }
+}

@@ -72,7 +72,7 @@ class TextFieldModule extends StatelessWidget {
 
   InputBorder inputBorder() {
     return OutlineInputBorder(
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        borderRadius: const BorderRadius.all(Radius.circular(5)),
         borderSide: BorderSide(color: AppColors.redColor, width: 1.5));
   }
 }

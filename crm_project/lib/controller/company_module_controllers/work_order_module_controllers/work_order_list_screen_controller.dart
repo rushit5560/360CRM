@@ -61,8 +61,8 @@ class WorkOrderListScreenController extends GetxController {
           final response = e.response;
           final statusCode = response!.statusCode;
           if (statusCode == 400) {
-            CommonToastModule(msg: "Record Already Exist");
-            log("Record Already Exist");
+            // CommonToastModule(msg: "Record Already Exist");
+            // log("Record Already Exist");
             isLoading(false);
           } else if (statusCode == 401) {
             log('Please login again!');

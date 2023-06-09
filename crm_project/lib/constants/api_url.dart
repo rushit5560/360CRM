@@ -134,4 +134,23 @@ class ApiUrl {
   static String invoiceSoftDeleteApi = "$baseUrl/Invoice/SoftDeleteInvoice";
   static String addInvoiceApi = "$baseUrl/Invoice/AddInvoice";
   static String updateInvoiceApi = "$baseUrl/Invoice/UpdateInvoice";
+
+  //activity Api
+  static String activityListApi = "$baseUrl/Activity/Filter";
+  static String activitySoftDeleteApi = "$baseUrl/Activity/SoftDeleteActivity";
+  static String activityStatusChangeApi = "$baseUrl/Activity/ChangeStatus";
+  static String activityTypeListApi = "$baseUrl/ActivityType/GetAllActiveActivityType";
+  static String activityPriorityListApi = "$baseUrl/Priority/GetAllActivePriority";
+  static String activityStatusListApi = "$baseUrl/ActivityStatus/GetAllActiveActivityStatus";
+  static String getActivityDetailsApi = "$baseUrl/Activity/GetById";
+  static String updateActivityApi = "$baseUrl/Activity/UpdateActivity";
+  static String addActivityApi = "$baseUrl/Activity/AddActivity";
+
+  static String userListApi = "$baseUrl/MTMActivityUser/Filter";
+  static String userChangeStatusApi = "$baseUrl/MTMActivityUser/ChangeStatus";
+  static String userSoftDeleteApi = "$baseUrl/MTMActivityUser/SoftDeleteMTMActivityUser";
+
+  static String getActiveUserListApi = "$baseUrl/SystemUsers/GetAllActiveUsers";
+
+
 }

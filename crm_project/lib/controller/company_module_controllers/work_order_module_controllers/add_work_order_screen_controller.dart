@@ -18,7 +18,6 @@ class AddWorkOrderScreenController extends GetxController {
 
   //Work List DropDown Value
   List<WorkOrderListData> workOrderListDropDown = [];
-
   WorkOrderListData workOrderTypeValue = WorkOrderListData();
 
   RxBool workOrderIsActive = true.obs;
