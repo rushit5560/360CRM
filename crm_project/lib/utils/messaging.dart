@@ -170,8 +170,8 @@ class AppMessage {
   static String landValue = "Land Value";
   static String offerPrice = "Offer Price";
   static String howDidYouFindThisProperty  = "How did you find this property?";
-  static String grossMonthlyRevenue  = "Gross Monthly Revenue";
-  static String condoAssociationFees  = "Condo Association Fees";
+  static String grossMonthlyRevenue  = "Gross Monthly Revenue (At 100% Occupancy)";
+  static String condoAssociationFees  = "Monthly Condo /Association fees";
   static String monthlyRepairsMaintenance  = "Monthly Repairs & Maintenance";
   static String monthlyTaxes  = "Monthly Taxes";
   static String administrativeAllowance  = "Administrative Allowance";
@@ -276,6 +276,6 @@ class AppMessage {
 
 //token
   static String token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiRGF2aWQiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJDdXN0b21lciIsImV4cCI6MTY4NjIzMDY0MCwiaXNzIjoiaHR0cDovLzUuMTg5LjE0Ny4xNTk6NzAwMy8iLCJhdWQiOiJodHRwOi8vNS4xODkuMTQ3LjE1OTo3MDAzLyJ9.hUEMfVGtyYWWPmYx_UQ8DeOoWgmemXHSaO7G7lnsp_k";
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiRGF2aWQiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJDdXN0b21lciIsImV4cCI6MTY4NjU3Mjc4MCwiaXNzIjoiaHR0cDovLzUuMTg5LjE0Ny4xNTk6NzAwMy8iLCJhdWQiOiJodHRwOi8vNS4xODkuMTQ3LjE1OTo3MDAzLyJ9.cS0SWV-hv-Nbwr8Ze_2Hs2_sC7IFF-hCg-4EQCealu0";
   static String customerId = "2";
 }
