@@ -301,7 +301,7 @@ class HomeScreenController extends GetxController {
 
   void secondFinanceClosingCostCalculator() {
     var secondMortgageClosingAmount = 0.0;
-    
+
     if(financedAmount2FieldController.text.trim().isNotEmpty) {
       secondMortgageClosingAmount = double.parse(financedAmount2FieldController.text.trim()) * (closingCostPercentage / 100);
     }
@@ -321,6 +321,12 @@ class HomeScreenController extends GetxController {
       double interestRate = double.parse(interestRate2FieldController.text.trim());
       double paymentPerYear = double.parse(paymentsPerYear2FieldController.text.trim());
       int mortgageTerm = int.parse(mortgageTermMonths2FieldController.text.trim());
+      log('================');
+      log('financedAmount : $financedAmount');
+      log('interestRate : $interestRate');
+      log('paymentPerYear : $paymentPerYear');
+      log('mortgageTerm : $mortgageTerm');
+      log('================');
 
       var pmtAmount = pmtCalculate(((interestRate/100) / paymentPerYear), int.parse(mortgageTerm.toString()), -financedAmount);
       mortgagePayment2FieldController.text = pmtAmount.toStringAsFixed(2);
@@ -335,7 +341,8 @@ class HomeScreenController extends GetxController {
       var pmtAmount = (financedAmount * (interestRate / 100) / 12);
       mortgagePayment2FieldController.text = pmtAmount.toStringAsFixed(2);
     }
-    annualDebtServiceFunction();
+    // annualDebtServiceFunction();
+    calculateAnnualCashAnalysis();
   }
 
   void firstMortgagePmtCalculateFunction() {
@@ -363,7 +370,8 @@ class HomeScreenController extends GetxController {
       mortgagePayment1FieldController.text = pmtAmount.toStringAsFixed(2);
     }
 
-    annualDebtServiceFunction();
+    // annualDebtServiceFunction();
+    calculateAnnualCashAnalysis();
   }
 
   pmtCalculate(rate, nper, pv) {
@@ -407,28 +415,26 @@ class HomeScreenController extends GetxController {
   RxDouble totalOutPocket = 0.0.obs;
   RxDouble returnonInvestment = 0.0.obs;
 
-  void effectiveGrossIncomeFunction() {
-    // (6. Gross Monthly Revenue (At 100% Occupancy) -  8. Property Management Fees amount) * 12
+
+  /// Annual Cash Analysis Function
+  void calculateAnnualCashAnalysis() {
+
+    /// Calculate Effective Gross Income
     if(grossMonthlyRevenueFieldController.text.trim().isNotEmpty && propertyManagementFeesAmountFieldController.text.trim().isNotEmpty) {
       effectiveGrossIncome.value =
-          (double.parse(grossMonthlyRevenueFieldController.text) -
-              double.parse(propertyManagementFeesAmountFieldController.text)) *
-                  12;
+          (double.parse(grossMonthlyRevenueFieldController.text) - double.parse(propertyManagementFeesAmountFieldController.text)) * 12;
       log('effectiveGrossIncome :${effectiveGrossIncome.value}');
-      operatingExpensesFunction();
-      loadUI();
+      // operatingExpensesFunction();
+      // loadUI();
     }
-  }
 
-  void operatingExpensesFunction() {
-    // (10. Vacancy and Replacement amount + 11. Monthly Condo /Association fees + 12. Monthly taxes + 13. Monthly Repairs & Maintenance + 14. Adminstrative Allowance + 15. Monthly Insurance + 18. Monthly Utilities) * 12
-
+    /// Operating Expenses
     if(vacancyandReplacementAmountFieldController.text.trim().isNotEmpty && monthlyCondoFieldController.text.trim().isNotEmpty
-    && monthlyTaxesFieldController.text.trim().isNotEmpty && adminstrativeAllowanceFieldController.text.trim().isNotEmpty
-    && monthlyInsuranceFieldController.text.trim().isNotEmpty && monthlyUtilitiesFieldController.text.trim().isNotEmpty
-    && monthlyRepairsMaintenanceFieldController.text.trim().isNotEmpty) {
+        && monthlyTaxesFieldController.text.trim().isNotEmpty && adminstrativeAllowanceFieldController.text.trim().isNotEmpty
+        && monthlyInsuranceFieldController.text.trim().isNotEmpty && monthlyUtilitiesFieldController.text.trim().isNotEmpty
+        && monthlyRepairsMaintenanceFieldController.text.trim().isNotEmpty) {
       operatingExpenses.value =
-         (double.parse(vacancyandReplacementAmountFieldController.text) +
+          (double.parse(vacancyandReplacementAmountFieldController.text) +
               double.parse(monthlyCondoFieldController.text) +
               double.parse(monthlyTaxesFieldController.text) +
               double.parse(monthlyRepairsMaintenanceFieldController.text) +
@@ -436,21 +442,14 @@ class HomeScreenController extends GetxController {
               double.parse(monthlyInsuranceFieldController.text) +
               double.parse(monthlyUtilitiesFieldController.text)) * 12;
 
-      netOperatingIncomeFunction();
+      // netOperatingIncomeFunction();
     }
-  }
 
-
-
-  void netOperatingIncomeFunction() {
-    // 53. Effective Gross Income - 54. Operating Expenses
+    /// Net Operating Income
     netOperatingIncome.value =
         effectiveGrossIncome.value - operatingExpenses.value;
-    capitalizationRateFunction();
-  }
 
-  void capitalizationRateFunction() {
-    // (55. Net Operating Income / 2. Expected After Repair Value)  ex: 8376/350000 = 0.02 (2%)
+    /// Capitalization Rate
     if(netOperatingIncome.value != 0.0 && expectedAfterRepairValueFieldController.text.trim().isNotEmpty) {
       double expectedARV = double.parse(expectedAfterRepairValueFieldController.text.trim());
       capitalizationRate.value = ((netOperatingIncome.value / expectedARV) * 100).floor();
@@ -458,81 +457,51 @@ class HomeScreenController extends GetxController {
       capitalizationRate.value = 0;
     }
 
-    // Set Annual Debt
+    /// Set Annual Debt
     if(mortgagePayment1FieldController.text.trim().isNotEmpty && mortgagePayment2FieldController.text.trim().isNotEmpty) {
       annualDebtService.value =
           ((double.parse(mortgagePayment1FieldController.text) +
               double.parse(mortgagePayment2FieldController.text)) * 12).toPrecision(2);
     }
 
-    // Set Debt Coverage Ratio & Annual Cash Flow
+    /// Set Debt Coverage Ratio
     if(netOperatingIncome.value != 0.0 && expectedAfterRepairValueFieldController.text.trim().isNotEmpty && annualDebtService.value != 0.0) {
-      double expectedARV = double.parse(expectedAfterRepairValueFieldController.text.trim());
+      // double expectedARV = double.parse(expectedAfterRepairValueFieldController.text.trim());
       debtCoverageRatio.value = ((netOperatingIncome.value / annualDebtService.value) * 100).floor();
 
-      // Annual cash Flow
-      annualCashFlowFunction();
+      /// Annual cash Flow
+      annualCashFlow.value = (netOperatingIncome.value - annualDebtService.value).toPrecision(2);
     } else {
       debtCoverageRatio.value = 0;
       annualCashFlow.value = 0.0;
     }
 
-    totalOutPocketFunction();
-  }
-
-  void annualDebtServiceFunction() {
-    // ( 1st Mortgage Payment + 2nd Mortgage Payment ) * 12
-    if(mortgagePayment1FieldController.text.trim().isNotEmpty && mortgagePayment2FieldController.text.trim().isNotEmpty) {
-      annualDebtService.value =
-          (double.parse(mortgagePayment1FieldController.text) +
-              double.parse(mortgagePayment2FieldController.text)) * 12;
-    }
-    // debtCoverageRatioFunction();
-
-  }
-
-  /*void debtCoverageRatioFunction() {
-    // Net Operating Income / Dept services
-    if(netOperatingIncome.value != 0.0 && expectedAfterRepairValueFieldController.text.trim().isNotEmpty) {
-      double expectedARV = double.parse(expectedAfterRepairValueFieldController.text.trim());
-      debtCoverageRatio.value = ((netOperatingIncome.value / expectedARV) * 100).floor();
-    }
-    loadUI();
-  }*/
-
-  void annualCashFlowFunction() {
-    //Net Operating Income - Annual Dept services
-
-    annualCashFlow.value = (netOperatingIncome.value - annualDebtService.value).toPrecision(2);
-  }
-
-  void totalOutPocketFunction() {
-    //31. Down Payment Amount + (IF())
+    /// Total out of pocket
     double tempTotalOutPocketValue = 0.0;
 
     if(downPaymentAmountFieldController.text.trim().isNotEmpty && pointsAmountFieldController.text.trim().isNotEmpty
-    && closingCosts2FieldController.text.trim().isNotEmpty && pointsAmount2FieldController.text.trim().isNotEmpty
-    && appraisalCostsFieldController.text.trim().isNotEmpty && inspectionCostsFieldController.text.trim().isNotEmpty
-    && surveyCostsFieldController.text.trim().isNotEmpty && closingCostsFieldController.text.trim().isNotEmpty
-    && wholesaleFeeCostsFieldController.text.trim().isNotEmpty && costsPaidoutPocketFieldController.text.trim().isNotEmpty) {
+        && closingCosts2FieldController.text.trim().isNotEmpty && pointsAmount2FieldController.text.trim().isNotEmpty
+        && appraisalCostsFieldController.text.trim().isNotEmpty && inspectionCostsFieldController.text.trim().isNotEmpty
+        && surveyCostsFieldController.text.trim().isNotEmpty && closingCostsFieldController.text.trim().isNotEmpty
+        && wholesaleFeeCostsFieldController.text.trim().isNotEmpty && costsPaidoutPocketFieldController.text.trim().isNotEmpty) {
 
       if(downPaymentAmountFieldController.text.trim().isNotEmpty) {
         tempTotalOutPocketValue = double.parse(downPaymentAmountFieldController.text.trim());
       }
-      if(pointsFinancedButton.value == 0) {
+      if(pointsFinancedButton.value == 1) {
         tempTotalOutPocketValue += double.parse(pointsAmountFieldController.text.trim());
       }
-      if(closingCostsFinancedButton2.value == 0) {
+      if(closingCostsFinancedButton2.value == 1) {
         tempTotalOutPocketValue += double.parse(closingCosts2FieldController.text.trim());
       }
-      if(pointsFinancedButton2.value == 0) {
+      if(pointsFinancedButton2.value == 1) {
         tempTotalOutPocketValue += double.parse(pointsAmount2FieldController.text.trim());
       }
 
       tempTotalOutPocketValue = tempTotalOutPocketValue + double.parse(appraisalCostsFieldController.text.trim())
           + double.parse(inspectionCostsFieldController.text.trim()) + double.parse(surveyCostsFieldController.text.trim());
 
-      if(closingCostsFinancedButton.value == 0) {
+      if(closingCostsFinancedButton.value == 1) {
         tempTotalOutPocketValue += double.parse(closingCostsFieldController.text.trim());
       }
 
@@ -543,11 +512,7 @@ class HomeScreenController extends GetxController {
       log('totalOutPocket.value Inner : ${totalOutPocket.value}');
     }
 
-    log('totalOutPocket.value Outer : ${totalOutPocket.value}');
-    calculateReturnOnInvestment();
-  }
-
-  void calculateReturnOnInvestment() {
+    /// Return on Investment
     if(annualCashFlow.value != 0.0 && totalOutPocket.value != 0.0) {
       double roiValue = (annualCashFlow.value / totalOutPocket.value) * 100;
       returnonInvestment.value = roiValue.toPrecision(2);
@@ -555,14 +520,23 @@ class HomeScreenController extends GetxController {
       returnonInvestment.value = 0.0;
     }
 
-    log('annualCashFlow.value :${annualCashFlow.value}');
-    log('totalOutofPocket.value :${totalOutPocket.value}');
-
-    log('returnonInvestment.value :${returnonInvestment.value}');
-
     calculateQuickFLipAnalysis();
+    // loadUI();
   }
 
+
+  RxDouble salesPrice = 0.0.obs;
+  RxDouble purchasePrice = 0.0.obs;
+  RxDouble acquisitionCosts = 0.0.obs;
+  RxDouble carryingCosts = 0.0.obs;
+  RxDouble rehabCosts = 0.0.obs;
+  RxDouble sellingExpenses = 0.0.obs;
+  RxDouble totalProjectCost = 0.0.obs;
+  RxDouble netProfit = 0.0.obs;
+  RxDouble totalOutOfPocket = 0.0.obs;
+  RxDouble annualizedROI = 0.0.obs;
+
+  /// Quick Flip Analysis Function
   void calculateQuickFLipAnalysis() {
     salesPrice.value = double.parse(expectedAfterRepairValueFieldController.text.trim());
     purchasePrice.value = double.parse(offerPriceFieldController.text.trim());
@@ -607,11 +581,11 @@ class HomeScreenController extends GetxController {
     netProfit.value = (salesPrice.value - totalProjectCost.value).toPrecision(2);
 
     var tempTotalOutOfPocketValue = 0.0;
-    if(pointsFinancedButton.value == 0) {
+    if(pointsFinancedButton.value == 1) {
       pointsAmountFieldController.text.trim().isNotEmpty ? tempTotalOutOfPocketValue += double.parse(pointsAmountFieldController.text.trim()) : null;
     }
     // log('pointsAmountFieldController.text :${pointsAmountFieldController.text}');
-    if(closingCostsFinancedButton.value == 0) {
+    if(closingCostsFinancedButton.value == 1) {
       closingCostsFieldController.text.trim().isNotEmpty ? tempTotalOutOfPocketValue += double.parse(closingCostsFieldController.text.trim()) : null;
     }
     // log('closingCostsFieldController.text :${closingCostsFieldController.text}');
@@ -627,11 +601,11 @@ class HomeScreenController extends GetxController {
     // log('surveyCostsFieldController.text :${surveyCostsFieldController.text}');
     wholesaleFeeCostsFieldController.text.trim().isNotEmpty ? tempTotalOutOfPocketValue += double.parse(wholesaleFeeCostsFieldController.text.trim()) : null;
     // log('wholesaleFeeCostsFieldController.text :${wholesaleFeeCostsFieldController.text}');
-    if(closingCostsFinancedButton2.value == 0) {
+    if(closingCostsFinancedButton2.value == 1) {
       closingCosts2FieldController.text.trim().isNotEmpty ? tempTotalOutOfPocketValue += double.parse(closingCosts2FieldController.text.trim()) : null;
     }
-    // log('closingCosts2FieldController.text :${closingCosts2FieldController.text}');
-    if(pointsFinancedButton2.value == 0) {
+    // log('closingCosts2FieldController.text :${closingCosts2FieldController.t          ext}');
+    if(pointsFinancedButton2.value == 1) {
       pointsAmount2FieldController.text.trim().isNotEmpty ? tempTotalOutOfPocketValue += double.parse(pointsAmount2FieldController.text.trim()) : null;
     }
     // log('pointsAmount2FieldController.text :${pointsAmount2FieldController.text}');
@@ -648,7 +622,161 @@ class HomeScreenController extends GetxController {
     loadUI();
   }
 
-//Quick Flip Analysis
+  /*void effectiveGrossIncomeFunction() {
+    // (6. Gross Monthly Revenue (At 100% Occupancy) -  8. Property Management Fees amount) * 12
+    if(grossMonthlyRevenueFieldController.text.trim().isNotEmpty && propertyManagementFeesAmountFieldController.text.trim().isNotEmpty) {
+      effectiveGrossIncome.value =
+          (double.parse(grossMonthlyRevenueFieldController.text) - double.parse(propertyManagementFeesAmountFieldController.text)) * 12;
+      log('effectiveGrossIncome :${effectiveGrossIncome.value}');
+      operatingExpensesFunction();
+      loadUI();
+    }
+  }*/
+
+  /*void operatingExpensesFunction() {
+    // (10. Vacancy and Replacement amount + 11. Monthly Condo /Association fees + 12. Monthly taxes + 13. Monthly Repairs & Maintenance + 14. Adminstrative Allowance + 15. Monthly Insurance + 18. Monthly Utilities) * 12
+
+    if(vacancyandReplacementAmountFieldController.text.trim().isNotEmpty && monthlyCondoFieldController.text.trim().isNotEmpty
+    && monthlyTaxesFieldController.text.trim().isNotEmpty && adminstrativeAllowanceFieldController.text.trim().isNotEmpty
+    && monthlyInsuranceFieldController.text.trim().isNotEmpty && monthlyUtilitiesFieldController.text.trim().isNotEmpty
+    && monthlyRepairsMaintenanceFieldController.text.trim().isNotEmpty) {
+      operatingExpenses.value =
+         (double.parse(vacancyandReplacementAmountFieldController.text) +
+              double.parse(monthlyCondoFieldController.text) +
+              double.parse(monthlyTaxesFieldController.text) +
+              double.parse(monthlyRepairsMaintenanceFieldController.text) +
+              double.parse(adminstrativeAllowanceFieldController.text) +
+              double.parse(monthlyInsuranceFieldController.text) +
+              double.parse(monthlyUtilitiesFieldController.text)) * 12;
+
+      netOperatingIncomeFunction();
+    }
+  }*/
+
+  /*void netOperatingIncomeFunction() {
+    // 53. Effective Gross Income - 54. Operating Expenses
+    netOperatingIncome.value =
+        effectiveGrossIncome.value - operatingExpenses.value;
+    capitalizationRateFunction();
+  }*/
+
+  /*void capitalizationRateFunction() {
+    // (55. Net Operating Income / 2. Expected After Repair Value)  ex: 8376/350000 = 0.02 (2%)
+    if(netOperatingIncome.value != 0.0 && expectedAfterRepairValueFieldController.text.trim().isNotEmpty) {
+      double expectedARV = double.parse(expectedAfterRepairValueFieldController.text.trim());
+      capitalizationRate.value = ((netOperatingIncome.value / expectedARV) * 100).floor();
+    } else {
+      capitalizationRate.value = 0;
+    }
+
+    // Set Annual Debt
+    if(mortgagePayment1FieldController.text.trim().isNotEmpty && mortgagePayment2FieldController.text.trim().isNotEmpty) {
+      annualDebtService.value =
+          ((double.parse(mortgagePayment1FieldController.text) +
+              double.parse(mortgagePayment2FieldController.text)) * 12).toPrecision(2);
+    }
+
+    // Set Debt Coverage Ratio & Annual Cash Flow
+    if(netOperatingIncome.value != 0.0 && expectedAfterRepairValueFieldController.text.trim().isNotEmpty && annualDebtService.value != 0.0) {
+      double expectedARV = double.parse(expectedAfterRepairValueFieldController.text.trim());
+      debtCoverageRatio.value = ((netOperatingIncome.value / annualDebtService.value) * 100).floor();
+
+      // Annual cash Flow
+      annualCashFlowFunction();
+    } else {
+      debtCoverageRatio.value = 0;
+      annualCashFlow.value = 0.0;
+    }
+
+    totalOutPocketFunction();
+  }*/
+
+  /*void annualDebtServiceFunction() {
+    // ( 1st Mortgage Payment + 2nd Mortgage Payment ) * 12
+    if(mortgagePayment1FieldController.text.trim().isNotEmpty && mortgagePayment2FieldController.text.trim().isNotEmpty) {
+      annualDebtService.value =
+          (double.parse(mortgagePayment1FieldController.text) +
+              double.parse(mortgagePayment2FieldController.text)) * 12;
+    }
+    // debtCoverageRatioFunction();
+
+  }*/
+
+  /*void debtCoverageRatioFunction() {
+    // Net Operating Income / Dept services
+    if(netOperatingIncome.value != 0.0 && expectedAfterRepairValueFieldController.text.trim().isNotEmpty) {
+      double expectedARV = double.parse(expectedAfterRepairValueFieldController.text.trim());
+      debtCoverageRatio.value = ((netOperatingIncome.value / expectedARV) * 100).floor();
+    }
+    loadUI();
+  }*/
+
+  /*void annualCashFlowFunction() {
+    //Net Operating Income - Annual Dept services
+
+    annualCashFlow.value = (netOperatingIncome.value - annualDebtService.value).toPrecision(2);
+  }*/
+
+  /*void totalOutPocketFunction() {
+    //31. Down Payment Amount + (IF())
+    double tempTotalOutPocketValue = 0.0;
+
+    if(downPaymentAmountFieldController.text.trim().isNotEmpty && pointsAmountFieldController.text.trim().isNotEmpty
+    && closingCosts2FieldController.text.trim().isNotEmpty && pointsAmount2FieldController.text.trim().isNotEmpty
+    && appraisalCostsFieldController.text.trim().isNotEmpty && inspectionCostsFieldController.text.trim().isNotEmpty
+    && surveyCostsFieldController.text.trim().isNotEmpty && closingCostsFieldController.text.trim().isNotEmpty
+    && wholesaleFeeCostsFieldController.text.trim().isNotEmpty && costsPaidoutPocketFieldController.text.trim().isNotEmpty) {
+
+      if(downPaymentAmountFieldController.text.trim().isNotEmpty) {
+        tempTotalOutPocketValue = double.parse(downPaymentAmountFieldController.text.trim());
+      }
+      if(pointsFinancedButton.value == 0) {
+        tempTotalOutPocketValue += double.parse(pointsAmountFieldController.text.trim());
+      }
+      if(closingCostsFinancedButton2.value == 0) {
+        tempTotalOutPocketValue += double.parse(closingCosts2FieldController.text.trim());
+      }
+      if(pointsFinancedButton2.value == 0) {
+        tempTotalOutPocketValue += double.parse(pointsAmount2FieldController.text.trim());
+      }
+
+      tempTotalOutPocketValue = tempTotalOutPocketValue + double.parse(appraisalCostsFieldController.text.trim())
+          + double.parse(inspectionCostsFieldController.text.trim()) + double.parse(surveyCostsFieldController.text.trim());
+
+      if(closingCostsFinancedButton.value == 0) {
+        tempTotalOutPocketValue += double.parse(closingCostsFieldController.text.trim());
+      }
+
+      tempTotalOutPocketValue = tempTotalOutPocketValue + double.parse(wholesaleFeeCostsFieldController.text.trim());
+      tempTotalOutPocketValue = tempTotalOutPocketValue + double.parse(costsPaidoutPocketFieldController.text.trim());
+
+      totalOutPocket.value = tempTotalOutPocketValue.toPrecision(2);
+      log('totalOutPocket.value Inner : ${totalOutPocket.value}');
+    }
+
+    log('totalOutPocket.value Outer : ${totalOutPocket.value}');
+    calculateReturnOnInvestment();
+  }*/
+
+  /*void calculateReturnOnInvestment() {
+    if(annualCashFlow.value != 0.0 && totalOutPocket.value != 0.0) {
+      double roiValue = (annualCashFlow.value / totalOutPocket.value) * 100;
+      returnonInvestment.value = roiValue.toPrecision(2);
+    } else {
+      returnonInvestment.value = 0.0;
+    }
+
+    log('annualCashFlow.value :${annualCashFlow.value}');
+    log('totalOutofPocket.value :${totalOutPocket.value}');
+
+    log('returnonInvestment.value :${returnonInvestment.value}');
+
+    calculateQuickFLipAnalysis();
+  }*/
+
+
+
+  //Quick Flip Analysis
   /*final salesPriceTextFieldController = TextEditingController();
   final purchasePriceTextFieldController = TextEditingController();
   final acquisitionCostsTextFieldController = TextEditingController();
@@ -661,17 +789,6 @@ class HomeScreenController extends GetxController {
   final annualizedROITextFieldController = TextEditingController();*/
 
 
-
-  RxDouble salesPrice = 0.0.obs;
-  RxDouble purchasePrice = 0.0.obs;
-  RxDouble acquisitionCosts = 0.0.obs;
-  RxDouble carryingCosts = 0.0.obs;
-  RxDouble rehabCosts = 0.0.obs;
-  RxDouble sellingExpenses = 0.0.obs;
-  RxDouble totalProjectCost = 0.0.obs;
-  RxDouble netProfit = 0.0.obs;
-  RxDouble totalOutOfPocket = 0.0.obs;
-  RxDouble annualizedROI = 0.0.obs;
 
   void quickFlipAnalysisFunction() {
     salesPrice.value =
@@ -716,45 +833,96 @@ class HomeScreenController extends GetxController {
   }
 
 
-//Quick Flip - QF
-/*  final purchasePriceQFTextFieldController = TextEditingController();
-  final sellingCostsQFTextFieldController = TextEditingController();
-  final outOfPocketQFTextFieldController = TextEditingController();
-  final loanCostQFTextFieldController = TextEditingController();
-  final totalOfProjectQFTextFieldController = TextEditingController();
-  final annualizedROIQFTextFieldController = TextEditingController();
-  final carryingCostQFTextFieldController = TextEditingController();
-  final salesPriceQFTextFieldController = TextEditingController();
-  final projectCostQFTextFieldController = TextEditingController();
-  final netProfitQFTextFieldController = TextEditingController();*/
+  /// Deal Analyzer Save Function
+  Future<void> saveDealAnalyzerFunction() async {
+    // Property Details Fields
+    String propertyAddress = propertyAddressFieldController.text.trim();
+    String stateName = "";
+    String cityName = "";
+    String zipCode = zipFieldController.text.trim();
+    String leadSource = leadSourceFieldController.text.trim();
+    String expectedARV = expectedAfterRepairValueFieldController.text.trim();
+    String landValue = landValueFieldController.text.trim();
+    String offerPrice = offerPriceFieldController.text.trim();
 
-//longTermCashFlow - LTCF
-/*  final totalIncomeLTCFTextFieldController = TextEditingController();
-  final operatingExpenseLTCFTextFieldController = TextEditingController();
-  final noiLTCFTextFieldController = TextEditingController();
-  final capitalizationRateLTCFTextFieldController = TextEditingController();
-  final debitServiceLTCFTextFieldController = TextEditingController();
-  final annualCashFlowLTCFTextFieldController = TextEditingController();
-  final totalOutOfPocketLTCFTextFieldController = TextEditingController();
-  final roiLTCFTextFieldController = TextEditingController();*/
+    // Financial Details Fields
+    String grossMR = grossMonthlyRevenueFieldController.text.trim();
+    String propertyMFPercentage = propertyManagementFeesPercentageFieldController.text.trim();
+    String propertyMFAmount = propertyManagementFeesAmountFieldController.text.trim();
+    String vAndRReserves = vacancyandReplacementReservesFieldController.text.trim();
+    String vAndRAmount = vacancyandReplacementAmountFieldController.text.trim();
+    String monthlyCondoFees = monthlyCondoFieldController.text.trim();
+    String monthlyTaxes = monthlyTaxesFieldController.text.trim();
+    String monthlyRepairAndMaintenance = monthlyRepairsMaintenanceFieldController.text.trim();
+    String administrativeAllowance = adminstrativeAllowanceFieldController.text.trim();
+    String monthlyInsurance = monthlyInsuranceFieldController.text.trim();
+    String firstMortgagePayment = mortgagePayment1FieldController.text.trim();
+    String secondMortgagePayment = mortgagePayment2FieldController.text.trim();
+    String monthlyUtilities = monthlyUtilitiesFieldController.text.trim();
 
-//project Costs 2 - PC
-/*  final wholesaleFeesPCTextFieldController = TextEditingController();
-  final rehabCostsPCTextFieldController = TextEditingController();*/
+    // Project Costs Fields
+    String rehabCostsPaidOutOfPocket = costsPaidoutPocketFieldController.text.trim();
+    String rehabCostsFinanced = costFinancedFieldController.text.trim();
+
+    // Acquisition Costs Fields
+    String appraisal = appraisalCostsFieldController.text.trim();
+    String inspection = inspectionCostsFieldController.text.trim();
+    String survey = surveyCostsFieldController.text.trim();
+    String wholeSaleFee = wholesaleFeeCostsFieldController.text.trim();
+
+    // 1st mortgage Details Fields
+    String firstMortgageTerm = mortgageTermMonthsFieldController.text.trim();
+    String firstPaymentPerYear = paymentsPerYearFieldController.text.trim();
+    String firstDPPercentage = downPaymentPercentageFieldController.text.trim();
+    String firstDPAmount = downPaymentAmountFieldController.text.trim();
+    String firstFinancedAmount = financedAmountFieldController.text.trim();
+    String firstInterestRate = interestRateFieldController.text.trim();
+    int firstInterestOnly = interestOnlyButton.value;
+    String firstLoanPoints = loanPointsFieldController.text.trim();
+    String firstPointsAmount = pointsAmountFieldController.text.trim();
+    int firstPointsFinanced = pointsFinancedButton.value;
+    String firstClosingCostsAmount = closingCostsFieldController.text.trim();
+    int firstClosingCostsFinanced = closingCostsFinancedButton.value;
+
+    // 2nd mortgage Details Fields
+    String secondMortgageTerm = mortgageTermMonths2FieldController.text.trim();
+    String secondPaymentPerYear = paymentsPerYear2FieldController.text.trim();
+    String secondMortgageAmount = mortgageAmount2FieldController.text.trim();
+    String secondFinancedAmount = financedAmount2FieldController.text.trim();
+    String secondInterestRate = interestRate2FieldController.text.trim();
+    int secondInterestOnly = interestOnlyButton2.value;
+    String secondLoanPoints = loanPoints2FieldController.text.trim();
+    String secondPointsAmount = pointsAmount2FieldController.text.trim();
+    int secondPointsFinanced = pointsFinancedButton2.value;
+    String secondClosingCost = closingCosts2FieldController.text.trim();
+    int secondClosingCostsFinanced = closingCostsFinancedButton2.value;
+
+    // Annual Cash Flow Analysis
+    double effectiveGrossIncomeValue = effectiveGrossIncome.value;
+    double operatingExpensesValue = operatingExpenses.value;
+    double netOperatingIncomeValue = netOperatingIncome.value;
+    int capitalizationRateValue = capitalizationRate.value;
+    double annualDebtServiceValue = annualDebtService.value;
+    int debtCoverageRatioValue = debtCoverageRatio.value;
+    double annualCashFlowValue = annualCashFlow.value;
+    double totalOutPocketValue = totalOutPocket.value;
+    double returnOnInvestmentValue = returnonInvestment.value;
+
+    // Quick Flip Analysis
+    double salesPriceValue = salesPrice.value;
+    double purchasePriceValue = purchasePrice.value;
+    double acquisitionCostsValue = acquisitionCosts.value;
+    double carryingCostsValue = carryingCosts.value;
+    double rehabCostsValue = rehabCosts.value;
+    double sellingExpensesValue = sellingExpenses.value;
+    double totalProjectCostValue = totalProjectCost.value;
+    double netProfitValue = netProfit.value;
+    double totalOutOfPocketValue = totalOutOfPocket.value;
+    double annualizedROIValue = annualizedROI.value;
 
 
-//Carrying Cost - CC
-/*  final taxesCCTextFieldController = TextEditingController();
-  final insuranceCCTextFieldController = TextEditingController();
-  final loanCCTextFieldController = TextEditingController();
-  final utilitiesCCTextFieldController = TextEditingController();
-  final condoFeesCCTextFieldController = TextEditingController();*/
 
-//Selling Cost
-/*  final agentFeesSCTextFieldController = TextEditingController();
-  final concessionsSCTextFieldController = TextEditingController();
-  final closingCostSCTextFieldController = TextEditingController();
-  final advertisingSCTextFieldController = TextEditingController();*/
+  }
 
 
   loadUI() {

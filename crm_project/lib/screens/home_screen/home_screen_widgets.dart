@@ -15,7 +15,7 @@ import '../../utils/validator.dart';
 //Property Details
 class PropertyDetails extends StatelessWidget {
   final homeScreenController = Get.find<HomeScreenController>();
-  String selectedLocation = '';
+  // String selectedLocation = '';
 
   PropertyDetails({super.key});
 
@@ -378,10 +378,9 @@ class FinancialDetails extends StatelessWidget {
               keyboardType: TextInputType.number,
               backgroundColor: AppColors.whiteColor1,
               onChange: (text) {
-                homeScreenController
-                    .propertyManagementFeesAmountCountFunction();
+                homeScreenController.propertyManagementFeesAmountCountFunction();
                 homeScreenController.vacancyAndReplacementAmountFunction();
-                homeScreenController.effectiveGrossIncomeFunction();
+                homeScreenController.calculateAnnualCashAnalysis();
               },
               prifixIcon: Align(
                 widthFactor: 1.0,
@@ -411,7 +410,8 @@ class FinancialDetails extends StatelessWidget {
                     onChange: (text) {
                       homeScreenController
                           .propertyManagementFeesAmountCountFunction();
-                      homeScreenController.effectiveGrossIncomeFunction();
+                      // homeScreenController.effectiveGrossIncomeFunction();
+                      homeScreenController.calculateAnnualCashAnalysis();
                     },
                     hintText: 'Property Management Fees percentage',
                     prifixIcon: Align(
@@ -471,7 +471,8 @@ class FinancialDetails extends StatelessWidget {
                             .vacancyandReplacementReservesFieldController,
                         onChange: (val) {
                           homeScreenController.vacancyAndReplacementAmountFunction();
-                          homeScreenController.operatingExpensesFunction();
+                          // homeScreenController.operatingExpensesFunction();
+                          homeScreenController.calculateAnnualCashAnalysis();
                         },
                         hintText: 'Vacancy and Replacement Reserves',
                         validate: (value) => FieldValidation().validateAmount(
@@ -529,7 +530,8 @@ class FinancialDetails extends StatelessWidget {
               validate: (value) => FieldValidation()
                   .validateAmount(value, AppMessage.condoAssociationFees),
               onChange: (value) {
-                homeScreenController.operatingExpensesFunction();
+                // homeScreenController.operatingExpensesFunction();
+                homeScreenController.calculateAnnualCashAnalysis();
               },
               prifixIcon: Align(
                 widthFactor: 1.0,
@@ -558,7 +560,8 @@ class FinancialDetails extends StatelessWidget {
               validate: (value) => FieldValidation()
                   .validateAmount(value, AppMessage.monthlyTaxes),
               onChange: (value) {
-                homeScreenController.operatingExpensesFunction();
+                // homeScreenController.operatingExpensesFunction();
+                homeScreenController.calculateAnnualCashAnalysis();
               },
               prifixIcon: Align(
                 widthFactor: 1.0,
@@ -585,7 +588,8 @@ class FinancialDetails extends StatelessWidget {
               validate: (value) => FieldValidation()
                   .validateAmount(value, AppMessage.monthlyRepairsMaintenance),
               onChange: (value) {
-                homeScreenController.operatingExpensesFunction();
+                // homeScreenController.operatingExpensesFunction();
+                homeScreenController.calculateAnnualCashAnalysis();
               },
               keyboardType: TextInputType.number,
               prifixIcon: Align(
@@ -620,7 +624,8 @@ class FinancialDetails extends StatelessWidget {
                         validate: (value) => FieldValidation().validateAmount(
                             value, AppMessage.administrativeAllowance),
                         onChange: (value) {
-                          homeScreenController.operatingExpensesFunction();
+                          // homeScreenController.operatingExpensesFunction();
+                          homeScreenController.calculateAnnualCashAnalysis();
                         },
                         prifixIcon: Align(
                           widthFactor: 1.0,
@@ -653,7 +658,8 @@ class FinancialDetails extends StatelessWidget {
                         validate: (value) => FieldValidation()
                             .validateAmount(value, AppMessage.monthlyInsurance),
                         onChange: (value) {
-                          homeScreenController.operatingExpensesFunction();
+                          // homeScreenController.operatingExpensesFunction();
+                          homeScreenController.calculateAnnualCashAnalysis();
                         },
                         prifixIcon: Align(
                           widthFactor: 1.0,
@@ -691,6 +697,7 @@ class FinancialDetails extends StatelessWidget {
                         fieldController: homeScreenController
                             .mortgagePayment1FieldController,
                         hintText: '1 st Mortgage Payment',
+                        readOnly: true,
                         validate: (value) => FieldValidation()
                             .validateAmount(value, '1 st mortgage payment'),
                         prifixIcon: Align(
@@ -721,6 +728,7 @@ class FinancialDetails extends StatelessWidget {
                         fieldController: homeScreenController
                             .mortgagePayment2FieldController,
                         hintText: '2 st Mortgage Payment',
+                        readOnly: true,
                         validate: (value) => FieldValidation()
                             .validateAmount(value, '2 st mortgage payment'),
                         prifixIcon: Align(
@@ -755,7 +763,8 @@ class FinancialDetails extends StatelessWidget {
               validate: (value) => FieldValidation()
                   .validateAmount(value, AppMessage.monthlyUtilities),
               onChange: (value) {
-                homeScreenController.operatingExpensesFunction();
+                // homeScreenController.operatingExpensesFunction();
+                homeScreenController.calculateAnnualCashAnalysis();
               },
               prifixIcon: Align(
                 widthFactor: 1.0,
@@ -1246,7 +1255,8 @@ class MortgageDetails1 extends StatelessWidget {
                             onChanged: (val) {
                               homeScreenController.interestOnlyButton.value = 0;
                               homeScreenController.firstMortgagePmtCalculateFunction();
-                              homeScreenController.operatingExpensesFunction();
+                              // homeScreenController.operatingExpensesFunction();
+                              homeScreenController.calculateAnnualCashAnalysis();
                             },
                           ),
                           const Text(
@@ -1264,7 +1274,8 @@ class MortgageDetails1 extends StatelessWidget {
                             onChanged: (val) {
                               homeScreenController.interestOnlyButton.value = 1;
                               homeScreenController.firstMortgagePmtCalculateFunction();
-                              homeScreenController.operatingExpensesFunction();
+                              // homeScreenController.operatingExpensesFunction();
+                              homeScreenController.calculateAnnualCashAnalysis();
                             },
                           ),
                           const Text(
@@ -1351,7 +1362,8 @@ class MortgageDetails1 extends StatelessWidget {
                               homeScreenController.pointsFinancedButton.value =
                               0;
                               homeScreenController.firstMortgageFinanceAmountCalculation();
-                              homeScreenController.operatingExpensesFunction();
+                              // homeScreenController.operatingExpensesFunction();
+                              homeScreenController.calculateAnnualCashAnalysis();
                             },
                           ),
                           const Text(
@@ -1370,7 +1382,8 @@ class MortgageDetails1 extends StatelessWidget {
                               homeScreenController.pointsFinancedButton.value =
                               1;
                               homeScreenController.firstMortgageFinanceAmountCalculation();
-                              homeScreenController.operatingExpensesFunction();
+                              // homeScreenController.operatingExpensesFunction();
+                              homeScreenController.calculateAnnualCashAnalysis();
                             },
                           ),
                           const Text(
@@ -1429,7 +1442,8 @@ class MortgageDetails1 extends StatelessWidget {
                               homeScreenController
                                   .closingCostsFinancedButton.value = 0;
                               homeScreenController.firstMortgageFinanceAmountCalculation();
-                              homeScreenController.operatingExpensesFunction();
+                              // homeScreenController.operatingExpensesFunction();
+                              homeScreenController.calculateAnnualCashAnalysis();
                             },
                           ),
                           const Text(
@@ -1448,7 +1462,8 @@ class MortgageDetails1 extends StatelessWidget {
                               homeScreenController
                                   .closingCostsFinancedButton.value = 1;
                               homeScreenController.firstMortgageFinanceAmountCalculation();
-                              homeScreenController.operatingExpensesFunction();
+                              // homeScreenController.operatingExpensesFunction();
+                              homeScreenController.calculateAnnualCashAnalysis();
                             },
                           ),
                           const Text(
@@ -1671,7 +1686,8 @@ class MortgageDetails2 extends StatelessWidget {
                             onChanged: (val) {
                               homeScreenController.interestOnlyButton2.value = 0;
                               homeScreenController.secondMortgagePmtCalculateFunction();
-                              homeScreenController.operatingExpensesFunction();
+                              homeScreenController.calculateAnnualCashAnalysis();
+                              // homeScreenController.operatingExpensesFunction();
                             },
                           ),
                           const Text(
@@ -1689,7 +1705,8 @@ class MortgageDetails2 extends StatelessWidget {
                             onChanged: (val) {
                               homeScreenController.interestOnlyButton2.value = 1;
                               homeScreenController.secondMortgagePmtCalculateFunction();
-                              homeScreenController.operatingExpensesFunction();
+                              // homeScreenController.operatingExpensesFunction();
+                              homeScreenController.calculateAnnualCashAnalysis();
                             },
                           ),
                           const Text(
@@ -1772,7 +1789,8 @@ class MortgageDetails2 extends StatelessWidget {
                             groupValue: 0,
                             onChanged: (val) {
                               homeScreenController.pointsFinancedButton2.value = 0;
-                              homeScreenController.operatingExpensesFunction();
+                              homeScreenController.calculateAnnualCashAnalysis();
+                              // homeScreenController.operatingExpensesFunction();
                             },
                           ),
                           const Text(
@@ -1789,7 +1807,8 @@ class MortgageDetails2 extends StatelessWidget {
                             groupValue: 1,
                             onChanged: (val) {
                               homeScreenController.pointsFinancedButton2.value = 1;
-                              homeScreenController.operatingExpensesFunction();
+                              // homeScreenController.operatingExpensesFunction();
+                              homeScreenController.calculateAnnualCashAnalysis();
                             },
                           ),
                           const Text(
@@ -1847,7 +1866,8 @@ class MortgageDetails2 extends StatelessWidget {
                             onChanged: (val) {
                               homeScreenController
                                   .closingCostsFinancedButton2.value = 0;
-                              homeScreenController.operatingExpensesFunction();
+                              homeScreenController.calculateAnnualCashAnalysis();
+                              // homeScreenController.operatingExpensesFunction();
                             },
                           ),
                           const Text('Yes'),
@@ -1862,7 +1882,8 @@ class MortgageDetails2 extends StatelessWidget {
                             onChanged: (val) {
                               homeScreenController
                                   .closingCostsFinancedButton2.value = 1;
-                              homeScreenController.operatingExpensesFunction();
+                              // homeScreenController.operatingExpensesFunction();
+                              homeScreenController.calculateAnnualCashAnalysis();
                             },
                           ),
                           const Text(
