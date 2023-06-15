@@ -1,12 +1,19 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:dio/dio.dart'as dio;
+import '../constants/api_url.dart';
+import '../models/deal_analyzer_screen_models/add_deal_analyzer_model.dart';
+import '../utils/messaging.dart';
 
 class DealAnalyzerScreenController extends GetxController {
 
   RxBool isLoading = false.obs;
-
+  RxBool isSuccessStatus = false.obs;
+  final dioRequest = dio.Dio();
   bool containsInvalidCharacters(String value) {
     if (value.contains(" ") || value.contains("-") || value.contains(",")) {
       return true;
@@ -17,7 +24,8 @@ class DealAnalyzerScreenController extends GetxController {
   }
 
   //Property Ditails
-  GlobalKey<FormState> propertyDetailsKey = GlobalKey<FormState>();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  // GlobalKey<FormState> propertyDetailsKey = GlobalKey<FormState>();
   final propertyAddressFieldController = TextEditingController();
   final zipFieldController = TextEditingController();
   final leadSourceFieldController = TextEditingController();
@@ -49,7 +57,7 @@ class DealAnalyzerScreenController extends GetxController {
   ];
 
   //Financial Details
-  GlobalKey<FormState> financialDetailsKey = GlobalKey<FormState>();
+  // GlobalKey<FormState> financialDetailsKey = GlobalKey<FormState>();
   final grossMonthlyRevenueFieldController = TextEditingController();
   final propertyManagementFeesPercentageFieldController = TextEditingController();
   final propertyManagementFeesAmountFieldController = TextEditingController(text: "0.0");
@@ -97,19 +105,19 @@ class DealAnalyzerScreenController extends GetxController {
   }
 
   //Project Costs
-  GlobalKey<FormState> projectCostsKey = GlobalKey<FormState>();
+  // GlobalKey<FormState> projectCostsKey = GlobalKey<FormState>();
   final costsPaidoutPocketFieldController = TextEditingController();
   final costFinancedFieldController = TextEditingController();
 
   //AcquisitionCosts
-  GlobalKey<FormState> acquisitionCostsKey = GlobalKey<FormState>();
+  // GlobalKey<FormState> acquisitionCostsKey = GlobalKey<FormState>();
   final appraisalCostsFieldController = TextEditingController();
   final inspectionCostsFieldController = TextEditingController();
   final surveyCostsFieldController = TextEditingController();
   final wholesaleFeeCostsFieldController = TextEditingController();
 
   //1st Mortgage
-  GlobalKey<FormState> mortgage1Key = GlobalKey<FormState>();
+  // GlobalKey<FormState> mortgage1Key = GlobalKey<FormState>();
   final mortgageTermMonthsFieldController = TextEditingController();
   final expectedHoldingTermFieldController = TextEditingController();
   final paymentsPerYearFieldController = TextEditingController();
@@ -190,7 +198,7 @@ class DealAnalyzerScreenController extends GetxController {
   }
 
   //2nd Mortgage
-  GlobalKey<FormState> mortgage2Key = GlobalKey<FormState>();
+  // GlobalKey<FormState> mortgage2Key = GlobalKey<FormState>();
   final mortgageTermMonths2FieldController = TextEditingController();
   final expectedHoldingTerm2FieldController = TextEditingController();
   final paymentsPerYear2FieldController = TextEditingController();
@@ -560,6 +568,7 @@ class DealAnalyzerScreenController extends GetxController {
 
     netProfit.value = (salesPrice.value - totalProjectCost.value).toPrecision(2);
 
+    /// Total out of pocket value
     var tempTotalOutOfPocketValue = 0.0;
     if(pointsFinancedButton.value == 1) {
       pointsAmountFieldController.text.trim().isNotEmpty ? tempTotalOutOfPocketValue += double.parse(pointsAmountFieldController.text.trim()) : null;
@@ -643,19 +652,50 @@ class DealAnalyzerScreenController extends GetxController {
 
   /// Deal Analyzer Save Function
   Future<void> saveDealAnalyzerFunction() async {
+    // isLoading(true);
+    String url = ApiUrl.addDealAnalyzerApi;
+    log('Add Deal Analyzer Api Url :$url');
 
+    try {
+      Map<String, dynamic> bodyData = getDealAnalyzerBodyData();
+      final response = await dioRequest.post(url,
+        data: bodyData,
+          options: dio.Options(headers: {"Authorization": "Bearer ${AppMessage.token}"})
+      );
 
+      AddDealAnalyzerModel addDealAnalyzerModel = AddDealAnalyzerModel.fromJson(response.data);
+      isSuccessStatus.value = addDealAnalyzerModel.success;
 
+      if(isSuccessStatus.value) {
+        Fluttertoast.showToast(msg: addDealAnalyzerModel.message);
+        // Get.back();
+      } else {
+        log('saveDealAnalyzerFunction Else');
+      }
 
+    } catch(e) {
+      if (e is dio.DioError && e.response != null) {
+        final response = e.response;
+        final statusCode = response!.statusCode;
+        if (statusCode == 400) {
+          // CommonToastModule(msg: "Record Already Exist");
+          log("Record Already Exist");
+          isLoading(false);
+        } else if(statusCode == 401) {
+          log('Please login again!');
+        }
+      }
+      log('Error :$e');
+    }
+// isLoading(false);
   }
-
-
+  /// Body Data of Deal Analyzer
   Map<String, dynamic> getDealAnalyzerBodyData() {
 
     // Property Details Fields
     String propertyAddress = propertyAddressFieldController.text.trim();
-    String stateName = "";
-    String cityName = "";
+    // String stateName = "";
+    // String cityName = "";
     String zipCode = zipFieldController.text.trim();
     String leadSource = leadSourceFieldController.text.trim();
     String expectedARV = expectedAfterRepairValueFieldController.text.trim();
@@ -737,12 +777,83 @@ class DealAnalyzerScreenController extends GetxController {
     double totalOutOfPocketValue = totalOutOfPocket.value;
     double annualizedROIValue = annualizedROI.value;
 
-    
-    Map<String, dynamic> bodyData = {};
 
-
-
-
+    Map<String, dynamic> bodyData = {
+      "Address": propertyAddress,
+      "CityId": 1,
+      "StateId" : 2,
+      "Zip": zipCode,
+      "CampaignId": leadSource,
+      "ExpectedARV": expectedARV,
+      "LandValue": landValue,
+      "OfferPrice": offerPrice,
+      "GrossMonthlyRevenue": grossMR,
+      "PropertyMgmtFeesPercent": propertyMFPercentage,
+      "PropertyMgmtFeesAmount": propertyMFAmount,
+      "VacancyReplacementReserves": vAndRReserves,
+      "VacancyReplacementAmount": vAndRAmount,
+      "MonthlyCondoFees": monthlyCondoFees,
+      "MonthlyTaxes": monthlyTaxes,
+      "MonthlyRepairsMaintenance": monthlyRepairAndMaintenance,
+      "AdminstrativeAllowance": administrativeAllowance,
+      "MonthlyInsurance": monthlyInsurance,
+      "FirstMortgagePayment": firstMortgagePayment,
+      "SecondMortgagePayment": secondMortgagePayment,
+      "MonthlyUtilities": monthlyUtilities,
+      "RehabCostsPaidOutPocket": rehabCostsPaidOutOfPocket,
+      "RehabCostsFinanced": rehabCostsFinanced,
+      "Appraisal": appraisal,
+      "Inspection": inspection,
+      "Survey": survey,
+      "WholeSaleFee": wholeSaleFee,
+      "EffectiveGrossIncome": effectiveGrossIncomeValue,
+      "OperatingExpenses": operatingExpensesValue,
+      "NetOperatingIncome": netOperatingIncomeValue,
+      "CapitalizationRate": capitalizationRateValue,
+      "AnnualDebtService": annualDebtServiceValue,
+      "DebtCoverageRatio": debtCoverageRatioValue,
+      "AnnualCashFlow": annualCashFlowValue,
+      "TotalOutPocket": totalOutPocketValue,
+      "ReturnInvestment": returnOnInvestmentValue,
+      "SalesPrice": salesPriceValue,
+      "PurchasePrice": purchasePriceValue,
+      "AcquisitionCosts": acquisitionCostsValue,
+      "CarryingCosts": carryingCostsValue,
+      "RehabCost": rehabCostsValue,
+      "SellingExpenses": sellingExpensesValue,
+      "TotalProjectCost": totalProjectCostValue,
+      "NetProfit": netProfitValue,
+      "TotalOutOfPocket": totalOutOfPocketValue,
+      "AnnualizedROI": annualizedROIValue,
+      "FirstMortgageDetails": {
+        "MortgageTerms": firstMortgageTerm,
+        "PaymentsPerYear": firstPaymentPerYear,
+        "DownPaymentPercent": firstDPPercentage,
+        "DownPaymentAmt": firstDPAmount,
+        "FinancedAmount": firstFinancedAmount,
+        "InterestRate": firstInterestRate,
+        "InterestOnly": firstInterestOnly == 0 ? true : false,
+        "LoanPoints": firstLoanPoints,
+        "PointsAmount": firstPointsAmount,
+        "PointsFinanced": firstPointsFinanced == 0 ? true : false,
+        "ClosingCosts": firstClosingCostsAmount,
+        "ClosingCostsFinanced": firstClosingCostsFinanced == 0 ? true : false
+      },
+      "SecondMortgageDetails": {
+        "MortgageTerms": secondMortgageTerm,
+        "PaymentsPerYear": secondPaymentPerYear,
+        "FinancedAmount": secondFinancedAmount,
+        "InterestRate": secondInterestRate,
+        "InterestOnly": secondInterestOnly == 0 ? true : false,
+        "LoanPoints": secondLoanPoints,
+        "PointsAmount": secondPointsAmount,
+        "PointsFinanced": secondPointsFinanced == 0 ? true : false,
+        "ClosingCosts": secondClosingCost,
+        "ClosingCostsFinanced": secondClosingCostsFinanced == 0 ? true : false,
+        "MortgageAmount": secondMortgageAmount
+      }
+    };
+    log('bodyData :${jsonEncode(bodyData)}');
     return bodyData;
   }
 

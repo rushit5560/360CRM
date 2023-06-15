@@ -152,5 +152,8 @@ class ApiUrl {
 
   static String getActiveUserListApi = "$baseUrl/SystemUsers/GetAllActiveUsers";
 
+  // Deal Analyzer
+  static String addDealAnalyzerApi = "$baseUrl/DealAnalyzer/AddDealAnalyzer";
+
 
 }

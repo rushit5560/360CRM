@@ -33,34 +33,46 @@ class DealAnalyzerScreen extends StatelessWidget {
           child: Column(
             children: [
 
-              PropertyDetails(),
-              const SizedBox(height: 10),
+              Form(
+                key: dealAnalyzerScreenController.formKey,
+                child: Column(
+                  children: [
+                    PropertyDetails(),
+                    const SizedBox(height: 10),
 
-              FinancialDetails(),
-              const SizedBox(height: 10),
+                    FinancialDetails(),
+                    const SizedBox(height: 10),
 
-              ProjectCosts(),
-              const SizedBox(height: 10),
+                    ProjectCosts(),
+                    const SizedBox(height: 10),
 
-              AcquisitionCosts(),
-              const SizedBox(height: 10),
+                    AcquisitionCosts(),
+                    const SizedBox(height: 10),
 
-              MortgageDetails1(),
-              const SizedBox(height: 10),
+                    MortgageDetails1(),
+                    const SizedBox(height: 10),
 
-              MortgageDetails2(),
-              const SizedBox(height: 10),
+                    MortgageDetails2(),
+                    const SizedBox(height: 10),
 
-              AnnualCashFlowAnalysis(),
-              const SizedBox(height: 10),
+                    AnnualCashFlowAnalysis(),
+                    const SizedBox(height: 10),
 
-              QuickFlipAnalysis(),
-              const SizedBox(height: 10),
+                    QuickFlipAnalysis(),
+                    const SizedBox(height: 10)
+                  ],
+                ),
+              ),
 
 
               CustomSubmitButton(
                 labelText: AppMessage.submitLabel,
-                onPress: () async => await dealAnalyzerScreenController.saveDealAnalyzerFunction(),
+                onPress: () async {
+                  if(dealAnalyzerScreenController.formKey.currentState!.validate()) {
+                    await dealAnalyzerScreenController.saveDealAnalyzerFunction();
+                  }
+
+                },
               ),
               const SizedBox(height: 10),
             ],
