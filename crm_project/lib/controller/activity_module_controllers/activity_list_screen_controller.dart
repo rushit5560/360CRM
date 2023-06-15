@@ -34,7 +34,7 @@ class ActivityListScreenController extends GetxController{
         final response = await dioRequest.get(url,
         options: dio.Options(headers: {"Authorization": "Bearer ${AppMessage.token}"}));
         // log("Activity list Response : $response");
-        ActivityListModel activityListModel = ActivityListModel.fromJson(response.data) ;
+        ActivityListModel activityListModel = ActivityListModel.fromJson(response.data);
         isSuccessStatusCode.value = activityListModel.statusCode;
         // log("Activity list status code : ${activityListModel.data.toJson()}");
 

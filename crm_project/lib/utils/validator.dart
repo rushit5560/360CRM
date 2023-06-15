@@ -21,7 +21,7 @@ class FieldValidation {
 
   validateEmpty(String value, String fieldName) {
     if (value.isEmpty || value == ' ') {
-      return "Please enter $fieldName.";
+      return "Please enter ${fieldName.toLowerCase()}.";
     } else {
       return null;
     }
@@ -31,11 +31,11 @@ class FieldValidation {
 
   validateAmount(String value, String fieldName) {
     if (value.isEmpty) {
-      return "Please enter $fieldName.";
+      return "Please enter ${fieldName.toLowerCase()}.";
     } else if (value.contains(" ") ||
         value.contains("-") ||
         value.contains(",")) {
-      return "Please enter $fieldName.";
+      return "Please enter ${fieldName.toLowerCase()}.";
     } else {
       return null;
     }

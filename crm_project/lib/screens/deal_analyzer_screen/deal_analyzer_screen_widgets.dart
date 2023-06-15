@@ -29,311 +29,272 @@ class PropertyDetails extends StatelessWidget {
         border: Border.all(),
         borderRadius: BorderRadius.circular(8),
       ),
-      child: Form(
-        key: homeScreenController.propertyDetailsKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                AppMessage.propertyDetails,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.blackColor,
-                    fontSize: 14.sp),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              AppMessage.propertyDetails,
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.blackColor,
+                  fontSize: 14.sp),
+            ),
+          ).paddingOnly(top: 5, bottom: 5),
+          const CustomDivider(),
+          CommonTextFieldHeaderModule(header: AppMessage.propertyAddress, required: true),
+          const SizedBox(height: 5),
+          TextFieldModule(
+            hintText: AppMessage.propertyAddress,
+            fieldController: homeScreenController.propertyAddressFieldController,
+            keyboardType: TextInputType.streetAddress,
+            validate: (value) => FieldValidation().validateEmpty(value, AppMessage.propertyAddress),
+            backgroundColor: AppColors.whiteColor1,
+          ),
+          const SizedBox(height: 10),
+
+          //state city
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 5,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CommonTextFieldHeaderModule(
+                        header: AppMessage.state, required: true),
+                    const SizedBox(height: 5),
+                    Container(
+                      width: Get.width * .5,
+                      decoration: BoxDecoration(
+                        // color: AppColors.appColors,
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(color: AppColors.appColors)),
+                      child: Obx(
+                            () => homeScreenController.isLoading.value
+                            ? Container()
+                            : DropdownButtonHideUnderline(
+                          child: DropdownButton(
+                            hint: Text(
+                              homeScreenController.stateSelect.value,
+                              style: const TextStyle(
+                                  color: AppColors.appColors),
+                            ),
+                            // Not necessary for Option 1
+                            // value: selectedLocation.isNotEmpty ?  selectedLocation: null ,
+                            onChanged: (newValue) {
+                              homeScreenController.stateSelect.value =
+                              newValue!;
+                              homeScreenController.loadUI();
+                              log("$newValue");
+                            },
+                            items: homeScreenController
+                                .stateDropDownList
+                                .map((location) {
+                              return DropdownMenuItem(
+                                value: location,
+                                child: Text(location),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ).paddingOnly(left: 5, right: 5),
+                    ),
+                  ],
+                ),
               ),
-            ).paddingOnly(top: 5, bottom: 5),
-            const CustomDivider(),
-            CommonTextFieldHeaderModule(header: AppMessage.propertyAddress, required: true),
-            const SizedBox(height: 5),
-            TextFieldModule(
-              hintText: AppMessage.propertyAddress,
-              fieldController: homeScreenController.propertyAddressFieldController,
-              keyboardType: TextInputType.streetAddress,
-              validate: (value) => FieldValidation().validateEmpty(value, AppMessage.propertyAddress),
-              backgroundColor: AppColors.whiteColor1,
-            ),
-            const SizedBox(height: 10),
-
-            //state city
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  flex: 5,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CommonTextFieldHeaderModule(
-                          header: AppMessage.state, required: true),
-                      const SizedBox(height: 5),
-                      Container(
-                        width: Get.width * .5,
-                        decoration: BoxDecoration(
-                          // color: AppColors.appColors,
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: AppColors.appColors)),
-                        child: Obx(
-                              () => homeScreenController.isLoading.value
-                              ? Container()
-                              : DropdownButtonHideUnderline(
-                            child: DropdownButton(
-                              hint: Text(
-                                homeScreenController.stateSelect.value,
-                                style: const TextStyle(
-                                    color: AppColors.appColors),
-                              ),
-                              // Not necessary for Option 1
-                              // value: selectedLocation.isNotEmpty ?  selectedLocation: null ,
-                              onChanged: (newValue) {
-                                homeScreenController.stateSelect.value =
-                                newValue!;
-                                homeScreenController.loadUI();
-                                log("$newValue");
-                              },
-                              items: homeScreenController
-                                  .stateDropDownList
-                                  .map((location) {
-                                return DropdownMenuItem(
-                                  value: location,
-                                  child: Text(location),
-                                );
-                              }).toList(),
+              const SizedBox(width: 10),
+              Expanded(
+                flex: 5,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CommonTextFieldHeaderModule(
+                        header: AppMessage.city, required: false),
+                    const SizedBox(height: 5),
+                    Container(
+                      width: Get.width * .5,
+                      decoration: BoxDecoration(
+                        // color: AppColors.appColors,
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(color: AppColors.appColors)),
+                      child: Obx(
+                            () => homeScreenController.isLoading.value
+                            ? Container()
+                            : DropdownButtonHideUnderline(
+                          child: DropdownButton(
+                            hint: Text(
+                              homeScreenController.citySelect.value,
+                              style: const TextStyle(
+                                  color: AppColors.appColors),
                             ),
+                            // Not necessary for Option 1
+                            // value: selectedLocation.isNotEmpty ?  selectedLocation: null ,
+                            onChanged: (newValue) {
+                              homeScreenController.citySelect.value =
+                              newValue!;
+                              homeScreenController.loadUI();
+                              log(newValue);
+                            },
+                            items: homeScreenController.cityDropDownList
+                                .map((location) {
+                              return DropdownMenuItem(
+                                value: location,
+                                child: Text(location),
+                              );
+                            }).toList(),
                           ),
-                        ).paddingOnly(left: 5, right: 5),
-                      ),
-                    ],
-                  ),
+                        ),
+                      ).paddingOnly(left: 5, right: 5),
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 10),
-                Expanded(
-                  flex: 5,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CommonTextFieldHeaderModule(
-                          header: AppMessage.city, required: false),
-                      const SizedBox(height: 5),
-                      Container(
-                        width: Get.width * .5,
-                        decoration: BoxDecoration(
-                          // color: AppColors.appColors,
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: AppColors.appColors)),
-                        child: Obx(
-                              () => homeScreenController.isLoading.value
-                              ? Container()
-                              : DropdownButtonHideUnderline(
-                            child: DropdownButton(
-                              hint: Text(
-                                homeScreenController.citySelect.value,
-                                style: const TextStyle(
-                                    color: AppColors.appColors),
-                              ),
-                              // Not necessary for Option 1
-                              // value: selectedLocation.isNotEmpty ?  selectedLocation: null ,
-                              onChanged: (newValue) {
-                                homeScreenController.citySelect.value =
-                                newValue!;
-                                homeScreenController.loadUI();
-                                log("$newValue");
-                              },
-                              items: homeScreenController.cityDropDownList
-                                  .map((location) {
-                                return DropdownMenuItem(
-                                  value: location,
-                                  child: Text(location),
-                                );
-                              }).toList(),
-                            ),
-                          ),
-                        ).paddingOnly(left: 5, right: 5),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-            const SizedBox(height: 10),
-            // zip & lead Source
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CommonTextFieldHeaderModule(
-                          header: AppMessage.zip, required: true),
-                      const SizedBox(height: 5),
-                      TextFieldModule(
-                        hintText: AppMessage.zip,
-                        fieldController:
-                        homeScreenController.zipFieldController,
-                        keyboardType: TextInputType.number,
-                        backgroundColor: AppColors.whiteColor1,
-                        validate: (value) =>
-                            FieldValidation().validateZip(value!),
-                      ),
-                    ],
-                  ),
+              )
+            ],
+          ),
+          const SizedBox(height: 10),
+          // zip & lead Source
+          Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CommonTextFieldHeaderModule(
+                        header: AppMessage.zip, required: true),
+                    const SizedBox(height: 5),
+                    TextFieldModule(
+                      hintText: AppMessage.zip,
+                      fieldController:
+                      homeScreenController.zipFieldController,
+                      keyboardType: TextInputType.number,
+                      backgroundColor: AppColors.whiteColor1,
+                      validate: (value) =>
+                          FieldValidation().validateZip(value!),
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 5),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CommonTextFieldHeaderModule(
-                          header: AppMessage.leadSource, required: true),
-                      const SizedBox(height: 5),
-                      TextFieldModule(
-                        fieldController:
-                        homeScreenController.leadSourceFieldController,
-                        hintText: AppMessage.leadSource,
-                        validate: (value) => FieldValidation()
-                            .validateEmpty(value, 'lead source'),
-                        keyboardType: TextInputType.multiline,
-                        backgroundColor: AppColors.whiteColor1,
-                      ),
-                    ],
-                  ),
+              ),
+              const SizedBox(width: 5),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CommonTextFieldHeaderModule(
+                        header: AppMessage.leadSource, required: true),
+                    const SizedBox(height: 5),
+                    TextFieldModule(
+                      fieldController:
+                      homeScreenController.leadSourceFieldController,
+                      hintText: AppMessage.leadSource,
+                      validate: (value) => FieldValidation()
+                          .validateEmpty(value, 'lead source'),
+                      keyboardType: TextInputType.multiline,
+                      backgroundColor: AppColors.whiteColor1,
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            const SizedBox(height: 10),
-            //Expected After Repair value
-            CommonTextFieldHeaderModule(
-                header: AppMessage.expectedAfterRepairValue, required: true),
-            const SizedBox(height: 5),
-            TextFieldModule(
-              fieldController:
-              homeScreenController.expectedAfterRepairValueFieldController,
-              hintText: AppMessage.expectedAfterRepairValue,
-              validate: (value) => FieldValidation()
-                  .validateAmount(value, AppMessage.expectedAfterRepairValue),
-              prifixIcon: Align(
-                widthFactor: 1.0,
-                heightFactor: 1.0,
-                child: Text(
-                  '\$',
-                  style:
-                  TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-                ),
-              ).paddingOnly(right: 5),
-              keyboardType: TextInputType.number,
-              backgroundColor: AppColors.whiteColor1,
-            ),
-            const SizedBox(height: 10),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          //Expected After Repair value
+          CommonTextFieldHeaderModule(
+              header: AppMessage.expectedAfterRepairValue, required: true),
+          const SizedBox(height: 5),
+          TextFieldModule(
+            fieldController:
+            homeScreenController.expectedAfterRepairValueFieldController,
+            hintText: AppMessage.expectedAfterRepairValue,
+            validate: (value) => FieldValidation()
+                .validateAmount(value, AppMessage.expectedAfterRepairValue),
+            prifixIcon: Align(
+              widthFactor: 1.0,
+              heightFactor: 1.0,
+              child: Text(
+                '\$',
+                style:
+                TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+              ),
+            ).paddingOnly(right: 5),
+            keyboardType: TextInputType.number,
+            backgroundColor: AppColors.whiteColor1,
+          ),
+          const SizedBox(height: 10),
 
-            //land value & offer price
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CommonTextFieldHeaderModule(
-                          header: AppMessage.leadSource, required: true),
-                      const SizedBox(height: 5),
-                      TextFieldModule(
-                        fieldController:
-                        homeScreenController.landValueFieldController,
-                        hintText: 'Land Value',
-                        validate: (value) => FieldValidation()
-                            .validateAmount(value, 'land value'),
-                        prifixIcon: Align(
-                          widthFactor: 1.0,
-                          heightFactor: 1.0,
-                          child: Text(
-                            '\$',
-                            style: TextStyle(
-                                fontSize: 15.sp, fontWeight: FontWeight.bold),
-                          ),
-                        ).paddingOnly(right: 5),
-                        keyboardType: TextInputType.number,
-                        backgroundColor: AppColors.whiteColor1,
-                      ),
-                    ],
-                  ),
+          //land value & offer price
+          Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CommonTextFieldHeaderModule(
+                        header: AppMessage.leadSource, required: true),
+                    const SizedBox(height: 5),
+                    TextFieldModule(
+                      fieldController:
+                      homeScreenController.landValueFieldController,
+                      hintText: 'Land Value',
+                      validate: (value) => FieldValidation()
+                          .validateAmount(value, 'land value'),
+                      prifixIcon: Align(
+                        widthFactor: 1.0,
+                        heightFactor: 1.0,
+                        child: Text(
+                          '\$',
+                          style: TextStyle(
+                              fontSize: 15.sp, fontWeight: FontWeight.bold),
+                        ),
+                      ).paddingOnly(right: 5),
+                      keyboardType: TextInputType.number,
+                      backgroundColor: AppColors.whiteColor1,
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 5),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CommonTextFieldHeaderModule(
-                          header: AppMessage.offerPrice, required: true),
-                      const SizedBox(height: 5),
-                      TextFieldModule(
-                        fieldController:
-                        homeScreenController.offerPriceFieldController,
-                        onChange: (val) {
-                          homeScreenController.downPaymentAmountFunction();
-                          homeScreenController.firstMortgageFinanceAmountCalculation();
-                          homeScreenController.firstMortgageClosingCostCalculation();
-                        },
-                        hintText: AppMessage.offerPrice,
-                        validate: (value) => FieldValidation()
-                            .validateAmount(value, AppMessage.offerPrice),
-                        prifixIcon: Align(
-                          widthFactor: 1.0,
-                          heightFactor: 1.0,
-                          child: Text(
-                            '\$',
-                            style: TextStyle(
-                                fontSize: 15.sp, fontWeight: FontWeight.bold),
-                          ),
-                        ).paddingOnly(right: 5),
-                        keyboardType: TextInputType.number,
-                        backgroundColor: AppColors.whiteColor1,
-                      ),
-                    ],
-                  ),
+              ),
+              const SizedBox(width: 5),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CommonTextFieldHeaderModule(
+                        header: AppMessage.offerPrice, required: true),
+                    const SizedBox(height: 5),
+                    TextFieldModule(
+                      fieldController:
+                      homeScreenController.offerPriceFieldController,
+                      onChange: (val) {
+                        homeScreenController.downPaymentAmountFunction();
+                        homeScreenController.firstMortgageFinanceAmountCalculation();
+                        homeScreenController.firstMortgageClosingCostCalculation();
+                      },
+                      hintText: AppMessage.offerPrice,
+                      validate: (value) => FieldValidation()
+                          .validateAmount(value, AppMessage.offerPrice),
+                      prifixIcon: Align(
+                        widthFactor: 1.0,
+                        heightFactor: 1.0,
+                        child: Text(
+                          '\$',
+                          style: TextStyle(
+                              fontSize: 15.sp, fontWeight: FontWeight.bold),
+                        ),
+                      ).paddingOnly(right: 5),
+                      keyboardType: TextInputType.number,
+                      backgroundColor: AppColors.whiteColor1,
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            const SizedBox(height: 10),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
 
-            // CommonTextFieldHeaderModule(
-            //     header: AppMessage.howDidYouFindThisProperty, required: false),
-            // const SizedBox(height: 5),
-            // Container(
-            //   width: Get.width,
-            //   decoration: BoxDecoration(
-            //       // color: AppColors.appColors,
-            //       borderRadius: BorderRadius.circular(5),
-            //       border: Border.all(color: AppColors.appColors)),
-            //   child: Obx(
-            //     () => homeScreenController.isLoading.value
-            //         ? Container()
-            //         : DropdownButtonHideUnderline(
-            //             child: DropdownButton(
-            //               hint: Text(
-            //                 homeScreenController.stateSelect.value,
-            //                 style: const TextStyle(color: AppColors.appColors),
-            //               ),
-            //               // Not necessary for Option 1
-            //               // value: selectedLocation.isNotEmpty ?  selectedLocation: null ,
-            //               onChanged: (newValue) {
-            //                 homeScreenController.stateSelect.value = newValue!;
-            //                 homeScreenController.loadUI();
-            //                 log(newValue);
-            //               },
-            //               items: homeScreenController.stateDropDownList
-            //                   .map((location) {
-            //                 return DropdownMenuItem(
-            //                   value: location,
-            //                   child: Text(location),
-            //                 );
-            //               }).toList(),
-            //             ),
-            //           ),
-            //   ).paddingOnly(left: 5, right: 5),
-            // ),
-          ],
-        ),
+        ],
       ).paddingAll(5),
     );
   }
@@ -351,437 +312,434 @@ class FinancialDetails extends StatelessWidget {
         border: Border.all(),
         borderRadius: BorderRadius.circular(8),
       ),
-      child: Form(
-        key: homeScreenController.financialDetailsKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              AppMessage.financialDetails,
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.blackColor,
+                  fontSize: 14.sp),
+            ),
+          ).paddingOnly(top: 5, bottom: 5),
+          const CustomDivider(),
+          // const SizedBox(height: 10),
+          CommonTextFieldHeaderModule(
+              header: AppMessage.grossMonthlyRevenue, required: true),
+          const SizedBox(height: 5),
+          TextFieldModule(
+            fieldController:
+            homeScreenController.grossMonthlyRevenueFieldController,
+            hintText: AppMessage.grossMonthlyRevenue,
+            validate: (value) => FieldValidation()
+                .validateAmount(value, AppMessage.grossMonthlyRevenue),
+            keyboardType: TextInputType.number,
+            backgroundColor: AppColors.whiteColor1,
+            onChange: (text) {
+              homeScreenController.propertyManagementFeesAmountCountFunction();
+              homeScreenController.vacancyAndReplacementAmountFunction();
+              homeScreenController.calculateAnnualCashAnalysis();
+            },
+            prifixIcon: Align(
+              widthFactor: 1.0,
+              heightFactor: 1.0,
               child: Text(
-                AppMessage.financialDetails,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.blackColor,
-                    fontSize: 14.sp),
+                '\$',
+                style:
+                TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
               ),
-            ).paddingOnly(top: 5, bottom: 5),
-            const CustomDivider(),
-            // const SizedBox(height: 10),
-            CommonTextFieldHeaderModule(
-                header: AppMessage.grossMonthlyRevenue, required: true),
-            const SizedBox(height: 5),
-            TextFieldModule(
-              fieldController:
-              homeScreenController.grossMonthlyRevenueFieldController,
-              hintText: AppMessage.grossMonthlyRevenue,
-              validate: (value) => FieldValidation()
-                  .validateAmount(value, AppMessage.grossMonthlyRevenue),
-              keyboardType: TextInputType.number,
-              backgroundColor: AppColors.whiteColor1,
-              onChange: (text) {
-                homeScreenController.propertyManagementFeesAmountCountFunction();
-                homeScreenController.vacancyAndReplacementAmountFunction();
-                homeScreenController.calculateAnnualCashAnalysis();
-              },
-              prifixIcon: Align(
-                widthFactor: 1.0,
-                heightFactor: 1.0,
-                child: Text(
-                  '\$',
-                  style:
-                  TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+            ).paddingOnly(right: 5),
+          ),
+          const SizedBox(height: 10),
+          //Property Mgmt % / Amt
+          Column(
+            children: [
+              CommonTextFieldHeaderModule(
+                  header: 'Property Mgmt Fees % / Amt', required: true),
+              const SizedBox(height: 5),
+            ],
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: TextFieldModule(
+                  fieldController: homeScreenController
+                      .propertyManagementFeesPercentageFieldController,
+                  onChange: (text) {
+                    homeScreenController
+                        .propertyManagementFeesAmountCountFunction();
+                    // homeScreenController.effectiveGrossIncomeFunction();
+                    homeScreenController.calculateAnnualCashAnalysis();
+                  },
+                  hintText: 'Property Management Fees percentage',
+                  prifixIcon: Align(
+                    widthFactor: 1.0,
+                    heightFactor: 1.0,
+                    child: Text(
+                      '%',
+                      style: TextStyle(
+                          fontSize: 15.sp, fontWeight: FontWeight.bold),
+                    ),
+                  ).paddingOnly(right: 5),
+                  validate: (value) => FieldValidation().validateAmount(
+                      value, 'property management fees percentage'),
+                  keyboardType: TextInputType.number,
+                  backgroundColor: AppColors.whiteColor1,
                 ),
-              ).paddingOnly(right: 5),
-            ),
-            const SizedBox(height: 10),
-            //Property Mgmt % / Amt
-            Column(
-              children: [
-                CommonTextFieldHeaderModule(
-                    header: 'Property Mgmt Fees % / Amt', required: true),
-                const SizedBox(height: 5),
-              ],
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: TextFieldModule(
-                    fieldController: homeScreenController
-                        .propertyManagementFeesPercentageFieldController,
-                    onChange: (text) {
-                      homeScreenController
-                          .propertyManagementFeesAmountCountFunction();
-                      // homeScreenController.effectiveGrossIncomeFunction();
-                      homeScreenController.calculateAnnualCashAnalysis();
-                    },
-                    hintText: 'Property Management Fees percentage',
-                    prifixIcon: Align(
-                      widthFactor: 1.0,
-                      heightFactor: 1.0,
-                      child: Text(
-                        '%',
-                        style: TextStyle(
-                            fontSize: 15.sp, fontWeight: FontWeight.bold),
-                      ),
-                    ).paddingOnly(right: 5),
-                    validate: (value) => FieldValidation().validateAmount(
-                        value, 'property management fees percentage'),
-                    keyboardType: TextInputType.number,
-                    backgroundColor: AppColors.whiteColor1,
-                  ),
+              ),
+              const SizedBox(width: 5),
+              Expanded(
+                child: TextFieldModule(
+                  fieldController: homeScreenController
+                      .propertyManagementFeesAmountFieldController,
+                  hintText: 'Property Management Fees amount',
+                  keyboardType: TextInputType.number,
+                  prifixIcon: Align(
+                    widthFactor: 1.0,
+                    heightFactor: 1.0,
+                    child: Text(
+                      '\$',
+                      style: TextStyle(
+                          fontSize: 15.sp, fontWeight: FontWeight.bold),
+                    ),
+                  ).paddingOnly(right: 5),
+                  readOnly: true,
                 ),
-                const SizedBox(width: 5),
-                Expanded(
-                  child: TextFieldModule(
-                    fieldController: homeScreenController
-                        .propertyManagementFeesAmountFieldController,
-                    hintText: 'Property Management Fees amount',
-                    keyboardType: TextInputType.number,
-                    prifixIcon: Align(
-                      widthFactor: 1.0,
-                      heightFactor: 1.0,
-                      child: Text(
-                        '\$',
-                        style: TextStyle(
-                            fontSize: 15.sp, fontWeight: FontWeight.bold),
-                      ),
-                    ).paddingOnly(right: 5),
-                    readOnly: true,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 10,
-            ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 10,
+          ),
 
 //Vacancy and Replacement Reserves Allowance % / Amt
-            CommonTextFieldHeaderModule(
-                header: 'Vacancy and Replacement Reserves / %',
-                required: true),
-            const SizedBox(height: 5),
+          CommonTextFieldHeaderModule(
+              header: 'Vacancy and Replacement Reserves / %',
+              required: true),
+          const SizedBox(height: 5),
 
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      TextFieldModule(
-                        fieldController: homeScreenController
-                            .vacancyandReplacementReservesFieldController,
-                        onChange: (val) {
-                          homeScreenController.vacancyAndReplacementAmountFunction();
-                          // homeScreenController.operatingExpensesFunction();
-                          homeScreenController.calculateAnnualCashAnalysis();
-                        },
-                        hintText: 'Vacancy and Replacement Reserves',
-                        validate: (value) => FieldValidation().validateAmount(
-                            value, 'vacancy and replacement reserves'),
-                        prifixIcon: Align(
-                          widthFactor: 1.0,
-                          heightFactor: 1.0,
-                          child: Text(
-                            '%',
-                            style: TextStyle(
-                                fontSize: 15.sp, fontWeight: FontWeight.bold),
-                          ),
-                        ).paddingOnly(right: 5),
-                        keyboardType: TextInputType.number,
-                        backgroundColor: AppColors.whiteColor1,
-                      ),
-                    ],
-                  ),
+          Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextFieldModule(
+                      fieldController: homeScreenController
+                          .vacancyandReplacementReservesFieldController,
+                      onChange: (val) {
+                        homeScreenController.vacancyAndReplacementAmountFunction();
+                        // homeScreenController.operatingExpensesFunction();
+                        homeScreenController.calculateAnnualCashAnalysis();
+                      },
+                      hintText: 'Vacancy and Replacement Reserves',
+                      validate: (value) => FieldValidation().validateAmount(
+                          value, 'vacancy and replacement reserves'),
+                      prifixIcon: Align(
+                        widthFactor: 1.0,
+                        heightFactor: 1.0,
+                        child: Text(
+                          '%',
+                          style: TextStyle(
+                              fontSize: 15.sp, fontWeight: FontWeight.bold),
+                        ),
+                      ).paddingOnly(right: 5),
+                      keyboardType: TextInputType.number,
+                      backgroundColor: AppColors.whiteColor1,
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 5),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      TextFieldModule(
-                        fieldController: homeScreenController
-                            .vacancyandReplacementAmountFieldController,
-                        hintText: 'Vacancy and Replacement amount',
-                        keyboardType: TextInputType.number,
-                        prifixIcon: Align(
-                          widthFactor: 1.0,
-                          heightFactor: 1.0,
-                          child: Text(
-                            '\$',
-                            style: TextStyle(
-                                fontSize: 15.sp, fontWeight: FontWeight.bold),
-                          ),
-                        ).paddingOnly(right: 5),
-                        readOnly: true,
-                      ),
-                    ],
-                  ),
+              ),
+              const SizedBox(width: 5),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextFieldModule(
+                      fieldController: homeScreenController
+                          .vacancyandReplacementAmountFieldController,
+                      hintText: 'Vacancy and Replacement amount',
+                      keyboardType: TextInputType.number,
+                      prifixIcon: Align(
+                        widthFactor: 1.0,
+                        heightFactor: 1.0,
+                        child: Text(
+                          '\$',
+                          style: TextStyle(
+                              fontSize: 15.sp, fontWeight: FontWeight.bold),
+                        ),
+                      ).paddingOnly(right: 5),
+                      readOnly: true,
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
+          ),
 
-            const SizedBox(height: 10),
-            //Monthly Condo /Association fees
-            CommonTextFieldHeaderModule(
-                header: AppMessage.condoAssociationFees, required: true),
-            const SizedBox(height: 5),
-            TextFieldModule(
-              fieldController: homeScreenController.monthlyCondoFieldController,
-              hintText: AppMessage.condoAssociationFees,
-              validate: (value) => FieldValidation()
-                  .validateAmount(value, AppMessage.condoAssociationFees),
-              onChange: (value) {
-                // homeScreenController.operatingExpensesFunction();
-                homeScreenController.calculateAnnualCashAnalysis();
-              },
-              prifixIcon: Align(
-                widthFactor: 1.0,
-                heightFactor: 1.0,
-                child: Text(
-                  '\$',
-                  style:
-                  TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-                ),
-              ).paddingOnly(right: 5),
-              keyboardType: TextInputType.number,
-              backgroundColor: AppColors.whiteColor1,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
+          const SizedBox(height: 10),
+          //Monthly Condo /Association fees
+          CommonTextFieldHeaderModule(
+              header: AppMessage.condoAssociationFees, required: true),
+          const SizedBox(height: 5),
+          TextFieldModule(
+            fieldController: homeScreenController.monthlyCondoFieldController,
+            hintText: AppMessage.condoAssociationFees,
+            validate: (value) => FieldValidation()
+                .validateAmount(value, AppMessage.condoAssociationFees),
+            onChange: (value) {
+              // homeScreenController.operatingExpensesFunction();
+              homeScreenController.calculateAnnualCashAnalysis();
+            },
+            prifixIcon: Align(
+              widthFactor: 1.0,
+              heightFactor: 1.0,
+              child: Text(
+                '\$',
+                style:
+                TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+              ),
+            ).paddingOnly(right: 5),
+            keyboardType: TextInputType.number,
+            backgroundColor: AppColors.whiteColor1,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
 
 //monthly Taxes
-            CommonTextFieldHeaderModule(
-                header: AppMessage.monthlyTaxes, required: true),
-            const SizedBox(height: 5),
+          CommonTextFieldHeaderModule(
+              header: AppMessage.monthlyTaxes, required: true),
+          const SizedBox(height: 5),
 
-            TextFieldModule(
-              fieldController: homeScreenController.monthlyTaxesFieldController,
-              hintText: AppMessage.monthlyTaxes,
-              validate: (value) => FieldValidation()
-                  .validateAmount(value, AppMessage.monthlyTaxes),
-              onChange: (value) {
-                // homeScreenController.operatingExpensesFunction();
-                homeScreenController.calculateAnnualCashAnalysis();
-              },
-              prifixIcon: Align(
-                widthFactor: 1.0,
-                heightFactor: 1.0,
-                child: Text(
-                  '\$',
-                  style:
-                  TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-                ),
-              ).paddingOnly(right: 5),
-              keyboardType: TextInputType.number,
-              backgroundColor: AppColors.whiteColor1,
-            ),
-            const SizedBox(height: 10),
+          TextFieldModule(
+            fieldController: homeScreenController.monthlyTaxesFieldController,
+            hintText: AppMessage.monthlyTaxes,
+            validate: (value) => FieldValidation()
+                .validateAmount(value, AppMessage.monthlyTaxes),
+            onChange: (value) {
+              // homeScreenController.operatingExpensesFunction();
+              homeScreenController.calculateAnnualCashAnalysis();
+            },
+            prifixIcon: Align(
+              widthFactor: 1.0,
+              heightFactor: 1.0,
+              child: Text(
+                '\$',
+                style:
+                TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+              ),
+            ).paddingOnly(right: 5),
+            keyboardType: TextInputType.number,
+            backgroundColor: AppColors.whiteColor1,
+          ),
+          const SizedBox(height: 10),
 //monthly Repairs & maintenance
-            CommonTextFieldHeaderModule(
-                header: AppMessage.monthlyRepairsMaintenance, required: true),
-            const SizedBox(height: 5),
+          CommonTextFieldHeaderModule(
+              header: AppMessage.monthlyRepairsMaintenance, required: true),
+          const SizedBox(height: 5),
 
-            TextFieldModule(
-              fieldController:
-              homeScreenController.monthlyRepairsMaintenanceFieldController,
-              hintText: AppMessage.monthlyRepairsMaintenance,
-              validate: (value) => FieldValidation()
-                  .validateAmount(value, AppMessage.monthlyRepairsMaintenance),
-              onChange: (value) {
-                // homeScreenController.operatingExpensesFunction();
-                homeScreenController.calculateAnnualCashAnalysis();
-              },
-              keyboardType: TextInputType.number,
-              prifixIcon: Align(
-                widthFactor: 1.0,
-                heightFactor: 1.0,
-                child: Text(
-                  '\$',
-                  style:
-                  TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-                ),
-              ).paddingOnly(right: 5),
-              backgroundColor: AppColors.whiteColor1,
-            ),
-            const SizedBox(height: 10),
+          TextFieldModule(
+            fieldController:
+            homeScreenController.monthlyRepairsMaintenanceFieldController,
+            hintText: AppMessage.monthlyRepairsMaintenance,
+            validate: (value) => FieldValidation()
+                .validateAmount(value, AppMessage.monthlyRepairsMaintenance),
+            onChange: (value) {
+              // homeScreenController.operatingExpensesFunction();
+              homeScreenController.calculateAnnualCashAnalysis();
+            },
+            keyboardType: TextInputType.number,
+            prifixIcon: Align(
+              widthFactor: 1.0,
+              heightFactor: 1.0,
+              child: Text(
+                '\$',
+                style:
+                TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+              ),
+            ).paddingOnly(right: 5),
+            backgroundColor: AppColors.whiteColor1,
+          ),
+          const SizedBox(height: 10),
 
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+          Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
 //Administrative allowance
-                      CommonTextFieldHeaderModule(
-                          header: AppMessage.administrativeAllowance,
-                          required: true),
-                      const SizedBox(height: 5),
+                    CommonTextFieldHeaderModule(
+                        header: AppMessage.administrativeAllowance,
+                        required: true),
+                    const SizedBox(height: 5),
 
-                      TextFieldModule(
-                        fieldController: homeScreenController
-                            .adminstrativeAllowanceFieldController,
-                        hintText: AppMessage.administrativeAllowance,
-                        validate: (value) => FieldValidation().validateAmount(
-                            value, AppMessage.administrativeAllowance),
-                        onChange: (value) {
-                          // homeScreenController.operatingExpensesFunction();
-                          homeScreenController.calculateAnnualCashAnalysis();
-                        },
-                        prifixIcon: Align(
-                          widthFactor: 1.0,
-                          heightFactor: 1.0,
-                          child: Text(
-                            '\$',
-                            style: TextStyle(
-                                fontSize: 15.sp, fontWeight: FontWeight.bold),
-                          ),
-                        ).paddingOnly(right: 5),
-                        keyboardType: TextInputType.number,
-                        backgroundColor: AppColors.whiteColor1,
-                      ),
-                    ],
-                  ),
+                    TextFieldModule(
+                      fieldController: homeScreenController
+                          .adminstrativeAllowanceFieldController,
+                      hintText: AppMessage.administrativeAllowance,
+                      validate: (value) => FieldValidation().validateAmount(
+                          value, AppMessage.administrativeAllowance),
+                      onChange: (value) {
+                        // homeScreenController.operatingExpensesFunction();
+                        homeScreenController.calculateAnnualCashAnalysis();
+                      },
+                      prifixIcon: Align(
+                        widthFactor: 1.0,
+                        heightFactor: 1.0,
+                        child: Text(
+                          '\$',
+                          style: TextStyle(
+                              fontSize: 15.sp, fontWeight: FontWeight.bold),
+                        ),
+                      ).paddingOnly(right: 5),
+                      keyboardType: TextInputType.number,
+                      backgroundColor: AppColors.whiteColor1,
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 5),
-                Expanded(
-                  child: Column(
+              ),
+              const SizedBox(width: 5),
+              Expanded(
+                child: Column(
 //Monthly Insurance
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CommonTextFieldHeaderModule(
-                          header: AppMessage.monthlyInsurance, required: true),
-                      const SizedBox(height: 5),
-                      TextFieldModule(
-                        fieldController: homeScreenController
-                            .monthlyInsuranceFieldController,
-                        hintText: AppMessage.monthlyInsurance,
-                        validate: (value) => FieldValidation()
-                            .validateAmount(value, AppMessage.monthlyInsurance),
-                        onChange: (value) {
-                          // homeScreenController.operatingExpensesFunction();
-                          homeScreenController.calculateAnnualCashAnalysis();
-                        },
-                        prifixIcon: Align(
-                          widthFactor: 1.0,
-                          heightFactor: 1.0,
-                          child: Text(
-                            '\$',
-                            style: TextStyle(
-                                fontSize: 15.sp, fontWeight: FontWeight.bold),
-                          ),
-                        ).paddingOnly(right: 5),
-                        keyboardType: TextInputType.number,
-                        backgroundColor: AppColors.whiteColor1,
-                      ),
-                    ],
-                  ),
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CommonTextFieldHeaderModule(
+                        header: AppMessage.monthlyInsurance, required: true),
+                    const SizedBox(height: 5),
+                    TextFieldModule(
+                      fieldController: homeScreenController
+                          .monthlyInsuranceFieldController,
+                      hintText: AppMessage.monthlyInsurance,
+                      validate: (value) => FieldValidation()
+                          .validateAmount(value, AppMessage.monthlyInsurance),
+                      onChange: (value) {
+                        // homeScreenController.operatingExpensesFunction();
+                        homeScreenController.calculateAnnualCashAnalysis();
+                      },
+                      prifixIcon: Align(
+                        widthFactor: 1.0,
+                        heightFactor: 1.0,
+                        child: Text(
+                          '\$',
+                          style: TextStyle(
+                              fontSize: 15.sp, fontWeight: FontWeight.bold),
+                        ),
+                      ).paddingOnly(right: 5),
+                      keyboardType: TextInputType.number,
+                      backgroundColor: AppColors.whiteColor1,
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            const SizedBox(
-              height: 10,
-            ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 10,
+          ),
 
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+          Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
 //1 st Mortgage Payment
-                      CommonTextFieldHeaderModule(
-                          header: '1 st Mortgage Payment', required: true),
-                      const SizedBox(height: 5),
+                    CommonTextFieldHeaderModule(
+                        header: '1 st Mortgage Payment', required: true),
+                    const SizedBox(height: 5),
 
-                      TextFieldModule(
-                        fieldController: homeScreenController
-                            .mortgagePayment1FieldController,
-                        hintText: '1 st Mortgage Payment',
-                        readOnly: true,
-                        validate: (value) => FieldValidation()
-                            .validateAmount(value, '1 st mortgage payment'),
-                        prifixIcon: Align(
-                          widthFactor: 1.0,
-                          heightFactor: 1.0,
-                          child: Text(
-                            '\$',
-                            style: TextStyle(
-                                fontSize: 15.sp, fontWeight: FontWeight.bold),
-                          ),
-                        ).paddingOnly(right: 5),
-                        keyboardType: TextInputType.number,
-                        backgroundColor: AppColors.whiteColor1,
-                      ),
-                    ],
-                  ),
+                    TextFieldModule(
+                      fieldController: homeScreenController
+                          .mortgagePayment1FieldController,
+                      hintText: '1 st Mortgage Payment',
+                      readOnly: true,
+                      validate: (value) => FieldValidation()
+                          .validateAmount(value, '1st mortgage payment'),
+                      prifixIcon: Align(
+                        widthFactor: 1.0,
+                        heightFactor: 1.0,
+                        child: Text(
+                          '\$',
+                          style: TextStyle(
+                              fontSize: 15.sp, fontWeight: FontWeight.bold),
+                        ),
+                      ).paddingOnly(right: 5),
+                      keyboardType: TextInputType.number,
+                      backgroundColor: AppColors.whiteColor1,
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 5),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      //2 st Mortgage Payment
-                      CommonTextFieldHeaderModule(
-                          header: '2 st Mortgage Payment', required: true),
-                      const SizedBox(height: 5),
-                      TextFieldModule(
-                        fieldController: homeScreenController
-                            .mortgagePayment2FieldController,
-                        hintText: '2 st Mortgage Payment',
-                        readOnly: true,
-                        validate: (value) => FieldValidation()
-                            .validateAmount(value, '2 st mortgage payment'),
-                        prifixIcon: Align(
-                          widthFactor: 1.0,
-                          heightFactor: 1.0,
-                          child: Text(
-                            '\$',
-                            style: TextStyle(
-                                fontSize: 15.sp, fontWeight: FontWeight.bold),
-                          ),
-                        ).paddingOnly(right: 5),
-                        keyboardType: TextInputType.number,
-                        backgroundColor: AppColors.whiteColor1,
-                      ),
-                    ],
-                  ),
+              ),
+              const SizedBox(width: 5),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    //2 st Mortgage Payment
+                    CommonTextFieldHeaderModule(
+                        header: '2 nd Mortgage Payment', required: true),
+                    const SizedBox(height: 5),
+                    TextFieldModule(
+                      fieldController: homeScreenController
+                          .mortgagePayment2FieldController,
+                      hintText: '2 nd Mortgage Payment',
+                      readOnly: true,
+                      validate: (value) => FieldValidation()
+                          .validateAmount(value, '2nd mortgage payment'),
+                      prifixIcon: Align(
+                        widthFactor: 1.0,
+                        heightFactor: 1.0,
+                        child: Text(
+                          '\$',
+                          style: TextStyle(
+                              fontSize: 15.sp, fontWeight: FontWeight.bold),
+                        ),
+                      ).paddingOnly(right: 5),
+                      keyboardType: TextInputType.number,
+                      backgroundColor: AppColors.whiteColor1,
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
+          ),
 
-            const SizedBox(height: 10),
+          const SizedBox(height: 10),
 
 //Monthly Utilities
-            CommonTextFieldHeaderModule(
-                header: AppMessage.monthlyUtilities, required: true),
-            const SizedBox(height: 5),
+          CommonTextFieldHeaderModule(
+              header: AppMessage.monthlyUtilities, required: true),
+          const SizedBox(height: 5),
 
-            TextFieldModule(
-              fieldController:
-              homeScreenController.monthlyUtilitiesFieldController,
-              hintText: AppMessage.monthlyUtilities,
-              validate: (value) => FieldValidation()
-                  .validateAmount(value, AppMessage.monthlyUtilities),
-              onChange: (value) {
-                // homeScreenController.operatingExpensesFunction();
-                homeScreenController.calculateAnnualCashAnalysis();
-              },
-              prifixIcon: Align(
-                widthFactor: 1.0,
-                heightFactor: 1.0,
-                child: Text(
-                  '\$',
-                  style:
-                  TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-                ),
-              ).paddingOnly(right: 5),
-              keyboardType: TextInputType.number,
-              backgroundColor: AppColors.whiteColor1,
-            ),
-          ],
-        ),
+          TextFieldModule(
+            fieldController:
+            homeScreenController.monthlyUtilitiesFieldController,
+            hintText: AppMessage.monthlyUtilities,
+            validate: (value) => FieldValidation()
+                .validateAmount(value, AppMessage.monthlyUtilities),
+            onChange: (value) {
+              // homeScreenController.operatingExpensesFunction();
+              homeScreenController.calculateAnnualCashAnalysis();
+            },
+            prifixIcon: Align(
+              widthFactor: 1.0,
+              heightFactor: 1.0,
+              child: Text(
+                '\$',
+                style:
+                TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+              ),
+            ).paddingOnly(right: 5),
+            keyboardType: TextInputType.number,
+            backgroundColor: AppColors.whiteColor1,
+          ),
+        ],
       ).paddingAll(5),
     );
   }
@@ -799,76 +757,76 @@ class ProjectCosts extends StatelessWidget {
         border: Border.all(),
         borderRadius: BorderRadius.circular(8),
       ),
-      child: Form(
-        key: homeScreenController.projectCostsKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                AppMessage.projectCosts,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.blackColor,
-                    fontSize: 14.sp),
-              ).paddingOnly(top: 5, bottom: 5),
-            ),
-            const CustomDivider(),
-            // const SizedBox(height: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              AppMessage.projectCosts,
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.blackColor,
+                  fontSize: 14.sp),
+            ).paddingOnly(top: 5, bottom: 5),
+          ),
+          const CustomDivider(),
+          // const SizedBox(height: 10),
 
 //rehab costs paid out of pocket
-            CommonTextFieldHeaderModule(
-                header: AppMessage.rehabCostsPaidOutOfPocket, required: true),
-            const SizedBox(height: 5),
-            TextFieldModule(
-              fieldController:
-              homeScreenController.costsPaidoutPocketFieldController,
-              hintText: AppMessage.rehabCostsPaidOutOfPocket,
-              validate: (value) => FieldValidation()
-                  .validateAmount(value, 'rehab costs paid out of pocket'),
-              prifixIcon: Align(
-                widthFactor: 1.0,
-                heightFactor: 1.0,
-                child: Text(
-                  '\$',
-                  style:
-                  TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-                ),
-              ).paddingOnly(right: 5),
-              keyboardType: TextInputType.number,
-              backgroundColor: AppColors.whiteColor1,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
+          CommonTextFieldHeaderModule(
+              header: AppMessage.rehabCostsPaidOutOfPocket, required: true),
+          const SizedBox(height: 5),
+          TextFieldModule(
+            fieldController:
+            homeScreenController.costsPaidoutPocketFieldController,
+            hintText: AppMessage.rehabCostsPaidOutOfPocket,
+            validate: (value) => FieldValidation()
+                .validateAmount(value, 'rehab costs paid out of pocket'),
+            onChange: (value) {
+              homeScreenController.calculateQuickFLipAnalysis();
+            },
+            prifixIcon: Align(
+              widthFactor: 1.0,
+              heightFactor: 1.0,
+              child: Text(
+                '\$',
+                style:
+                TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+              ),
+            ).paddingOnly(right: 5),
+            keyboardType: TextInputType.number,
+            backgroundColor: AppColors.whiteColor1,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
 
 //rehab costs financed
-            CommonTextFieldHeaderModule(
-                header: 'Rehab Costs Financed', required: true),
-            const SizedBox(height: 5),
-            TextFieldModule(
-              fieldController: homeScreenController.costFinancedFieldController,
-              hintText: 'Rehab Costs Financed',
-              validate: (value) => FieldValidation()
-                  .validateAmount(value, 'rehab costs financed'),
-              onChange: (value) {
-                homeScreenController.firstMortgageFinanceAmountCalculation();
-              },
-              prifixIcon: Align(
-                widthFactor: 1.0,
-                heightFactor: 1.0,
-                child: Text(
-                  '\$',
-                  style:
-                  TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-                ),
-              ).paddingOnly(right: 5),
-              keyboardType: TextInputType.number,
-              backgroundColor: AppColors.whiteColor1,
-            ),
-          ],
-        ),
+          CommonTextFieldHeaderModule(
+              header: 'Rehab Costs Financed', required: true),
+          const SizedBox(height: 5),
+          TextFieldModule(
+            fieldController: homeScreenController.costFinancedFieldController,
+            hintText: 'Rehab Costs Financed',
+            validate: (value) => FieldValidation()
+                .validateAmount(value, 'rehab costs financed'),
+            onChange: (value) {
+              homeScreenController.firstMortgageFinanceAmountCalculation();
+            },
+            prifixIcon: Align(
+              widthFactor: 1.0,
+              heightFactor: 1.0,
+              child: Text(
+                '\$',
+                style:
+                TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+              ),
+            ).paddingOnly(right: 5),
+            keyboardType: TextInputType.number,
+            backgroundColor: AppColors.whiteColor1,
+          ),
+        ],
       ).paddingAll(5),
     );
   }
@@ -886,149 +844,158 @@ class AcquisitionCosts extends StatelessWidget {
         border: Border.all(),
         borderRadius: BorderRadius.circular(8),
       ),
-      child: Form(
-        key: homeScreenController.acquisitionCostsKey,
-        child: Column(
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                AppMessage.acquisitionCosts,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.blackColor,
-                    fontSize: 14.sp),
-              ).paddingOnly(bottom: 5, top: 5),
-            ),
-            const CustomDivider(),
-            // const SizedBox(height: 10),
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+      child: Column(
+        children: [
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              AppMessage.acquisitionCosts,
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.blackColor,
+                  fontSize: 14.sp),
+            ).paddingOnly(bottom: 5, top: 5),
+          ),
+          const CustomDivider(),
+          // const SizedBox(height: 10),
+          Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
 //appraisal
-                      CommonTextFieldHeaderModule(
-                          header: AppMessage.appraisal, required: true),
-                      const SizedBox(height: 5),
-                      TextFieldModule(
-                        fieldController:
-                        homeScreenController.appraisalCostsFieldController,
-                        hintText: AppMessage.appraisal,
-                        validate: (value) => FieldValidation()
-                            .validateAmount(value, AppMessage.appraisal),
-                        prifixIcon: Align(
-                          widthFactor: 1.0,
-                          heightFactor: 1.0,
-                          child: Text(
-                            '\$',
-                            style: TextStyle(
-                                fontSize: 15.sp, fontWeight: FontWeight.bold),
-                          ),
-                        ).paddingOnly(right: 5),
-                        keyboardType: TextInputType.number,
-                        backgroundColor: AppColors.whiteColor1,
-                      ),
-                    ],
-                  ),
+                    CommonTextFieldHeaderModule(
+                        header: AppMessage.appraisal, required: true),
+                    const SizedBox(height: 5),
+                    TextFieldModule(
+                      fieldController:
+                      homeScreenController.appraisalCostsFieldController,
+                      hintText: AppMessage.appraisal,
+                      validate: (value) => FieldValidation()
+                          .validateAmount(value, AppMessage.appraisal),
+                      onChange: (value) {
+                        homeScreenController.calculateQuickFLipAnalysis();
+                      },
+                      prifixIcon: Align(
+                        widthFactor: 1.0,
+                        heightFactor: 1.0,
+                        child: Text(
+                          '\$',
+                          style: TextStyle(
+                              fontSize: 15.sp, fontWeight: FontWeight.bold),
+                        ),
+                      ).paddingOnly(right: 5),
+                      keyboardType: TextInputType.number,
+                      backgroundColor: AppColors.whiteColor1,
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 5),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+              ),
+              const SizedBox(width: 5),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
 //inspection
-                      CommonTextFieldHeaderModule(
-                          header: AppMessage.inspection, required: true),
-                      const SizedBox(height: 5),
-                      TextFieldModule(
-                        fieldController:
-                        homeScreenController.inspectionCostsFieldController,
-                        hintText: AppMessage.inspection,
-                        validate: (value) => FieldValidation()
-                            .validateAmount(value, 'inspection'),
-                        prifixIcon: Align(
-                          widthFactor: 1.0,
-                          heightFactor: 1.0,
-                          child: Text(
-                            '\$',
-                            style: TextStyle(
-                                fontSize: 15.sp, fontWeight: FontWeight.bold),
-                          ),
-                        ).paddingOnly(right: 5),
-                        keyboardType: TextInputType.number,
-                        backgroundColor: AppColors.whiteColor1,
-                      ),
-                    ],
-                  ),
+                    CommonTextFieldHeaderModule(
+                        header: AppMessage.inspection, required: true),
+                    const SizedBox(height: 5),
+                    TextFieldModule(
+                      fieldController:
+                      homeScreenController.inspectionCostsFieldController,
+                      hintText: AppMessage.inspection,
+                      validate: (value) => FieldValidation()
+                          .validateAmount(value, 'inspection'),
+                      onChange: (value) {
+                        homeScreenController.calculateQuickFLipAnalysis();
+                      },
+                      prifixIcon: Align(
+                        widthFactor: 1.0,
+                        heightFactor: 1.0,
+                        child: Text(
+                          '\$',
+                          style: TextStyle(
+                              fontSize: 15.sp, fontWeight: FontWeight.bold),
+                        ),
+                      ).paddingOnly(right: 5),
+                      keyboardType: TextInputType.number,
+                      backgroundColor: AppColors.whiteColor1,
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            const SizedBox(height: 10),
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CommonTextFieldHeaderModule(
-                          header: AppMessage.survey, required: true),
-                      const SizedBox(height: 5),
-                      TextFieldModule(
-                        fieldController:
-                        homeScreenController.surveyCostsFieldController,
-                        hintText: AppMessage.survey,
-                        validate: (value) =>
-                            FieldValidation().validateAmount(value, 'survey'),
-                        prifixIcon: Align(
-                          widthFactor: 1.0,
-                          heightFactor: 1.0,
-                          child: Text(
-                            '\$',
-                            style: TextStyle(
-                                fontSize: 15.sp, fontWeight: FontWeight.bold),
-                          ),
-                        ).paddingOnly(right: 5),
-                        keyboardType: TextInputType.number,
-                        backgroundColor: AppColors.whiteColor1,
-                      ),
-                    ],
-                  ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CommonTextFieldHeaderModule(
+                        header: AppMessage.survey, required: true),
+                    const SizedBox(height: 5),
+                    TextFieldModule(
+                      fieldController:
+                      homeScreenController.surveyCostsFieldController,
+                      hintText: AppMessage.survey,
+                      validate: (value) =>
+                          FieldValidation().validateAmount(value, 'survey'),
+                      onChange: (value) {
+                        homeScreenController.calculateQuickFLipAnalysis();
+                      },
+                      prifixIcon: Align(
+                        widthFactor: 1.0,
+                        heightFactor: 1.0,
+                        child: Text(
+                          '\$',
+                          style: TextStyle(
+                              fontSize: 15.sp, fontWeight: FontWeight.bold),
+                        ),
+                      ).paddingOnly(right: 5),
+                      keyboardType: TextInputType.number,
+                      backgroundColor: AppColors.whiteColor1,
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 5),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CommonTextFieldHeaderModule(
-                          header: AppMessage.wholesaleFee, required: true),
-                      const SizedBox(height: 5),
-                      TextFieldModule(
-                        fieldController: homeScreenController
-                            .wholesaleFeeCostsFieldController,
-                        hintText: AppMessage.wholesaleFee,
-                        validate: (value) => FieldValidation()
-                            .validateAmount(value, 'wholesale fee'),
-                        prifixIcon: Align(
-                          widthFactor: 1.0,
-                          heightFactor: 1.0,
-                          child: Text(
-                            '\$',
-                            style: TextStyle(
-                                fontSize: 15.sp, fontWeight: FontWeight.bold),
-                          ),
-                        ).paddingOnly(right: 5),
-                        keyboardType: TextInputType.number,
-                        backgroundColor: AppColors.whiteColor1,
-                      ),
-                    ],
-                  ),
+              ),
+              const SizedBox(width: 5),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CommonTextFieldHeaderModule(
+                        header: AppMessage.wholesaleFee, required: true),
+                    const SizedBox(height: 5),
+                    TextFieldModule(
+                      fieldController: homeScreenController
+                          .wholesaleFeeCostsFieldController,
+                      hintText: AppMessage.wholesaleFee,
+                      validate: (value) => FieldValidation()
+                          .validateAmount(value, 'wholesale fee'),
+                      onChange: (value) {
+                        homeScreenController.calculateQuickFLipAnalysis();
+                      },
+                      prifixIcon: Align(
+                        widthFactor: 1.0,
+                        heightFactor: 1.0,
+                        child: Text(
+                          '\$',
+                          style: TextStyle(
+                              fontSize: 15.sp, fontWeight: FontWeight.bold),
+                        ),
+                      ).paddingOnly(right: 5),
+                      keyboardType: TextInputType.number,
+                      backgroundColor: AppColors.whiteColor1,
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+        ],
       ).paddingAll(5),
     );
   }
@@ -1046,441 +1013,442 @@ class MortgageDetails1 extends StatelessWidget {
         border: Border.all(),
         borderRadius: BorderRadius.circular(8),
       ),
-      child: Form(
-        key: homeScreenController.mortgage1Key,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              "1st Mortgage Details",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.blackColor,
+                  fontSize: 14.sp),
+            ).paddingOnly(bottom: 5, top: 5),
+          ),
+          const CustomDivider(),
+          // const SizedBox(height: 10),
+
+          Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Mortgage Term
+                    CommonTextFieldHeaderModule(
+                        header: AppMessage.mortgageTermMonths, required: true),
+                    const SizedBox(height: 5),
+                    TextFieldModule(
+                      fieldController:
+                      homeScreenController.mortgageTermMonthsFieldController,
+                      hintText: AppMessage.mortgageTermMonths,
+                      validate: (value) => FieldValidation()
+                          .validateAmount(value, 'mortgage term (months)'),
+                      onChange: (value) {
+                        homeScreenController.firstMortgagePmtCalculateFunction();
+                      },
+                      keyboardType: TextInputType.number,
+                      backgroundColor: AppColors.whiteColor1,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 5),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // payments per year
+                    CommonTextFieldHeaderModule(
+                        header: AppMessage.paymentsPerYear, required: true),
+                    const SizedBox(height: 5),
+                    TextFieldModule(
+                      fieldController:
+                      homeScreenController.paymentsPerYearFieldController,
+                      hintText: AppMessage.paymentsPerYear,
+                      validate: (value) =>
+                          FieldValidation().validateAmount(value, 'payments per year'),
+                      onChange: (value) {
+                        homeScreenController.firstMortgagePmtCalculateFunction();
+                      },
+                      keyboardType: TextInputType.number,
+                      backgroundColor: AppColors.whiteColor1,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+
+          // Down Payment Percentage
+          CommonTextFieldHeaderModule(
+              header: AppMessage.downPaymentPercentage, required: true),
+          const SizedBox(height: 5),
+          TextFieldModule(
+            fieldController:
+            homeScreenController.downPaymentPercentageFieldController,
+            hintText: AppMessage.downPaymentPercentage,
+            validate: (value) => FieldValidation()
+                .validateAmount(value, 'down payment percentage'),
+            prifixIcon: Align(
+              widthFactor: 1.0,
+              heightFactor: 1.0,
               child: Text(
-                "1st Mortgage Details",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.blackColor,
-                    fontSize: 14.sp),
-              ).paddingOnly(bottom: 5, top: 5),
-            ),
-            const CustomDivider(),
-            // const SizedBox(height: 10),
+                '%',
+                style:
+                TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+              ),
+            ).paddingOnly(right: 5),
+            onChange: (val) {
+              homeScreenController.downPaymentAmountFunction();
+              homeScreenController.financedAmountFunction();
+              homeScreenController.firstMortgageFinanceAmountCalculation();
+              homeScreenController.firstMortgageClosingCostCalculation();
+              homeScreenController.calculatePointsAmountFunction();
+              // homeScreenController.closingCostFunction();
+            },
+            keyboardType: TextInputType.number,
+            backgroundColor: AppColors.whiteColor1,
+          ),
+          const SizedBox(height: 10),
 
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Mortgage Term
-                      CommonTextFieldHeaderModule(
-                          header: AppMessage.mortgageTermMonths, required: true),
-                      const SizedBox(height: 5),
-                      TextFieldModule(
-                        fieldController:
-                        homeScreenController.mortgageTermMonthsFieldController,
-                        hintText: AppMessage.mortgageTermMonths,
-                        validate: (value) => FieldValidation()
-                            .validateAmount(value, 'mortgage term (months)'),
-                        onChange: (value) {
-                          homeScreenController.firstMortgagePmtCalculateFunction();
-                        },
-                        keyboardType: TextInputType.number,
-                        backgroundColor: AppColors.whiteColor1,
-                      ),
-                    ],
-                  ),
+          Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    //Down Payment Amount
+                    CommonTextFieldHeaderModule(
+                        header: AppMessage.downPaymentAmount, required: true),
+                    const SizedBox(height: 5),
+                    TextFieldModule(
+                      fieldController:
+                      homeScreenController.downPaymentAmountFieldController,
+                      readOnly: true,
+                      prifixIcon: Align(
+                        widthFactor: 1.0,
+                        heightFactor: 1.0,
+                        child: Text(
+                          '\$',
+                          style:
+                          TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                        ),
+                      ).paddingOnly(right: 5),
+                      hintText: AppMessage.downPaymentAmount,
+                      keyboardType: TextInputType.number,
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 5),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // payments per year
-                      CommonTextFieldHeaderModule(
-                          header: AppMessage.paymentsPerYear, required: true),
-                      const SizedBox(height: 5),
-                      TextFieldModule(
-                        fieldController:
-                        homeScreenController.paymentsPerYearFieldController,
-                        hintText: AppMessage.paymentsPerYear,
-                        validate: (value) =>
-                            FieldValidation().validateAmount(value, 'payments per year'),
-                        onChange: (value) {
-                          homeScreenController.firstMortgagePmtCalculateFunction();
-                        },
-                        keyboardType: TextInputType.number,
-                        backgroundColor: AppColors.whiteColor1,
-                      ),
-                    ],
-                  ),
+              ),
+              const SizedBox(width: 5),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    //Financed Amount
+                    CommonTextFieldHeaderModule(
+                        header: AppMessage.financedAmount, required: true),
+                    const SizedBox(height: 5),
+                    TextFieldModule(
+                      fieldController:
+                      homeScreenController.financedAmountFieldController,
+                      readOnly: true,
+                      prifixIcon: Align(
+                        widthFactor: 1.0,
+                        heightFactor: 1.0,
+                        child: Text(
+                          '\$',
+                          style:
+                          TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                        ),
+                      ).paddingOnly(right: 5),
+                      hintText: "Financed Amount",
+                      keyboardType: TextInputType.number,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+
+
+          //Interest Rate
+          CommonTextFieldHeaderModule(
+              header: AppMessage.interestRate, required: true),
+          const SizedBox(height: 5),
+          TextFieldModule(
+            fieldController: homeScreenController.interestRateFieldController,
+            hintText: AppMessage.interestRate,
+            validate: (value) =>
+                FieldValidation().validateAmount(value, 'interest rate'),
+            onChange: (value) {
+              homeScreenController.firstMortgagePmtCalculateFunction();
+            },
+            prifixIcon: Align(
+              widthFactor: 1.0,
+              heightFactor: 1.0,
+              child: Text(
+                '%',
+                style:
+                TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+              ),
+            ).paddingOnly(right: 5),
+            keyboardType: TextInputType.number,
+            backgroundColor: AppColors.whiteColor1,
+          ),
+
+          //radioButton Interest Only (0=Yes, 1=No)
+          Obx(
+                () => Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Interest Only',
+                  style:
+                  TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp),
+                ),
+                Row(
+                  children: [
+                    Row(
+                      children: [
+                        Radio(
+                          value:
+                          homeScreenController.interestOnlyButton.value,
+                          groupValue: 0,
+                          onChanged: (val) {
+                            homeScreenController.interestOnlyButton.value = 0;
+                            homeScreenController.firstMortgagePmtCalculateFunction();
+                            // homeScreenController.operatingExpensesFunction();
+                            homeScreenController.calculateAnnualCashAnalysis();
+                          },
+                        ),
+                        const Text(
+                          'Yes',
+                          style: TextStyle(),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Radio(
+                          value:
+                          homeScreenController.interestOnlyButton.value,
+                          groupValue: 1,
+                          onChanged: (val) {
+                            homeScreenController.interestOnlyButton.value = 1;
+                            homeScreenController.firstMortgagePmtCalculateFunction();
+                            // homeScreenController.operatingExpensesFunction();
+                            homeScreenController.calculateAnnualCashAnalysis();
+                          },
+                        ),
+                        const Text(
+                          'No',
+                          style: TextStyle(),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ],
             ),
-            const SizedBox(height: 10),
+          ),
 
-            // Down Payment Percentage
-            CommonTextFieldHeaderModule(
-                header: AppMessage.downPaymentPercentage, required: true),
-            const SizedBox(height: 5),
-            TextFieldModule(
-              fieldController:
-              homeScreenController.downPaymentPercentageFieldController,
-              hintText: AppMessage.downPaymentPercentage,
-              validate: (value) => FieldValidation()
-                  .validateAmount(value, 'down payment percentage'),
-              prifixIcon: Align(
-                widthFactor: 1.0,
-                heightFactor: 1.0,
-                child: Text(
-                  '%',
-                  style:
-                  TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-                ),
-              ).paddingOnly(right: 5),
-              onChange: (val) {
-                homeScreenController.downPaymentAmountFunction();
-                homeScreenController.financedAmountFunction();
-                homeScreenController.firstMortgageFinanceAmountCalculation();
-                homeScreenController.firstMortgageClosingCostCalculation();
-                homeScreenController.calculatePointsAmountFunction();
-                // homeScreenController.closingCostFunction();
-              },
-              keyboardType: TextInputType.number,
-              backgroundColor: AppColors.whiteColor1,
-            ),
-            const SizedBox(height: 10),
+          //loan Points
+          CommonTextFieldHeaderModule(
+              header: AppMessage.loanPoints, required: true),
+          const SizedBox(height: 5),
+          TextFieldModule(
+            fieldController: homeScreenController.loanPointsFieldController,
+            hintText: AppMessage.loanPoints,
+            validate: (value) =>
+                FieldValidation().validateAmount(value, 'loan points'),
+            onChange: (val) {
+              homeScreenController.pointsAmountFunction();
+              // homeScreenController.financeAmountCalculation();
+            },
+            prifixIcon: Align(
+              widthFactor: 1.0,
+              heightFactor: 1.0,
+              child: Text(
+                '%',
+                style:
+                TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+              ),
+            ).paddingOnly(right: 5),
+            keyboardType: TextInputType.number,
+            backgroundColor: AppColors.whiteColor1,
+          ),
+          const SizedBox(height: 10),
 
-            Row(
+          //Points Amount
+          CommonTextFieldHeaderModule(
+              header: AppMessage.pointsAmount, required: true),
+          const SizedBox(height: 5),
+          TextFieldModule(
+            fieldController: homeScreenController.pointsAmountFieldController,
+            hintText: AppMessage.pointsAmount,
+            readOnly: true,
+            onChange: (value) {
+              // homeScreenController.financeAmountCalculation();
+              homeScreenController.calculateQuickFLipAnalysis();
+            },
+            prifixIcon: Align(
+              widthFactor: 1.0,
+              heightFactor: 1.0,
+              child: Text(
+                '\$',
+                style:
+                TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+              ),
+            ).paddingOnly(right: 5),
+            keyboardType: TextInputType.number,
+          ),
+
+          //Radio Button Points Financed (0=Yes, 1=No)
+          Obx(
+                () => Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      //Down Payment Amount
-                      CommonTextFieldHeaderModule(
-                          header: AppMessage.downPaymentAmount, required: true),
-                      const SizedBox(height: 5),
-                      TextFieldModule(
-                        fieldController:
-                        homeScreenController.downPaymentAmountFieldController,
-                        readOnly: true,
-                        prifixIcon: Align(
-                          widthFactor: 1.0,
-                          heightFactor: 1.0,
-                          child: Text(
-                            '\$',
-                            style:
-                            TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-                          ),
-                        ).paddingOnly(right: 5),
-                        hintText: AppMessage.downPaymentAmount,
-                        keyboardType: TextInputType.number,
-                      ),
-                    ],
-                  ),
+                Text(
+                  'Points Financed',
+                  style:
+                  TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp),
                 ),
-                const SizedBox(width: 5),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      //Financed Amount
-                      CommonTextFieldHeaderModule(
-                          header: AppMessage.financedAmount, required: true),
-                      const SizedBox(height: 5),
-                      TextFieldModule(
-                        fieldController:
-                        homeScreenController.financedAmountFieldController,
-                        readOnly: true,
-                        prifixIcon: Align(
-                          widthFactor: 1.0,
-                          heightFactor: 1.0,
-                          child: Text(
-                            '\$',
-                            style:
-                            TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-                          ),
-                        ).paddingOnly(right: 5),
-                        hintText: "Financed Amount",
-                        keyboardType: TextInputType.number,
-                      ),
-                    ],
-                  ),
+                Row(
+                  children: [
+                    Row(
+                      children: [
+                        Radio(
+                          value:
+                          homeScreenController.pointsFinancedButton.value,
+                          groupValue: 0,
+                          onChanged: (val) {
+                            homeScreenController.pointsFinancedButton.value =
+                            0;
+                            homeScreenController.firstMortgageFinanceAmountCalculation();
+                            // homeScreenController.operatingExpensesFunction();
+                            homeScreenController.calculateAnnualCashAnalysis();
+                          },
+                        ),
+                        const Text(
+                          'Yes',
+                          style: TextStyle(),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Radio(
+                          value:
+                          homeScreenController.pointsFinancedButton.value,
+                          groupValue: 1,
+                          onChanged: (val) {
+                            homeScreenController.pointsFinancedButton.value =
+                            1;
+                            homeScreenController.firstMortgageFinanceAmountCalculation();
+                            // homeScreenController.operatingExpensesFunction();
+                            homeScreenController.calculateAnnualCashAnalysis();
+                            homeScreenController.calculateQuickFLipAnalysis();
+                          },
+                        ),
+                        const Text(
+                          'No',
+                          style: TextStyle(),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ],
             ),
-            const SizedBox(height: 10),
+          ),
 
-
-            //Interest Rate
-            CommonTextFieldHeaderModule(
-                header: AppMessage.interestRate, required: true),
-            const SizedBox(height: 5),
-            TextFieldModule(
-              fieldController: homeScreenController.interestRateFieldController,
-              hintText: AppMessage.interestRate,
-              validate: (value) =>
-                  FieldValidation().validateAmount(value, 'interest rate'),
-              onChange: (value) {
-                homeScreenController.firstMortgagePmtCalculateFunction();
-              },
-              prifixIcon: Align(
-                widthFactor: 1.0,
-                heightFactor: 1.0,
-                child: Text(
-                  '%',
-                  style:
-                  TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-                ),
-              ).paddingOnly(right: 5),
-              keyboardType: TextInputType.number,
-              backgroundColor: AppColors.whiteColor1,
-            ),
-
-            //radioButton Interest Only (0=Yes, 1=No)
-            Obx(
-                  () => Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Interest Only',
-                    style:
-                    TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp),
-                  ),
-                  Row(
-                    children: [
-                      Row(
-                        children: [
-                          Radio(
-                            value:
-                            homeScreenController.interestOnlyButton.value,
-                            groupValue: 0,
-                            onChanged: (val) {
-                              homeScreenController.interestOnlyButton.value = 0;
-                              homeScreenController.firstMortgagePmtCalculateFunction();
-                              // homeScreenController.operatingExpensesFunction();
-                              homeScreenController.calculateAnnualCashAnalysis();
-                            },
-                          ),
-                          const Text(
-                            'Yes',
-                            style: TextStyle(),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Radio(
-                            value:
-                            homeScreenController.interestOnlyButton.value,
-                            groupValue: 1,
-                            onChanged: (val) {
-                              homeScreenController.interestOnlyButton.value = 1;
-                              homeScreenController.firstMortgagePmtCalculateFunction();
-                              // homeScreenController.operatingExpensesFunction();
-                              homeScreenController.calculateAnnualCashAnalysis();
-                            },
-                          ),
-                          const Text(
-                            'No',
-                            style: TextStyle(),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
+          //Closing Cost
+          CommonTextFieldHeaderModule(
+              header: AppMessage.closingCost, required: true),
+          const SizedBox(height: 5),
+          TextFieldModule(
+            fieldController: homeScreenController.closingCostsFieldController,
+            hintText: AppMessage.closingCost,
+            onChange: (value) {
+              // homeScreenController.financeAmountCalculation();
+              homeScreenController.calculateQuickFLipAnalysis();
+            },
+            prifixIcon: Align(
+              widthFactor: 1.0,
+              heightFactor: 1.0,
+              child: Text(
+                '\$',
+                style:
+                TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
               ),
-            ),
-
-            //loan Points
-            CommonTextFieldHeaderModule(
-                header: AppMessage.loanPoints, required: true),
-            const SizedBox(height: 5),
-            TextFieldModule(
-              fieldController: homeScreenController.loanPointsFieldController,
-              hintText: AppMessage.loanPoints,
-              validate: (value) =>
-                  FieldValidation().validateAmount(value, 'loan points'),
-              onChange: (val) {
-                homeScreenController.pointsAmountFunction();
-                // homeScreenController.financeAmountCalculation();
-              },
-              prifixIcon: Align(
-                widthFactor: 1.0,
-                heightFactor: 1.0,
-                child: Text(
-                  '%',
+            ).paddingOnly(right: 5),
+            readOnly: true,
+            keyboardType: TextInputType.number,
+          ),
+          //Radio Button Closing Costs Financed (0=Yes, 1=No)
+          Obx(
+                () => Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Closing Costs Financed',
                   style:
-                  TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp),
                 ),
-              ).paddingOnly(right: 5),
-              keyboardType: TextInputType.number,
-              backgroundColor: AppColors.whiteColor1,
-            ),
-            const SizedBox(height: 10),
-
-            //Points Amount
-            CommonTextFieldHeaderModule(
-                header: AppMessage.pointsAmount, required: true),
-            const SizedBox(height: 5),
-            TextFieldModule(
-              fieldController: homeScreenController.pointsAmountFieldController,
-              hintText: AppMessage.pointsAmount,
-              readOnly: true,
-              onChange: (value) {
-                // homeScreenController.financeAmountCalculation();
-              },
-              prifixIcon: Align(
-                widthFactor: 1.0,
-                heightFactor: 1.0,
-                child: Text(
-                  '\$',
-                  style:
-                  TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                Row(
+                  children: [
+                    Row(
+                      children: [
+                        Radio(
+                          value: homeScreenController
+                              .closingCostsFinancedButton.value,
+                          groupValue: 0,
+                          onChanged: (val) {
+                            homeScreenController
+                                .closingCostsFinancedButton.value = 0;
+                            homeScreenController.firstMortgageFinanceAmountCalculation();
+                            // homeScreenController.operatingExpensesFunction();
+                            homeScreenController.calculateAnnualCashAnalysis();
+                            homeScreenController.calculateQuickFLipAnalysis();
+                          },
+                        ),
+                        const Text(
+                          'Yes',
+                          style: TextStyle(),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Radio(
+                          value: homeScreenController
+                              .closingCostsFinancedButton.value,
+                          groupValue: 1,
+                          onChanged: (val) {
+                            homeScreenController
+                                .closingCostsFinancedButton.value = 1;
+                            homeScreenController.firstMortgageFinanceAmountCalculation();
+                            // homeScreenController.operatingExpensesFunction();
+                            homeScreenController.calculateAnnualCashAnalysis();
+                          },
+                        ),
+                        const Text(
+                          'No',
+                          style: TextStyle(),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-              ).paddingOnly(right: 5),
-              keyboardType: TextInputType.number,
+              ],
             ),
-
-            //Radio Button Points Financed (0=Yes, 1=No)
-            Obx(
-                  () => Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Points Financed',
-                    style:
-                    TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp),
-                  ),
-                  Row(
-                    children: [
-                      Row(
-                        children: [
-                          Radio(
-                            value:
-                            homeScreenController.pointsFinancedButton.value,
-                            groupValue: 0,
-                            onChanged: (val) {
-                              homeScreenController.pointsFinancedButton.value =
-                              0;
-                              homeScreenController.firstMortgageFinanceAmountCalculation();
-                              // homeScreenController.operatingExpensesFunction();
-                              homeScreenController.calculateAnnualCashAnalysis();
-                            },
-                          ),
-                          const Text(
-                            'Yes',
-                            style: TextStyle(),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Radio(
-                            value:
-                            homeScreenController.pointsFinancedButton.value,
-                            groupValue: 1,
-                            onChanged: (val) {
-                              homeScreenController.pointsFinancedButton.value =
-                              1;
-                              homeScreenController.firstMortgageFinanceAmountCalculation();
-                              // homeScreenController.operatingExpensesFunction();
-                              homeScreenController.calculateAnnualCashAnalysis();
-                            },
-                          ),
-                          const Text(
-                            'No',
-                            style: TextStyle(),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-
-            //Closing Cost
-            CommonTextFieldHeaderModule(
-                header: AppMessage.closingCost, required: true),
-            const SizedBox(height: 5),
-            TextFieldModule(
-              fieldController: homeScreenController.closingCostsFieldController,
-              hintText: AppMessage.closingCost,
-              onChange: (value) {
-                // homeScreenController.financeAmountCalculation();
-              },
-              prifixIcon: Align(
-                widthFactor: 1.0,
-                heightFactor: 1.0,
-                child: Text(
-                  '\$',
-                  style:
-                  TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-                ),
-              ).paddingOnly(right: 5),
-              readOnly: true,
-              keyboardType: TextInputType.number,
-            ),
-            //Radio Button Closing Costs Financed (0=Yes, 1=No)
-            Obx(
-                  () => Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Closing Costs Financed',
-                    style:
-                    TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp),
-                  ),
-                  Row(
-                    children: [
-                      Row(
-                        children: [
-                          Radio(
-                            value: homeScreenController
-                                .closingCostsFinancedButton.value,
-                            groupValue: 0,
-                            onChanged: (val) {
-                              homeScreenController
-                                  .closingCostsFinancedButton.value = 0;
-                              homeScreenController.firstMortgageFinanceAmountCalculation();
-                              // homeScreenController.operatingExpensesFunction();
-                              homeScreenController.calculateAnnualCashAnalysis();
-                            },
-                          ),
-                          const Text(
-                            'Yes',
-                            style: TextStyle(),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Radio(
-                            value: homeScreenController
-                                .closingCostsFinancedButton.value,
-                            groupValue: 1,
-                            onChanged: (val) {
-                              homeScreenController
-                                  .closingCostsFinancedButton.value = 1;
-                              homeScreenController.firstMortgageFinanceAmountCalculation();
-                              // homeScreenController.operatingExpensesFunction();
-                              homeScreenController.calculateAnnualCashAnalysis();
-                            },
-                          ),
-                          const Text(
-                            'No',
-                            style: TextStyle(),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ).paddingAll(5),
     );
   }
@@ -1498,409 +1466,411 @@ class MortgageDetails2 extends StatelessWidget {
         border: Border.all(),
         borderRadius: BorderRadius.circular(8),
       ),
-      child: Form(
-        key: homeScreenController.mortgage2Key,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              "2st Mortgage Details",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.blackColor,
+                  fontSize: 14.sp),
+            ).paddingOnly(bottom: 5, top: 5),
+          ),
+          const CustomDivider(),
+          // const SizedBox(height: 10),
+
+          Row(
+            children: [
+              Expanded(
+                // Mortgage Term
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CommonTextFieldHeaderModule(
+                        header: AppMessage.mortgageTermMonths, required: true),
+                    const SizedBox(height: 5),
+                    TextFieldModule(
+                      fieldController:
+                      homeScreenController.mortgageTermMonths2FieldController,
+                      hintText: "Mortgage Term (Months)",
+                      validate: (value) => FieldValidation()
+                          .validateAmount(value, 'mortgage term (months)'),
+                      onChange: (value) {
+                        homeScreenController.secondMortgagePmtCalculateFunction();
+                      },
+                      keyboardType: TextInputType.number,
+                      backgroundColor: AppColors.whiteColor1,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 5),
+              Expanded(
+                //payments Per Year
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CommonTextFieldHeaderModule(
+                        header: AppMessage.paymentsPerYear, required: true),
+                    const SizedBox(height: 5),
+                    TextFieldModule(
+                      fieldController:
+                      homeScreenController.paymentsPerYear2FieldController,
+                      hintText: "Payments Per Year",
+                      validate: (value) =>
+                          FieldValidation().validateAmount(value, 'payments per year'),
+                      onChange: (value) {
+                        homeScreenController.secondMortgagePmtCalculateFunction();
+                      },
+                      keyboardType: TextInputType.number,
+                      backgroundColor: AppColors.whiteColor1,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+
+          //2nd Mortgage Amount
+          CommonTextFieldHeaderModule(
+              header: "2nd Mortgage Amount", required: true),
+          const SizedBox(height: 5),
+          TextFieldModule(
+            fieldController:
+            homeScreenController.mortgageAmount2FieldController,
+            hintText: "2nd Mortgage Amount",
+            validate: (value) => FieldValidation()
+                .validateAmount(value, '2nd mortgage amount'),
+            onChange: (value) {
+              homeScreenController.secondMortgageFinanceAmountCalculator();
+              homeScreenController.secondFinanceClosingCostCalculator();
+              homeScreenController.pointsAmountFunction2();
+              homeScreenController.secondMortgagePmtCalculateFunction();
+            },
+            prifixIcon: Align(
+              widthFactor: 1.0,
+              heightFactor: 1.0,
               child: Text(
-                "2st Mortgage Details",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.blackColor,
-                    fontSize: 14.sp),
-              ).paddingOnly(bottom: 5, top: 5),
-            ),
-            const CustomDivider(),
-            // const SizedBox(height: 10),
+                '\$',
+                style:
+                TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+              ),
+            ).paddingOnly(right: 5),
+            keyboardType: TextInputType.number,
+            backgroundColor: AppColors.whiteColor1,
+          ),
+          const SizedBox(height: 10),
 
-            Row(
-              children: [
-                Expanded(
-                  // Mortgage Term
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CommonTextFieldHeaderModule(
-                          header: AppMessage.mortgageTermMonths, required: true),
-                      const SizedBox(height: 5),
-                      TextFieldModule(
-                        fieldController:
-                        homeScreenController.mortgageTermMonths2FieldController,
-                        hintText: "Mortgage Term (Months)",
-                        validate: (value) => FieldValidation()
-                            .validateAmount(value, 'mortgage term (months)'),
-                        onChange: (value) {
-                          homeScreenController.secondMortgagePmtCalculateFunction();
-                        },
-                        keyboardType: TextInputType.number,
-                        backgroundColor: AppColors.whiteColor1,
-                      ),
-                    ],
-                  ),
+          Row(
+            children: [
+              Expanded(
+                //financed Amount
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CommonTextFieldHeaderModule(
+                        header: AppMessage.financedAmount, required: true),
+                    const SizedBox(height: 5),
+                    TextFieldModule(
+                      fieldController:
+                      homeScreenController.financedAmount2FieldController,
+                      readOnly: true,
+                      prifixIcon: Align(
+                        widthFactor: 1.0,
+                        heightFactor: 1.0,
+                        child: Text(
+                          '\$',
+                          style:
+                          TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                        ),
+                      ).paddingOnly(right: 5),
+                      onChange: (val) {
+                        homeScreenController.pointsAmountFunction2();
+                      },
+                      hintText: "Financed Amount",
+                      keyboardType: TextInputType.number,
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 5),
-                Expanded(
-                  //payments Per Year
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CommonTextFieldHeaderModule(
-                          header: AppMessage.paymentsPerYear, required: true),
-                      const SizedBox(height: 5),
-                      TextFieldModule(
-                        fieldController:
-                        homeScreenController.paymentsPerYear2FieldController,
-                        hintText: "Payments Per Year",
-                        validate: (value) =>
-                            FieldValidation().validateAmount(value, 'payments per year'),
-                        onChange: (value) {
-                          homeScreenController.secondMortgagePmtCalculateFunction();
-                        },
-                        keyboardType: TextInputType.number,
-                        backgroundColor: AppColors.whiteColor1,
-                      ),
-                    ],
-                  ),
+              ),
+              const SizedBox(width: 5),
+              Expanded(
+                //Interest rate
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CommonTextFieldHeaderModule(
+                        header: AppMessage.interestRate, required: true),
+                    const SizedBox(height: 5),
+                    TextFieldModule(
+                      fieldController:
+                      homeScreenController.interestRate2FieldController,
+                      hintText: "Interest Rate",
+                      validate: (value) =>
+                          FieldValidation().validateAmount(value, 'interest rate'),
+                      onChange: (value) {
+                        homeScreenController.secondMortgagePmtCalculateFunction();
+                      },
+                      prifixIcon: Align(
+                        widthFactor: 1.0,
+                        heightFactor: 1.0,
+                        child: Text(
+                          '%',
+                          style:
+                          TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                        ),
+                      ).paddingOnly(right: 5),
+                      keyboardType: TextInputType.number,
+                      backgroundColor: AppColors.whiteColor1,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          //radioButton Interest Only (0=Yes, 1=No)
+          Obx(
+                () => Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Interest Only',
+                  style:
+                  TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp),
+                ),
+                Row(
+                  children: [
+                    Row(
+                      children: [
+                        Radio(
+                          value:
+                          homeScreenController.interestOnlyButton2.value,
+                          groupValue: 0,
+                          onChanged: (val) {
+                            homeScreenController.interestOnlyButton2.value = 0;
+                            homeScreenController.secondMortgagePmtCalculateFunction();
+                            homeScreenController.calculateAnnualCashAnalysis();
+                            // homeScreenController.operatingExpensesFunction();
+                          },
+                        ),
+                        const Text(
+                          'Yes',
+                          style: TextStyle(),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Radio(
+                          value:
+                          homeScreenController.interestOnlyButton2.value,
+                          groupValue: 1,
+                          onChanged: (val) {
+                            homeScreenController.interestOnlyButton2.value = 1;
+                            homeScreenController.secondMortgagePmtCalculateFunction();
+                            // homeScreenController.operatingExpensesFunction();
+                            homeScreenController.calculateAnnualCashAnalysis();
+                          },
+                        ),
+                        const Text(
+                          'No',
+                          style: TextStyle(),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ],
             ),
-            const SizedBox(height: 10),
+          ),
 
-            //2nd Mortgage Amount
-            CommonTextFieldHeaderModule(
-                header: "2nd Mortgage Amount", required: true),
-            const SizedBox(height: 5),
-            TextFieldModule(
-              fieldController:
-              homeScreenController.mortgageAmount2FieldController,
-              hintText: "2nd Mortgage Amount",
-              validate: (value) => FieldValidation()
-                  .validateAmount(value, '2nd mortgage amount'),
-              onChange: (value) {
-                homeScreenController.secondMortgageFinanceAmountCalculator();
-                homeScreenController.secondFinanceClosingCostCalculator();
-                homeScreenController.pointsAmountFunction2();
-                homeScreenController.secondMortgagePmtCalculateFunction();
-              },
-              prifixIcon: Align(
-                widthFactor: 1.0,
-                heightFactor: 1.0,
-                child: Text(
-                  '\$',
-                  style:
-                  TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-                ),
-              ).paddingOnly(right: 5),
-              keyboardType: TextInputType.number,
-              backgroundColor: AppColors.whiteColor1,
-            ),
-            const SizedBox(height: 10),
 
-            Row(
+          //Loan Points
+          CommonTextFieldHeaderModule(
+              header: AppMessage.loanPoints, required: true),
+          const SizedBox(height: 5),
+          TextFieldModule(
+            fieldController: homeScreenController.loanPoints2FieldController,
+            hintText: "Loan Points",
+            onChange: (val) {
+              homeScreenController.pointsAmountFunction2();
+              homeScreenController.calculateAnnualCashAnalysis();
+            },
+            prifixIcon: Align(
+              widthFactor: 1.0,
+              heightFactor: 1.0,
+              child: Text(
+                '%',
+                style:
+                TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+              ),
+            ).paddingOnly(right: 5),
+            validate: (value) =>
+                FieldValidation().validateAmount(value, 'loan points'),
+            keyboardType: TextInputType.number,
+            backgroundColor: AppColors.whiteColor1,
+          ),
+          const SizedBox(height: 10),
+
+          //Points Amount
+          CommonTextFieldHeaderModule(
+              header: AppMessage.pointsAmount, required: true),
+          const SizedBox(height: 5),
+          TextFieldModule(
+            fieldController:
+            homeScreenController.pointsAmount2FieldController,
+            hintText: "Points Amount",
+            prifixIcon: Align(
+              widthFactor: 1.0,
+              heightFactor: 1.0,
+              child: Text(
+                '\$',
+                style:
+                TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+              ),
+            ).paddingOnly(right: 5),
+            readOnly: true,
+            keyboardType: TextInputType.number,
+          ),
+
+          //Radio Button Points Financed (0=Yes, 1=No)
+          Obx(
+                () => Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(
-                  //financed Amount
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CommonTextFieldHeaderModule(
-                          header: AppMessage.financedAmount, required: true),
-                      const SizedBox(height: 5),
-                      TextFieldModule(
-                        fieldController:
-                        homeScreenController.financedAmount2FieldController,
-                        readOnly: true,
-                        prifixIcon: Align(
-                          widthFactor: 1.0,
-                          heightFactor: 1.0,
-                          child: Text(
-                            '\$',
-                            style:
-                            TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-                          ),
-                        ).paddingOnly(right: 5),
-                        onChange: (val) {
-                          homeScreenController.pointsAmountFunction2();
-                        },
-                        hintText: "Financed Amount",
-                        keyboardType: TextInputType.number,
-                      ),
-                    ],
-                  ),
+                Text(
+                  'Points Financed',
+                  style:
+                  TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp),
                 ),
-                const SizedBox(width: 5),
-                Expanded(
-                  //Interest rate
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CommonTextFieldHeaderModule(
-                          header: AppMessage.interestRate, required: true),
-                      const SizedBox(height: 5),
-                      TextFieldModule(
-                        fieldController:
-                        homeScreenController.interestRate2FieldController,
-                        hintText: "Interest Rate",
-                        validate: (value) =>
-                            FieldValidation().validateAmount(value, 'interest rate'),
-                        onChange: (value) {
-                          homeScreenController.secondMortgagePmtCalculateFunction();
-                        },
-                        prifixIcon: Align(
-                          widthFactor: 1.0,
-                          heightFactor: 1.0,
-                          child: Text(
-                            '%',
-                            style:
-                            TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-                          ),
-                        ).paddingOnly(right: 5),
-                        keyboardType: TextInputType.number,
-                        backgroundColor: AppColors.whiteColor1,
-                      ),
-                    ],
-                  ),
+                Row(
+                  children: [
+                    Row(
+                      children: [
+                        Radio(
+                          value: homeScreenController
+                              .pointsFinancedButton2.value,
+                          groupValue: 0,
+                          onChanged: (val) {
+                            homeScreenController.pointsFinancedButton2.value = 0;
+                            homeScreenController.calculateAnnualCashAnalysis();
+                            homeScreenController.calculateQuickFLipAnalysis();
+                            // homeScreenController.operatingExpensesFunction();
+                          },
+                        ),
+                        const Text(
+                          'Yes',
+                          style: TextStyle(),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Radio(
+                          value: homeScreenController
+                              .pointsFinancedButton2.value,
+                          groupValue: 1,
+                          onChanged: (val) {
+                            homeScreenController.pointsFinancedButton2.value = 1;
+                            // homeScreenController.operatingExpensesFunction();
+                            homeScreenController.calculateAnnualCashAnalysis();
+                            homeScreenController.calculateQuickFLipAnalysis();
+                          },
+                        ),
+                        const Text(
+                          'No',
+                          style: TextStyle(),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ],
             ),
-            const SizedBox(height: 10),
-            //radioButton Interest Only (0=Yes, 1=No)
-            Obx(
-                  () => Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Interest Only',
-                    style:
-                    TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp),
-                  ),
-                  Row(
-                    children: [
-                      Row(
-                        children: [
-                          Radio(
-                            value:
-                            homeScreenController.interestOnlyButton2.value,
-                            groupValue: 0,
-                            onChanged: (val) {
-                              homeScreenController.interestOnlyButton2.value = 0;
-                              homeScreenController.secondMortgagePmtCalculateFunction();
-                              homeScreenController.calculateAnnualCashAnalysis();
-                              // homeScreenController.operatingExpensesFunction();
-                            },
-                          ),
-                          const Text(
-                            'Yes',
-                            style: TextStyle(),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Radio(
-                            value:
-                            homeScreenController.interestOnlyButton2.value,
-                            groupValue: 1,
-                            onChanged: (val) {
-                              homeScreenController.interestOnlyButton2.value = 1;
-                              homeScreenController.secondMortgagePmtCalculateFunction();
-                              // homeScreenController.operatingExpensesFunction();
-                              homeScreenController.calculateAnnualCashAnalysis();
-                            },
-                          ),
-                          const Text(
-                            'No',
-                            style: TextStyle(),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
+          ),
+
+          //Closing cost
+          CommonTextFieldHeaderModule(
+              header: AppMessage.closingCost, required: true),
+          const SizedBox(height: 5),
+
+          TextFieldModule(
+            fieldController:
+            homeScreenController.closingCosts2FieldController,
+            hintText: "Closing Costs",
+            prifixIcon: Align(
+              widthFactor: 1.0,
+              heightFactor: 1.0,
+              child: Text(
+                '\$',
+                style:
+                TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
               ),
-            ),
+            ).paddingOnly(right: 5),
+            readOnly: true,
+            keyboardType: TextInputType.number,
+          ),
 
-
-            //Loan Points
-            CommonTextFieldHeaderModule(
-                header: AppMessage.loanPoints, required: true),
-            const SizedBox(height: 5),
-            TextFieldModule(
-              fieldController: homeScreenController.loanPoints2FieldController,
-              hintText: "Loan Points",
-              onChange: (val) {
-                homeScreenController.pointsAmountFunction2();
-              },
-              prifixIcon: Align(
-                widthFactor: 1.0,
-                heightFactor: 1.0,
-                child: Text(
-                  '%',
+          //Radio Button Closing Costs Financed (0=Yes, 1=No)
+          Obx(
+                () => Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Closing Costs Financed',
                   style:
-                  TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp),
                 ),
-              ).paddingOnly(right: 5),
-              validate: (value) =>
-                  FieldValidation().validateAmount(value, 'loan points'),
-              keyboardType: TextInputType.number,
-              backgroundColor: AppColors.whiteColor1,
-            ),
-            const SizedBox(height: 10),
-
-            //Points Amount
-            CommonTextFieldHeaderModule(
-                header: AppMessage.pointsAmount, required: true),
-            const SizedBox(height: 5),
-            TextFieldModule(
-              fieldController:
-              homeScreenController.pointsAmount2FieldController,
-              hintText: "Points Amount",
-              prifixIcon: Align(
-                widthFactor: 1.0,
-                heightFactor: 1.0,
-                child: Text(
-                  '\$',
-                  style:
-                  TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                Row(
+                  children: [
+                    Row(
+                      children: [
+                        Radio(
+                          value: homeScreenController
+                              .closingCostsFinancedButton2.value,
+                          groupValue: 0,
+                          onChanged: (val) {
+                            homeScreenController
+                                .closingCostsFinancedButton2.value = 0;
+                            homeScreenController.calculateAnnualCashAnalysis();
+                            homeScreenController.calculateQuickFLipAnalysis();
+                            // homeScreenController.operatingExpensesFunction();
+                          },
+                        ),
+                        const Text('Yes'),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Radio(
+                          value: homeScreenController
+                              .closingCostsFinancedButton2.value,
+                          groupValue: 1,
+                          onChanged: (val) {
+                            homeScreenController
+                                .closingCostsFinancedButton2.value = 1;
+                            // homeScreenController.operatingExpensesFunction();
+                            homeScreenController.calculateAnnualCashAnalysis();
+                            homeScreenController.calculateQuickFLipAnalysis();
+                          },
+                        ),
+                        const Text(
+                          'No',
+                          style: TextStyle(),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-              ).paddingOnly(right: 5),
-              readOnly: true,
-              keyboardType: TextInputType.number,
+              ],
             ),
-
-            //Radio Button Points Financed (0=Yes, 1=No)
-            Obx(
-                  () => Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Points Financed',
-                    style:
-                    TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp),
-                  ),
-                  Row(
-                    children: [
-                      Row(
-                        children: [
-                          Radio(
-                            value: homeScreenController
-                                .pointsFinancedButton2.value,
-                            groupValue: 0,
-                            onChanged: (val) {
-                              homeScreenController.pointsFinancedButton2.value = 0;
-                              homeScreenController.calculateAnnualCashAnalysis();
-                              // homeScreenController.operatingExpensesFunction();
-                            },
-                          ),
-                          const Text(
-                            'Yes',
-                            style: TextStyle(),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Radio(
-                            value: homeScreenController
-                                .pointsFinancedButton2.value,
-                            groupValue: 1,
-                            onChanged: (val) {
-                              homeScreenController.pointsFinancedButton2.value = 1;
-                              // homeScreenController.operatingExpensesFunction();
-                              homeScreenController.calculateAnnualCashAnalysis();
-                            },
-                          ),
-                          const Text(
-                            'No',
-                            style: TextStyle(),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-
-            //Closing cost
-            CommonTextFieldHeaderModule(
-                header: AppMessage.closingCost, required: true),
-            const SizedBox(height: 5),
-
-            TextFieldModule(
-              fieldController:
-              homeScreenController.closingCosts2FieldController,
-              hintText: "Closing Costs",
-              prifixIcon: Align(
-                widthFactor: 1.0,
-                heightFactor: 1.0,
-                child: Text(
-                  '\$',
-                  style:
-                  TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-                ),
-              ).paddingOnly(right: 5),
-              readOnly: true,
-              keyboardType: TextInputType.number,
-            ),
-
-            //Radio Button Closing Costs Financed (0=Yes, 1=No)
-            Obx(
-                  () => Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Closing Costs Financed',
-                    style:
-                    TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp),
-                  ),
-                  Row(
-                    children: [
-                      Row(
-                        children: [
-                          Radio(
-                            value: homeScreenController
-                                .closingCostsFinancedButton2.value,
-                            groupValue: 0,
-                            onChanged: (val) {
-                              homeScreenController
-                                  .closingCostsFinancedButton2.value = 0;
-                              homeScreenController.calculateAnnualCashAnalysis();
-                              // homeScreenController.operatingExpensesFunction();
-                            },
-                          ),
-                          const Text('Yes'),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Radio(
-                            value: homeScreenController
-                                .closingCostsFinancedButton2.value,
-                            groupValue: 1,
-                            onChanged: (val) {
-                              homeScreenController
-                                  .closingCostsFinancedButton2.value = 1;
-                              // homeScreenController.operatingExpensesFunction();
-                              homeScreenController.calculateAnnualCashAnalysis();
-                            },
-                          ),
-                          const Text(
-                            'No',
-                            style: TextStyle(),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ).paddingAll(5),
     );
   }
