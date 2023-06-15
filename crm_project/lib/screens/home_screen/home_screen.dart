@@ -14,6 +14,7 @@ import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../common_modules/custom_submit_button.dart';
+import '../deal_analyzer_screen/deal_analyzer_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -43,7 +44,7 @@ class HomeScreen extends StatelessWidget {
                         mainAxisSpacing: 5,
                         crossAxisSpacing: 5),
                   children: [
-//Company List
+                    //Company List
                     InkWell(
                       onTap: (){
                         Get.to(() => CompanyListScreen());
@@ -62,7 +63,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-//Activity List
+                    //Activity List
                     InkWell(
                       onTap: (){
                         Get.to(() => ActivityListScreen());
@@ -77,6 +78,26 @@ class HomeScreen extends StatelessWidget {
                           children: [
                             Icon(Icons.access_time_rounded,color: AppColors.appColors,size: Get.width*.1,),
                             const Text(AppMessage.activityList,textAlign: TextAlign.center,maxLines: 2,style: TextStyle( color:AppColors.appColors),),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    //Deal Analyzer
+                    InkWell(
+                      onTap: (){
+                        Get.to(() => DealAnalyzerScreen());
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: AppColors.grey200Color,
+                            borderRadius: BorderRadius.circular(5)),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(Icons.maps_home_work_outlined,color: AppColors.appColors,size: Get.width*.1,),
+                            const Text(AppMessage.dealAnalyzerLabel,textAlign: TextAlign.center,maxLines: 2,style: TextStyle( color:AppColors.appColors),),
                           ],
                         ),
                       ),
@@ -114,7 +135,8 @@ class HomeScreen extends StatelessWidget {
                           style: TextStyle(fontSize: 13.sp))),
                 ),
                 const SizedBox(height: 10),
-                PropertyDetails(),
+
+                /*PropertyDetails(),
                 const SizedBox(height: 10),
                 FinancialDetails(),
                 const SizedBox(height: 10),
@@ -130,15 +152,15 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(height: 10),
                 QuickFlipAnalysis(),
                 const SizedBox(height: 10),
-                /*PropertyPurchaseDetails(),
-                const SizedBox(height: 10),*/
+                *//*PropertyPurchaseDetails(),
+                const SizedBox(height: 10),*//*
                 CustomSubmitButton(
                   labelText: AppMessage.submitLabel,
                   onPress: () async {
 
                   },
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 10),*/
                 // QuickFlip(),
                 // const SizedBox(height: 10),
                 // LongTermCashFlow(),

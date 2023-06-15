@@ -273,6 +273,7 @@ class AppMessage {
   static const String  users  = "Users";
   static const String  usersList  = "Users List";
   static const String  selectRole  = "Select Role";
+  static const String dealAnalyzerLabel = "Deal Analyzer";
 
 //token
   static String token =
