@@ -275,8 +275,8 @@ class AppMessage {
   static const String  selectRole  = "Select Role";
   static const String dealAnalyzerLabel = "Deal Analyzer";
 
-//token
+  //token
   static String token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiRGF2aWQiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJDdXN0b21lciIsImV4cCI6MTY4NjgyOTYzNywiaXNzIjoiaHR0cDovLzUuMTg5LjE0Ny4xNTk6NzAwMy8iLCJhdWQiOiJodHRwOi8vNS4xODkuMTQ3LjE1OTo3MDAzLyJ9.Cwz3eDqYr3y_oah_rDvQVcgtoJ-Vyf-5CAL808STR-I";
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiRGF2aWQiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJDdXN0b21lciIsImV4cCI6MTY4NzE4ODQ4NCwiaXNzIjoiaHR0cDovLzUuMTg5LjE0Ny4xNTk6NzAwMy8iLCJhdWQiOiJodHRwOi8vNS4xODkuMTQ3LjE1OTo3MDAzLyJ9.5IB4ztSdEnxNb7MCXLXc6ggtgpnmxI9nGMEw_jNWEw0";
   static String customerId = "2";
 }

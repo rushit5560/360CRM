@@ -652,7 +652,7 @@ class DealAnalyzerScreenController extends GetxController {
 
   /// Deal Analyzer Save Function
   Future<void> saveDealAnalyzerFunction() async {
-    // isLoading(true);
+    isLoading(true);
     String url = ApiUrl.addDealAnalyzerApi;
     log('Add Deal Analyzer Api Url :$url');
 
@@ -661,14 +661,17 @@ class DealAnalyzerScreenController extends GetxController {
       final response = await dioRequest.post(url,
         data: bodyData,
           options: dio.Options(headers: {"Authorization": "Bearer ${AppMessage.token}"})
+          // options: dio.Options(headers: {"Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiRGF2aWQiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJDdXN0b21lciIsImV4cCI6MTY4NzE4ODQ4NCwiaXNzIjoiaHR0cDovLzUuMTg5LjE0Ny4xNTk6NzAwMy8iLCJhdWQiOiJodHRwOi8vNS4xODkuMTQ3LjE1OTo3MDAzLyJ9.5IB4ztSdEnxNb7MCXLXc6ggtgpnmxI9nGMEw_jNWEw0"})
       );
+
+      log('response ${response.data}');
 
       AddDealAnalyzerModel addDealAnalyzerModel = AddDealAnalyzerModel.fromJson(response.data);
       isSuccessStatus.value = addDealAnalyzerModel.success;
 
       if(isSuccessStatus.value) {
         Fluttertoast.showToast(msg: addDealAnalyzerModel.message);
-        // Get.back();
+        Get.back();
       } else {
         log('saveDealAnalyzerFunction Else');
       }
@@ -687,7 +690,7 @@ class DealAnalyzerScreenController extends GetxController {
       }
       log('Error :$e');
     }
-// isLoading(false);
+isLoading(false);
   }
   /// Body Data of Deal Analyzer
   Map<String, dynamic> getDealAnalyzerBodyData() {
@@ -851,7 +854,11 @@ class DealAnalyzerScreenController extends GetxController {
         "ClosingCosts": secondClosingCost,
         "ClosingCostsFinanced": secondClosingCostsFinanced == 0 ? true : false,
         "MortgageAmount": secondMortgageAmount
-      }
+      },
+          "repairListData" :
+    {
+        "repairList": []
+    }
     };
     log('bodyData :${jsonEncode(bodyData)}');
     return bodyData;

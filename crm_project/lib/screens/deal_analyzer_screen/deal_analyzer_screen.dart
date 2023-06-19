@@ -71,7 +71,6 @@ class DealAnalyzerScreen extends StatelessWidget {
                   if(dealAnalyzerScreenController.formKey.currentState!.validate()) {
                     await dealAnalyzerScreenController.saveDealAnalyzerFunction();
                   }
-
                 },
               ),
               const SizedBox(height: 10),
